@@ -38,7 +38,7 @@ export default function Courses() {
       <style jsx>{`
         .tabsWrapper_top {
           position: relative;
-          margin-bottom: 30px;
+          margin-bottom: 50px;
           display: flex;
           justify-content: flex-start;
           align-items: center;
@@ -103,7 +103,7 @@ export default function Courses() {
         <div className="text-center mb-12">
           <h3 className="text-3xl md:text-4xl font-bold mb-4" style={{color:'#1977f3'}}>Our Popular Courses</h3>
         </div>
- <div className="tabsWrapper_top">
+ <div className="tabsWrapper_top" style={{marginBottom: '60px'}}>
               <div className="tabsWrapper">
                 <ul className="course__tabs">
                   <li className="course__li active" id="content4578" data-id="content4578">
@@ -118,7 +118,7 @@ export default function Courses() {
                 <i className="fa fa-angle-right"></i>
               </span>
             </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" style={{marginTop: '40px'}}>
           {courses.map((course) => (
             <div key={course.id} className="border rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 hover:-translate-y-2" style={{borderBottom:'2px solid #1977f3'}}>
               <img src={course.image} alt={course.title} className="w-full h-40 object-contain" />

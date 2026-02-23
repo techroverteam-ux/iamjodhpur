@@ -21,7 +21,7 @@ export default function AdminDashboard() {
   ])
   const [showModal, setShowModal] = useState(false)
   const [editItem, setEditItem] = useState(null)
-  const [formData, setFormData] = useState({ title: '', date: '', category: '', price: '', validity: '', description: '', content: '', image: '' })
+  const [formData, setFormData] = useState({ title: '', date: '', category: '', price: '', validity: '', description: '', sections: [], image: '', imageFile: null, content: '' })
 
   useEffect(() => {
     if (typeof window !== 'undefined' && !localStorage.getItem('adminLoggedIn')) {
@@ -36,13 +36,13 @@ export default function AdminDashboard() {
 
   const handleAdd = () => {
     setEditItem(null)
-    setFormData({ title: '', date: '', category: '', price: '', validity: '', description: '', content: '', image: '' })
+    setFormData({ title: '', date: '', category: '', price: '', validity: '', description: '', sections: [], image: '', imageFile: null, content: '' })
     setShowModal(true)
   }
 
   const handleEdit = (item) => {
     setEditItem(item)
-    setFormData(item)
+    setFormData({...item, sections: item.sections || [], imageFile: null, content: item.content || ''})
     setShowModal(true)
   }
 
@@ -54,6 +54,31 @@ export default function AdminDashboard() {
         setCourses(courses.filter(c => c.id !== id))
       }
     }
+  }
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setFormData({...formData, image: reader.result, imageFile: file})
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
+  const addSection = () => {
+    setFormData({...formData, sections: [...formData.sections, { heading: '', description: '' }]})
+  }
+
+  const updateSection = (index, field, value) => {
+    const newSections = [...formData.sections]
+    newSections[index][field] = value
+    setFormData({...formData, sections: newSections})
+  }
+
+  const removeSection = (index) => {
+    setFormData({...formData, sections: formData.sections.filter((_, i) => i !== index)})
   }
 
   const handleSubmit = (e) => {
@@ -162,49 +187,70 @@ export default function AdminDashboard() {
 
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center z-50 p-4" onClick={() => setShowModal(false)} style={{background: 'rgba(0,0,0,0.5)'}}>
-          <div className="bg-white rounded-lg w-full max-w-2xl p-6 max-h-screen overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-            <h3 className="text-xl font-bold mb-3" style={{color: '#1977f3'}}>
+          <div className="bg-white rounded-lg w-full max-w-2xl p-4 max-h-screen overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+            <h3 className="text-lg font-bold mb-2" style={{color: '#1977f3'}}>
               {editItem ? 'Edit' : 'Add'} {activeTab === 'blogs' ? 'Blog' : 'Course'}
             </h3>
             <form onSubmit={handleSubmit}>
-              <div className="mb-3">
+              <div className="mb-2">
                 <label className="block mb-1 font-semibold text-sm">Title</label>
-                <input type="text" value={formData.title} onChange={(e) => setFormData({...formData, title: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '8px', fontSize: '14px'}} required />
+                <input type="text" value={formData.title} onChange={(e) => setFormData({...formData, title: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '6px', fontSize: '14px'}} required />
               </div>
-              <div className="mb-3">
+              <div className="mb-2">
                 <label className="block mb-1 font-semibold text-sm">Description</label>
-                <input type="text" value={formData.description} onChange={(e) => setFormData({...formData, description: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '8px', fontSize: '14px'}} required />
+                <input type="text" value={formData.description} onChange={(e) => setFormData({...formData, description: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '6px', fontSize: '14px'}} required />
               </div>
-              <div className="mb-3">
-                <label className="block mb-1 font-semibold text-sm">Content</label>
-                <textarea value={formData.content} onChange={(e) => setFormData({...formData, content: e.target.value})} rows="3" className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '8px', fontSize: '14px'}} required></textarea>
+              <div className="mb-2">
+                <div className="flex justify-between items-center mb-1">
+                  <label className="font-semibold text-sm">Content Sections</label>
+                  <button type="button" onClick={addSection} className="px-2 py-1 rounded text-white text-xs" style={{background: '#1977f3'}}>
+                    <i className="fa fa-plus mr-1"></i>Add
+                  </button>
+                </div>
+                {formData.sections?.map((section, index) => (
+                  <div key={index} className="mb-2 p-2 rounded" style={{border: '1px solid #e0e0e0', background: '#f9f9f9'}}>
+                    <div className="flex justify-between items-center mb-1">
+                      <span className="font-semibold text-xs">Section {index + 1}</span>
+                      <button type="button" onClick={() => removeSection(index)} className="text-red-600 text-xs">
+                        <i className="fa fa-trash"></i>
+                      </button>
+                    </div>
+                    <input type="text" placeholder="Heading" value={section.heading} onChange={(e) => updateSection(index, 'heading', e.target.value)} className="w-full mb-1 outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '6px', fontSize: '13px'}} required />
+                    <textarea placeholder="Description" value={section.description} onChange={(e) => updateSection(index, 'description', e.target.value)} rows="2" className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '6px', fontSize: '13px'}} required></textarea>
+                  </div>
+                ))}
               </div>
               {activeTab === 'blogs' ? (
-                <>
-                  <div className="mb-3">
+                <div className="grid grid-cols-2 gap-2 mb-2">
+                  <div>
                     <label className="block mb-1 font-semibold text-sm">Date</label>
-                    <input type="text" value={formData.date} onChange={(e) => setFormData({...formData, date: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '8px', fontSize: '14px'}} required />
+                    <input type="text" value={formData.date} onChange={(e) => setFormData({...formData, date: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '6px', fontSize: '14px'}} required />
                   </div>
-                  <div className="mb-3">
+                  <div>
                     <label className="block mb-1 font-semibold text-sm">Category</label>
-                    <input type="text" value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '8px', fontSize: '14px'}} required />
+                    <input type="text" value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '6px', fontSize: '14px'}} required />
                   </div>
-                </>
+                </div>
               ) : (
-                <>
-                  <div className="mb-3">
+                <div className="grid grid-cols-2 gap-2 mb-2">
+                  <div>
                     <label className="block mb-1 font-semibold text-sm">Price</label>
-                    <input type="text" value={formData.price} onChange={(e) => setFormData({...formData, price: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '8px', fontSize: '14px'}} required />
+                    <input type="text" value={formData.price} onChange={(e) => setFormData({...formData, price: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '6px', fontSize: '14px'}} required />
                   </div>
-                  <div className="mb-3">
+                  <div>
                     <label className="block mb-1 font-semibold text-sm">Validity</label>
-                    <input type="text" value={formData.validity} onChange={(e) => setFormData({...formData, validity: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '8px', fontSize: '14px'}} required />
+                    <input type="text" value={formData.validity} onChange={(e) => setFormData({...formData, validity: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '6px', fontSize: '14px'}} required />
                   </div>
-                </>
+                </div>
               )}
-              <div className="mb-3">
-                <label className="block mb-1 font-semibold text-sm">Image URL</label>
-                <input type="text" value={formData.image} onChange={(e) => setFormData({...formData, image: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '8px', fontSize: '14px'}} required />
+              <div className="mb-2">
+                <label className="block mb-1 font-semibold text-sm">Upload Image</label>
+                <input type="file" accept="image/*" onChange={handleImageUpload} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '6px', fontSize: '13px'}} />
+                {formData.image && (
+                  <div className="mt-1">
+                    <img src={formData.image} alt="Preview" className="w-24 h-24 object-contain" style={{border: '1px solid #e0e0e0'}} />
+                  </div>
+                )}
               </div>
               <div className="flex gap-2">
                 <button type="submit" className="flex-1 py-2 rounded text-white font-semibold" style={{background: '#1977f3'}}>Save</button>
