@@ -15,8 +15,9 @@ export default function RootLayout({ children }) {
         <link rel="stylesheet" href="https://imajodhpur.com/assets/css/vendor/bootstrap.min.css" />
         <link rel="stylesheet" href="https://imajodhpur.com/assets/css/style.css" />
         <link rel="stylesheet" href="https://imajodhpur.com/assets/css/new_style.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
       </head>
-      <body>{children}</body>
+      <body style={{fontFamily: 'Outfit, sans-serif'}}>{children}</body>
     </html>
   )
 }

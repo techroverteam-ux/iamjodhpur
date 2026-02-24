@@ -1,69 +1,187 @@
+'use client'
+import { useEffect } from 'react'
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
-export const metadata = {
-  title: 'Contact Us - IMA Jodhpur',
-  description: 'Contact IMA Jodhpur for any queries',
-};
-
 export default function ContactUs() {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('slide-in')
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    document.querySelectorAll('.animate-slide').forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <>
+      <style jsx global>{`
+        @keyframes slideInLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-100px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+        @keyframes slideInRight {
+          from {
+            opacity: 0;
+            transform: translateX(100px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-slide {
+          opacity: 0;
+        }
+        .animate-slide.slide-in.left {
+          animation: slideInLeft 0.8s ease-out forwards;
+        }
+        .animate-slide.slide-in.right {
+          animation: slideInRight 0.8s ease-out forwards;
+        }
+        .animate-slide.slide-in.up {
+          animation: fadeInUp 0.8s ease-out forwards;
+        }
+        .contact-card {
+          background: linear-gradient(white, white) padding-box,
+                      linear-gradient(135deg, #1977f3, #00d4ff) border-box;
+          border: 3px solid transparent;
+          border-radius: 15px;
+          padding: 30px;
+          transition: all 0.4s;
+        }
+        .contact-card:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 20px 40px rgba(25, 119, 243, 0.3);
+        }
+        .advantage-item {
+          display: flex;
+          align-items: flex-start;
+          gap: 15px;
+          padding: 15px;
+          border-left: 4px solid #1977f3;
+          background: linear-gradient(90deg, rgba(25, 119, 243, 0.05) 0%, transparent 100%);
+          border-radius: 8px;
+          transition: all 0.3s;
+        }
+        .advantage-item:hover {
+          background: linear-gradient(90deg, rgba(25, 119, 243, 0.1) 0%, transparent 100%);
+          transform: translateX(10px);
+        }
+      `}</style>
+      
       <Navbar />
       
-      <div dangerouslySetInnerHTML={{__html: `
-        <style>
-          .apicontent {
-            font-size: 16px;
-            line-height: 1.8;
-            color: #333;
-          }
-          .apicontent p {
-            margin-bottom: 15px;
-          }
-          .apicontent strong {
-            font-weight: 600;
-          }
-          .py-5 {
-            padding-top: 3rem;
-            padding-bottom: 3rem;
-          }
-          .container {
-            max-width: 1140px;
-            margin: 0 auto;
-            padding: 0 15px;
-          }
-          .text-center {
-            text-align: center;
-          }
-        </style>
-      `}} />
-      
-      <section style={{paddingTop: '10px', paddingBottom: '10px'}}>
-        <div className="text-center">
-          <h2 style={{color: '#1977f3'}}><b>Contact Us</b></h2>
+      <section style={{background: 'linear-gradient(135deg, #0a1628 0%, #1977f3 100%)', padding: '60px 0', color: 'white'}}>
+        <div className="container mx-auto px-4" style={{maxWidth: '1140px'}}>
+          <div className="text-center animate-slide up">
+            <h1 className="text-4xl font-bold mb-3">Contact Us</h1>
+            <p className="text-lg">We're here to help you succeed</p>
+          </div>
         </div>
       </section>
 
-      <section className="py-5">
-        <div className="container apicontent">
-          <p>If you have any questions, concerns, or need assistance regarding our courses, content, or technical issues, we are here to help. At <strong>IMA Jodhpur</strong>, we value your feedback and strive to provide prompt and helpful support to all our users. Whether you're a current student or considering joining our platform, don't hesitate to reach out.</p>
+      <section style={{padding: '60px 0', background: '#f8f9fa'}}>
+        <div className="container mx-auto px-4" style={{maxWidth: '1140px'}}>
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
+            <div className="contact-card animate-slide left">
+              <div className="text-center">
+                <div className="mb-4" style={{fontSize: '50px', color: '#1977f3'}}>
+                  <i className="fa fa-map-marker"></i>
+                </div>
+                <h4 className="font-bold mb-3" style={{color: '#1977f3'}}>Address</h4>
+                <p className="text-gray-700">Near Barktullah Khan Stadium, Main Pal Road, Jodhpur, 342003</p>
+              </div>
+            </div>
+            
+            <div className="contact-card animate-slide up" style={{animationDelay: '0.2s'}}>
+              <div className="text-center">
+                <div className="mb-4" style={{fontSize: '50px', color: '#1977f3'}}>
+                  <i className="fa fa-phone"></i>
+                </div>
+                <h4 className="font-bold mb-3" style={{color: '#1977f3'}}>Phone Number</h4>
+                <p className="text-gray-700">+91 9571037333</p>
+              </div>
+            </div>
+            
+            <div className="contact-card animate-slide right" style={{animationDelay: '0.4s'}}>
+              <div className="text-center">
+                <div className="mb-4" style={{fontSize: '50px', color: '#1977f3'}}>
+                  <i className="fa fa-envelope"></i>
+                </div>
+                <h4 className="font-bold mb-3" style={{color: '#1977f3'}}>Email Address</h4>
+                <p className="text-gray-700">ceo.iitacademy@gmail.com</p>
+              </div>
+            </div>
+          </div>
 
-          <p>You can contact our support team through the following channels:</p>
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="animate-slide left">
+              <h3 className="text-3xl font-bold mb-4" style={{color: '#1977f3'}}>IMA Jodhpur Classroom Advantages</h3>
+              <p className="text-gray-700 mb-6" style={{lineHeight: '1.8'}}>
+                IMA Jodhpur Classroom Classes offer a disciplined and focused learning environment where students prepare with consistency and clarity. Offline teaching ensures direct interaction between teachers and students, allowing better concept understanding, quicker doubt resolution, and stronger academic control. With a structured routine, regular practice, and continuous guidance, classroom learning at IMA helps students stay motivated, improve performance steadily, and build the exam-ready mindset required for NEET and JEE.
+              </p>
+            </div>
 
-          <p><br />
-          <strong>Support Email:</strong> ceo.iitacademy@gmail.com<br />
-          <strong>Support Number:</strong> 9571037333</p>
-
-          <p><br />
-          We aim to respond to all queries within 24 to 48 hours during business days. For faster assistance, please include your registered email ID, phone number, and a brief description of the issue in your message. We look forward to helping you achieve your goals and making your learning experience with <strong>IMA Jodhpur</strong> as productive and enjoyable as possible.<br />
-          <br />
-          <strong>Address:<br />
-          <br />
-          Near Barktullah Khan Stadium,<br />
-          Main Pal Road,Jodhpur,<br />
-          Pin Code- 342003</strong><br />
-          &nbsp;</p>
+            <div className="animate-slide right">
+              <div className="space-y-4">
+                <div className="advantage-item">
+                  <div style={{fontSize: '24px', color: '#1977f3', minWidth: '30px'}}>✦</div>
+                  <div>
+                    <h5 className="font-bold mb-1">Personal Attention in Every Class</h5>
+                    <p className="text-sm text-gray-600">Individual focus and one-to-one guidance for every student.</p>
+                  </div>
+                </div>
+                
+                <div className="advantage-item">
+                  <div style={{fontSize: '24px', color: '#1977f3', minWidth: '30px'}}>✦</div>
+                  <div>
+                    <h5 className="font-bold mb-1">Better Concept Clarity</h5>
+                    <p className="text-sm text-gray-600">Strong fundamentals through detailed teaching and real-time explanation.</p>
+                  </div>
+                </div>
+                
+                <div className="advantage-item">
+                  <div style={{fontSize: '24px', color: '#1977f3', minWidth: '30px'}}>✦</div>
+                  <div>
+                    <h5 className="font-bold mb-1">Daily Doubt Support</h5>
+                    <p className="text-sm text-gray-600">Immediate doubt clearing and extra help for difficult topics.</p>
+                  </div>
+                </div>
+                
+                <div className="advantage-item">
+                  <div style={{fontSize: '24px', color: '#1977f3', minWidth: '30px'}}>✦</div>
+                  <div>
+                    <h5 className="font-bold mb-1">Discipline and Consistent Routine</h5>
+                    <p className="text-sm text-gray-600">Fixed schedule, regular practice, and serious study culture.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

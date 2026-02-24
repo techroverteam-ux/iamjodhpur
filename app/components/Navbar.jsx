@@ -37,6 +37,7 @@ export default function Navbar() {
               <Link href="/" className="text-gray-700 hover:text-blue-600 font-semibold transition">Home</Link>
               <Link href="/about-us" className="text-gray-700 hover:text-blue-600 font-semibold transition">About Us</Link>
               <Link href="/courses" className="text-gray-700 hover:text-blue-600 font-semibold transition">Courses</Link>
+              <Link href="/facilities" className="text-gray-700 hover:text-blue-600 font-semibold transition">Facilities</Link>
               <Link href="/blog" className="text-gray-700 hover:text-blue-600 font-semibold transition">Blogs</Link>
               <Link href="/why-ima" className="text-gray-700 hover:text-blue-600 font-semibold transition">WHY IMA ?</Link>
               <Link href="/contact-us" className="text-gray-700 hover:text-blue-600 font-semibold transition">Contact Us</Link>
@@ -51,6 +52,7 @@ export default function Navbar() {
               <Link href="/" className="block py-2 text-gray-700">Home</Link>
               <Link href="/about-us" className="block py-2 text-gray-700">About Us</Link>
               <Link href="/courses" className="block py-2 text-gray-700">Courses</Link>
+              <Link href="/facilities" className="block py-2 text-gray-700">Facilities</Link>
               <Link href="/blog" className="block py-2 text-gray-700">Blogs</Link>
               <Link href="/why-ima" className="block py-2 text-gray-700">WHY IMA ?</Link>
               <Link href="/contact-us" className="block py-2 text-gray-700">Contact Us</Link>

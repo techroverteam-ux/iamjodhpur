@@ -1,24 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@font-face {
-  font-family: 'HKGroteskProBold';
-  src: url("https://imajodhpur.com/assets/fonts/hkfamily/HKGroteskPro-Bold.woff2");
-}
-@font-face {
-  font-family: 'HKGroteskProMedium';
-  src: url("https://imajodhpur.com/assets/fonts/hkfamily/HKGroteskPro-Medium.woff2");
-}
-@font-face {
-  font-family: 'HKGroteskProRegular';
-  src: url("https://imajodhpur.com/assets/fonts/hkfamily/HKGroteskPro-Regular.woff2");
-}
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Outfit', sans-serif !important;
 }
 
 html {
@@ -26,7 +16,11 @@ html {
 }
 
 body {
-  font-family: 'HKGroteskProRegular', sans-serif !important;
+  font-family: 'Outfit', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6, p, span, div, a, button, input, textarea, select {
+  font-family: 'Outfit', sans-serif !important;
 }
 
 /* Course Categories Section */
