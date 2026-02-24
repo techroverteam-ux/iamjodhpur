@@ -1,4 +1,5 @@
-import Image from 'next/image'
+'use client'
+import { useEffect } from 'react'
 
 export default function Testimonials() {
   const testimonials = [
@@ -19,27 +20,95 @@ export default function Testimonials() {
     }
   ]
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const cards = entry.target.querySelectorAll('.testimonial-card')
+            cards.forEach((card, index) => {
+              setTimeout(() => {
+                card.style.opacity = '1'
+                card.style.transform = 'translateX(0) scale(1)'
+              }, index * 400)
+            })
+          }
+        })
+      },
+      { threshold: 0.2 }
+    )
+
+    const section = document.querySelector('.testimonials-section')
+    if (section) observer.observe(section)
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <section className="py-12" style={{background:'#f3f4f6'}}>
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h3 className="text-3xl font-bold">What students say</h3>
-        </div>
-        <div className="grid md:grid-cols-3 gap-8">
-          {testimonials.map((item, index) => (
-            <div key={index} className="bg-white rounded-lg p-6 shadow-lg">
-              <div className="flex justify-center mb-4">
-                <Image src={item.image} width={80} height={80} alt="Testimonial" className="rounded-full" />
+    <>
+      <style jsx>{`
+        .testimonial-card {
+          opacity: 0;
+          transform: translateX(100px) scale(0.9);
+          transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+          background: linear-gradient(white, white) padding-box,
+                      linear-gradient(135deg, #1977f3, #00d4ff, #ff6b9d) border-box;
+          border: 3px solid transparent;
+          border-radius: 20px;
+          position: relative;
+          overflow: hidden;
+        }
+        .testimonial-card::before {
+          content: '';
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: linear-gradient(45deg, transparent, rgba(25, 119, 243, 0.1), transparent);
+          transform: rotate(45deg);
+          transition: all 0.6s;
+        }
+        .testimonial-card:hover::before {
+          left: 100%;
+        }
+        .testimonial-card:hover {
+          transform: translateY(-10px) scale(1.03);
+          box-shadow: 0 15px 40px rgba(25, 119, 243, 0.4);
+        }
+        .testimonial-img {
+          width: 100px;
+          height: 100px;
+          border-radius: 50%;
+          border: 4px solid #1977f3;
+          padding: 5px;
+          background: white;
+        }
+        .testimonial-content {
+          background: linear-gradient(135deg, #f3efef, #e8f4ff);
+          border-left: 4px solid #1977f3;
+        }
+      `}</style>
+      <section className="testimonials-section py-12" style={{background:'#f3f4f6'}}>
+        <div className="container mx-auto px-4" style={{maxWidth: '1140px'}}>
+          <div className="text-center mb-12">
+            <h3 className="text-3xl font-bold" style={{color: '#1977f3'}}>What students say</h3>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {testimonials.map((item, index) => (
+              <div key={index} className="testimonial-card bg-white p-6">
+                <div className="flex justify-center mb-4">
+                  <img src={item.image} alt="Testimonial" className="testimonial-img" />
+                </div>
+                <div className="testimonial-content p-6 rounded-2xl">
+                  <i className="fa fa-quote-left text-2xl mb-4 block" style={{color: '#1977f3'}}></i>
+                  <p className="text-gray-700 text-justify">{item.text}</p>
+                </div>
+                <h4 className="font-bold text-center mt-4" style={{color: '#1977f3'}}>{item.title}</h4>
               </div>
-              <div className="bg-gray-100 p-6 rounded-2xl">
-                <i className="fa fa-quote-left text-2xl text-gray-400 mb-4 block"></i>
-                <p className="text-gray-700 text-justify">{item.text}</p>
-              </div>
-              <h4 className="font-bold text-center mt-4">{item.title}</h4>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   )
 }

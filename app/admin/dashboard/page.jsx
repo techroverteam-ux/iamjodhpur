@@ -6,13 +6,7 @@ import Image from 'next/image'
 export default function AdminDashboard() {
   const router = useRouter()
   const [activeTab, setActiveTab] = useState('blogs')
-  const [blogs, setBlogs] = useState([
-    { id: 1, title: 'NEET Counseling 2024: Complete Guide', date: '15 Dec 2024', category: 'NEET', description: 'Complete guide for NEET counseling process', content: 'Detailed content about NEET counseling...', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
-    { id: 2, title: 'Why Choose IMA Jodhpur for Your Preparation', date: '10 Dec 2024', category: 'General', description: 'Discover why IMA Jodhpur is the best choice', content: 'IMA Jodhpur offers excellent coaching...', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
-    { id: 3, title: 'JEE Counseling Process 2024', date: '8 Dec 2024', category: 'JEE', description: 'Step by step JEE counseling guide', content: 'JEE counseling process explained...', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
-    { id: 4, title: 'JEE Main 2024: Everything You Need to Know', date: '5 Dec 2024', category: 'JEE', description: 'Complete JEE Main preparation guide', content: 'JEE Main exam pattern and preparation tips...', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
-    { id: 5, title: 'NEET 2024: Exam Pattern and Syllabus', date: '1 Dec 2024', category: 'NEET', description: 'NEET exam pattern and syllabus details', content: 'NEET syllabus and exam pattern explained...', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
-  ])
+  const [blogs, setBlogs] = useState([])
   const [courses, setCourses] = useState([
     { id: 42147, title: 'Pre Foundation Course', price: 'Free', validity: '354 Days', description: 'Foundation course for early preparation', content: 'Complete foundation course details...', image: 'https://d3aj4itat0hxro.cloudfront.net/826/admin_v1/bundle_management/course/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png' },
     { id: 42161, title: 'NEET Preparation', price: 'Free', validity: '365 Days', description: 'Complete NEET preparation course', content: 'NEET course includes all subjects...', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
@@ -21,11 +15,17 @@ export default function AdminDashboard() {
   ])
   const [showModal, setShowModal] = useState(false)
   const [editItem, setEditItem] = useState(null)
-  const [formData, setFormData] = useState({ title: '', date: '', category: '', price: '', validity: '', description: '', sections: [], image: '', imageFile: null, content: '' })
+  const [formData, setFormData] = useState({ title: '', date: '', category: '', price: '', discountedPrice: '', validity: '', description: '', sections: [], image: '', imageFile: null, content: '' })
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && !localStorage.getItem('adminLoggedIn')) {
-      router.push('/admin/login')
+    if (typeof window !== 'undefined') {
+      if (!localStorage.getItem('adminLoggedIn')) {
+        router.push('/admin/login')
+      }
+      const savedBlogs = localStorage.getItem('blogs')
+      const savedCourses = localStorage.getItem('courses')
+      if (savedBlogs) setBlogs(JSON.parse(savedBlogs))
+      if (savedCourses) setCourses(JSON.parse(savedCourses))
     }
   }, [router])
 
@@ -36,22 +36,26 @@ export default function AdminDashboard() {
 
   const handleAdd = () => {
     setEditItem(null)
-    setFormData({ title: '', date: '', category: '', price: '', validity: '', description: '', sections: [], image: '', imageFile: null, content: '' })
+    setFormData({ title: '', date: '', category: '', price: '', discountedPrice: '', validity: '', description: '', sections: [], image: '', imageFile: null, content: '' })
     setShowModal(true)
   }
 
   const handleEdit = (item) => {
     setEditItem(item)
-    setFormData({...item, sections: item.sections || [], imageFile: null, content: item.content || ''})
+    setFormData({...item, sections: item.sections || [], imageFile: null})
     setShowModal(true)
   }
 
   const handleDelete = (id) => {
     if (confirm('Are you sure you want to delete?')) {
       if (activeTab === 'blogs') {
-        setBlogs(blogs.filter(b => b.id !== id))
+        const updatedBlogs = blogs.filter(b => b.id !== id)
+        setBlogs(updatedBlogs)
+        localStorage.setItem('blogs', JSON.stringify(updatedBlogs))
       } else {
-        setCourses(courses.filter(c => c.id !== id))
+        const updatedCourses = courses.filter(c => c.id !== id)
+        setCourses(updatedCourses)
+        localStorage.setItem('courses', JSON.stringify(updatedCourses))
       }
     }
   }
@@ -77,6 +81,27 @@ export default function AdminDashboard() {
     setFormData({...formData, sections: newSections})
   }
 
+  const addBulletPoint = (sectionIndex) => {
+    const newSections = [...formData.sections]
+    if (!newSections[sectionIndex].bullets) {
+      newSections[sectionIndex].bullets = []
+    }
+    newSections[sectionIndex].bullets.push('')
+    setFormData({...formData, sections: newSections})
+  }
+
+  const updateBulletPoint = (sectionIndex, bulletIndex, value) => {
+    const newSections = [...formData.sections]
+    newSections[sectionIndex].bullets[bulletIndex] = value
+    setFormData({...formData, sections: newSections})
+  }
+
+  const removeBulletPoint = (sectionIndex, bulletIndex) => {
+    const newSections = [...formData.sections]
+    newSections[sectionIndex].bullets = newSections[sectionIndex].bullets.filter((_, i) => i !== bulletIndex)
+    setFormData({...formData, sections: newSections})
+  }
+
   const removeSection = (index) => {
     setFormData({...formData, sections: formData.sections.filter((_, i) => i !== index)})
   }
@@ -84,17 +109,13 @@ export default function AdminDashboard() {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (activeTab === 'blogs') {
-      if (editItem) {
-        setBlogs(blogs.map(b => b.id === editItem.id ? { ...formData, id: editItem.id } : b))
-      } else {
-        setBlogs([...blogs, { ...formData, id: Date.now() }])
-      }
+      const updatedBlogs = editItem ? blogs.map(b => b.id === editItem.id ? { ...formData, id: editItem.id } : b) : [...blogs, { ...formData, id: Date.now() }]
+      setBlogs(updatedBlogs)
+      localStorage.setItem('blogs', JSON.stringify(updatedBlogs))
     } else {
-      if (editItem) {
-        setCourses(courses.map(c => c.id === editItem.id ? { ...formData, id: editItem.id } : c))
-      } else {
-        setCourses([...courses, { ...formData, id: Date.now() }])
-      }
+      const updatedCourses = editItem ? courses.map(c => c.id === editItem.id ? { ...formData, id: editItem.id } : c) : [...courses, { ...formData, id: Date.now() }]
+      setCourses(updatedCourses)
+      localStorage.setItem('courses', JSON.stringify(updatedCourses))
     }
     setShowModal(false)
   }
@@ -139,7 +160,6 @@ export default function AdminDashboard() {
                     {activeTab === 'blogs' ? (
                       <>
                         <th className="px-4 py-3 text-left">Date</th>
-                        <th className="px-4 py-3 text-left">Category</th>
                       </>
                     ) : (
                       <>
@@ -160,7 +180,6 @@ export default function AdminDashboard() {
                       {activeTab === 'blogs' ? (
                         <>
                           <td className="px-4 py-3">{item.date}</td>
-                          <td className="px-4 py-3">{item.category}</td>
                         </>
                       ) : (
                         <>
@@ -187,63 +206,79 @@ export default function AdminDashboard() {
 
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center z-50 p-4" onClick={() => setShowModal(false)} style={{background: 'rgba(0,0,0,0.5)'}}>
-          <div className="bg-white rounded-lg w-full max-w-2xl p-4 max-h-screen overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-            <h3 className="text-lg font-bold mb-2" style={{color: '#1977f3'}}>
+          <div className="bg-white rounded-lg w-full max-w-2xl p-8 max-h-screen overflow-y-auto" onClick={(e) => e.stopPropagation()} style={{marginTop: '40px', marginBottom: '40px'}}>
+            <h3 className="text-lg font-bold mb-4" style={{color: '#1977f3'}}>
               {editItem ? 'Edit' : 'Add'} {activeTab === 'blogs' ? 'Blog' : 'Course'}
             </h3>
             <form onSubmit={handleSubmit}>
-              <div className="mb-2">
+              <div className="mb-4">
                 <label className="block mb-1 font-semibold text-sm">Title</label>
                 <input type="text" value={formData.title} onChange={(e) => setFormData({...formData, title: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '6px', fontSize: '14px'}} required />
               </div>
-              <div className="mb-2">
-                <label className="block mb-1 font-semibold text-sm">Description</label>
-                <input type="text" value={formData.description} onChange={(e) => setFormData({...formData, description: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '6px', fontSize: '14px'}} required />
+              <div className="mb-4">
+                <label className="block mb-1 font-semibold text-sm">Description (Optional)</label>
+                <input type="text" value={formData.description} onChange={(e) => setFormData({...formData, description: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '6px', fontSize: '14px'}} />
               </div>
-              <div className="mb-2">
-                <div className="flex justify-between items-center mb-1">
-                  <label className="font-semibold text-sm">Content Sections</label>
-                  <button type="button" onClick={addSection} className="px-2 py-1 rounded text-white text-xs" style={{background: '#1977f3'}}>
-                    <i className="fa fa-plus mr-1"></i>Add
+              <div className="mb-4">
+                <div className="flex justify-between items-center mb-2">
+                  <label className="font-semibold text-sm">Content</label>
+                  <button type="button" onClick={addSection} className="px-3 py-1 rounded text-white text-xs" style={{background: '#1977f3'}}>
+                    <i className="fa fa-plus mr-1"></i>Add Section
                   </button>
                 </div>
                 {formData.sections?.map((section, index) => (
-                  <div key={index} className="mb-2 p-2 rounded" style={{border: '1px solid #e0e0e0', background: '#f9f9f9'}}>
-                    <div className="flex justify-between items-center mb-1">
+                  <div key={index} className="mb-3 p-3 rounded" style={{border: '1px solid #e0e0e0', background: '#f9f9f9'}}>
+                    <div className="flex justify-between items-center mb-2">
                       <span className="font-semibold text-xs">Section {index + 1}</span>
                       <button type="button" onClick={() => removeSection(index)} className="text-red-600 text-xs">
                         <i className="fa fa-trash"></i>
                       </button>
                     </div>
-                    <input type="text" placeholder="Heading" value={section.heading} onChange={(e) => updateSection(index, 'heading', e.target.value)} className="w-full mb-1 outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '6px', fontSize: '13px'}} required />
-                    <textarea placeholder="Description" value={section.description} onChange={(e) => updateSection(index, 'description', e.target.value)} rows="2" className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '6px', fontSize: '13px'}} required></textarea>
+                    <input type="text" placeholder="Heading (Optional)" value={section.heading} onChange={(e) => updateSection(index, 'heading', e.target.value)} className="w-full mb-2 outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '6px', fontSize: '13px'}} />
+                    <textarea placeholder="Description (Optional)" value={section.description} onChange={(e) => updateSection(index, 'description', e.target.value)} rows="3" className="w-full mb-2 outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '6px', fontSize: '13px'}}></textarea>
+                    <div className="mt-2">
+                      <div className="flex justify-between items-center mb-2">
+                        <label className="font-semibold text-xs">Bullet Points</label>
+                        <button type="button" onClick={() => addBulletPoint(index)} className="px-2 py-1 rounded text-white text-xs" style={{background: '#28a745'}}>
+                          <i className="fa fa-plus mr-1"></i>Add Bullet
+                        </button>
+                      </div>
+                      {section.bullets?.map((bullet, bIndex) => (
+                        <div key={bIndex} className="flex gap-2 mb-2">
+                          <input type="text" placeholder="Bullet point" value={bullet} onChange={(e) => updateBulletPoint(index, bIndex, e.target.value)} className="flex-1 outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '5px', fontSize: '12px'}} />
+                          <button type="button" onClick={() => removeBulletPoint(index, bIndex)} className="text-red-600 text-xs px-2">
+                            <i className="fa fa-times"></i>
+                          </button>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 ))}
               </div>
               {activeTab === 'blogs' ? (
-                <div className="grid grid-cols-2 gap-2 mb-2">
-                  <div>
-                    <label className="block mb-1 font-semibold text-sm">Date</label>
-                    <input type="text" value={formData.date} onChange={(e) => setFormData({...formData, date: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '6px', fontSize: '14px'}} required />
-                  </div>
-                  <div>
-                    <label className="block mb-1 font-semibold text-sm">Category</label>
-                    <input type="text" value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '6px', fontSize: '14px'}} required />
-                  </div>
+                <div className="mb-4">
+                  <label className="block mb-1 font-semibold text-sm">Date</label>
+                  <input type="text" value={formData.date} onChange={(e) => setFormData({...formData, date: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '6px', fontSize: '14px'}} required />
                 </div>
               ) : (
-                <div className="grid grid-cols-2 gap-2 mb-2">
-                  <div>
-                    <label className="block mb-1 font-semibold text-sm">Price</label>
-                    <input type="text" value={formData.price} onChange={(e) => setFormData({...formData, price: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '6px', fontSize: '14px'}} required />
+                <>
+                  <div className="grid grid-cols-2 gap-2 mb-4">
+                    <div>
+                      <label className="block mb-1 font-semibold text-sm">Price</label>
+                      <input type="text" value={formData.price} onChange={(e) => setFormData({...formData, price: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '6px', fontSize: '14px'}} required />
+                    </div>
+                    <div>
+                      <label className="block mb-1 font-semibold text-sm">Discounted Price (Optional)</label>
+                      <input type="text" value={formData.discountedPrice} onChange={(e) => setFormData({...formData, discountedPrice: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '6px', fontSize: '14px'}} />
+                    </div>
                   </div>
-                  <div>
+                  <div className="mb-4">
                     <label className="block mb-1 font-semibold text-sm">Validity</label>
                     <input type="text" value={formData.validity} onChange={(e) => setFormData({...formData, validity: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '6px', fontSize: '14px'}} required />
                   </div>
-                </div>
+                </>
               )}
-              <div className="mb-2">
+              <div className="mb-4">
                 <label className="block mb-1 font-semibold text-sm">Upload Image</label>
                 <input type="file" accept="image/*" onChange={handleImageUpload} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '6px', fontSize: '13px'}} />
                 {formData.image && (

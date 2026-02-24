@@ -1,142 +1,196 @@
 'use client'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 
 export default function Courses() {
-  const courses = [
+  const [showLoginModal, setShowLoginModal] = useState(false)
+  const [courses, setCourses] = useState([
     {
       id: 42147,
       title: "Pre Foundation Course",
-      image: "https://d3aj4itat0hxro.cloudfront.net/826/admin_v1/bundle_management/course/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png",
+      image: "/images/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png",
       price: "Free",
       validity: "354 Days"
     },
     {
       id: 42161,
       title: "NEET Preparation",
-      image: "https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png",
+      image: "/images/3520795826_both.png",
       price: "Free",
       validity: "365 Days"
     },
     {
       id: 42286,
       title: "JEE (Mains+Advance)",
-      image: "https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png",
+      image: "/images/3520795826_both.png",
       price: "Free",
       validity: "365 Days"
     },
     {
       id: 42385,
       title: "All India Test Series (AITS)",
-      image: "https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png",
+      image: "/images/3520795826_both.png",
       price: "Free",
       validity: "365 Days"
     }
-  ]
+  ])
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedCourses = localStorage.getItem('courses')
+      if (savedCourses) {
+        setCourses(JSON.parse(savedCourses))
+      }
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const cards = entry.target.querySelectorAll('.course-card')
+            cards.forEach((card, index) => {
+              setTimeout(() => {
+                card.classList.add('morph-in')
+              }, index * 250)
+            })
+          }
+        })
+      },
+      { threshold: 0.2 }
+    )
+
+    const section = document.querySelector('.courses-section')
+    if (section) observer.observe(section)
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <>
       <style jsx>{`
-        .tabsWrapper_top {
+        @keyframes flipIn {
+          from {
+            opacity: 0;
+            transform: perspective(1000px) rotateY(90deg) translateX(50px);
+          }
+          to {
+            opacity: 1;
+            transform: perspective(1000px) rotateY(0deg) translateX(0);
+          }
+        }
+        .course-card {
+          opacity: 0;
+          transform: perspective(1000px) rotateY(90deg) translateX(50px);
+        }
+        .course-card.morph-in {
+          animation: flipIn 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        .flip-card {
           position: relative;
-          margin-bottom: 50px;
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
+          width: 100%;
+          height: 380px;
+          transform-style: preserve-3d;
+          transition: transform 0.6s;
+          background: linear-gradient(white, white) padding-box,
+                      linear-gradient(135deg, #1977f3, #00d4ff) border-box;
+          border: 3px solid transparent;
+          border-radius: 20px;
         }
-        .tabsWrapper {
-          overflow: visible;
-          margin: 0 40px 0 80px;
-          display: flex;
-          align-items: center;
-          padding: 5px 0;
+        .course-card:hover .flip-card {
+          transform: rotateY(180deg);
+          box-shadow: 0 20px 40px rgba(25, 119, 243, 0.3);
         }
-        .course__tabs {
-          display: flex;
-          list-style: none;
-          padding: 0;
-          margin: 0;
-          justify-content: flex-start;
-          height: 100%;
-          align-items: center;
-        }
-        .course__tabs li {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 10px 28px;
-          margin-bottom: 0;
-          cursor: pointer;
-          background: #e9ecef;
-          font-weight: 600;
-          border-radius: 10px;
-        }
-        .course__tabs li.active {
-          background: #1977f3 !important;
-          color: #fff !important;
-        }
-        .course_btn_nav {
+        .flip-card-front, .flip-card-back {
           position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          width: 50px;
-          height: 50px;
+          width: 100%;
+          height: 100%;
+          backface-visibility: hidden;
+          border-radius: 20px;
+        }
+        .flip-card-front {
+          background: white;
+        }
+        .flip-card-back {
+          background: linear-gradient(135deg, #1977f3 0%, #00d4ff 100%);
+          transform: rotateY(180deg);
           display: flex;
-          align-items: center;
+          flex-direction: column;
           justify-content: center;
-          cursor: pointer;
-          background: #1977f3 !important;
-          border-radius: 5px;
-        }
-        .course_btn_nav.previous {
-          left: 0;
-        }
-        .course_btn_nav.next {
-          right: 0;
-        }
-        .course_btn_nav i {
-          color: #000 !important;
-          font-size: 20px;
+          align-items: center;
+          padding: 20px;
+          color: white;
         }
       `}</style>
-    <section className="py-12 bg-white">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h3 className="text-3xl md:text-4xl font-bold mb-4" style={{color:'#1977f3'}}>Our Popular Courses</h3>
+    <section className="courses-section py-6" style={{background: 'linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%)'}}>
+      <div className="container mx-auto px-4" style={{maxWidth: '1140px'}}>
+        <div className="text-center mb-4">
+          <h3 className="text-3xl font-bold" style={{color:'#1977f3'}}>Our Popular Courses</h3>
         </div>
- <div className="tabsWrapper_top" style={{marginBottom: '60px'}}>
-              <div className="tabsWrapper">
-                <ul className="course__tabs">
-                  <li className="course__li active" id="content4578" data-id="content4578">
-                    All category
-                  </li>
-                </ul>
-              </div>
-              <span className="course_btn_nav previous course_btn_nav_arrow">
-                <i className="fa fa-angle-left"></i>
-              </span>
-              <span className="course_btn_nav next course_btn_nav_arrow">
-                <i className="fa fa-angle-right"></i>
-              </span>
-            </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" style={{marginTop: '40px'}}>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {courses.map((course) => (
-            <div key={course.id} className="border rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 hover:-translate-y-2" style={{borderBottom:'2px solid #1977f3'}}>
-              <img src={course.image} alt={course.title} className="w-full h-40 object-contain" />
-              <div className="p-4">
-                <h6 className="font-bold text-gray-800 mb-2">{course.title}</h6>
-                <h6 className="text-lg font-semibold mb-2">{course.price}</h6>
-                <div className="flex items-center text-sm text-gray-600 mb-3">
-                  <i className="fa fa-calendar mr-2"></i> Validity {course.validity}
+            <div key={course.id} className="course-card">
+              <div className="flip-card">
+                <div className="flip-card-front">
+                  <img src={course.image} alt={course.title} className="w-full h-56 object-contain p-2" />
+                  <div className="p-3">
+                    <h6 className="font-bold text-gray-800 mb-2">{course.title}</h6>
+                    <h6 className="text-lg font-semibold mb-2" style={{color: '#1977f3'}}>{course.price}</h6>
+                    <div className="flex items-center text-sm text-gray-600">
+                      <i className="fa fa-calendar mr-2"></i> Validity {course.validity}
+                    </div>
+                  </div>
                 </div>
-                <div className="flex gap-2">
-                  <a href="/course-details" className="flex-1 py-2 rounded text-white font-semibold text-center" style={{background:'#1977f3'}}>Explore</a>
-                  <button className="flex-1 py-2 rounded text-white font-semibold" style={{background:'#1977f3'}}>Buy Now</button>
+                <div className="flip-card-back">
+                  <h4 className="text-xl font-bold mb-4">{course.title}</h4>
+                  <p className="text-sm mb-6 text-center">Comprehensive preparation with expert guidance</p>
+                  <div className="flex flex-col gap-3 w-full">
+                    <a href={course.id === 42147 ? "/course-details/pre-foundation" : course.id === 42161 ? "/course-details/neet" : course.id === 42286 ? "/course-details/jee" : "/course-details/aits"} className="py-2 px-4 rounded text-white font-semibold text-center" style={{background:'rgba(255,255,255,0.2)', border: '2px solid white'}}>Explore Course</a>
+                    <button onClick={() => setShowLoginModal(true)} className="py-2 px-4 rounded font-semibold" style={{background:'white', color:'#1977f3'}}>Enroll Now</button>
+                  </div>
                 </div>
               </div>
             </div>
           ))}
         </div>
       </div>
+
+      {showLoginModal && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 p-4" onClick={() => setShowLoginModal(false)} style={{background: 'rgba(0,0,0,0.5)'}}>
+          <div className="bg-white rounded-lg w-full max-w-md relative" onClick={(e) => e.stopPropagation()} style={{maxWidth: '400px'}}>
+            <button onClick={() => setShowLoginModal(false)} className="absolute top-2 right-2 text-4xl text-gray-400 hover:text-gray-600 leading-none" style={{fontSize: '40px'}}>&times;</button>
+            <div className="text-center py-8 px-10">
+              <div className="mb-4">
+                <Image src="/images/3520795826_both.png" width={100} height={40} alt="IMA Jodhpur" className="mx-auto" style={{height: 'auto', width: '100px'}} />
+              </div>
+              <p className="my-6 font-bold" style={{fontSize: '16px'}}>Enter your details to continue</p>
+              <form onSubmit={(e) => { e.preventDefault(); alert('Login functionality coming soon!'); }} className="mb-3">
+                <div className="form-group mb-4">
+                  <div className="input-group flex" style={{border: '1px solid #cfcccc', borderRadius: '4px'}}>
+                    <div className="input-group-prepend" style={{background: '#f8f9fa', borderRight: '1px solid #cfcccc', padding: '10px 12px'}}>
+                      <span style={{fontSize: '14px'}}>+91</span>
+                    </div>
+                    <input type="tel" maxLength="10" placeholder="Mobile Number" className="flex-1 outline-none" style={{padding: '10px 12px', fontSize: '14px', border: 'none'}} required />
+                  </div>
+                </div>
+                <div className="form-group mb-4">
+                  <div className="input-group flex" style={{border: '1px solid #cfcccc', borderRadius: '4px'}}>
+                    <div className="input-group-prepend" style={{background: '#f8f9fa', borderRight: '1px solid #cfcccc', padding: '10px 12px'}}>
+                      <i className="fa fa-lock" style={{fontSize: '14px', color: '#666'}}></i>
+                    </div>
+                    <input type="password" placeholder="Password" className="flex-1 outline-none" style={{padding: '10px 12px', fontSize: '14px', border: 'none'}} required />
+                    <div className="input-group-prepend cursor-pointer" style={{background: '#f8f9fa', borderLeft: '1px solid #cfcccc', padding: '10px 12px'}}>
+                      <i className="fa fa-eye" style={{fontSize: '14px', color: '#666'}}></i>
+                    </div>
+                  </div>
+                </div>
+                <button type="submit" className="w-full text-white font-semibold" style={{background:'#1977f3', padding: '10px 40px', borderRadius: '4px', fontSize: '16px', border: 'none', cursor: 'pointer'}}>Login</button>
+              </form>
+              <p className="mb-4" style={{fontSize: '14px'}}>Don't have an account yet? <a href="#" onClick={(e) => {e.preventDefault(); alert('SignUp coming soon!');}} className="font-bold" style={{color:'#1977f3', textDecoration: 'none'}}>SignUp</a></p>
+              <a href="#" onClick={(e) => {e.preventDefault(); alert('Forgot Password coming soon!');}} className="font-bold" style={{color:'#1977f3', fontSize: '14px', textDecoration: 'none'}}>Forgot Password?</a>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
     </>
   )

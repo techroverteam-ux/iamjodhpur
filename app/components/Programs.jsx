@@ -11,7 +11,7 @@ export default function Programs() {
             </div>
             <div className="grid grid-cols-2 gap-4 items-center">
               <div className="border-r border-gray-400">
-                <Image src="https://d3aj4itat0hxro.cloudfront.net/826/admin_v1/thumbnail/11878191768826820_neet.png" width={300} height={200} alt="JEE" className="mx-auto" />
+                <Image src="/images/11878191768826820_neet.webp" width={300} height={200} alt="JEE" className="mx-auto" />
               </div>
               <div className="text-left px-4">
                 <p className="text-gray-700">
@@ -27,7 +27,7 @@ export default function Programs() {
             </div>
             <div className="grid grid-cols-2 gap-4 items-center">
               <div className="border-r border-gray-400">
-                <Image src="https://d3aj4itat0hxro.cloudfront.net/826/admin_v1/thumbnail/24045961768826895_neet.png" width={300} height={200} alt="NEET" className="mx-auto" />
+                <Image src="/images/24045961768826895_neet.webp" width={300} height={200} alt="NEET" className="mx-auto" />
               </div>
               <div className="text-left px-4">
                 <p className="text-gray-700">

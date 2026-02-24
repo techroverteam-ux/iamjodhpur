@@ -26,7 +26,7 @@ export default function Navbar() {
         <div className="container mx-auto px-4">
           <nav className="flex justify-between items-center h-20">
             <Link href="/" className="flex items-center">
-              <Image src="https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png" width={120} height={50} alt="IMA Jodhpur" className="h-12 w-auto" />
+              <Image src="/images/3520795826_both.png" width={120} height={50} alt="IMA Jodhpur" className="h-12 w-auto" />
             </Link>
 
             <button onClick={() => setIsOpen(!isOpen)} className="md:hidden">
@@ -38,7 +38,7 @@ export default function Navbar() {
               <Link href="/about-us" className="text-gray-700 hover:text-blue-600 font-semibold transition">About Us</Link>
               <Link href="/courses" className="text-gray-700 hover:text-blue-600 font-semibold transition">Courses</Link>
               <Link href="/blog" className="text-gray-700 hover:text-blue-600 font-semibold transition">Blogs</Link>
-              <Link href="/why-iam" className="text-gray-700 hover:text-blue-600 font-semibold transition">WHY IMA ?</Link>
+              <Link href="/why-ima" className="text-gray-700 hover:text-blue-600 font-semibold transition">WHY IMA ?</Link>
               <Link href="/contact-us" className="text-gray-700 hover:text-blue-600 font-semibold transition">Contact Us</Link>
               <button onClick={() => setShowLoginModal(true)} className="px-6 py-2 rounded-full text-white font-semibold transition hover:opacity-90" style={{background:'#1977f3'}}>
                 Login <i className="fa fa-chevron-right ml-1"></i>
@@ -52,7 +52,7 @@ export default function Navbar() {
               <Link href="/about-us" className="block py-2 text-gray-700">About Us</Link>
               <Link href="/courses" className="block py-2 text-gray-700">Courses</Link>
               <Link href="/blog" className="block py-2 text-gray-700">Blogs</Link>
-              <Link href="/why-iam" className="block py-2 text-gray-700">WHY IMA ?</Link>
+              <Link href="/why-ima" className="block py-2 text-gray-700">WHY IMA ?</Link>
               <Link href="/contact-us" className="block py-2 text-gray-700">Contact Us</Link>
               <button onClick={() => setShowLoginModal(true)} className="w-full mt-2 px-6 py-2 rounded-full text-white font-semibold" style={{background:'#1977f3'}}>Login</button>
             </div>
@@ -66,7 +66,7 @@ export default function Navbar() {
             <button onClick={() => setShowLoginModal(false)} className="absolute top-2 right-2 text-4xl text-gray-400 hover:text-gray-600 leading-none" style={{fontSize: '40px'}}>&times;</button>
             <div className="text-center py-8 px-10">
               <div className="mb-4">
-                <Image src="https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png" width={100} height={40} alt="IMA Jodhpur" className="mx-auto" style={{height: 'auto', width: '100px'}} />
+                <Image src="/images/3520795826_both.png" width={100} height={40} alt="IMA Jodhpur" className="mx-auto" style={{height: 'auto', width: '100px'}} />
               </div>
               <p className="my-6 font-bold" style={{fontSize: '16px'}}>Enter your details to continue</p>
               <form onSubmit={(e) => { e.preventDefault(); alert('Login functionality coming soon!'); }} className="mb-3">

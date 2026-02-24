@@ -50,7 +50,7 @@ export default function Offerings() {
             </div>
           </div>
           <div className="flex justify-center">
-            <Image src="https://imajodhpur.com/assets/a.webp" width={500} height={400} alt="Education" className="rounded-lg" />
+            <Image src="/images/a.webp" width={500} height={400} alt="Education" className="rounded-lg" />
           </div>
         </div>
       </div>

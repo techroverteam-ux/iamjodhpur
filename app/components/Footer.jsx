@@ -3,9 +3,9 @@ import Image from 'next/image'
 
 export default function Footer() {
   return (
-    <footer style={{background:'#1977f3'}}>
+    <footer style={{background:'#1977f3'}} className="text-white">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-white">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <h4 className="text-lg font-bold mb-4">Contact us</h4>
             <ul className="space-y-3">
@@ -14,12 +14,12 @@ export default function Footer() {
                 <span>E-74 main pal road near barkatullah khan stadium Shastri nagar jodhpur</span>
               </li>
               <li>
-                <a href="tel:9828019432" className="flex items-center hover:underline">
+                <a href="tel:9828019432" className="flex items-center hover:underline text-white">
                   <i className="fa fa-phone mr-3"></i> +91 - 9828019432
                 </a>
               </li>
               <li>
-                <a href="mailto:ceo.imajodhpur@gmail.com" className="flex items-center hover:underline">
+                <a href="mailto:ceo.imajodhpur@gmail.com" className="flex items-center hover:underline text-white">
                   <i className="fa fa-envelope mr-3"></i> ceo.imajodhpur@gmail.com
                 </a>
               </li>
@@ -29,9 +29,9 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-bold mb-4">quick links</h4>
             <ul className="space-y-2">
-              <li><Link href="/about-us" className="hover:underline">About Us</Link></li>
-              <li><Link href="/faqs" className="hover:underline">FAQ's</Link></li>
-              <li><Link href="/contact-us" className="hover:underline">Contact Us</Link></li>
+              <li><Link href="/about-us" className="hover:underline text-white">About Us</Link></li>
+              <li><Link href="/faqs" className="hover:underline text-white">FAQ's</Link></li>
+              <li><Link href="/contact-us" className="hover:underline text-white">Contact Us</Link></li>
             </ul>
           </div>
 
@@ -57,14 +57,14 @@ export default function Footer() {
           </div>
         </div>
 
-        <hr className="border-gray-300 my-8" />
+        <hr className="border-white my-8" />
 
-        <div className="flex flex-col md:flex-row justify-between items-center text-white text-sm">
-          <p>© 2026 IMA Jodhpur All Right Reserved</p>
+        <div className="flex flex-col md:flex-row justify-between items-center text-sm">
+          <p className="text-white">© 2026 IMA Jodhpur All Right Reserved</p>
           <ul className="flex space-x-6 mt-4 md:mt-0">
-            <li><Link href="/privacy-policy" className="hover:underline">Privacy Policy</Link></li>
-            <li><Link href="/refund-policy" className="hover:underline">Refund Policy</Link></li>
-            <li><Link href="/terms-and-conditions" className="hover:underline">Terms & Conditions</Link></li>
+            <li><Link href="/privacy-policy" className="hover:underline text-white">Privacy Policy</Link></li>
+            <li><Link href="/refund-policy" className="hover:underline text-white">Refund Policy</Link></li>
+            <li><Link href="/terms-and-conditions" className="hover:underline text-white">Terms & Conditions</Link></li>
           </ul>
         </div>
       </div>

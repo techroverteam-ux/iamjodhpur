@@ -1,105 +1,152 @@
-"use client";
+'use client'
+import { useEffect } from 'react'
 
 export default function CourseCategories() {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.querySelector('.category-title')?.classList.add('animate-title')
+            entry.target.querySelector('.category-desc')?.classList.add('animate-desc')
+            entry.target.querySelector('.card_courses')?.classList.add('animate-card')
+          }
+        })
+      },
+      { threshold: 0.2 }
+    )
+
+    const section = document.querySelector('.course-categories-section')
+    if (section) observer.observe(section)
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <>
       <style jsx>{`
-        .tabsWrapper_top {
+        .category-title {
+          opacity: 0;
+          transform: translateY(-50px);
+        }
+        .category-title.animate-title {
+          animation: waveIn 1s ease-out forwards;
+        }
+        .category-desc {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        .category-desc.animate-desc {
+          animation: waveIn 1.2s ease-out 0.3s forwards;
+        }
+        @keyframes waveIn {
+          0% {
+            opacity: 0;
+            transform: translateY(-50px);
+          }
+          50% {
+            transform: translateY(10px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .card_courses {
+          opacity: 0;
+          transform: translateX(100px) rotate(5deg);
+          transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+          background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+          border: 3px solid transparent;
+          background-clip: padding-box;
           position: relative;
-          margin-bottom: 30px;
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
+          padding: 25px;
+          border-radius: 20px;
+          box-shadow: 0 10px 30px rgba(25, 119, 243, 0.1);
         }
-        .tabsWrapper {
-          overflow: visible;
-          margin: 0 40px 0 80px;
-          display: flex;
-          align-items: center;
-          padding: 5px 0;
-        }
-        .course__tabs {
-          display: flex;
-          list-style: none;
-          padding: 0;
-          margin: 0;
-          justify-content: flex-start;
-          height: 100%;
-          align-items: center;
-        }
-        .course__tabs li {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 10px 28px;
-          margin-bottom: 0;
-          cursor: pointer;
-          background: #e9ecef;
-          font-weight: 600;
-          border-radius: 10px;
-        }
-        .course__tabs li.active {
-          background: #1977f3 !important;
-          color: #fff !important;
-        }
-        .course_btn_nav {
+        .card_courses::before {
+          content: '';
           position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          width: 50px;
-          height: 50px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          background: #1977f3 !important;
-          border-radius: 5px;
+          inset: 0;
+          border-radius: 20px;
+          padding: 3px;
+          background: linear-gradient(135deg, #1977f3, #00d4ff, #ff6b9d, #1977f3);
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          animation: borderRotate 3s linear infinite;
         }
-        .course_btn_nav.previous {
-          left: 0;
+        @keyframes borderRotate {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
         }
-        .course_btn_nav.next {
-          right: 0;
+        .card_courses.animate-card {
+          opacity: 1;
+          transform: translateX(0) rotate(0deg);
         }
-        .course_btn_nav i {
-          color: #000 !important;
+        .card_courses:hover {
+          transform: translateY(-10px) scale(1.05);
+          box-shadow: 0 20px 50px rgba(25, 119, 243, 0.3);
+        }
+        .courses_icon_img {
+          width: 60px;
+          height: 60px;
+          object-fit: contain;
+          filter: drop-shadow(0 4px 8px rgba(25, 119, 243, 0.3));
+          transition: all 0.3s;
+        }
+        .card_courses:hover .courses_icon_img {
+          transform: rotate(360deg) scale(1.2);
+        }
+        .card-title {
+          margin: 0;
           font-size: 20px;
+          font-weight: 700;
+          background: linear-gradient(135deg, #1977f3, #00d4ff);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
         }
-        a:hover .hover-title {
-          color: #1977f3 !important;
+        .card_icon_right {
+          font-size: 28px;
+          color: #1977f3;
+          transition: all 0.3s;
         }
-        a:hover .hover-icon {
-          color: #1977f3 !important;
+        .card_courses:hover .card_icon_right {
+          transform: translateX(10px);
+          color: #00d4ff;
         }
       `}</style>
-      <section className="py-12 bg-light" style={{background: '#f8f9fa'}}>
-        <div className="container mx-auto px-4" style={{maxWidth: '1140px'}}>
-          <div className="text-center mb-12">
-            <h3 className="text-3xl md:text-4xl font-bold mb-4" style={{color:'#1977f3'}}>Course Categories</h3>
-            <p className="mb-0">Become lifelong learners with India's best teachers, engaging video lessons and personalised learning journeys</p>
+      <section className="course-categories-section py-12" style={{background: 'linear-gradient(135deg, #f8f9fa 0%, #e8f4ff 100%)', padding: '60px 0'}}>
+        <div className="container" style={{maxWidth: '1140px', margin: '0 auto', padding: '0 15px'}}>
+          <div className="text-center" style={{marginBottom: '60px'}}>
+            <h3 className="category-title text-4xl font-bold mb-4" style={{color: '#1977f3'}}>
+              Course Categories
+            </h3>
+            <p className="category-desc text-lg" style={{color: '#666', maxWidth: '800px', margin: '0 auto'}}>
+              Become lifelong learners with India's best teachers, engaging video lessons and personalised learning journeys
+            </p>
           </div>
-          <div className="tabsWrapper_top">
-            <div className="tabsWrapper">
-              <ul className="course__tabs">
-                <li className="course__li active" id="content4578" data-id="content4578">
-                  All category
-                </li>
-              </ul>
-            </div>
-            <span className="course_btn_nav previous course_btn_nav_arrow">
-              <i className="fa fa-angle-left"></i>
-            </span>
-            <span className="course_btn_nav next course_btn_nav_arrow">
-              <i className="fa fa-angle-right"></i>
-            </span>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" style={{marginTop: '40px'}}>
-            <a href="/courses" className="flex items-center justify-between p-5 bg-white border border-gray-200 rounded-lg hover:shadow-lg transition" style={{borderBottom:'2px solid #1977f3', textDecoration: 'none', cursor: 'pointer'}}>
-              <div className="flex items-center">
-                <img src="https://d3aj4itat0hxro.cloudfront.net/826/admin_v1/course_type_master/icon/62728579130_online-course.png" className="w-12 h-12 mr-4" alt="icon" />
-                <h5 className="text-lg font-semibold text-gray-800 m-0 hover-title">All Courses</h5>
+          
+          <div style={{maxWidth: '500px', margin: '0 auto'}}>
+            <a href="/courses" className="card_courses block" style={{textDecoration: 'none'}}>
+              <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                <div style={{display: 'flex', alignItems: 'center', gap: '20px'}}>
+                  <img 
+                    src="https://d3aj4itat0hxro.cloudfront.net/826/admin_v1/course_type_master/icon/62728579130_online-course.png" 
+                    className="courses_icon_img" 
+                    alt="icon" 
+                  />
+                  <h5 className="card-title">All Courses</h5>
+                </div>
+                <i className="card_icon_right fa fa-angle-right"></i>
               </div>
-              <i className="fa fa-angle-right text-2xl text-gray-600 hover-icon"></i>
             </a>
           </div>
         </div>
