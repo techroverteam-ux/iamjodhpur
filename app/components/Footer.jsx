@@ -4,7 +4,7 @@ import Image from 'next/image'
 export default function Footer() {
   return (
     <footer style={{background:'#1977f3'}} className="text-white">
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <h4 className="text-lg font-bold mb-4">Contact us</h4>
@@ -57,7 +57,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <hr className="border-white my-8" />
+        <hr className="border-white my-6" />
 
         <div className="flex flex-col md:flex-row justify-between items-center text-sm">
           <p className="text-white">© 2026 IMA Jodhpur All Right Reserved</p>

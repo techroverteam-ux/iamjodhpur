@@ -88,22 +88,22 @@ export default function Testimonials() {
           border-left: 4px solid #1977f3;
         }
       `}</style>
-      <section className="testimonials-section py-12" style={{background:'#f3f4f6'}}>
+      <section className="testimonials-section py-8" style={{background:'#f3f4f6'}}>
         <div className="container mx-auto px-4" style={{maxWidth: '1140px'}}>
-          <div className="text-center mb-12">
+          <div className="text-center mb-8">
             <h3 className="text-3xl font-bold" style={{color: '#1977f3'}}>What students say</h3>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {testimonials.map((item, index) => (
-              <div key={index} className="testimonial-card bg-white p-6">
-                <div className="flex justify-center mb-4">
-                  <img src={item.image} alt="Testimonial" className="testimonial-img" />
+              <div key={index} className="testimonial-card bg-white">
+                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: '28px'}}>
+                  <img src={item.image} alt="Testimonial" className="testimonial-img" style={{width: '70px', height: '70px', marginRight: '10px'}} />
+                  <h4 className="font-bold text-xl" style={{color: '#1977f3', textAlign: 'center', margin: 0, padding: 0}}>{item.title}</h4>
                 </div>
-                <div className="testimonial-content p-6 rounded-2xl">
-                  <i className="fa fa-quote-left text-2xl mb-4 block" style={{color: '#1977f3'}}></i>
-                  <p className="text-gray-700 text-justify">{item.text}</p>
+                <div className="testimonial-content p-3 rounded-xl">
+                  <i className="fa fa-quote-left text-base mb-2 block" style={{color: '#1977f3'}}></i>
+                  <p className="text-gray-700 text-sm leading-relaxed">{item.text}</p>
                 </div>
-                <h4 className="font-bold text-center mt-4" style={{color: '#1977f3'}}>{item.title}</h4>
               </div>
             ))}
           </div>

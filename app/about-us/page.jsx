@@ -85,7 +85,7 @@ export default function AboutUs() {
 
         .hero-section {
           background: linear-gradient(135deg, #0f2557 0%, #1977f3 50%, #00d4ff 100%);
-          padding: 120px 20px 100px;
+          padding: 80px 20px 60px;
           position: relative;
           overflow: hidden;
         }
@@ -148,7 +148,7 @@ export default function AboutUs() {
 
         .intro-section {
           max-width: 1400px;
-          margin: -60px auto 80px;
+          margin: -40px auto 40px;
           padding: 0 20px;
           position: relative;
           z-index: 2;
@@ -157,7 +157,7 @@ export default function AboutUs() {
         .intro-card {
           background: white;
           border-radius: 30px;
-          padding: 60px;
+          padding: 40px;
           box-shadow: 0 30px 80px rgba(25, 119, 243, 0.2);
           border: 4px solid transparent;
           background: linear-gradient(white, white) padding-box,
@@ -182,14 +182,14 @@ export default function AboutUs() {
         }
 
         .section-title {
-          font-size: 3rem;
+          font-size: 2.5rem;
           font-weight: 800;
           background: linear-gradient(135deg, #1977f3, #00d4ff);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
           text-align: center;
-          margin-bottom: 50px;
+          margin-bottom: 30px;
           position: relative;
         }
 
@@ -208,8 +208,8 @@ export default function AboutUs() {
         .stats-grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-          gap: 40px;
-          margin: 50px 0;
+          gap: 30px;
+          margin: 30px 0;
         }
 
         .stat-card {
@@ -277,21 +277,55 @@ export default function AboutUs() {
 
         .vision-mission-wrapper {
           max-width: 1400px;
-          margin: 80px auto;
+          margin: 50px auto;
           padding: 0 20px;
         }
 
         .vm-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-          gap: 50px;
-          margin-top: 50px;
+          display: block;
+          margin-top: 30px;
         }
 
-        .vm-card {
+        .vision-card {
+          background: linear-gradient(135deg, #1977f3 0%, #00d4ff 100%);
+          border-radius: 20px;
+          padding: 30px;
+          color: white;
+          text-align: center;
+          box-shadow: 0 15px 40px rgba(25, 119, 243, 0.3);
+          margin-bottom: 20px;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .vision-card::before {
+          content: '';
+          position: absolute;
+          top: -50%;
+          right: -50%;
+          width: 200%;
+          height: 200%;
+          background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+        }
+
+        .vision-card .vm-title {
+          color: white;
+          font-size: 2rem;
+          margin-bottom: 20px;
+          justify-content: center;
+        }
+
+        .vision-card .text-content {
+          color: rgba(255, 255, 255, 0.95);
+          font-size: 1.1rem;
+          text-align: center;
+          margin: 0;
+        }
+
+        .mission-card {
           background: white;
           border-radius: 25px;
-          padding: 50px;
+          padding: 40px;
           box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
           border: 3px solid transparent;
           background: linear-gradient(white, white) padding-box,
@@ -300,7 +334,7 @@ export default function AboutUs() {
           overflow: hidden;
         }
 
-        .vm-card::before {
+        .mission-card::before {
           content: '';
           position: absolute;
           top: 0;
@@ -310,11 +344,11 @@ export default function AboutUs() {
           background: linear-gradient(90deg, #1977f3, #00d4ff, #ff6b9d);
         }
 
-        .vm-card.animate-in {
+        .vision-card.animate-in {
           animation: slideRight 1s ease-out;
         }
 
-        .vm-card:nth-child(2).animate-in {
+        .mission-card.animate-in {
           animation: slideLeft 1s ease-out;
         }
 
@@ -378,8 +412,8 @@ export default function AboutUs() {
         .director-section {
           background: linear-gradient(135deg, #0f2557 0%, #1977f3 100%);
           color: white;
-          padding: 80px 40px;
-          margin: 80px 0 0;
+          padding: 60px 40px;
+          margin: 50px 0 0;
           position: relative;
           overflow: hidden;
         }
@@ -407,9 +441,9 @@ export default function AboutUs() {
         }
 
         .director-title {
-          font-size: 3rem;
+          font-size: 2.5rem;
           text-align: center;
-          margin-bottom: 50px;
+          margin-bottom: 30px;
           font-weight: 800;
           text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
         }
@@ -450,7 +484,10 @@ export default function AboutUs() {
             padding: 30px;
           }
           .vm-grid {
-            grid-template-columns: 1fr;
+            display: block;
+          }
+          .vision-card {
+            margin-bottom: 30px;
           }
           .director-section {
             padding: 50px 25px;
@@ -519,7 +556,7 @@ export default function AboutUs() {
         </h2>
 
         <div className="vm-grid">
-          <div className="vm-card content-section" ref={(el) => (sectionsRef.current[2] = el)}>
+          <div className="vision-card content-section" ref={(el) => (sectionsRef.current[2] = el)}>
             <h3 className="vm-title">
               <span className="vm-icon">🎯</span>
               Vision
@@ -529,7 +566,7 @@ export default function AboutUs() {
             </p>
           </div>
 
-          <div className="vm-card content-section" ref={(el) => (sectionsRef.current[3] = el)}>
+          <div className="mission-card content-section" ref={(el) => (sectionsRef.current[3] = el)}>
             <h3 className="vm-title">
               <span className="vm-icon">🚀</span>
               Mission

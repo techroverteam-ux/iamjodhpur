@@ -46,29 +46,29 @@ export default function WhyIAM() {
         }
         
         .feature-icon {
-          font-size: 3rem;
+          font-size: 2.5rem;
           background: linear-gradient(135deg, #1977f3, #00d4ff);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
-          margin-bottom: 1.5rem;
+          margin-bottom: 1rem;
           animation: pulse 2s ease-in-out infinite;
         }
         
         .feature-title {
-          font-size: 1.6rem;
+          font-size: 1.4rem;
           font-weight: 800;
           background: linear-gradient(135deg, #1977f3, #00d4ff);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
-          margin-bottom: 1.2rem;
+          margin-bottom: 1rem;
           letter-spacing: -0.5px;
         }
         
         .feature-content {
           background: white;
-          padding: 2.5rem;
+          padding: 2rem;
           border-radius: 20px;
           box-shadow: 0 10px 40px rgba(0,0,0,0.08);
           transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -109,7 +109,7 @@ export default function WhyIAM() {
         
         .hero-section {
           background: linear-gradient(135deg, #0a1628 0%, #1977f3 50%, #00d4ff 100%);
-          padding: 80px 20px;
+          padding: 60px 20px;
           position: relative;
           overflow: hidden;
         }
@@ -142,7 +142,7 @@ export default function WhyIAM() {
         }
         
         .hero-title {
-          font-size: 3.5rem;
+          font-size: 2.8rem;
           font-weight: 900;
           color: white;
           text-shadow: 0 5px 40px rgba(0,0,0,0.4);
@@ -203,7 +203,7 @@ export default function WhyIAM() {
         </div>
       </section>
 
-      <section className="py-5 section-bg">
+      <section className="py-4 section-bg">
         <div className="container">
           <div className="row g-4">
             <div className="col-md-6 feature-card">

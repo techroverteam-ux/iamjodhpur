@@ -61,7 +61,7 @@ export default function Home() {
         .animate-section {
           opacity: 0;
           padding: 0;
-          margin: 0;
+          margin: 40px 0;
         }
         .animate-section.animate-in {
           animation: fadeDown 1.2s ease-out forwards;
