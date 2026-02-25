@@ -179,10 +179,10 @@ export default function CoursesPage() {
                               <h6 className="h6_title">{item.title}</h6>
                               <div className="justify-content-between pt-1">
                                 <h6 className="book-price">
-                                  {item.course_sp > 0 && item.skip_payment == 0 ? (
+                                  {item.discountedPrice ? (
                                     <>
-                                      <span>₹ {item.course_sp} /-</span>
-                                      <small className="strick book-price"> ₹ <strike>{item.mrp}</strike> /-</small>
+                                      <span>₹ {item.discountedPrice} /-</span>
+                                      <small className="strick book-price"> ₹ <strike>{item.price}</strike> /-</small>
                                     </>
                                   ) : (
                                     <span>{item.price}</span>

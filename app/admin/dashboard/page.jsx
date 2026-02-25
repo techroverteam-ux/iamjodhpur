@@ -42,7 +42,7 @@ export default function AdminDashboard() {
 
   const handleEdit = (item) => {
     setEditItem(item)
-    const editContent = Array.isArray(item.content) ? item.content : []
+    const editContent = Array.isArray(item.content) ? item.content : (item.sections ? [] : [])
     setFormData({...item, content: editContent, imageFile: null})
     setShowModal(true)
   }
@@ -88,12 +88,24 @@ export default function AdminDashboard() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    const submitData = {...formData}
+    
+    // Preserve original content if no new content added during edit
+    if (editItem && (!submitData.content || submitData.content.length === 0)) {
+      if (editItem.content && editItem.content.length > 0) {
+        submitData.content = editItem.content
+      }
+      if (editItem.sections && editItem.sections.length > 0) {
+        submitData.sections = editItem.sections
+      }
+    }
+    
     if (activeTab === 'blogs') {
-      const updatedBlogs = editItem ? blogs.map(b => b.id === editItem.id ? { ...formData, id: editItem.id } : b) : [...blogs, { ...formData, id: Date.now() }]
+      const updatedBlogs = editItem ? blogs.map(b => b.id === editItem.id ? { ...submitData, id: editItem.id } : b) : [...blogs, { ...submitData, id: Date.now() }]
       setBlogs(updatedBlogs)
       localStorage.setItem('blogs', JSON.stringify(updatedBlogs))
     } else {
-      const updatedCourses = editItem ? courses.map(c => c.id === editItem.id ? { ...formData, id: editItem.id } : c) : [...courses, { ...formData, id: Date.now() }]
+      const updatedCourses = editItem ? courses.map(c => c.id === editItem.id ? { ...submitData, id: editItem.id } : c) : [...courses, { ...submitData, id: Date.now() }]
       setCourses(updatedCourses)
       localStorage.setItem('courses', JSON.stringify(updatedCourses))
     }

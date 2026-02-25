@@ -15,11 +15,15 @@ html {
   scroll-behavior: smooth;
 }
 
-body {
+body, body * {
   font-family: 'Outfit', sans-serif !important;
 }
 
-h1, h2, h3, h4, h5, h6, p, span, div, a, button, input, textarea, select {
+h1, h2, h3, h4, h5, h6, p, span, div, a, button, input, textarea, select, label, li, td, th {
+  font-family: 'Outfit', sans-serif !important;
+}
+
+.card, .card *, .section-title, .course__tabs li, .card_courses, .facility-card {
   font-family: 'Outfit', sans-serif !important;
 }
 

@@ -172,19 +172,33 @@ export default function CourseDetail() {
             
             {course.description && <p>{course.description}</p>}
 
-            {course.sections && course.sections.length > 0 && course.sections.map((section, index) => (
-              <div key={index}>
-                {section.heading && <h3>{section.heading}</h3>}
-                {section.description && <p>{section.description}</p>}
-                {section.bullets && section.bullets.length > 0 && (
-                  <ul>
-                    {section.bullets.map((bullet, bIndex) => (
-                      bullet && <li key={bIndex}>{bullet}</li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            ))}
+            {course.content && Array.isArray(course.content) && course.content.length > 0 ? (
+              course.content.map((item, index) => (
+                <div key={index}>
+                  {item.type === 'heading' && <h3>{item.value}</h3>}
+                  {item.type === 'description' && <p>{item.value}</p>}
+                  {item.type === 'bullet' && (
+                    <ul>
+                      <li>{item.value}</li>
+                    </ul>
+                  )}
+                </div>
+              ))
+            ) : course.sections && course.sections.length > 0 ? (
+              course.sections.map((section, index) => (
+                <div key={index}>
+                  {section.heading && <h3>{section.heading}</h3>}
+                  {section.description && <p>{section.description}</p>}
+                  {section.bullets && section.bullets.length > 0 && (
+                    <ul>
+                      {section.bullets.map((bullet, bIndex) => (
+                        bullet && <li key={bIndex}>{bullet}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))
+            ) : null}
           </div>
 
           <div>

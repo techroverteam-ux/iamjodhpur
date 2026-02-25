@@ -61,19 +61,33 @@ export default function BlogDetail() {
               </div>
 
               <div className="prose prose-lg max-w-none">
-                {blog.sections && blog.sections.length > 0 && blog.sections.map((section, index) => (
-                  <div key={index}>
-                    {section.heading && <h3 className="text-xl md:text-2xl font-bold mt-8 mb-4">{section.heading}</h3>}
-                    {section.description && <div dangerouslySetInnerHTML={{ __html: section.description }}></div>}
-                    {section.bullets && section.bullets.length > 0 && (
-                      <ul className="list-none space-y-2 mb-6">
-                        {section.bullets.map((bullet, bIndex) => (
-                          bullet && <li key={bIndex} className="relative pl-6 before:content-[''] before:absolute before:left-0 before:top-[0.6em] before:w-2 before:h-2 before:border before:border-gray-600 before:rounded-full">{bullet}</li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                ))}
+                {blog.content && Array.isArray(blog.content) && blog.content.length > 0 ? (
+                  blog.content.map((item, index) => (
+                    <div key={index}>
+                      {item.type === 'heading' && <h3 className="text-xl md:text-2xl font-bold mt-8 mb-4">{item.value}</h3>}
+                      {item.type === 'description' && <p className="mb-4 text-gray-700 leading-relaxed">{item.value}</p>}
+                      {item.type === 'bullet' && (
+                        <ul className="list-none mb-4">
+                          <li className="relative pl-6 before:content-[''] before:absolute before:left-0 before:top-[0.6em] before:w-2 before:h-2 before:border before:border-gray-600 before:rounded-full">{item.value}</li>
+                        </ul>
+                      )}
+                    </div>
+                  ))
+                ) : blog.sections && blog.sections.length > 0 ? (
+                  blog.sections.map((section, index) => (
+                    <div key={index}>
+                      {section.heading && <h3 className="text-xl md:text-2xl font-bold mt-8 mb-4">{section.heading}</h3>}
+                      {section.description && <div dangerouslySetInnerHTML={{ __html: section.description }}></div>}
+                      {section.bullets && section.bullets.length > 0 && (
+                        <ul className="list-none space-y-2 mb-6">
+                          {section.bullets.map((bullet, bIndex) => (
+                            bullet && <li key={bIndex} className="relative pl-6 before:content-[''] before:absolute before:left-0 before:top-[0.6em] before:w-2 before:h-2 before:border before:border-gray-600 before:rounded-full">{bullet}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  ))
+                ) : null}
               </div>
 
               <a href="/blog" className="inline-block mt-8 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">

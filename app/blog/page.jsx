@@ -57,19 +57,9 @@ export default function Blog() {
       const savedBlogs = localStorage.getItem('blogs')
       if (savedBlogs) {
         setBlogs(JSON.parse(savedBlogs))
-      } else {
-        // Save default blogs to localStorage if not exists
-        localStorage.setItem('blogs', JSON.stringify(blogs))
       }
     }
   }, [])
-
-  // Update localStorage whenever blogs change
-  useEffect(() => {
-    if (typeof window !== 'undefined' && blogs.length > 0) {
-      localStorage.setItem('blogs', JSON.stringify(blogs))
-    }
-  }, [blogs])
 
   return (
     <>
