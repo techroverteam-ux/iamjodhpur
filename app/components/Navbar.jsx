@@ -9,7 +9,7 @@ export default function Navbar() {
 
   return (
     <div className="sticky top-0 z-50">
-      <section className="top_heads top_heads_header top-head" style={{background:'#1977f3'}}>
+      <section className="top_heads top_heads_header top-head" style={{background:'#0B4F8A'}}>
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center py-2.5">
             <a href="tel:9828019432" className="text-white text-sm">
@@ -22,41 +22,43 @@ export default function Navbar() {
         </div>
       </section>
 
-      <div className="bg-white shadow-md">
+      <div className="bg-white shadow-sm border-b">
         <div className="container mx-auto px-4">
-          <nav className="flex justify-between items-center h-20">
+          <nav className="flex justify-between items-center h-24">
             <Link href="/" className="flex items-center">
-              <Image src="/images/3520795826_both.png" width={120} height={50} alt="IMA Jodhpur" className="h-12 w-auto" />
+              <Image src="/images/3520795826_both.png" width={280} height={110} alt="IMA Jodhpur" className="h-24 w-auto" />
             </Link>
 
-            <button onClick={() => setIsOpen(!isOpen)} className="md:hidden">
-              <span className="text-2xl">☰</span>
+            <button onClick={() => setIsOpen(!isOpen)} className="md:hidden p-2">
+              <span className="text-2xl text-gray-700">☰</span>
             </button>
 
-            <div className="hidden md:flex items-center space-x-6">
-              <Link href="/" className="text-gray-700 hover:text-blue-600 font-semibold transition">Home</Link>
-              <Link href="/about-us" className="text-gray-700 hover:text-blue-600 font-semibold transition">About Us</Link>
-              <Link href="/courses" className="text-gray-700 hover:text-blue-600 font-semibold transition">Courses</Link>
-              <Link href="/facilities" className="text-gray-700 hover:text-blue-600 font-semibold transition">Facilities</Link>
-              <Link href="/blog" className="text-gray-700 hover:text-blue-600 font-semibold transition">Blogs</Link>
-              <Link href="/why-ima" className="text-gray-700 hover:text-blue-600 font-semibold transition">WHY IMA ?</Link>
-              <Link href="/contact-us" className="text-gray-700 hover:text-blue-600 font-semibold transition">Contact Us</Link>
-              <button onClick={() => setShowLoginModal(true)} className="px-6 py-2 rounded-full text-white font-semibold transition hover:opacity-90" style={{background:'#1977f3'}}>
-                Login <i className="fa fa-chevron-right ml-1"></i>
+            <div className="hidden md:flex items-center space-x-8">
+              <Link href="/" className="text-gray-800 hover:text-blue-600 font-medium text-sm uppercase tracking-wide transition-colors duration-200">Home</Link>
+              <Link href="/about-us" className="text-gray-800 hover:text-blue-600 font-medium text-sm uppercase tracking-wide transition-colors duration-200">About Us</Link>
+              <Link href="/courses" className="text-gray-800 hover:text-blue-600 font-medium text-sm uppercase tracking-wide transition-colors duration-200">Courses</Link>
+              <Link href="/facilities" className="text-gray-800 hover:text-blue-600 font-medium text-sm uppercase tracking-wide transition-colors duration-200">Facilities</Link>
+              <Link href="/blog" className="text-gray-800 hover:text-blue-600 font-medium text-sm uppercase tracking-wide transition-colors duration-200">Blogs</Link>
+              <Link href="/why-ima" className="text-gray-800 hover:text-blue-600 font-medium text-sm uppercase tracking-wide transition-colors duration-200">WHY IMA ?</Link>
+              <Link href="/contact-us" className="text-gray-800 hover:text-blue-600 font-medium text-sm uppercase tracking-wide transition-colors duration-200">Contact Us</Link>
+              <button onClick={() => setShowLoginModal(true)} className="px-6 py-2.5 rounded-md text-white font-medium text-sm uppercase tracking-wide transition-all duration-200 hover:shadow-lg" style={{background:'#1677C8'}}>
+                Login
               </button>
             </div>
           </nav>
 
           {isOpen && (
-            <div className="md:hidden pb-4">
-              <Link href="/" className="block py-2 text-gray-700">Home</Link>
-              <Link href="/about-us" className="block py-2 text-gray-700">About Us</Link>
-              <Link href="/courses" className="block py-2 text-gray-700">Courses</Link>
-              <Link href="/facilities" className="block py-2 text-gray-700">Facilities</Link>
-              <Link href="/blog" className="block py-2 text-gray-700">Blogs</Link>
-              <Link href="/why-ima" className="block py-2 text-gray-700">WHY IMA ?</Link>
-              <Link href="/contact-us" className="block py-2 text-gray-700">Contact Us</Link>
-              <button onClick={() => setShowLoginModal(true)} className="w-full mt-2 px-6 py-2 rounded-full text-white font-semibold" style={{background:'#1977f3'}}>Login</button>
+            <div className="md:hidden pb-6 border-t">
+              <div className="pt-4 space-y-3">
+                <Link href="/" className="block py-2 text-gray-800 font-medium text-sm uppercase tracking-wide">Home</Link>
+                <Link href="/about-us" className="block py-2 text-gray-800 font-medium text-sm uppercase tracking-wide">About Us</Link>
+                <Link href="/courses" className="block py-2 text-gray-800 font-medium text-sm uppercase tracking-wide">Courses</Link>
+                <Link href="/facilities" className="block py-2 text-gray-800 font-medium text-sm uppercase tracking-wide">Facilities</Link>
+                <Link href="/blog" className="block py-2 text-gray-800 font-medium text-sm uppercase tracking-wide">Blogs</Link>
+                <Link href="/why-ima" className="block py-2 text-gray-800 font-medium text-sm uppercase tracking-wide">WHY IMA ?</Link>
+                <Link href="/contact-us" className="block py-2 text-gray-800 font-medium text-sm uppercase tracking-wide">Contact Us</Link>
+                <button onClick={() => setShowLoginModal(true)} className="w-full mt-4 px-6 py-2.5 rounded-md text-white font-medium text-sm uppercase tracking-wide" style={{background:'#1677C8'}}>Login</button>
+              </div>
             </div>
           )}
         </div>
@@ -91,10 +93,10 @@ export default function Navbar() {
                     </div>
                   </div>
                 </div>
-                <button type="submit" className="w-full text-white font-semibold" style={{background:'#1977f3', padding: '10px 40px', borderRadius: '4px', fontSize: '16px', border: 'none', cursor: 'pointer'}}>Login</button>
+                <button type="submit" className="w-full text-white font-semibold" style={{background:'#1677C8', padding: '10px 40px', borderRadius: '4px', fontSize: '16px', border: 'none', cursor: 'pointer'}}>Login</button>
               </form>
-              <p className="mb-4" style={{fontSize: '14px'}}>Don't have an account yet? <a href="#" onClick={(e) => {e.preventDefault(); alert('SignUp coming soon!');}} className="font-bold" style={{color:'#1977f3', textDecoration: 'none'}}>SignUp</a></p>
-              <a href="#" onClick={(e) => {e.preventDefault(); alert('Forgot Password coming soon!');}} className="font-bold" style={{color:'#1977f3', fontSize: '14px', textDecoration: 'none'}}>Forgot Password?</a>
+              <p className="mb-4" style={{fontSize: '14px'}}>Don't have an account yet? <a href="#" onClick={(e) => {e.preventDefault(); alert('SignUp coming soon!');}} className="font-bold" style={{color:'#1677C8', textDecoration: 'none'}}>SignUp</a></p>
+              <a href="#" onClick={(e) => {e.preventDefault(); alert('Forgot Password coming soon!');}} className="font-bold" style={{color:'#1677C8', fontSize: '14px', textDecoration: 'none'}}>Forgot Password?</a>
             </div>
           </div>
         </div>

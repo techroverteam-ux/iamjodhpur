@@ -59,7 +59,7 @@ export default function CourseCategories() {
           border: 3px solid transparent;
           background-clip: padding-box;
           position: relative;
-          padding: 25px;
+          padding: 15px 10px;
           border-radius: 20px;
           box-shadow: 0 10px 30px rgba(25, 119, 243, 0.1);
         }
@@ -69,7 +69,7 @@ export default function CourseCategories() {
           inset: 0;
           border-radius: 20px;
           padding: 3px;
-          background: linear-gradient(135deg, #1977f3, #00d4ff, #ff6b9d, #1977f3);
+          background: linear-gradient(135deg, #0066FF, #4D94FF, #ff6b9d, #0066FF);
           -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
           -webkit-mask-composite: xor;
           mask-composite: exclude;
@@ -108,44 +108,54 @@ export default function CourseCategories() {
           margin: 0;
           font-size: 20px;
           font-weight: 700;
-          background: linear-gradient(135deg, #1977f3, #00d4ff);
+          background: linear-gradient(135deg, #0066FF, #4D94FF);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
         }
         .card_icon_right {
           font-size: 28px;
-          color: #1977f3;
+          color: #0066FF;
           transition: all 0.3s;
         }
         .card_courses:hover .card_icon_right {
           transform: translateX(10px);
-          color: #00d4ff;
+          color: #4D94FF;
         }
       `}</style>
-      <section className="course-categories-section py-12" style={{background: 'linear-gradient(135deg, #f8f9fa 0%, #e8f4ff 100%)', padding: '60px 0'}}>
-        <div className="container" style={{maxWidth: '1140px', margin: '0 auto', padding: '0 15px'}}>
-          <div className="text-center" style={{marginBottom: '60px'}}>
-            <h3 className="category-title text-4xl font-bold mb-4" style={{color: '#1977f3'}}>
+      <section className="course__categories course-categories-section">
+        <div className="container mx-auto px-4" style={{maxWidth: '1140px'}}>
+          <div className="text-center section-hedding">
+            <h3 className="categories-title category-title">
               Course Categories
             </h3>
-            <p className="category-desc text-lg" style={{color: '#666', maxWidth: '800px', margin: '0 auto'}}>
+            <p className="categories-subtitle category-desc">
               Become lifelong learners with India's best teachers, engaging video lessons and personalised learning journeys
             </p>
           </div>
           
-          <div style={{maxWidth: '500px', margin: '0 auto'}}>
+          <div style={{maxWidth: '250px', margin: '0 auto'}}>
             <a href="/courses" className="card_courses block" style={{textDecoration: 'none'}}>
-              <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-                <div style={{display: 'flex', alignItems: 'center', gap: '20px'}}>
-                  <img 
-                    src="https://d3aj4itat0hxro.cloudfront.net/826/admin_v1/course_type_master/icon/62728579130_online-course.png" 
-                    className="courses_icon_img" 
-                    alt="icon" 
-                  />
-                  <h5 className="card-title">All Courses</h5>
-                </div>
-                <i className="card_icon_right fa fa-angle-right"></i>
+              <div className="card__flex">
+                <svg width="40" height="40" viewBox="0 0 50 50" className="courses_icon_img">
+                  <rect width="50" height="50" rx="10" fill="url(#courseGrad)"/>
+                  <rect x="10" y="15" width="30" height="3" rx="1.5" fill="white"/>
+                  <rect x="10" y="20" width="25" height="2" rx="1" fill="white" opacity="0.8"/>
+                  <rect x="10" y="24" width="22" height="2" rx="1" fill="white" opacity="0.6"/>
+                  <rect x="10" y="28" width="20" height="2" rx="1" fill="white" opacity="0.4"/>
+                  <circle cx="38" cy="12" r="4" fill="#F4C20D"/>
+                  <text x="38" y="15" textAnchor="middle" fontSize="10" fill="white" fontWeight="bold">✓</text>
+                  <defs>
+                    <linearGradient id="courseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#1677C8"/>
+                      <stop offset="100%" stopColor="#1E8EDC"/>
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <h5 className="card-title">All Courses</h5>
+              </div>
+              <div className="icon__angle-right">
+                <i className="fa fa-angle-right"></i>
               </div>
             </a>
           </div>

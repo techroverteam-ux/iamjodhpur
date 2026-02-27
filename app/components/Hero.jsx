@@ -5,11 +5,11 @@ export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0)
   
   const slides = [
-    '/images/114178510913_IMA WEBSITE BANNER.png',
-    '/images/114178510913_IMA WEBSITE BANNER.png',
-    '/images/114178510913_IMA WEBSITE BANNER.png',
-    '/images/114178510913_IMA WEBSITE BANNER.png',
-    '/images/114178510913_IMA WEBSITE BANNER.png'
+    '/images/1.png',
+    '/images/2.png',
+    '/images/3.png',
+    '/images/4.png',
+    '/images/5.png'
   ]
 
   useEffect(() => {
@@ -27,18 +27,18 @@ export default function Hero() {
     <>
       <style jsx>{`
         .nav-btn {
-          background: rgba(25, 119, 243, 0.8);
+          background: rgba(22, 119, 200, 0.8);
           transition: all 0.3s;
         }
         .nav-btn:hover {
-          background: rgba(25, 119, 243, 1);
+          background: rgba(11, 79, 138, 1);
           transform: scale(1.1);
         }
         .dot {
           transition: all 0.3s;
         }
         .dot.active {
-          background: #1977f3;
+          background: #1677C8;
           width: 40px;
         }
       `}</style>

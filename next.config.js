@@ -1,12 +1,27 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: [
-      'images.unsplash.com',
-      'via.placeholder.com',
-      'decicqog4ulhy.cloudfront.net',
-      'd3aj4itat0hxro.cloudfront.net',
-      'imajodhpur.com'
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'via.placeholder.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'decicqog4ulhy.cloudfront.net',
+      },
+      {
+        protocol: 'https',
+        hostname: 'd3aj4itat0hxro.cloudfront.net',
+      },
+      {
+        protocol: 'https',
+        hostname: 'imajodhpur.com',
+      },
     ],
   },
 }

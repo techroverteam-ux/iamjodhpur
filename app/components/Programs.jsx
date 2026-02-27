@@ -2,40 +2,46 @@ import Image from 'next/image'
 
 export default function Programs() {
   return (
-    <section className="py-12" style={{background:'#e5e7eb'}}>
-      <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="text-center">
-            <div className="inline-block px-6 py-2 rounded-b-3xl text-white font-bold mb-4" style={{background:'#1977f3'}}>
-              JEE (Main+Advanced)
-            </div>
-            <div className="grid grid-cols-2 gap-4 items-center">
-              <div className="border-r border-gray-400">
-                <Image src="/images/11878191768826820_neet.webp" width={300} height={200} alt="JEE" className="mx-auto" />
-              </div>
-              <div className="text-left px-4">
-                <p className="text-gray-700">
-                  At <strong>IIT Medical Academy (IMA)</strong>, our JEE program is designed to build strong academic fundamentals and develop the competitive skills required for <strong>JEE Main and JEE Advanced.</strong>
-                </p>
-              </div>
+    <section className="py-16" style={{background: 'linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f0f9ff 100%)'}}>
+      <div className="container mx-auto px-4 max-w-6xl">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          
+          {/* JEE Program Card */}
+          <div className="program-card">
+            <Image 
+              src="/images/24045961768826895_neet.webp" 
+              alt="JEE Preparation" 
+              width={400} 
+              height={200} 
+              className="program-image"
+            />
+            <div className="program-content">
+              <div className="program-badge">JEE</div>
+              <h3 className="program-title">JEE (Main+Advanced)</h3>
+              <p className="program-description">
+                At IIT Medical Academy (IMA), our JEE program is designed to build strong academic fundamentals and develop the competitive skills required for JEE Main and JEE Advanced.
+              </p>
             </div>
           </div>
 
-          <div className="text-center">
-            <div className="inline-block px-6 py-2 rounded-b-3xl text-white font-bold mb-4" style={{background:'#1977f3'}}>
-              NEET Preparation
-            </div>
-            <div className="grid grid-cols-2 gap-4 items-center">
-              <div className="border-r border-gray-400">
-                <Image src="/images/24045961768826895_neet.webp" width={300} height={200} alt="NEET" className="mx-auto" />
-              </div>
-              <div className="text-left px-4">
-                <p className="text-gray-700">
-                  NEET preparation is designed with a complete academic system that builds strong concepts from the beginning and gradually upgrades students to the actual NEET level.
-                </p>
-              </div>
+          {/* NEET Program Card */}
+          <div className="program-card">
+            <Image 
+              src="/images/11878191768826820_neet.webp" 
+              alt="NEET Preparation" 
+              width={400} 
+              height={200} 
+              className="program-image"
+            />
+            <div className="program-content">
+              <div className="program-badge">NEET</div>
+              <h3 className="program-title">NEET Preparation</h3>
+              <p className="program-description">
+                NEET preparation is designed with a complete academic system that builds strong concepts from the beginning and gradually upgrades students to the actual NEET level.
+              </p>
             </div>
           </div>
+
         </div>
       </div>
     </section>

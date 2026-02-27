@@ -34,6 +34,7 @@ export default function Courses() {
       validity: "365 Days"
     }
   ])
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -91,7 +92,7 @@ export default function Courses() {
           transform-style: preserve-3d;
           transition: transform 0.6s;
           background: linear-gradient(white, white) padding-box,
-                      linear-gradient(135deg, #1977f3, #00d4ff) border-box;
+                      linear-gradient(135deg, var(--primary-medium), var(--primary-light)) border-box;
           border: 3px solid transparent;
           border-radius: 20px;
         }
@@ -110,7 +111,7 @@ export default function Courses() {
           background: white;
         }
         .flip-card-back {
-          background: linear-gradient(135deg, #1977f3 0%, #00d4ff 100%);
+          background: linear-gradient(135deg, var(--primary) 0%, var(--primary-medium) 100%);
           transform: rotateY(180deg);
           display: flex;
           flex-direction: column;
@@ -123,7 +124,7 @@ export default function Courses() {
     <section className="courses-section py-6" style={{background: 'linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%)'}}>
       <div className="container mx-auto px-4" style={{maxWidth: '1140px'}}>
         <div className="text-center mb-4">
-          <h3 className="text-3xl font-bold" style={{color:'#1977f3'}}>Our Popular Courses</h3>
+          <h3 className="text-3xl font-bold" style={{color:'var(--primary-medium)'}}>Our Popular Courses</h3>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -133,8 +134,8 @@ export default function Courses() {
                 <div className="flip-card-front">
                   <img src={course.image} alt={course.title} className="w-full h-56 object-contain p-2" />
                   <div className="p-3">
-                    <h6 className="font-bold text-gray-800 mb-2">{course.title}</h6>
-                    <h6 className="text-lg font-semibold mb-2" style={{color: '#1977f3'}}>{course.price}</h6>
+                    <h6 className="course-title text-base mb-2">{course.title}</h6>
+                    <h6 className="text-lg font-semibold mb-2" style={{color: 'var(--yellow)'}}>{course.price}</h6>
                     <div className="flex items-center text-sm text-gray-600">
                       <i className="fa fa-calendar mr-2"></i> Validity {course.validity}
                     </div>
@@ -145,7 +146,7 @@ export default function Courses() {
                   <p className="text-sm mb-6 text-center">Comprehensive preparation with expert guidance</p>
                   <div className="flex flex-col gap-3 w-full">
                     <a href={course.id === 42147 ? "/course-details/pre-foundation" : course.id === 42161 ? "/course-details/neet" : course.id === 42286 ? "/course-details/jee" : "/course-details/aits"} className="py-2 px-4 rounded text-white font-semibold text-center" style={{background:'rgba(255,255,255,0.2)', border: '2px solid white'}}>Explore Course</a>
-                    <button onClick={() => setShowLoginModal(true)} className="py-2 px-4 rounded font-semibold" style={{background:'white', color:'#1977f3'}}>Enroll Now</button>
+                    <button onClick={() => setShowLoginModal(true)} className="py-2 px-4 rounded font-semibold" style={{background:'white', color:'var(--primary-medium)'}}>Enroll Now</button>
                   </div>
                 </div>
               </div>
@@ -183,10 +184,10 @@ export default function Courses() {
                     </div>
                   </div>
                 </div>
-                <button type="submit" className="w-full text-white font-semibold" style={{background:'#1977f3', padding: '10px 40px', borderRadius: '4px', fontSize: '16px', border: 'none', cursor: 'pointer'}}>Login</button>
+                <button type="submit" className="w-full text-white font-semibold" style={{background:'var(--primary-medium)', padding: '10px 40px', borderRadius: '4px', fontSize: '16px', border: 'none', cursor: 'pointer'}}>Login</button>
               </form>
-              <p className="mb-4" style={{fontSize: '14px'}}>Don't have an account yet? <a href="#" onClick={(e) => {e.preventDefault(); alert('SignUp coming soon!');}} className="font-bold" style={{color:'#1977f3', textDecoration: 'none'}}>SignUp</a></p>
-              <a href="#" onClick={(e) => {e.preventDefault(); alert('Forgot Password coming soon!');}} className="font-bold" style={{color:'#1977f3', fontSize: '14px', textDecoration: 'none'}}>Forgot Password?</a>
+              <p className="mb-4" style={{fontSize: '14px'}}>Don't have an account yet? <a href="#" onClick={(e) => {e.preventDefault(); alert('SignUp coming soon!');}} className="font-bold" style={{color:'var(--primary-medium)', textDecoration: 'none'}}>SignUp</a></p>
+              <a href="#" onClick={(e) => {e.preventDefault(); alert('Forgot Password coming soon!');}} className="font-bold" style={{color:'var(--primary-medium)', fontSize: '14px', textDecoration: 'none'}}>Forgot Password?</a>
             </div>
           </div>
         </div>

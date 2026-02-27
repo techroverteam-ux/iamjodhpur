@@ -19,10 +19,10 @@ export default function Stats() {
         if (entries[0].isIntersecting && !hasAnimated) {
           setHasAnimated(true)
           stats.forEach((stat, index) => {
-            let start = 3
+            let start = 0
             const end = stat.count
-            const duration = 2500
-            const increment = (end - start) / (duration / 16)
+            const duration = 2000
+            const increment = end / (duration / 16)
             
             const timer = setInterval(() => {
               start += increment
@@ -44,7 +44,7 @@ export default function Stats() {
           })
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.3 }
     )
 
     if (sectionRef.current) {
@@ -55,16 +55,18 @@ export default function Stats() {
   }, [hasAnimated])
 
   return (
-    <section ref={sectionRef} className="py-12 bg-white">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+    <section ref={sectionRef} className="py-16" style={{background: '#F8FAFC'}}>
+      <div className="container mx-auto px-4" style={{maxWidth: '1200px'}}>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map((stat, index) => (
-            <div key={index} className="text-center p-8 shadow-lg" style={{borderRadius:'0 50px 0 50px', boxShadow:'0px 0px 6px #1977f3'}}>
-              <div className="mx-auto mb-4 flex items-center justify-center">
-                <i className={`fa ${stat.icon}`} style={{color:'#1977f3', fontSize:'50px'}}></i>
+            <div key={index} className="text-center">
+              <div className="mb-3">
+                <i className={`fa ${stat.icon}`} style={{color:'#0066FF', fontSize:'40px'}}></i>
               </div>
-              <h3 className="text-3xl font-bold mb-2" style={{color:'#1977f3'}}>{counts[index].toLocaleString()}+</h3>
-              <h6 className="text-gray-700">{stat.label}</h6>
+              <h3 className="text-4xl font-bold mb-2" style={{color:'#0066FF'}}>
+                {counts[index].toLocaleString()}+
+              </h3>
+              <p className="text-gray-600 text-sm font-medium">{stat.label}</p>
             </div>
           ))}
         </div>

@@ -2,7 +2,7 @@
 
 export default function TopHeader() {
   return (
-    <section className="top_heads top_heads_header top-head" style={{ background: '#1977f3' }}>
+    <section className="top_heads top_heads_header top-head" style={{ background: '#0066FF' }}>
       <div className="container">
         <div className="row">
           <div className="col-md-12 munberss">

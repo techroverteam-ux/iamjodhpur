@@ -1,8 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --primary: #0B4F8A;
+  --primary-deep: #0E5DA3;
+  --primary-medium: #1677C8;
+  --primary-bright: #1E8EDC;
+  --primary-light: #4FB3E8;
+  --accent: #79C2F2;
+  --yellow: #F4C20D;
+  --yellow-gold: #E0B000;
+  --yellow-dark: #C99800;
+  --text-dark: #1E1E1E;
+  --text-gray: #6B7280;
+  --bg-light: #F5F7FA;
+}
 
 * {
   margin: 0;
@@ -27,9 +45,160 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, button, input, textarea, select, label,
   font-family: 'Outfit', sans-serif !important;
 }
 
+/* Special Typography Classes */
+.hero-title {
+  font-family: 'Playfair Display', serif !important;
+  font-weight: 800;
+  font-size: 3.5rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--primary-medium);
+  text-shadow: 0 2px 4px rgba(22, 119, 200, 0.2);
+}
+
+.hero-subtitle {
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--text-gray);
+  letter-spacing: 0.01em;
+}
+
+.course-title {
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  color: var(--primary-bright);
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  .course-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* Program Cards Section */
+.program-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.program-image {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  border-radius: 16px 16px 0 0;
+  background: #f8fafc;
+}
+
+.program-content {
+  padding: 2rem;
+}
+
+.program-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-medium), var(--primary-light));
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.program-card:hover::before {
+  transform: scaleX(1);
+}
+
+.program-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(22, 119, 200, 0.15);
+  border-color: var(--primary-light);
+}
+
+.program-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--primary-medium), var(--primary-bright));
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.program-title {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.program-description {
+  font-family: 'Inter', sans-serif !important;
+  color: var(--text-gray);
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .program-card {
+    margin-bottom: 1.5rem;
+  }
+  .program-content {
+    padding: 1.5rem;
+  }
+  .program-title {
+    font-size: 1.5rem;
+  }
+  .program-image {
+    height: 160px;
+  }
+}
+
 /* Course Categories Section */
 .course__categories {
-  padding: 50px 0;
+  padding: 80px 0;
+  background: linear-gradient(135deg, var(--bg-light) 0%, #ffffff 50%, #f0f9ff 100%);
+}
+
+.categories-title {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-medium);
+  text-align: center;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.categories-subtitle {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 1.125rem;
+  color: var(--text-gray);
+  text-align: center;
+  margin-bottom: 3rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
 }
 
 .bg-light {
@@ -37,14 +206,16 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, button, input, textarea, select, label,
 }
 
 .section-hedding {
-  margin-bottom: 40px;
+  margin-bottom: 50px;
 }
 
 .section-title {
-  font-size: 32px;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 2rem;
   font-weight: 700;
   margin-bottom: 15px;
-  color: #1977f3 !important;
+  color: var(--primary-medium) !important;
+  text-align: center;
 }
 
 .contentWrapper.questions-listing {
@@ -91,7 +262,7 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, button, input, textarea, select, label,
 }
 
 .course__tabs li.active {
-  background: #1977f3 !important;
+  background: var(--primary-medium) !important;
   color: #fff !important;
 }
 
@@ -103,7 +274,7 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, button, input, textarea, select, label,
   justify-content: center;
   cursor: pointer;
   border-radius: 5px;
-  background: #1977f3 !important;
+  background: var(--primary-medium) !important;
   flex-shrink: 0;
 }
 
@@ -139,18 +310,38 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, button, input, textarea, select, label,
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px;
-  background: #fff;
-  border: 1px solid #e9ecef;
-  border-bottom: 2px solid #1977f3 !important;
+  padding: 24px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  border-bottom: 3px solid var(--primary-medium) !important;
   text-decoration: none;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
   height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.card_courses::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-light), var(--accent));
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.card_courses:hover::before {
+  transform: scaleX(1);
 }
 
 .card_courses:hover {
-  border-bottom: 2px solid #1977f3 !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transform: translateY(-4px);
+  border-bottom: 3px solid var(--primary) !important;
+  box-shadow: 0 12px 24px rgba(22, 119, 200, 0.15);
   text-decoration: none;
 }
 
@@ -168,22 +359,26 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, button, input, textarea, select, label,
 
 .card_courses .card-title {
   margin: 0;
-  font-size: 18px;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 1.125rem;
   font-weight: 600;
-  color: #333;
+  color: var(--text-dark);
+  line-height: 1.4;
 }
 
 .card_courses:hover .card-title {
-  color: #1977f3;
+  color: var(--primary-medium);
 }
 
 .icon__angle-right {
-  font-size: 24px;
-  color: #666;
+  font-size: 20px;
+  color: var(--primary-medium);
+  transition: all 0.3s ease;
 }
 
 .card_courses:hover .icon__angle-right i {
-  color: #1977f3;
+  color: var(--primary);
+  transform: translateX(4px);
 }
 
 @media (max-width: 991px) {
@@ -194,20 +389,201 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, button, input, textarea, select, label,
   }
 }
 
-@media (max-width: 767px) {
-  .course__content .col-lg-4,
-  .course__content .col-md-4,
-  .course__content .col-12 {
-    flex: 0 0 100%;
-    max-width: 100%;
+/* Advantages Section */
+.advantages-section {
+  padding: 100px 0;
+  background: linear-gradient(135deg, #ffffff 0%, var(--bg-light) 50%, #f0f9ff 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.advantages-title {
+  font-family: 'Playfair Display', serif !important;
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--primary-medium);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.advantages-intro {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 1.125rem;
+  color: var(--text-gray);
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 4rem;
+  line-height: 1.7;
+}
+
+.feature-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--primary-medium), var(--primary-light));
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+
+.feature-card:hover::before {
+  transform: scaleX(1);
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 25px 50px rgba(22, 119, 200, 0.15);
+}
+
+.feature-title {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.feature-description {
+  font-family: 'Inter', sans-serif !important;
+  color: var(--text-gray);
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+}
+
+.feature-list li {
+  font-family: 'Inter', sans-serif !important;
+  color: var(--text-gray);
+  padding: 0.5rem 0 0.5rem 2rem;
+  position: relative;
+}
+
+.feature-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--primary-medium);
+  font-weight: bold;
+}
+
+/* Offerings Section */
+.offerings-section {
+  padding: 100px 0;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-medium) 50%, var(--primary-bright) 100%);
+  color: white;
+  position: relative;
+}
+
+.offerings-title {
+  font-family: 'Playfair Display', serif !important;
+  font-size: 3rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: white;
+}
+
+.offerings-intro {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 1.125rem;
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 4rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.9);
+}
+
+.offering-card {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 16px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+  text-align: center;
+  height: 100%;
+}
+
+.offering-card:hover {
+  transform: translateY(-8px);
+  background: rgba(255,255,255,0.15);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+.offering-icon {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  margin-bottom: 1.5rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.offering-title {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.advantage-icon {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  margin-bottom: 1.5rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 768px) {
+  .offerings-section {
+    padding: 60px 0;
   }
-  
-  .course_btn_nav {
-    width: 40px;
-    height: 40px;
+  .offerings-title {
+    font-size: 2.5rem;
   }
-  
-  .tabsWrapper {
-    max-width: calc(100% - 100px);
+  .offering-card {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .advantages-section {
+    padding: 60px 0;
+  }
+  .advantages-title {
+    font-size: 2.5rem;
+  }
+  .feature-card {
+    padding: 2rem;
+  }
+  .categories-title {
+    font-size: 2rem;
+  }
+  .categories-subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+  .course__categories {
+    padding: 60px 0;
   }
 }
