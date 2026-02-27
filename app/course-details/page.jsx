@@ -38,41 +38,81 @@ export default function CourseDetail() {
       <Navbar />
       
       <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes slideInRight {
+          from {
+            opacity: 0;
+            transform: translateX(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
         .breadcrumb-section {
-          background: #f8f9fa;
-          padding: 15px 0;
-          border-bottom: 1px solid #ddd;
+          background: #F8FAFC;
+          padding: 12px 0;
+          border-bottom: 1px solid #E8EEF5;
         }
         .breadcrumb-text {
           color: #666;
-          font-size: 14px;
+          font-size: 15px;
         }
         .breadcrumb-text a {
-          color: #1977f3;
+          color: #0B4F8A;
           text-decoration: none;
+          transition: color 0.3s;
+        }
+        .breadcrumb-text a:hover {
+          color: #0052CC;
         }
         .course-container {
           max-width: 1200px;
           margin: 0 auto;
-          padding: 40px 15px;
+          padding: 30px 15px;
         }
         .course-grid {
           display: grid;
           grid-template-columns: 2fr 1fr;
           gap: 30px;
         }
+        .course-content {
+          animation: fadeInUp 0.6s ease-out;
+        }
         .course-content h2 {
-          color: #1977f3;
+          color: #0B4F8A;
           font-size: 32px;
-          font-weight: bold;
+          font-weight: 700;
           margin-bottom: 20px;
+          position: relative;
+          padding-bottom: 12px;
+        }
+        .course-content h2::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 60px;
+          height: 3px;
+          background: #FF6B35;
         }
         .course-content h3 {
           color: #333;
-          font-size: 24px;
-          font-weight: bold;
-          margin-top: 30px;
-          margin-bottom: 15px;
+          font-size: 22px;
+          font-weight: 600;
+          margin-top: 25px;
+          margin-bottom: 12px;
+          padding-left: 12px;
+          border-left: 3px solid #0B4F8A;
         }
         .course-content p {
           color: #555;
@@ -83,68 +123,90 @@ export default function CourseDetail() {
         }
         .course-content ul {
           margin: 15px 0;
-          padding-left: 20px;
+          padding-left: 0;
+          list-style: none;
         }
         .course-content li {
           color: #555;
           font-size: 16px;
           line-height: 1.8;
           margin-bottom: 10px;
+          padding-left: 25px;
+          position: relative;
+        }
+        .course-content li::before {
+          content: '✓';
+          position: absolute;
+          left: 0;
+          color: #0B4F8A;
+          font-weight: bold;
         }
         .course-card {
-          border: 1px solid #ddd;
-          border-radius: 8px;
+          border: 1px solid #E8EEF5;
+          border-radius: 12px;
           overflow: hidden;
-          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+          box-shadow: 0 4px 12px rgba(0,102,255,0.08);
           position: sticky;
           top: 100px;
           height: fit-content;
+          animation: slideInRight 0.6s ease-out;
+          transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .course-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 8px 20px rgba(0,102,255,0.15);
         }
         .course-card-image {
           width: 100%;
           height: 200px;
           object-fit: contain;
-          background: #f9f9f9;
+          background: #F8FAFC;
         }
         .course-card-body {
           padding: 20px;
         }
         .course-card-title {
           font-size: 20px;
-          font-weight: bold;
+          font-weight: 600;
           color: #333;
-          margin-bottom: 10px;
+          margin-bottom: 15px;
         }
         .course-price {
           font-size: 28px;
-          font-weight: bold;
-          color: #1977f3;
+          font-weight: 700;
+          color: #0B4F8A;
           margin-bottom: 10px;
         }
         .validity-text {
           display: flex;
           align-items: center;
-          font-size: 14px;
+          font-size: 15px;
           color: #666;
           margin-bottom: 20px;
+          padding: 10px;
+          background: #F8FAFC;
+          border-radius: 6px;
         }
         .validity-text i {
           margin-right: 8px;
+          color: #0B4F8A;
         }
         .enroll-btn {
           width: 100%;
-          padding: 12px;
-          background: #1977f3;
+          padding: 14px;
+          background: #0B4F8A;
           color: white;
           border: none;
-          border-radius: 4px;
+          border-radius: 8px;
           font-size: 16px;
-          font-weight: bold;
+          font-weight: 600;
           cursor: pointer;
-          transition: background 0.3s;
+          transition: all 0.3s;
         }
         .enroll-btn:hover {
-          background: #0d5bbf;
+          background: #0052CC;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0,102,255,0.3);
         }
         @media (max-width: 768px) {
           .course-grid {
@@ -206,10 +268,11 @@ export default function CourseDetail() {
               <img src={course.image} alt={course.title} className="course-card-image" />
               <div className="course-card-body">
                 <h3 className="course-card-title">{course.title}</h3>
-                <div style={{display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px'}}>
+                <div style={{display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '5px'}}>
                   <div className="course-price">{course.discountedPrice || course.price}</div>
                   {course.discountedPrice && <div style={{fontSize: '18px', color: '#999', textDecoration: 'line-through'}}>{course.price}</div>}
                 </div>
+                <p style={{fontSize: '13px', color: '#666', marginBottom: '10px'}}>GST Included</p>
                 <div className="validity-text">
                   <i className="fa fa-calendar"></i> Validity {course.validity}
                 </div>

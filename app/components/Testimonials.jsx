@@ -81,8 +81,8 @@ export default function Testimonials() {
       <section className="testimonials-section py-12" style={{background: '#F8FAFC'}}>
         <div className="container mx-auto px-4" style={{maxWidth: '1200px'}}>
           <div className="text-center mb-10">
-            <h3 className="text-3xl font-bold mb-2" style={{color: '#0066FF'}}>What students say</h3>
-            <div className="w-20 h-1 mx-auto rounded-full" style={{background: '#0066FF'}}></div>
+            <h3 className="text-3xl font-bold mb-2" style={{color: '#0B4F8A'}}>What students say</h3>
+            <div className="w-20 h-1 mx-auto rounded-full" style={{background: '#0B4F8A'}}></div>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {testimonials.map((item, index) => (
@@ -93,7 +93,7 @@ export default function Testimonials() {
                 }`}
                 style={{ 
                   animationDelay: `${index * 150}ms`,
-                  borderTop: '4px solid #0066FF'
+                  borderTop: '4px solid #0B4F8A'
                 }}
               >
                 <div className="p-6">
@@ -101,9 +101,9 @@ export default function Testimonials() {
                     <div className="w-14 h-14 rounded-full flex items-center justify-center mr-3" style={{background: '#E8EEF5'}}>
                       <img src={item.image} alt="icon" className="w-8 h-8" />
                     </div>
-                    <h4 className="font-bold text-lg" style={{color: '#0066FF'}}>{item.title}</h4>
+                    <h4 className="font-bold text-lg" style={{color: '#0B4F8A'}}>{item.title}</h4>
                   </div>
-                  <div className="border-l-3 pl-4" style={{borderLeft: '3px solid #0066FF'}}>
+                  <div className="border-l-3 pl-4" style={{borderLeft: '3px solid #0B4F8A'}}>
                     <i className="fa fa-quote-left text-sm mb-2 block" style={{color: '#4D94FF'}}></i>
                     <p className="text-gray-700 text-sm leading-relaxed">{item.text}</p>
                   </div>

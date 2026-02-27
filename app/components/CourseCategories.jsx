@@ -69,7 +69,7 @@ export default function CourseCategories() {
           inset: 0;
           border-radius: 20px;
           padding: 3px;
-          background: linear-gradient(135deg, #0066FF, #4D94FF, #ff6b9d, #0066FF);
+          background: linear-gradient(135deg, #0B4F8A, #4D94FF, #ff6b9d, #0B4F8A);
           -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
           -webkit-mask-composite: xor;
           mask-composite: exclude;
@@ -108,14 +108,14 @@ export default function CourseCategories() {
           margin: 0;
           font-size: 20px;
           font-weight: 700;
-          background: linear-gradient(135deg, #0066FF, #4D94FF);
+          background: linear-gradient(135deg, #0B4F8A, #4D94FF);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
         }
         .card_icon_right {
           font-size: 28px;
-          color: #0066FF;
+          color: #0B4F8A;
           transition: all 0.3s;
         }
         .card_courses:hover .card_icon_right {

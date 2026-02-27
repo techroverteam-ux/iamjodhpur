@@ -34,13 +34,13 @@ export default function Navbar() {
             </button>
 
             <div className="hidden md:flex items-center space-x-8">
-              <Link href="/" className="text-gray-800 hover:text-blue-600 font-medium text-sm uppercase tracking-wide transition-colors duration-200">Home</Link>
-              <Link href="/about-us" className="text-gray-800 hover:text-blue-600 font-medium text-sm uppercase tracking-wide transition-colors duration-200">About Us</Link>
-              <Link href="/courses" className="text-gray-800 hover:text-blue-600 font-medium text-sm uppercase tracking-wide transition-colors duration-200">Courses</Link>
-              <Link href="/facilities" className="text-gray-800 hover:text-blue-600 font-medium text-sm uppercase tracking-wide transition-colors duration-200">Facilities</Link>
-              <Link href="/blog" className="text-gray-800 hover:text-blue-600 font-medium text-sm uppercase tracking-wide transition-colors duration-200">Blogs</Link>
-              <Link href="/why-ima" className="text-gray-800 hover:text-blue-600 font-medium text-sm uppercase tracking-wide transition-colors duration-200">WHY IMA ?</Link>
-              <Link href="/contact-us" className="text-gray-800 hover:text-blue-600 font-medium text-sm uppercase tracking-wide transition-colors duration-200">Contact Us</Link>
+              <Link href="/" className="text-gray-800 hover:text-[#0B4F8A] font-medium text-sm uppercase tracking-wide transition-colors duration-200">Home</Link>
+              <Link href="/about-us" className="text-gray-800 hover:text-[#0B4F8A] font-medium text-sm uppercase tracking-wide transition-colors duration-200">About Us</Link>
+              <Link href="/courses" className="text-gray-800 hover:text-[#0B4F8A] font-medium text-sm uppercase tracking-wide transition-colors duration-200">Courses</Link>
+              <Link href="/facilities" className="text-gray-800 hover:text-[#0B4F8A] font-medium text-sm uppercase tracking-wide transition-colors duration-200">Facilities</Link>
+              <Link href="/blog" className="text-gray-800 hover:text-[#0B4F8A] font-medium text-sm uppercase tracking-wide transition-colors duration-200">Blogs</Link>
+              <Link href="/why-ima" className="text-gray-800 hover:text-[#0B4F8A] font-medium text-sm uppercase tracking-wide transition-colors duration-200">WHY IMA ?</Link>
+              <Link href="/contact-us" className="text-gray-800 hover:text-[#0B4F8A] font-medium text-sm uppercase tracking-wide transition-colors duration-200">Contact Us</Link>
               <button onClick={() => setShowLoginModal(true)} className="px-6 py-2.5 rounded-md text-white font-medium text-sm uppercase tracking-wide transition-all duration-200 hover:shadow-lg" style={{background:'#1677C8'}}>
                 Login
               </button>

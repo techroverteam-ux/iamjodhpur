@@ -46,7 +46,7 @@ export default function CoursesPage() {
           left: -100%;
           width: 100%;
           height: 4px;
-          background: linear-gradient(90deg, #0066FF, #FF6B35);
+          background: linear-gradient(90deg, #0B4F8A, #FF6B35);
           transition: left 0.4s;
         }
         .course-card:hover::before {
@@ -67,7 +67,7 @@ export default function CoursesPage() {
           transition: all 0.3s;
         }
         .btn-enroll:hover {
-          background: #0066FF !important;
+          background: #0B4F8A !important;
           color: white !important;
         }
       `}</style>
@@ -80,9 +80,9 @@ export default function CoursesPage() {
             <div style={{display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '14px', color: '#6B7280', marginBottom: '20px', background: 'white', padding: '8px 16px', borderRadius: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.05)'}}>
               <a href="/" style={{color: '#6B7280', textDecoration: 'none'}}>Home</a>
               <span>›</span>
-              <span style={{color: '#0066FF', fontWeight: '600'}}>All Courses</span>
+              <span style={{color: '#0B4F8A', fontWeight: '600'}}>All Courses</span>
             </div>
-            <h1 style={{fontSize: '42px', fontWeight: '700', color: '#0066FF', marginBottom: '12px'}}>Explore Our Courses</h1>
+            <h1 style={{fontSize: '42px', fontWeight: '700', color: '#0B4F8A', marginBottom: '12px'}}>Explore Our Courses</h1>
             <p style={{color: '#6B7280', fontSize: '18px', maxWidth: '600px', margin: '0 auto'}}>Choose the perfect program to achieve your academic goals</p>
           </div>
 
@@ -109,14 +109,14 @@ export default function CoursesPage() {
                   <div style={{padding: '20px'}}>
                     <h3 style={{fontSize: '17px', fontWeight: '600', color: '#222222', marginBottom: '12px', minHeight: '48px', lineHeight: '1.4'}}>{item.title}</h3>
                     <div style={{display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '16px', padding: '8px 12px', background: '#F8FAFC', borderRadius: '8px'}}>
-                      <i className="fa fa-calendar" style={{color: '#0066FF', fontSize: '14px'}}></i>
+                      <i className="fa fa-calendar" style={{color: '#0B4F8A', fontSize: '14px'}}></i>
                       <span style={{fontSize: '13px', color: '#6B7280', fontWeight: '500'}}>{item.validity}</span>
                     </div>
                     <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-                      <button className="btn-explore" style={{width: '100%', padding: '12px', background: '#0066FF', color: 'white', border: 'none', borderRadius: '8px', fontWeight: '600', cursor: 'pointer', fontSize: '14px'}}>
+                      <button className="btn-explore" style={{width: '100%', padding: '12px', background: '#0B4F8A', color: 'white', border: 'none', borderRadius: '8px', fontWeight: '600', cursor: 'pointer', fontSize: '14px'}}>
                         Explore Course
                       </button>
-                      <button className="btn-enroll" style={{width: '100%', padding: '12px', background: 'transparent', color: '#0066FF', border: '2px solid #0066FF', borderRadius: '8px', fontWeight: '600', cursor: 'pointer', fontSize: '14px'}}>
+                      <button className="btn-enroll" style={{width: '100%', padding: '12px', background: 'transparent', color: '#0B4F8A', border: '2px solid #0B4F8A', borderRadius: '8px', fontWeight: '600', cursor: 'pointer', fontSize: '14px'}}>
                         Enroll Now
                       </button>
                     </div>

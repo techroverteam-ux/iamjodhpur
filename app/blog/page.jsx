@@ -94,7 +94,7 @@ export default function Blog() {
           left: 0;
           width: 4px;
           height: 0;
-          background: #0066FF;
+          background: #0B4F8A;
           transition: height 0.4s;
         }
         .blog-card:hover::before {
@@ -117,7 +117,7 @@ export default function Blog() {
       <section style={{background: '#FFFFFF', padding: '60px 0'}}>
         <div className="container" style={{maxWidth: '1200px', margin: '0 auto', padding: '0 20px'}}>
           <div style={{textAlign: 'center', marginBottom: '50px'}}>
-            <h1 style={{fontSize: '48px', fontWeight: '700', color: '#0066FF', marginBottom: '12px'}}>Latest Insights</h1>
+            <h1 style={{fontSize: '48px', fontWeight: '700', color: '#0B4F8A', marginBottom: '12px'}}>Latest Insights</h1>
             <p style={{color: '#6B7280', fontSize: '18px', maxWidth: '600px', margin: '0 auto'}}>Stay updated with exam tips, admission guides, and success stories</p>
           </div>
 
@@ -151,20 +151,20 @@ export default function Blog() {
                       background: '#F8FAFC'
                     }} 
                   />
-                  <div style={{position: 'absolute', top: '16px', right: '16px', background: '#0066FF', color: 'white', padding: '6px 14px', borderRadius: '20px', fontSize: '12px', fontWeight: '600'}}>
+                  <div style={{position: 'absolute', top: '16px', right: '16px', background: '#0B4F8A', color: 'white', padding: '6px 14px', borderRadius: '20px', fontSize: '12px', fontWeight: '600'}}>
                     {blog.category}
                   </div>
                 </div>
                 <div style={{padding: '24px'}}>
                   <h3 style={{fontSize: '18px', fontWeight: '600', color: '#222222', marginBottom: '12px', minHeight: '48px', lineHeight: '1.4'}}>{blog.title}</h3>
                   <div style={{display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px'}}>
-                    <i className="fa fa-clock-o" style={{color: '#0066FF', fontSize: '14px'}}></i>
+                    <i className="fa fa-clock-o" style={{color: '#0B4F8A', fontSize: '14px'}}></i>
                     <span style={{fontSize: '13px', color: '#6B7280'}}>{blog.date}</span>
                   </div>
                   {blog.description && blog.description.trim() && (
                     <p style={{color: '#6B7280', fontSize: '14px', marginBottom: '16px', lineHeight: '1.6'}}>{blog.description}</p>
                   )}
-                  <div style={{display: 'flex', alignItems: 'center', gap: '8px', color: '#0066FF', fontWeight: '600', fontSize: '14px'}}>
+                  <div style={{display: 'flex', alignItems: 'center', gap: '8px', color: '#0B4F8A', fontWeight: '600', fontSize: '14px'}}>
                     Read More
                     <span style={{transition: 'transform 0.3s'}}>→</span>
                   </div>
@@ -176,7 +176,7 @@ export default function Blog() {
 
             <div>
               <div style={{background: '#FFFFFF', borderRadius: '16px', padding: '24px', border: '1px solid #E8EEF5', position: 'sticky', top: '100px'}}>
-                <h3 style={{fontSize: '20px', fontWeight: '700', color: '#0066FF', marginBottom: '20px'}}>Category</h3>
+                <h3 style={{fontSize: '20px', fontWeight: '700', color: '#0B4F8A', marginBottom: '20px'}}>Category</h3>
                 <ul style={{listStyle: 'none', padding: 0, margin: 0}}>
                   {blogs.map((blog) => (
                     <li key={blog.id} style={{marginBottom: '12px'}}>
@@ -191,7 +191,7 @@ export default function Blog() {
                           color: '#222222',
                           fontWeight: '500',
                           fontSize: '14px',
-                          borderLeft: '3px solid #0066FF',
+                          borderLeft: '3px solid #0B4F8A',
                           transition: 'all 0.3s'
                         }}
                       >

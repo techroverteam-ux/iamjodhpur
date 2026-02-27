@@ -61,9 +61,9 @@ export default function Stats() {
           {stats.map((stat, index) => (
             <div key={index} className="text-center">
               <div className="mb-3">
-                <i className={`fa ${stat.icon}`} style={{color:'#0066FF', fontSize:'40px'}}></i>
+                <i className={`fa ${stat.icon}`} style={{color:'#0B4F8A', fontSize:'40px'}}></i>
               </div>
-              <h3 className="text-4xl font-bold mb-2" style={{color:'#0066FF'}}>
+              <h3 className="text-4xl font-bold mb-2" style={{color:'#0B4F8A'}}>
                 {counts[index].toLocaleString()}+
               </h3>
               <p className="text-gray-600 text-sm font-medium">{stat.label}</p>

@@ -33,11 +33,11 @@ export default function About() {
             
             <div className="grid grid-cols-2 gap-6 pt-6">
               <div className="text-center p-6 bg-blue-50 rounded-lg">
-                <div className="text-4xl font-bold text-blue-600 mb-2">500+</div>
+                <div className="text-4xl font-bold text-[#0B4F8A] mb-2">500+</div>
                 <div className="text-gray-700 font-medium">Members</div>
               </div>
               <div className="text-center p-6 bg-blue-50 rounded-lg">
-                <div className="text-4xl font-bold text-blue-600 mb-2">50+</div>
+                <div className="text-4xl font-bold text-[#0B4F8A] mb-2">50+</div>
                 <div className="text-gray-700 font-medium">Years</div>
               </div>
             </div>

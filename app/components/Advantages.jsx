@@ -18,7 +18,7 @@ export default function Advantages() {
           <div className="space-y-4">
             <div className="feature-card">
               <div className="advantage-icon mb-2">
-                <i className="fa fa-graduation-cap text-blue-600" style={{fontSize: '3.5rem'}}></i>
+                <i className="fa fa-graduation-cap text-[#0B4F8A]" style={{fontSize: '3.5rem'}}></i>
               </div>
               <h3 className="feature-title">Start learning with IMA Jodhpur Classes</h3>
               <p className="feature-description">
