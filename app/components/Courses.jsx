@@ -9,28 +9,32 @@ export default function Courses() {
       id: 42147,
       title: "Pre Foundation Course",
       image: "/images/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png",
-      price: "Free",
+      price: "₹15,000",
+      discountedPrice: "₹12,000",
       validity: "354 Days"
     },
     {
       id: 42161,
       title: "NEET Preparation",
       image: "/images/3520795826_both.png",
-      price: "Free",
+      price: "₹25,000",
+      discountedPrice: "₹20,000",
       validity: "365 Days"
     },
     {
       id: 42286,
       title: "JEE (Mains+Advance)",
       image: "/images/3520795826_both.png",
-      price: "Free",
+      price: "₹25,000",
+      discountedPrice: "₹20,000",
       validity: "365 Days"
     },
     {
       id: 42385,
       title: "All India Test Series (AITS)",
       image: "/images/3520795826_both.png",
-      price: "Free",
+      price: "₹10,000",
+      discountedPrice: "₹8,000",
       validity: "365 Days"
     }
   ])
@@ -135,7 +139,11 @@ export default function Courses() {
                   <img src={course.image} alt={course.title} className="w-full h-56 object-contain p-2" />
                   <div className="p-3">
                     <h6 className="course-title text-base mb-2">{course.title}</h6>
-                    <h6 className="text-lg font-semibold mb-2" style={{color: 'var(--yellow)'}}>{course.price}</h6>
+                    <div className="flex items-center gap-2 mb-1">
+                      <h6 className="text-lg font-bold" style={{color: 'var(--primary-medium)'}}>{course.discountedPrice}</h6>
+                      <span className="text-sm text-gray-400 line-through">{course.price}</span>
+                    </div>
+                    <p className="text-xs text-gray-500 mb-2">GST Included</p>
                     <div className="flex items-center text-sm text-gray-600">
                       <i className="fa fa-calendar mr-2"></i> Validity {course.validity}
                     </div>

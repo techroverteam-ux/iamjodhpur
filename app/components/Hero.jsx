@@ -42,7 +42,21 @@ export default function Hero() {
           width: 40px;
         }
       `}</style>
-      <section className="relative w-full overflow-hidden" style={{height: '500px'}}>
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .hero-section {
+            height: 300px !important;
+          }
+          .nav-btn {
+            width: 36px !important;
+            height: 36px !important;
+          }
+          .nav-btn i {
+            font-size: 18px !important;
+          }
+        }
+      `}</style>
+      <section className="hero-section relative w-full overflow-hidden" style={{height: '500px'}}>
         <div className="relative w-full h-full">
           {slides.map((slide, index) => (
             <div

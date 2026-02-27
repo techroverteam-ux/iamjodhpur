@@ -56,17 +56,30 @@ export default function Stats() {
 
   return (
     <section ref={sectionRef} className="py-16" style={{background: '#F8FAFC'}}>
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .stat-icon {
+            font-size: 32px !important;
+          }
+          .stat-count {
+            font-size: 28px !important;
+          }
+          .stat-label {
+            font-size: 12px !important;
+          }
+        }
+      `}</style>
       <div className="container mx-auto px-4" style={{maxWidth: '1200px'}}>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map((stat, index) => (
             <div key={index} className="text-center">
               <div className="mb-3">
-                <i className={`fa ${stat.icon}`} style={{color:'#0B4F8A', fontSize:'40px'}}></i>
+                <i className={`fa ${stat.icon} stat-icon`} style={{color:'#0B4F8A', fontSize:'40px'}}></i>
               </div>
-              <h3 className="text-4xl font-bold mb-2" style={{color:'#0B4F8A'}}>
+              <h3 className="stat-count text-4xl font-bold mb-2" style={{color:'#0B4F8A'}}>
                 {counts[index].toLocaleString()}+
               </h3>
-              <p className="text-gray-600 text-sm font-medium">{stat.label}</p>
+              <p className="stat-label text-gray-600 text-sm font-medium">{stat.label}</p>
             </div>
           ))}
         </div>

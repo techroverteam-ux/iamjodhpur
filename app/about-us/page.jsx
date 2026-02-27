@@ -317,9 +317,10 @@ export default function AboutUs() {
 
         .vision-card .text-content {
           color: rgba(255, 255, 255, 0.95);
-          font-size: 1.1rem;
+          font-size: 1.15rem;
           text-align: center;
           margin: 0;
+          line-height: 2;
         }
 
         .mission-card {
@@ -381,8 +382,8 @@ export default function AboutUs() {
         .mission-list li {
           padding: 20px 0 20px 50px;
           position: relative;
-          font-size: 1.1rem;
-          line-height: 1.8;
+          font-size: 1.15rem;
+          line-height: 2;
           color: #444;
           border-bottom: 1px solid #f0f0f0;
         }
@@ -458,10 +459,8 @@ export default function AboutUs() {
         .director-signature {
           text-align: right;
           margin-top: 50px;
-          padding: 30px;
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 15px;
-          border-left: 4px solid #00d4ff;
+          padding: 30px 0;
+          border-bottom: 3px solid white;
         }
 
         .director-signature strong {

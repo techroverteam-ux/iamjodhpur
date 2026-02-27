@@ -110,20 +110,51 @@ export default function Blog() {
         .blog-card:hover .blog-img {
           transform: scale(1.05);
         }
+        @media (max-width: 768px) {
+          .blog-title {
+            font-size: 24px !important;
+          }
+          .blog-subtitle {
+            font-size: 13px !important;
+          }
+          .sidebar {
+            display: none;
+          }
+          .blog-card h3 {
+            font-size: 13px !important;
+            min-height: 36px !important;
+            line-height: 1.3 !important;
+          }
+          .blog-card p {
+            font-size: 11px !important;
+          }
+          .blog-card > div:last-child {
+            padding: 12px !important;
+          }
+        }
       `}</style>
 
       <Navbar />
       
-      <section style={{background: '#FFFFFF', padding: '60px 0'}}>
-        <div className="container" style={{maxWidth: '1200px', margin: '0 auto', padding: '0 20px'}}>
+      <section style={{background: '#FFFFFF', padding: '40px 0'}}>
+        <div className="container" style={{maxWidth: '1200px', margin: '0 auto', padding: '0 8px'}}>
           <div style={{textAlign: 'center', marginBottom: '50px'}}>
-            <h1 style={{fontSize: '48px', fontWeight: '700', color: '#0B4F8A', marginBottom: '12px'}}>Latest Insights</h1>
-            <p style={{color: '#6B7280', fontSize: '18px', maxWidth: '600px', margin: '0 auto'}}>Stay updated with exam tips, admission guides, and success stories</p>
+            <h1 className="blog-title" style={{fontSize: '48px', fontWeight: '700', color: '#0B4F8A', marginBottom: '12px'}}>Latest Insights</h1>
+            <p className="blog-subtitle" style={{color: '#6B7280', fontSize: '18px', maxWidth: '600px', margin: '0 auto 20px'}}>Stay updated with exam tips, admission guides, and success stories</p>
+            <div style={{display: 'inline-block', position: 'relative'}}>
+              <select style={{padding: '12px 40px 12px 20px', fontSize: '16px', fontWeight: '600', color: '#0B4F8A', background: 'white', border: '2px solid #0B4F8A', borderRadius: '12px', cursor: 'pointer', appearance: 'none', minWidth: '250px'}} onChange={(e) => e.target.value && (window.location.href = `/blog-details?id=${e.target.value}`)}>
+                <option value="">Select Category</option>
+                {blogs.map((blog) => (
+                  <option key={blog.id} value={blog.id}>{blog.category} - {blog.title}</option>
+                ))}
+              </select>
+              <i className="fa fa-chevron-down" style={{position: 'absolute', right: '15px', top: '50%', transform: 'translateY(-50%)', color: '#0B4F8A', pointerEvents: 'none'}}></i>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            <div className="lg:col-span-3">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-4">
+              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
                 {blogs.map((blog, index) => (
               <a 
                 key={blog.id}
@@ -146,7 +177,7 @@ export default function Blog() {
                     className="blog-img"
                     style={{
                       width: '100%',
-                      height: '200px',
+                      height: '160px',
                       objectFit: 'contain',
                       background: '#F8FAFC'
                     }} 
@@ -155,7 +186,7 @@ export default function Blog() {
                     {blog.category}
                   </div>
                 </div>
-                <div style={{padding: '24px'}}>
+                <div style={{padding: '12px'}}>
                   <h3 style={{fontSize: '18px', fontWeight: '600', color: '#222222', marginBottom: '12px', minHeight: '48px', lineHeight: '1.4'}}>{blog.title}</h3>
                   <div style={{display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px'}}>
                     <i className="fa fa-clock-o" style={{color: '#0B4F8A', fontSize: '14px'}}></i>
@@ -171,35 +202,6 @@ export default function Blog() {
                 </div>
               </a>
             ))}
-              </div>
-            </div>
-
-            <div>
-              <div style={{background: '#FFFFFF', borderRadius: '16px', padding: '24px', border: '1px solid #E8EEF5', position: 'sticky', top: '100px'}}>
-                <h3 style={{fontSize: '20px', fontWeight: '700', color: '#0B4F8A', marginBottom: '20px'}}>Category</h3>
-                <ul style={{listStyle: 'none', padding: 0, margin: 0}}>
-                  {blogs.map((blog) => (
-                    <li key={blog.id} style={{marginBottom: '12px'}}>
-                      <a 
-                        href={`/blog-details?id=${blog.id}`} 
-                        style={{
-                          display: 'block',
-                          padding: '12px 16px',
-                          background: '#F8FAFC',
-                          borderRadius: '8px',
-                          textDecoration: 'none',
-                          color: '#222222',
-                          fontWeight: '500',
-                          fontSize: '14px',
-                          borderLeft: '3px solid #0B4F8A',
-                          transition: 'all 0.3s'
-                        }}
-                      >
-                        {blog.title}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
               </div>
             </div>
           </div>

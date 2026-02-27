@@ -6,17 +6,17 @@ export default function Testimonials() {
   
   const testimonials = [
     {
-      image: "https://d3aj4itat0hxro.cloudfront.net/826/admin_v1/menus/icon/2667795421_ima%20logo.png",
+      image: "https://cdn-icons-png.flaticon.com/512/3655/3655682.png",
       title: "✦ Mess Facility",
       text: "IMA provides mess facility to support students' daily routine and health during NEET/JEE preparation. We maintain proper hygiene and cleanliness, ensuring students get a comfortable and healthy food environment. Regular meals help students stay energetic and maintain a stable schedule without interruptions. A well-managed mess system saves time and allows students to remain fully focused on studies, revision, and test preparation."
     },
     {
-      image: "https://d3aj4itat0hxro.cloudfront.net/826/admin_v1/menus/icon/1798503420_ima%20logo.png",
+      image: "https://cdn-icons-png.flaticon.com/512/3176/3176376.png",
       title: "✦ Hostel Facility",
       text: "IMA offers a well-managed hostel facility designed for students who want a fully focused preparation environment. We provide separate hostel facilities for both boys and girls, ensuring comfort, safety, and a disciplined academic routine. Students can choose AC or Non-AC rooms as per their preference. Hostel life helps students stay connected to a fixed study schedule, improves self-discipline, and consistent improvement throughout NEET/JEE preparation."
     },
     {
-      image: "https://d3aj4itat0hxro.cloudfront.net/826/admin_v1/menus/icon/5931184419_ima%20logo.png",
+      image: "https://cdn-icons-png.flaticon.com/512/3097/3097136.png",
       title: "✦ Transport Facility",
       text: "IMA provides a dedicated transport facility for Jodhpur-based students to make daily travel comfortable and stress-free. It helps students reach the institute on time, maintain regular attendance, and follow a disciplined routine throughout the academic session. With a smooth pickup-drop schedule, students save time and energy, which supports better consistency and academic performance. Parents also feel assured knowing the student's daily commute is properly managed."
     }
@@ -77,14 +77,32 @@ export default function Testimonials() {
             transform: translateY(0);
           }
         }
+        @media (max-width: 768px) {
+          .testimonial-title {
+            font-size: 20px !important;
+          }
+          .testimonial-card-title {
+            font-size: 12px !important;
+          }
+          .testimonial-text {
+            font-size: 11px !important;
+            line-height: 1.4 !important;
+          }
+          .card-hover {
+            padding: 8px !important;
+          }
+          .card-hover .p-4 {
+            padding: 12px !important;
+          }
+        }
       `}</style>
-      <section className="testimonials-section py-12" style={{background: '#F8FAFC'}}>
-        <div className="container mx-auto px-4" style={{maxWidth: '1200px'}}>
+      <section className="testimonials-section py-8 md:py-12" style={{background: '#F8FAFC'}}>
+        <div className="container mx-auto px-2 md:px-4" style={{maxWidth: '1200px'}}>
           <div className="text-center mb-10">
-            <h3 className="text-3xl font-bold mb-2" style={{color: '#0B4F8A'}}>What students say</h3>
+            <h3 className="testimonial-title text-3xl font-bold mb-2" style={{color: '#0B4F8A'}}>What students say</h3>
             <div className="w-20 h-1 mx-auto rounded-full" style={{background: '#0B4F8A'}}></div>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6">
             {testimonials.map((item, index) => (
               <div 
                 key={index} 
@@ -96,16 +114,16 @@ export default function Testimonials() {
                   borderTop: '4px solid #0B4F8A'
                 }}
               >
-                <div className="p-6">
-                  <div className="flex items-center mb-4">
-                    <div className="w-14 h-14 rounded-full flex items-center justify-center mr-3" style={{background: '#E8EEF5'}}>
-                      <img src={item.image} alt="icon" className="w-8 h-8" />
+                <div className="p-4 md:p-6">
+                  <div className="flex items-center mb-3 md:mb-4">
+                    <div className="w-10 h-10 md:w-14 md:h-14 rounded-full flex items-center justify-center mr-2 md:mr-3" style={{background: '#E8EEF5'}}>
+                      <img src={item.image} alt="icon" className="w-6 h-6 md:w-8 md:h-8" />
                     </div>
-                    <h4 className="font-bold text-lg" style={{color: '#0B4F8A'}}>{item.title}</h4>
+                    <h4 className="testimonial-card-title font-bold text-lg" style={{color: '#0B4F8A'}}>{item.title}</h4>
                   </div>
-                  <div className="border-l-3 pl-4" style={{borderLeft: '3px solid #0B4F8A'}}>
+                  <div className="border-l-3 pl-3 md:pl-4" style={{borderLeft: '3px solid #0B4F8A'}}>
                     <i className="fa fa-quote-left text-sm mb-2 block" style={{color: '#4D94FF'}}></i>
-                    <p className="text-gray-700 text-sm leading-relaxed">{item.text}</p>
+                    <p className="testimonial-text text-gray-700 text-sm leading-relaxed">{item.text}</p>
                   </div>
                 </div>
               </div>

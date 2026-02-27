@@ -9,7 +9,7 @@ export default function Programs() {
           {/* JEE Program Card */}
           <div className="program-card">
             <Image 
-              src="/images/24045961768826895_neet.webp" 
+              src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&h=400&fit=crop" 
               alt="JEE Preparation" 
               width={400} 
               height={200} 
@@ -27,7 +27,7 @@ export default function Programs() {
           {/* NEET Program Card */}
           <div className="program-card">
             <Image 
-              src="/images/11878191768826820_neet.webp" 
+              src="https://images.unsplash.com/photo-1579154204601-01588f351e67?w=800&h=400&fit=crop" 
               alt="NEET Preparation" 
               width={400} 
               height={200} 

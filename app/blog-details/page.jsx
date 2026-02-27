@@ -42,12 +42,25 @@ export default function BlogDetail() {
   // All blogs use the same clean design
   return (
     <>
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .blog-detail-title {
+            font-size: 24px !important;
+          }
+          .blog-detail-content h3 {
+            font-size: 18px !important;
+          }
+          .blog-detail-content p {
+            font-size: 14px !important;
+          }
+        }
+      `}</style>
       <Navbar />
       <section className="py-12 md:py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="bg-white rounded-2xl p-6 md:p-10 shadow-lg">
-              <h1 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
+              <h1 className="blog-detail-title text-3xl md:text-4xl font-bold mb-6 text-gray-900">
                 {blog.title}
               </h1>
               
@@ -60,7 +73,7 @@ export default function BlogDetail() {
                 />
               </div>
 
-              <div className="prose prose-lg max-w-none">
+              <div className="blog-detail-content prose prose-lg max-w-none">
                 {typeof blog.content === 'string' ? (
                   <div dangerouslySetInnerHTML={{ __html: blog.content }}></div>
                 ) : Array.isArray(blog.content) ? (

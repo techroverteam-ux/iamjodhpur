@@ -55,21 +55,18 @@ export default function Offerings() {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          backgroundColor: '#f8fafc',
           minHeight: '100vh'
         }}
       >
         
-        {/* Remove overlay completely */}
-
         <div className="container mx-auto px-4 max-w-6xl relative z-10">
           
           {/* Header Section */}
           <div className="text-center mb-12 fade-in-up">
-            <h2 className="text-5xl font-bold mb-4 text-white" style={{fontFamily: 'Poppins, sans-serif', textShadow: '2px 2px 4px rgba(0,0,0,0.8)'}}>
+            <h2 className="text-5xl font-bold mb-4 text-white" style={{fontFamily: 'Playfair Display, serif'}}>
               What IMA Jodhpur Offers?
             </h2>
-            <p className="text-xl max-w-3xl mx-auto text-white" style={{fontFamily: 'Inter, sans-serif', textShadow: '1px 1px 3px rgba(0,0,0,0.7)'}}>
+            <p className="text-xl max-w-3xl mx-auto text-white" style={{fontFamily: 'Inter, sans-serif'}}>
               IMA Jodhpur is a technology based online learning initiative by IMA Jodhpur. Add power of coaching to your online learning with IMA Jodhpur.
             </p>
           </div>
@@ -79,21 +76,15 @@ export default function Offerings() {
             {offerings.map((offering, index) => (
               <div 
                 key={index} 
-                className="bg-white bg-opacity-90 backdrop-blur-sm p-6 rounded-xl border-l-4 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 hover:scale-105 slide-in"
+                className="backdrop-blur-sm p-6 rounded-xl hover:shadow-lg transition-all duration-300 hover:-translate-y-2 hover:scale-105 slide-in"
                 style={{
-                  borderLeftColor: 'var(--primary-medium)',
-                  boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
+                  background: 'rgba(0, 0, 0, 0.7)',
+                  boxShadow: '0 4px 15px rgba(255,255,255,0.1)',
                   animationDelay: `${index * 0.1}s`
                 }}
               >
                 <div className="flex flex-col items-center text-center">
-                  <div 
-                    className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold mb-4 hover:scale-110 transition-transform"
-                    style={{background: 'linear-gradient(135deg, var(--primary-medium), var(--primary-bright))'}}
-                  >
-                    {String(index + 1).padStart(2, '0')}
-                  </div>
-                  <h3 className="font-semibold text-sm leading-tight" style={{fontFamily: 'Poppins, sans-serif', color: 'var(--text-dark)'}}>
+                  <h3 className="font-bold text-xl leading-tight text-white" style={{fontFamily: 'Playfair Display, serif'}}>
                     {offering}
                   </h3>
                 </div>

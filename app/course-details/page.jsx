@@ -94,16 +94,11 @@ export default function CourseDetail() {
           font-weight: 700;
           margin-bottom: 20px;
           position: relative;
-          padding-bottom: 12px;
-        }
-        .course-content h2::after {
-          content: '';
-          position: absolute;
-          left: 0;
-          bottom: 0;
-          width: 60px;
-          height: 3px;
-          background: #FF6B35;
+          padding: 20px 30px;
+          background: linear-gradient(135deg, #F8FAFC, #E8EEF5);
+          border-radius: 12px;
+          border-left: 5px solid #0B4F8A;
+          box-shadow: 0 4px 12px rgba(11, 79, 138, 0.1);
         }
         .course-content h3 {
           color: #333;
@@ -215,6 +210,15 @@ export default function CourseDetail() {
           .course-card {
             position: relative;
             top: 0;
+          }
+          .course-content h2 {
+            font-size: 24px !important;
+          }
+          .course-content h3 {
+            font-size: 18px !important;
+          }
+          .course-content p, .course-content li {
+            font-size: 14px !important;
           }
         }
       `}</style>

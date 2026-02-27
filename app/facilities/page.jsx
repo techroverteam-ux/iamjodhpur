@@ -180,7 +180,7 @@ export default function Facilities() {
                     <span style={{fontSize: '18px', marginRight: '6px'}}>✦</span>
                     Transport Facility
                   </h3>
-                  <p className="text-gray-700" style={{lineHeight: '1.6', fontSize: '13px', textAlign: 'justify'}}>
+                  <p className="text-gray-700" style={{lineHeight: '1.8', fontSize: '16px', textAlign: 'justify'}}>
                     IMA provides a dedicated transport facility for Jodhpur-based students to make daily travel comfortable and stress-free. It helps students reach the institute on time, maintain regular attendance, and follow a disciplined routine throughout the academic session. With a smooth pickup-drop schedule, students save time and energy, which supports better consistency and academic performance. Parents also feel assured knowing the student's daily commute is properly managed.
                   </p>
                 </div>
@@ -194,7 +194,7 @@ export default function Facilities() {
                     <span style={{fontSize: '18px', marginRight: '6px'}}>✦</span>
                     Hostel Facility
                   </h3>
-                  <p className="text-gray-700" style={{lineHeight: '1.6', fontSize: '13px', textAlign: 'justify'}}>
+                  <p className="text-gray-700" style={{lineHeight: '1.8', fontSize: '16px', textAlign: 'justify'}}>
                     IMA offers a well-managed hostel facility designed for students who want a fully focused preparation environment. We provide separate hostel facilities for both boys and girls, ensuring comfort, safety, and a disciplined academic routine. Students can choose AC or Non-AC rooms as per their preference. Hostel life helps students stay connected to a fixed study schedule, improves self-discipline, and removes daily travel distractions. A structured environment supports better time management, regular self-study, and consistent improvement throughout NEET/JEE preparation.
                   </p>
                 </div>
@@ -214,7 +214,7 @@ export default function Facilities() {
                     <span style={{fontSize: '18px', marginRight: '6px'}}>✦</span>
                     Mess Facility
                   </h3>
-                  <p className="text-gray-700" style={{lineHeight: '1.6', fontSize: '13px', textAlign: 'justify'}}>
+                  <p className="text-gray-700" style={{lineHeight: '1.8', fontSize: '16px', textAlign: 'justify'}}>
                     IMA provides mess facility to support students' daily routine and health during NEET/JEE preparation. We maintain proper hygiene and cleanliness, ensuring students get a comfortable and healthy food environment. Regular meals help students stay energetic and maintain a stable schedule without interruptions. A well-managed mess system saves time and allows students to remain fully focused on studies, revision, and test preparation.
                   </p>
                 </div>
