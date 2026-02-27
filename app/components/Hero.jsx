@@ -45,18 +45,32 @@ export default function Hero() {
       <style jsx>{`
         @media (max-width: 768px) {
           .hero-section {
-            height: 300px !important;
+            height: 250px !important;
           }
           .nav-btn {
-            width: 36px !important;
-            height: 36px !important;
+            width: 32px !important;
+            height: 32px !important;
+            bottom: 10px !important;
           }
           .nav-btn i {
-            font-size: 18px !important;
+            font-size: 16px !important;
+          }
+          .nav-btn.left {
+            left: 10px !important;
+          }
+          .nav-btn.right {
+            right: 10px !important;
+          }
+          .dot {
+            width: 6px !important;
+            height: 6px !important;
+          }
+          .dot.active {
+            width: 20px !important;
           }
         }
       `}</style>
-      <section className="hero-section relative w-full overflow-hidden" style={{height: '500px'}}>
+      <section className="hero-section relative w-full overflow-hidden" style={{height: window.innerWidth < 768 ? '250px' : '500px'}}>
         <div className="relative w-full h-full">
           {slides.map((slide, index) => (
             <div
@@ -76,14 +90,30 @@ export default function Hero() {
 
         <button
           onClick={prevSlide}
-          className="nav-btn absolute left-4 top-1/2 -translate-y-1/2 text-white w-12 h-12 rounded-full flex items-center justify-center z-10"
+          className="nav-btn left absolute text-white rounded-full flex items-center justify-center z-10"
+          style={{
+            left: '10px',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            width: window.innerWidth < 768 ? '32px' : '48px',
+            height: window.innerWidth < 768 ? '32px' : '48px',
+            background: 'rgba(22, 119, 200, 0.8)'
+          }}
         >
-          <i className="fa fa-angle-left text-2xl"></i>
+          <i className="fa fa-angle-left" style={{fontSize: window.innerWidth < 768 ? '16px' : '24px'}}></i>
         </button>
 
         <button
           onClick={nextSlide}
-          className="nav-btn absolute right-4 top-1/2 -translate-y-1/2 text-white w-12 h-12 rounded-full flex items-center justify-center z-10"
+          className="nav-btn right absolute text-white rounded-full flex items-center justify-center z-10"
+          style={{
+            right: '10px',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            width: window.innerWidth < 768 ? '32px' : '48px',
+            height: window.innerWidth < 768 ? '32px' : '48px',
+            background: 'rgba(22, 119, 200, 0.8)'
+          }}
         >
           <i className="fa fa-angle-right text-2xl"></i>
         </button>

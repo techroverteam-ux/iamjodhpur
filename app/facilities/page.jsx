@@ -139,11 +139,32 @@ export default function Facilities() {
           transform: rotate(360deg) scale(1.15);
           transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
+        @media (max-width: 768px) {
+          .facility-card {
+            padding: 12px;
+            border-radius: 12px;
+          }
+          .facility-icon-wrapper {
+            width: 60px;
+            height: 60px;
+          }
+          .facility-icon {
+            font-size: 30px;
+          }
+          .facility-card h3 {
+            font-size: 14px;
+            margin-bottom: 8px;
+          }
+          .facility-card p {
+            font-size: 12px;
+            line-height: 1.5;
+          }
+        }
       `}</style>
       
       <Navbar />
       
-      <section style={{background: 'linear-gradient(135deg, #0a1628 0%, #1977f3 100%)', padding: '30px 0', color: 'white', position: 'relative', overflow: 'hidden'}}>
+      <section style={{background: 'linear-gradient(135deg, #0a1628 0%, #1977f3 100%)', padding: '20px 0', color: 'white', position: 'relative', overflow: 'hidden'}}>
         <div style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, opacity: 0.05}}>
           {[...Array(15)].map((_, i) => (
             <div key={i} style={{
@@ -159,16 +180,16 @@ export default function Facilities() {
             }}></div>
           ))}
         </div>
-        <div className="container mx-auto px-4" style={{maxWidth: '1140px', position: 'relative', zIndex: 1}}>
+        <div className="container mx-auto px-2 md:px-4" style={{maxWidth: '1140px', position: 'relative', zIndex: 1}}>
           <div className="text-center">
-            <h1 className="text-3xl font-bold" style={{textShadow: '0 4px 20px rgba(0,0,0,0.3)'}}>Our Facilities</h1>
+            <h1 className="text-xl md:text-3xl font-bold" style={{textShadow: '0 4px 20px rgba(0,0,0,0.3)'}}>Our Facilities</h1>
           </div>
         </div>
       </section>
 
-      <section style={{padding: '35px 0', background: 'linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%)'}}>
-        <div className="container mx-auto px-4" style={{maxWidth: '1140px'}}>
-          <div className="space-y-3">
+      <section style={{padding: '20px 0', background: 'linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%)'}}>
+        <div className="container mx-auto px-2 md:px-4" style={{maxWidth: '1140px'}}>
+          <div className="space-y-2 md:space-y-3">
             
             <div className="facility-card animate-zoom">
               <div className="flex items-center">

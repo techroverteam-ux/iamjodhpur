@@ -79,30 +79,34 @@ export default function Testimonials() {
         }
         @media (max-width: 768px) {
           .testimonial-title {
-            font-size: 20px !important;
+            font-size: 18px !important;
           }
           .testimonial-card-title {
-            font-size: 12px !important;
+            font-size: 11px !important;
           }
           .testimonial-text {
-            font-size: 11px !important;
+            font-size: 10px !important;
             line-height: 1.4 !important;
           }
           .card-hover {
-            padding: 8px !important;
+            padding: 6px !important;
           }
           .card-hover .p-4 {
-            padding: 12px !important;
+            padding: 10px !important;
+          }
+          .w-10, .w-12 {
+            width: 32px !important;
+            height: 32px !important;
           }
         }
       `}</style>
-      <section className="testimonials-section py-8 md:py-12" style={{background: '#F8FAFC'}}>
+      <section className="testimonials-section py-6 md:py-12" style={{background: '#F8FAFC'}}>
         <div className="container mx-auto px-2 md:px-4" style={{maxWidth: '1200px'}}>
           <div className="text-center mb-10">
             <h3 className="testimonial-title text-3xl font-bold mb-2" style={{color: '#0B4F8A'}}>What students say</h3>
             <div className="w-20 h-1 mx-auto rounded-full" style={{background: '#0B4F8A'}}></div>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6">
             {testimonials.map((item, index) => (
               <div 
                 key={index} 

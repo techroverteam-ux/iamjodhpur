@@ -116,33 +116,77 @@ export default function Blog() {
           }
           .blog-subtitle {
             font-size: 13px !important;
+            margin-bottom: 15px !important;
           }
           .sidebar {
             display: none;
+          }
+          .blog-section {
+            padding: 25px 0 !important;
+          }
+          .container {
+            padding: 0 12px !important;
+          }
+          .header-section {
+            margin-bottom: 30px !important;
+          }
+          .category-select {
+            padding: 10px 35px 10px 15px !important;
+            font-size: 14px !important;
+            min-width: auto !important;
+            width: 90% !important;
+            max-width: 280px !important;
+          }
+          .category-dropdown {
+            display: none !important;
           }
           .blog-card h3 {
             font-size: 13px !important;
             min-height: 36px !important;
             line-height: 1.3 !important;
+            margin-bottom: 8px !important;
           }
           .blog-card p {
             font-size: 11px !important;
+            margin-bottom: 10px !important;
           }
           .blog-card > div:last-child {
-            padding: 12px !important;
+            padding: 10px !important;
+          }
+          .blog-card img {
+            height: 120px !important;
+          }
+          .category-badge {
+            padding: 4px 10px !important;
+            font-size: 10px !important;
+            top: 10px !important;
+            right: 10px !important;
+          }
+          .date-section {
+            gap: 6px !important;
+            margin-bottom: 10px !important;
+          }
+          .date-section i {
+            font-size: 12px !important;
+          }
+          .date-section span {
+            font-size: 11px !important;
+          }
+          .read-more {
+            font-size: 12px !important;
           }
         }
       `}</style>
 
       <Navbar />
       
-      <section style={{background: '#FFFFFF', padding: '40px 0'}}>
+      <section className="blog-section" style={{background: '#FFFFFF', padding: '40px 0'}}>
         <div className="container" style={{maxWidth: '1200px', margin: '0 auto', padding: '0 8px'}}>
-          <div style={{textAlign: 'center', marginBottom: '50px'}}>
+          <div className="header-section" style={{textAlign: 'center', marginBottom: '50px'}}>
             <h1 className="blog-title" style={{fontSize: '48px', fontWeight: '700', color: '#0B4F8A', marginBottom: '12px'}}>Latest Insights</h1>
             <p className="blog-subtitle" style={{color: '#6B7280', fontSize: '18px', maxWidth: '600px', margin: '0 auto 20px'}}>Stay updated with exam tips, admission guides, and success stories</p>
-            <div style={{display: 'inline-block', position: 'relative'}}>
-              <select style={{padding: '12px 40px 12px 20px', fontSize: '16px', fontWeight: '600', color: '#0B4F8A', background: 'white', border: '2px solid #0B4F8A', borderRadius: '12px', cursor: 'pointer', appearance: 'none', minWidth: '250px'}} onChange={(e) => e.target.value && (window.location.href = `/blog-details?id=${e.target.value}`)}>
+            <div className="category-dropdown" style={{display: 'inline-block', position: 'relative'}}>
+              <select className="category-select" style={{padding: '12px 40px 12px 20px', fontSize: '16px', fontWeight: '600', color: '#0B4F8A', background: 'white', border: '2px solid #0B4F8A', borderRadius: '12px', cursor: 'pointer', appearance: 'none', minWidth: '250px'}} onChange={(e) => e.target.value && (window.location.href = `/blog-details?id=${e.target.value}`)}>
                 <option value="">Select Category</option>
                 {blogs.map((blog) => (
                   <option key={blog.id} value={blog.id}>{blog.category} - {blog.title}</option>
@@ -182,20 +226,20 @@ export default function Blog() {
                       background: '#F8FAFC'
                     }} 
                   />
-                  <div style={{position: 'absolute', top: '16px', right: '16px', background: '#0B4F8A', color: 'white', padding: '6px 14px', borderRadius: '20px', fontSize: '12px', fontWeight: '600'}}>
+                  <div className="category-badge" style={{position: 'absolute', top: '16px', right: '16px', background: '#0B4F8A', color: 'white', padding: '6px 14px', borderRadius: '20px', fontSize: '12px', fontWeight: '600'}}>
                     {blog.category}
                   </div>
                 </div>
                 <div style={{padding: '12px'}}>
                   <h3 style={{fontSize: '18px', fontWeight: '600', color: '#222222', marginBottom: '12px', minHeight: '48px', lineHeight: '1.4'}}>{blog.title}</h3>
-                  <div style={{display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px'}}>
+                  <div className="date-section" style={{display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px'}}>
                     <i className="fa fa-clock-o" style={{color: '#0B4F8A', fontSize: '14px'}}></i>
                     <span style={{fontSize: '13px', color: '#6B7280'}}>{blog.date}</span>
                   </div>
                   {blog.description && blog.description.trim() && (
                     <p style={{color: '#6B7280', fontSize: '14px', marginBottom: '16px', lineHeight: '1.6'}}>{blog.description}</p>
                   )}
-                  <div style={{display: 'flex', alignItems: 'center', gap: '8px', color: '#0B4F8A', fontWeight: '600', fontSize: '14px'}}>
+                  <div className="read-more" style={{display: 'flex', alignItems: 'center', gap: '8px', color: '#0B4F8A', fontWeight: '600', fontSize: '14px'}}>
                     Read More
                     <span style={{transition: 'transform 0.3s'}}>→</span>
                   </div>

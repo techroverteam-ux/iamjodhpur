@@ -471,31 +471,56 @@ export default function AboutUs() {
 
         @media (max-width: 768px) {
           .hero-title {
-            font-size: 2.5rem;
+            font-size: 1.75rem;
+            padding: 40px 20px 30px;
           }
           .hero-subtitle {
-            font-size: 1.1rem;
+            font-size: 0.875rem;
           }
           .section-title {
-            font-size: 2rem;
+            font-size: 1.5rem;
           }
           .intro-card, .vm-card {
-            padding: 30px;
+            padding: 20px;
           }
           .vm-grid {
             display: block;
           }
           .vision-card {
-            margin-bottom: 30px;
+            margin-bottom: 20px;
           }
           .director-section {
-            padding: 50px 25px;
+            padding: 30px 15px;
+          }
+          .text-content {
+            font-size: 0.875rem;
+            line-height: 1.6;
+          }
+          .stat-number {
+            font-size: 2rem;
+          }
+          .stat-label {
+            font-size: 0.875rem;
+          }
+          .vm-title {
+            font-size: 1.25rem;
+          }
+          .mission-list li {
+            font-size: 0.875rem;
+            padding: 12px 0 12px 35px;
+          }
+          .director-title {
+            font-size: 1.5rem;
+          }
+          .director-section p {
+            font-size: 0.875rem;
+            line-height: 1.6;
           }
         }
       `}</style>
 
       {/* Hero Section */}
-      <section className="hero-section">
+      <section className="hero-section" style={{padding: '60px 20px 40px'}}>
         <div className="hero-content">
           <h1 className="hero-title">About IIT Medical Academy</h1>
           <p className="hero-subtitle">
@@ -509,7 +534,7 @@ export default function AboutUs() {
         <div className="intro-card content-section" ref={(el) => (sectionsRef.current[0] = el)}>
           <h2 className="section-title">Our Legacy Since 1999</h2>
           
-          <div className="stats-grid">
+          <div className="stats-grid" style={{gap: '15px'}}>
             <div className="stat-card">
               <div className="stat-number">1999</div>
               <div className="stat-label">Founded</div>

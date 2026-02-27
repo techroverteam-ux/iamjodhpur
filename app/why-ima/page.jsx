@@ -177,17 +177,40 @@ export default function WhyIAM() {
         }
         
         @media (max-width: 768px) {
+          .hero-section {
+            padding: 30px 15px !important;
+          }
           .hero-title {
-            font-size: 2.2rem;
+            font-size: 1.75rem !important;
+          }
+          .section-bg {
+            padding: 20px 0 !important;
+          }
+          .container {
+            padding: 0 12px !important;
+          }
+          .space-y-3 {
+            gap: 12px !important;
           }
           .feature-content {
-            padding: 1.8rem;
+            padding: 12px !important;
+            gap: 10px !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            text-align: center !important;
+          }
+          .feature-content i {
+            font-size: 1.5rem !important;
+            min-width: auto !important;
           }
           .feature-title {
-            font-size: 1.3rem;
+            font-size: 1.1rem !important;
+            margin-bottom: 8px !important;
           }
-          .feature-icon {
-            font-size: 2.5rem;
+          .feature-text {
+            font-size: 0.875rem !important;
+            line-height: 1.6 !important;
+            text-align: justify !important;
           }
         }
       `}} />
