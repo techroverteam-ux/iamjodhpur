@@ -12,7 +12,8 @@ export default function Blog() {
       date: 'Thu-01-2026 15:14:58',
       description: ' ',
       slug: 'counseling-and-admission-process-for-neet',
-      content: '<p>Complete guide to NEET counseling and admission process.</p>'
+      content: '<p>Complete guide to NEET counseling and admission process.</p>',
+      category: 'NEET'
     },
     {
       id: 2,
@@ -21,7 +22,8 @@ export default function Blog() {
       date: 'Tue-01-2026 11:48:27',
       description: ' ',
       slug: 'ima-jodhpur-classroom-advantages',
-      content: '<p>IMA Jodhpur offers world-class coaching facilities with experienced faculty, comprehensive study materials, and personalized attention to help students achieve their goals in competitive exams.</p><h3>Key Advantages</h3><p>Our classrooms are equipped with modern teaching aids and technology to enhance the learning experience. We provide regular mock tests, doubt clearing sessions, and performance analysis to track student progress.</p>'
+      content: '<p>IMA Jodhpur offers world-class coaching facilities with experienced faculty, comprehensive study materials, and personalized attention to help students achieve their goals in competitive exams.</p><h3>Key Advantages</h3><p>Our classrooms are equipped with modern teaching aids and technology to enhance the learning experience. We provide regular mock tests, doubt clearing sessions, and performance analysis to track student progress.</p>',
+      category: 'General'
     },
     {
       id: 3,
@@ -30,7 +32,8 @@ export default function Blog() {
       date: 'Tue-01-2026 11:40:04',
       description: ' ',
       slug: 'counselling-and-admission-process-for-jee',
-      content: '<p>After JEE results, the counselling process begins for admission to engineering colleges. JoSAA conducts counselling for IITs, NITs, and other centrally funded technical institutions.</p><h3>Counselling Rounds</h3><p>The process includes registration, choice filling, seat allotment, and document verification. Students must complete each step within the given deadlines to secure their admission.</p>'
+      content: '<p>After JEE results, the counselling process begins for admission to engineering colleges. JoSAA conducts counselling for IITs, NITs, and other centrally funded technical institutions.</p><h3>Counselling Rounds</h3><p>The process includes registration, choice filling, seat allotment, and document verification. Students must complete each step within the given deadlines to secure their admission.</p>',
+      category: 'JEE'
     },
     {
       id: 4,
@@ -39,7 +42,8 @@ export default function Blog() {
       date: 'Tue-01-2026 11:24:53',
       description: 'What is JEE (Main+ Advanced)? Official Overview, Eligibility, Timeline an',
       slug: 'what-is-jee-mains-advanced',
-      content: '<p>JEE (Joint Entrance Examination) is conducted in two stages - JEE Main and JEE Advanced. JEE Main is for admission to NITs, IIITs, and other engineering colleges, while JEE Advanced is the gateway to IITs.</p><h3>Eligibility Criteria</h3><p>Students who have passed Class 12 or equivalent examination can appear for JEE Main. Top 2.5 lakh JEE Main qualifiers are eligible for JEE Advanced.</p>'
+      content: '<p>JEE (Joint Entrance Examination) is conducted in two stages - JEE Main and JEE Advanced. JEE Main is for admission to NITs, IIITs, and other engineering colleges, while JEE Advanced is the gateway to IITs.</p><h3>Eligibility Criteria</h3><p>Students who have passed Class 12 or equivalent examination can appear for JEE Main. Top 2.5 lakh JEE Main qualifiers are eligible for JEE Advanced.</p>',
+      category: 'JEE'
     },
     {
       id: 5,
@@ -48,149 +52,158 @@ export default function Blog() {
       date: 'Tue-01-2026 11:10:24',
       description: 'What is NEET UG NEET UG is the nation',
       slug: 'what-is-neet',
-      content: '<p>NEET UG is the national level entrance examination for admission to MBBS, BDS, and other medical courses in India. It is conducted by the National Testing Agency (NTA).</p><h3>Exam Pattern</h3><p>The exam consists of 180 multiple choice questions from Physics, Chemistry, and Biology. Students must qualify NEET to get admission in government and private medical colleges across India.</p>'
+      content: '<p>NEET UG is the national level entrance examination for admission to MBBS, BDS, and other medical courses in India. It is conducted by the National Testing Agency (NTA).</p><h3>Exam Pattern</h3><p>The exam consists of 180 multiple choice questions from Physics, Chemistry, and Biology. Students must qualify NEET to get admission in government and private medical colleges across India.</p>',
+      category: 'NEET'
     }
   ])
+  const [visible, setVisible] = useState(false)
 
   useEffect(() => {
+    setVisible(true)
     if (typeof window !== 'undefined') {
       const savedBlogs = localStorage.getItem('blogs')
       if (savedBlogs) {
         setBlogs(JSON.parse(savedBlogs))
+      } else {
+        localStorage.setItem('blogs', JSON.stringify(blogs))
       }
     }
   }, [])
 
   return (
     <>
-      <Navbar />
-      <style dangerouslySetInnerHTML={{__html: `
-        .blog_section .blog_content {
-          padding: 20px;
-          border-radius: 20px;
-          box-shadow: -2px 3px 14px 0px #ccc;
-          margin-top: 20px;
+      <style jsx>{`
+        .fade-up {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: all 0.6s ease;
         }
-        .blog_title {
-          font-weight: 600;
+        .fade-up.show {
+          opacity: 1;
+          transform: translateY(0);
         }
-        .blog_img {
-          margin: 15px 0;
-        }
-        .blog_times span {
-          color: #aba0a0;
-        }
-        .blog_descriptions {
-          margin: 13px 0 7px 0;
-          text-align: justify;
-          min-height: 0px;
-        }
-        .read_more_btn {
-          padding: 9px 20px;
-          background-color: #1977f3;
-          border-radius: 20px;
-          color: #fff;
-          border: 1px solid #ccc;
-          transition: all 0.3s linear;
-          font-weight: 600;
-          text-decoration: none;
-          display: inline-block;
-        }
-        .read_more_btn:hover {
-          background-color: #fff;
-          color: #000;
-        }
-        .catgry {
-          color: #1977f3;
+        .blog-card {
+          transition: all 0.4s ease;
           position: relative;
-          left: 26px;
-          font-weight: 900;
+          overflow: hidden;
         }
-        .catgry::after {
-          content: "";
+        .blog-card::before {
+          content: '';
           position: absolute;
-          width: 111px;
-          top: 13px;
-          left: 73px;
-          border: 1px solid #acb3c2;
+          top: 0;
+          left: 0;
+          width: 4px;
+          height: 0;
+          background: #0066FF;
+          transition: height 0.4s;
         }
-        .blog-menu-list {
-          max-width: 100%;
+        .blog-card:hover::before {
+          height: 100%;
         }
-        .munu_lists {
-          padding: 20px;
-          margin: 0 0 0 25px;
-          border-radius: 20px;
-          list-style: none;
+        .blog-card:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 16px 32px rgba(0, 102, 255, 0.15);
         }
-        .munu_lists li {
-          margin: 10px;
-          list-style: none;
+        .blog-img {
+          transition: transform 0.4s;
         }
-        .munu_lists li a {
-          color: #706c6c;
-          font-weight: 500;
-          padding: 5px 20px;
-          transition: 0.3s linear;
-          border-radius: 20px;
-          text-decoration: none;
-          display: block;
+        .blog-card:hover .blog-img {
+          transform: scale(1.05);
         }
-        .munu_lists li a:hover {
-          background-color: #1977f3;
-          color: #fff;
-        }
-        .dis-img-box img {
-          width: 100% !important;
-          max-width: 400px !important;
-          height: auto !important;
-        }
-        .strongSetup strong {
-          display: contents;
-        }
-      `}} />
+      `}</style>
 
-      <section id="main-content" style={{paddingTop: '3px'}}>
-        <section className="blog_section py-5 strongSetup">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-8 col-md-12">
-                {blogs.map((blog) => (
-                  <div key={blog.id} className="blog_content">
-                    <h4 className="blog_title">{blog.title}</h4>
-                    <div className="row">
-                      <div className="col-md-4">
-                        <div className="blog_img">
-                          <img src={blog.image} alt="blog-img" className="img-fluid" />
-                        </div>
-                      </div>
-                      <div className="col-md-8 dis-img-box">
-                        <div className="blog_times">
-                          <span><i className="fa fa-clock-o" aria-hidden="true"></i> {blog.date}</span>
-                          <span></span>
-                        </div>
-                        <p className="blog_descriptions">{blog.description}</p>
-                        <div className="text-right">
-                          <a href={`/blog-details?id=${blog.id}`} className="read_more_btn" style={{background: '#1977f3'}}>Read More</a>
-                        </div>
-                      </div>
-                    </div>
+      <Navbar />
+      
+      <section style={{background: '#FFFFFF', padding: '60px 0'}}>
+        <div className="container" style={{maxWidth: '1200px', margin: '0 auto', padding: '0 20px'}}>
+          <div style={{textAlign: 'center', marginBottom: '50px'}}>
+            <h1 style={{fontSize: '48px', fontWeight: '700', color: '#0066FF', marginBottom: '12px'}}>Latest Insights</h1>
+            <p style={{color: '#6B7280', fontSize: '18px', maxWidth: '600px', margin: '0 auto'}}>Stay updated with exam tips, admission guides, and success stories</p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div className="lg:col-span-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {blogs.map((blog, index) => (
+              <a 
+                key={blog.id}
+                href={`/blog-details?id=${blog.id}`}
+                className={`blog-card fade-up ${visible ? 'show' : ''}`}
+                style={{
+                  transitionDelay: `${index * 100}ms`,
+                  background: '#FFFFFF',
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  border: '1px solid #E8EEF5',
+                  textDecoration: 'none',
+                  display: 'block'
+                }}
+              >
+                <div style={{position: 'relative', overflow: 'hidden'}}>
+                  <img 
+                    src={blog.image} 
+                    alt={blog.title} 
+                    className="blog-img"
+                    style={{
+                      width: '100%',
+                      height: '200px',
+                      objectFit: 'contain',
+                      background: '#F8FAFC'
+                    }} 
+                  />
+                  <div style={{position: 'absolute', top: '16px', right: '16px', background: '#0066FF', color: 'white', padding: '6px 14px', borderRadius: '20px', fontSize: '12px', fontWeight: '600'}}>
+                    {blog.category}
                   </div>
-                ))}
+                </div>
+                <div style={{padding: '24px'}}>
+                  <h3 style={{fontSize: '18px', fontWeight: '600', color: '#222222', marginBottom: '12px', minHeight: '48px', lineHeight: '1.4'}}>{blog.title}</h3>
+                  <div style={{display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px'}}>
+                    <i className="fa fa-clock-o" style={{color: '#0066FF', fontSize: '14px'}}></i>
+                    <span style={{fontSize: '13px', color: '#6B7280'}}>{blog.date}</span>
+                  </div>
+                  {blog.description && blog.description.trim() && (
+                    <p style={{color: '#6B7280', fontSize: '14px', marginBottom: '16px', lineHeight: '1.6'}}>{blog.description}</p>
+                  )}
+                  <div style={{display: 'flex', alignItems: 'center', gap: '8px', color: '#0066FF', fontWeight: '600', fontSize: '14px'}}>
+                    Read More
+                    <span style={{transition: 'transform 0.3s'}}>→</span>
+                  </div>
+                </div>
+              </a>
+            ))}
               </div>
-              <div className="col-lg-4 col-md-12 blog-menu-list">
-                <ul className="munu_lists">
-                  <p className="catgry">Category</p>
+            </div>
+
+            <div>
+              <div style={{background: '#FFFFFF', borderRadius: '16px', padding: '24px', border: '1px solid #E8EEF5', position: 'sticky', top: '100px'}}>
+                <h3 style={{fontSize: '20px', fontWeight: '700', color: '#0066FF', marginBottom: '20px'}}>Category</h3>
+                <ul style={{listStyle: 'none', padding: 0, margin: 0}}>
                   {blogs.map((blog) => (
-                    <li key={blog.id}>
-                      <a href={`/blog-details?id=${blog.id}`}>{blog.title}<span className="counts"></span></a>
+                    <li key={blog.id} style={{marginBottom: '12px'}}>
+                      <a 
+                        href={`/blog-details?id=${blog.id}`} 
+                        style={{
+                          display: 'block',
+                          padding: '12px 16px',
+                          background: '#F8FAFC',
+                          borderRadius: '8px',
+                          textDecoration: 'none',
+                          color: '#222222',
+                          fontWeight: '500',
+                          fontSize: '14px',
+                          borderLeft: '3px solid #0066FF',
+                          transition: 'all 0.3s'
+                        }}
+                      >
+                        {blog.title}
+                      </a>
                     </li>
                   ))}
                 </ul>
               </div>
             </div>
           </div>
-        </section>
+        </div>
       </section>
 
       <Footer />

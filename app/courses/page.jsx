@@ -10,203 +10,120 @@ export default function CoursesPage() {
     { id: 42286, title: 'JEE (Mains+Advance)', price: 'Free', validity: '365 Days', description: 'JEE Mains and Advanced preparation', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
     { id: 42385, title: 'All India Test Series (AITS)', price: 'Free', validity: '365 Days', description: 'All India Test Series for practice', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
   ])
+  const [visible, setVisible] = useState(false)
 
   useEffect(() => {
+    setVisible(true)
     if (typeof window !== 'undefined') {
       const savedCourses = localStorage.getItem('courses')
       if (savedCourses) {
         setCourses(JSON.parse(savedCourses))
-      } else {
-        localStorage.setItem('courses', JSON.stringify(courses))
       }
     }
   }, [])
 
   return (
     <>
-      <Navbar />
-      
-      <style dangerouslySetInnerHTML={{__html: `
-        .lighty-inner-page {
-          background-color: #f6fcff!important;
-          padding: 30px 0px;
+      <style jsx>{`
+        .fade-in {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: all 0.5s ease;
         }
-        .product_card {
-          box-shadow: 0px 5px 7px rgb(0 0 0 / 20%);
-          background-color: #fff;
-          border: 0;
+        .fade-in.show {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .course-card {
+          transition: all 0.3s ease;
           position: relative;
           overflow: hidden;
-          border-radius: 10px;
-          border: 1px solid #fbfbfb;
-          margin-bottom: 22px;
         }
-        .product_card:hover {
-          border-bottom: 2px solid #1977f3!important;
+        .course-card::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 4px;
+          background: linear-gradient(90deg, #0066FF, #FF6B35);
+          transition: left 0.4s;
         }
-        .breadcrumbs {
-          display: flex;
-          padding: 10px;
-          list-style: none;
-          margin: 0;
+        .course-card:hover::before {
+          left: 0;
         }
-        .breadcrumbs li+li:before {
-          padding: 0 5px;
-          content: ">";
-          color: #1977f3!important;
-          background-color: transparent;
-          font-weight: bold;
+        .course-card:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 16px 32px rgba(0, 102, 255, 0.2);
         }
-        .breadcrumbs li:last-child a {
-          font-weight: bold;
-          color:#1977f3!important;
-        }
-        .breadcrumbs a {
-          color: #666;
-          text-decoration: none;
-          transition: color 0.3s;
-        }
-        .breadcrumbs a:hover {
-          color: #1977f3;
-        }
-        .nav.nav-tabs.tabs-new-left-1 {
-          display: block;
-          border-bottom: none;
-          border-top: 1px solid #c5c5c5;
-          box-shadow: 0px 5px 8px rgba(0,0,0,0.2);
-          border: 1px solid #dfd7d7;
-        }
-        .tab-brd-2 {
-          border-bottom: 1px solid #dfd5d5;
-          padding: 10px;
-          cursor: pointer;
+        .btn-explore {
           transition: all 0.3s;
         }
-        .tab-brd-2:hover {
-          background-image: linear-gradient(to right, #1977f3, #1977f3) !important;
-          color: #fff;
+        .btn-explore:hover {
+          background: #0052CC !important;
+          transform: scale(1.05);
         }
-        .tab-brd-active {
-          background-image: linear-gradient(to right, #1977f3, #1977f3) !important;
-          color: #fff;
-        }
-        .inner-mid-image {
-          height: 130px;
-          width: 100%;
-        }
-        .inner-mid-image img {
-          width: 100%;
-          overflow: hidden;
-          height: 130px;
-          object-fit: contain;
-        }
-        .h6_title {
-          font-size: 16px;
-          font-weight: 600;
-          min-height: 48px;
-          margin-bottom: 10px;
-        }
-        .book-price {
-          font-size: 1.2rem;
-          font-weight: 700;
-          color: #1977f3;
-          margin-bottom: 10px;
-        }
-        .book-price span {
-          color: #1977f3;
-        }
-        .book-price small {
-          color: #999;
-          font-size: 0.9rem;
-        }
-        .book_validity {
-          font-size: 0.9rem;
-          color: #666;
-          margin-bottom: 10px;
-        }
-        .vality_div {
-          margin-top: 10px;
-        }
-        .view_bts {
-          padding: 8px 20px;
-          background: #1977f3!important;
-          color: #FFF;
-          border-radius: 5px;
-          text-decoration: none;
-          display: inline-block;
+        .btn-enroll {
           transition: all 0.3s;
-          font-weight: 600;
         }
-        .view_bts:hover {
-          background: #0d5bbf!important;
-          color: #fff;
-          transform: translateY(-2px);
+        .btn-enroll:hover {
+          background: #0066FF !important;
+          color: white !important;
         }
-      `}} />
+      `}</style>
 
-      <section className="bg-light lighty-inner-page">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <ul className='breadcrumbs'>
-                <li><a href="/">Home</a></li> 
-                <li><a href="#"><span>All Courses</span></a></li>
-              </ul>
+      <Navbar />
+      
+      <section style={{background: 'linear-gradient(135deg, #F8FAFC 0%, #E8EEF5 100%)', padding: '60px 0'}}>
+        <div className="container" style={{maxWidth: '1200px', margin: '0 auto', padding: '0 20px'}}>
+          <div style={{marginBottom: '40px', textAlign: 'center'}}>
+            <div style={{display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '14px', color: '#6B7280', marginBottom: '20px', background: 'white', padding: '8px 16px', borderRadius: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.05)'}}>
+              <a href="/" style={{color: '#6B7280', textDecoration: 'none'}}>Home</a>
+              <span>›</span>
+              <span style={{color: '#0066FF', fontWeight: '600'}}>All Courses</span>
             </div>
+            <h1 style={{fontSize: '42px', fontWeight: '700', color: '#0066FF', marginBottom: '12px'}}>Explore Our Courses</h1>
+            <p style={{color: '#6B7280', fontSize: '18px', maxWidth: '600px', margin: '0 auto'}}>Choose the perfect program to achieve your academic goals</p>
           </div>
-          <div className="row">
-            <div className="col-lg-3 product__filter nabTab-filter">
-              <div className="nav nav-tabs tabs-new-left-1" role="tablist">
-                <div className="tab-brd-2 tab-brd-active" style={{pointerEvents: 'auto'}}>
-                  All Courses
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-9">
-              <div className="tab-content active">
-                <div className="tab-pane active">
-                  <div className="row product_data1">
-                    {courses.map((item) => (
-                      <div key={item.id} className="col-lg-4 col-md-4 course_list mb-10">
-                        <div className="card product_card">
-                          <a className="text-center" href={`/course-details?id=${item.id}`}>
-                            <div className="inner-mid-image">
-                              <img className="card-img-top" src={item.image} alt={item.title} />
-                            </div>
-                          </a>
-                          <div className="card-body">
-                            <a href={`/course-details?id=${item.id}`}>
-                              <h6 className="h6_title">{item.title}</h6>
-                              <div className="justify-content-between pt-1">
-                                <h6 className="book-price">
-                                  {item.discountedPrice ? (
-                                    <>
-                                      <span>₹ {item.discountedPrice} /-</span>
-                                      <small className="strick book-price"> ₹ <strike>{item.price}</strike> /-</small>
-                                    </>
-                                  ) : (
-                                    <span>{item.price}</span>
-                                  )}
-                                </h6>
-                              </div>
-                            </a>
-                            <div className="footer_ content-center vality_div">
-                              <span className="book_validity d-inline-block">
-                                <i className="fa fa-calendar" aria-hidden="true"></i> Validity {item.validity}
-                              </span>
-                            </div>
-                            <div className="footer_ content-center vality_div" style={{display:'flex'}}>
-                              <a href={`/course-details?id=${item.id}`} className="view_bts">Explore</a>
-                              <a href={`/course-details?id=${item.id}`} className="view_bts" style={{marginLeft:'10px'}}>Enroll Now</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {courses.map((item, index) => (
+              <div 
+                key={item.id} 
+                className={`course-card fade-in ${visible ? 'show' : ''}`}
+                style={{
+                  transitionDelay: `${index * 150}ms`,
+                  background: '#FFFFFF',
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  border: '1px solid #E8EEF5'
+                }}
+              >
+                <a href={`/course-details?id=${item.id}`} style={{textDecoration: 'none'}}>
+                  <div style={{height: '180px', background: 'linear-gradient(135deg, #F8FAFC, #E8EEF5)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px', position: 'relative'}}>
+                    <div style={{position: 'absolute', top: '12px', right: '12px', background: '#FF6B35', color: 'white', padding: '4px 12px', borderRadius: '12px', fontSize: '12px', fontWeight: '600'}}>
+                      {item.price}
+                    </div>
+                    <img src={item.image} alt={item.title} style={{maxWidth: '100%', maxHeight: '100%', objectFit: 'contain'}} />
                   </div>
-                </div>
+                  <div style={{padding: '20px'}}>
+                    <h3 style={{fontSize: '17px', fontWeight: '600', color: '#222222', marginBottom: '12px', minHeight: '48px', lineHeight: '1.4'}}>{item.title}</h3>
+                    <div style={{display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '16px', padding: '8px 12px', background: '#F8FAFC', borderRadius: '8px'}}>
+                      <i className="fa fa-calendar" style={{color: '#0066FF', fontSize: '14px'}}></i>
+                      <span style={{fontSize: '13px', color: '#6B7280', fontWeight: '500'}}>{item.validity}</span>
+                    </div>
+                    <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
+                      <button className="btn-explore" style={{width: '100%', padding: '12px', background: '#0066FF', color: 'white', border: 'none', borderRadius: '8px', fontWeight: '600', cursor: 'pointer', fontSize: '14px'}}>
+                        Explore Course
+                      </button>
+                      <button className="btn-enroll" style={{width: '100%', padding: '12px', background: 'transparent', color: '#0066FF', border: '2px solid #0066FF', borderRadius: '8px', fontWeight: '600', cursor: 'pointer', fontSize: '14px'}}>
+                        Enroll Now
+                      </button>
+                    </div>
+                  </div>
+                </a>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
