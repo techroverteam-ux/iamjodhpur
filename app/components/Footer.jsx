@@ -45,8 +45,13 @@ export default function Footer() {
           <div>
             <h4 className="footer-title font-bold mb-1 text-white" style={{fontSize: '16px'}}>Quick Links</h4>
             <ul className="space-y-0.5">
+              <li><Link href="/" className="footer-link hover:underline text-white" style={{fontSize: '15px'}}>Home</Link></li>
               <li><Link href="/about-us" className="footer-link hover:underline text-white" style={{fontSize: '15px'}}>About Us</Link></li>
               <li><Link href="/courses" className="footer-link hover:underline text-white" style={{fontSize: '15px'}}>Courses</Link></li>
+              <li><Link href="/facilities" className="footer-link hover:underline text-white" style={{fontSize: '15px'}}>Facilities</Link></li>
+              <li><Link href="/blog" className="footer-link hover:underline text-white" style={{fontSize: '15px'}}>Blogs</Link></li>
+              <li><Link href="/why-ima" className="footer-link hover:underline text-white" style={{fontSize: '15px'}}>Why IMA?</Link></li>
+              <li><Link href="/contact-us" className="footer-link hover:underline text-white" style={{fontSize: '15px'}}>Contact Us</Link></li>
               <li><Link href="/faqs" className="footer-link hover:underline text-white" style={{fontSize: '15px'}}>FAQ's</Link></li>
             </ul>
           </div>
@@ -77,7 +82,7 @@ export default function Footer() {
             <ul className="space-y-0.5">
               <li className="footer-link flex items-start text-white" style={{fontSize: '15px'}}>
                 <i className="fa fa-map-marker mr-1 mt-0.5"></i>
-                <span>MAIN, Pal Rd, near BARKATULLAH KHAN STADIUM, near SHRI RAM FILLING STATION, Sector-E, Shastri Nagar, Jodhpur, Rajasthan 342003</span>
+                <span>MAIN, Pal Road, Near Barkatullah Khan Stadium,<br/>Near Shri Ram Filling Station, Sector-E,<br/>Shastri Nagar, Jodhpur, Rajasthan - 342003</span>
               </li>
               <li>
                 <a href="tel:9571037333" className="footer-link flex items-center hover:underline text-white" style={{fontSize: '15px'}}>

@@ -201,7 +201,7 @@ export default function AboutUs() {
           transform: translateX(-50%);
           width: 120px;
           height: 5px;
-          background: linear-gradient(90deg, #1977f3, #00d4ff, #ff6b9d);
+          background: linear-gradient(90deg, #1B5A96, #2E6BA8, #4FB3E8);
           border-radius: 3px;
         }
 
@@ -342,7 +342,7 @@ export default function AboutUs() {
           left: 0;
           width: 100%;
           height: 6px;
-          background: linear-gradient(90deg, #1977f3, #00d4ff, #ff6b9d);
+          background: linear-gradient(90deg, #1B5A96, #2E6BA8, #4FB3E8);
         }
 
         .vision-card.animate-in {

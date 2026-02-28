@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
   
   const slides = [
     '/images/1.png',
@@ -13,10 +14,21 @@ export default function Hero() {
   ]
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length)
     }, 4000)
-    return () => clearInterval(timer)
+    
+    return () => {
+      clearInterval(timer)
+      window.removeEventListener('resize', checkMobile)
+    }
   }, [])
 
   const goToSlide = (index) => setCurrentSlide(index)
@@ -42,35 +54,7 @@ export default function Hero() {
           width: 40px;
         }
       `}</style>
-      <style jsx>{`
-        @media (max-width: 768px) {
-          .hero-section {
-            height: 250px !important;
-          }
-          .nav-btn {
-            width: 32px !important;
-            height: 32px !important;
-            bottom: 10px !important;
-          }
-          .nav-btn i {
-            font-size: 16px !important;
-          }
-          .nav-btn.left {
-            left: 10px !important;
-          }
-          .nav-btn.right {
-            right: 10px !important;
-          }
-          .dot {
-            width: 6px !important;
-            height: 6px !important;
-          }
-          .dot.active {
-            width: 20px !important;
-          }
-        }
-      `}</style>
-      <section className="hero-section relative w-full overflow-hidden" style={{height: window.innerWidth < 768 ? '250px' : '500px'}}>
+      <section className="hero-section relative w-full overflow-hidden" style={{height: isMobile ? '250px' : '500px'}}>
         <div className="relative w-full h-full">
           {slides.map((slide, index) => (
             <div
@@ -95,12 +79,12 @@ export default function Hero() {
             left: '10px',
             top: '50%',
             transform: 'translateY(-50%)',
-            width: window.innerWidth < 768 ? '32px' : '48px',
-            height: window.innerWidth < 768 ? '32px' : '48px',
+            width: isMobile ? '32px' : '48px',
+            height: isMobile ? '32px' : '48px',
             background: 'rgba(22, 119, 200, 0.8)'
           }}
         >
-          <i className="fa fa-angle-left" style={{fontSize: window.innerWidth < 768 ? '16px' : '24px'}}></i>
+          <i className="fa fa-angle-left" style={{fontSize: isMobile ? '16px' : '24px'}}></i>
         </button>
 
         <button
@@ -110,8 +94,8 @@ export default function Hero() {
             right: '10px',
             top: '50%',
             transform: 'translateY(-50%)',
-            width: window.innerWidth < 768 ? '32px' : '48px',
-            height: window.innerWidth < 768 ? '32px' : '48px',
+            width: isMobile ? '32px' : '48px',
+            height: isMobile ? '32px' : '48px',
             background: 'rgba(22, 119, 200, 0.8)'
           }}
         >
