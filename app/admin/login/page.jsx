@@ -24,7 +24,7 @@ export default function AdminLogin() {
       <div className="min-h-screen flex items-center justify-center" style={{background: '#f5f5f5'}}>
         <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-8">
           <div className="text-center mb-6">
-            <Image src="https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png" width={120} height={50} alt="IMA Jodhpur" className="mx-auto mb-4" />
+            <Image src="/images/new_logo.png" width={120} height={50} alt="IMA Jodhpur" className="mx-auto mb-4" />
             <h2 className="text-2xl font-bold" style={{color: '#1977f3'}}>Admin Login</h2>
           </div>
           <form onSubmit={handleLogin}>

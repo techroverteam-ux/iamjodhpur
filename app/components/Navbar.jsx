@@ -9,14 +9,105 @@ export default function Navbar() {
 
   return (
     <div className="sticky top-0 z-50">
+      <style jsx>{`
+        .nav-link {
+          position: relative;
+          overflow: hidden;
+          transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .nav-link::before {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          width: 0;
+          height: 2px;
+          background: linear-gradient(90deg, #1B5A96, #2E6BA8, #4FB3E8);
+          transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          transform: translateX(-50%);
+        }
+        
+        .nav-link:hover::before {
+          width: 100%;
+        }
+        
+        .nav-link::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(75, 179, 232, 0.1), transparent);
+          transition: left 0.6s ease;
+        }
+        
+        .nav-link:hover::after {
+          left: 100%;
+        }
+        
+        .nav-link:hover {
+          color: #1B5A96 !important;
+          transform: translateY(-2px);
+          text-shadow: 0 2px 8px rgba(27, 90, 150, 0.3);
+        }
+        
+        .logo-container {
+          transition: all 0.3s ease;
+        }
+        
+        .logo-container:hover {
+          transform: scale(1.05);
+          filter: drop-shadow(0 4px 12px rgba(27, 90, 150, 0.3));
+        }
+        
+        .login-btn {
+          position: relative;
+          overflow: hidden;
+          transition: all 0.3s ease;
+        }
+        
+        .login-btn::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+          transition: left 0.5s ease;
+        }
+        
+        .login-btn:hover::before {
+          left: 100%;
+        }
+        
+        .login-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(22, 119, 200, 0.4);
+        }
+        
+        .mobile-nav-link {
+          transition: all 0.3s ease;
+          border-left: 3px solid transparent;
+        }
+        
+        .mobile-nav-link:hover {
+          border-left-color: #1677C8;
+          background: rgba(22, 119, 200, 0.05);
+          transform: translateX(8px);
+        }
+      `}</style>
+      
       <section className="top_heads top_heads_header top-head" style={{background:'#0B4F8A'}}>
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center py-2.5">
-            <a href="tel:9828019432" className="text-white text-sm">
-              <i className="fa fa-phone mr-1"></i> +91 - 9828019432
+            <a href="tel:9571037333" className="text-white text-sm">
+              <i className="fa fa-phone mr-1"></i> +91 - 9571037333
             </a>
-            <a href="mailto:ceo.imajodhpur@gmail.com" className="text-white text-sm">
-              <i className="fa fa-envelope-o mr-1"></i> ceo.imajodhpur@gmail.com
+            <a href="mailto:ceo.iitacademy@gmail.com" className="text-white text-sm">
+              <i className="fa fa-envelope-o mr-1"></i> ceo.iitacademy@gmail.com
             </a>
           </div>
         </div>
@@ -24,24 +115,24 @@ export default function Navbar() {
 
       <div className="bg-white shadow-sm border-b">
         <div className="container mx-auto px-4">
-          <nav className="flex justify-between items-center h-24">
-            <Link href="/" className="flex items-center">
-              <Image src="/images/3520795826_both.png" width={280} height={110} alt="IMA Jodhpur" className="h-24 w-auto" />
+          <nav className="flex justify-between items-center h-20">
+            <Link href="/" className="flex items-center logo-container">
+              <Image src="/images/new_logo.png" width={220} height={85} alt="IMA Jodhpur" className="h-20 w-auto" />
             </Link>
 
             <button onClick={() => setIsOpen(!isOpen)} className="md:hidden p-2">
               <span className="text-2xl text-gray-700">☰</span>
             </button>
 
-            <div className="hidden md:flex items-center space-x-8">
-              <Link href="/" className="text-gray-800 hover:text-[#0B4F8A] font-medium text-sm uppercase tracking-wide transition-colors duration-200">Home</Link>
-              <Link href="/about-us" className="text-gray-800 hover:text-[#0B4F8A] font-medium text-sm uppercase tracking-wide transition-colors duration-200">About Us</Link>
-              <Link href="/courses" className="text-gray-800 hover:text-[#0B4F8A] font-medium text-sm uppercase tracking-wide transition-colors duration-200">Courses</Link>
-              <Link href="/facilities" className="text-gray-800 hover:text-[#0B4F8A] font-medium text-sm uppercase tracking-wide transition-colors duration-200">Facilities</Link>
-              <Link href="/blog" className="text-gray-800 hover:text-[#0B4F8A] font-medium text-sm uppercase tracking-wide transition-colors duration-200">Blogs</Link>
-              <Link href="/why-ima" className="text-gray-800 hover:text-[#0B4F8A] font-medium text-sm uppercase tracking-wide transition-colors duration-200">WHY IMA ?</Link>
-              <Link href="/contact-us" className="text-gray-800 hover:text-[#0B4F8A] font-medium text-sm uppercase tracking-wide transition-colors duration-200">Contact Us</Link>
-              <button onClick={() => setShowLoginModal(true)} className="px-6 py-2.5 rounded-md text-white font-medium text-sm uppercase tracking-wide transition-all duration-200 hover:shadow-lg" style={{background:'#1677C8'}}>
+            <div className="hidden md:flex items-center space-x-4">
+              <Link href="/" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1">Home</Link>
+              <Link href="/about-us" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1">About Us</Link>
+              <Link href="/courses" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1">Courses</Link>
+              <Link href="/facilities" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1">Facilities</Link>
+              <Link href="/blog" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1">Blogs</Link>
+              <Link href="/why-ima" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1">WHY IMA ?</Link>
+              <Link href="/contact-us" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1">Contact Us</Link>
+              <button onClick={() => setShowLoginModal(true)} className="login-btn px-6 py-2.5 rounded-md text-white font-medium text-sm uppercase tracking-wide" style={{background:'#1677C8'}}>
                 Login
               </button>
             </div>
@@ -50,13 +141,13 @@ export default function Navbar() {
           {isOpen && (
             <div className="md:hidden pb-6 border-t">
               <div className="pt-4 space-y-3">
-                <Link href="/" className="block py-2 text-gray-800 font-medium text-sm uppercase tracking-wide">Home</Link>
-                <Link href="/about-us" className="block py-2 text-gray-800 font-medium text-sm uppercase tracking-wide">About Us</Link>
-                <Link href="/courses" className="block py-2 text-gray-800 font-medium text-sm uppercase tracking-wide">Courses</Link>
-                <Link href="/facilities" className="block py-2 text-gray-800 font-medium text-sm uppercase tracking-wide">Facilities</Link>
-                <Link href="/blog" className="block py-2 text-gray-800 font-medium text-sm uppercase tracking-wide">Blogs</Link>
-                <Link href="/why-ima" className="block py-2 text-gray-800 font-medium text-sm uppercase tracking-wide">WHY IMA ?</Link>
-                <Link href="/contact-us" className="block py-2 text-gray-800 font-medium text-sm uppercase tracking-wide">Contact Us</Link>
+                <Link href="/" className="mobile-nav-link block py-3 px-4 text-gray-800 font-medium text-sm uppercase tracking-wide">Home</Link>
+                <Link href="/about-us" className="mobile-nav-link block py-3 px-4 text-gray-800 font-medium text-sm uppercase tracking-wide">About Us</Link>
+                <Link href="/courses" className="mobile-nav-link block py-3 px-4 text-gray-800 font-medium text-sm uppercase tracking-wide">Courses</Link>
+                <Link href="/facilities" className="mobile-nav-link block py-3 px-4 text-gray-800 font-medium text-sm uppercase tracking-wide">Facilities</Link>
+                <Link href="/blog" className="mobile-nav-link block py-3 px-4 text-gray-800 font-medium text-sm uppercase tracking-wide">Blogs</Link>
+                <Link href="/why-ima" className="mobile-nav-link block py-3 px-4 text-gray-800 font-medium text-sm uppercase tracking-wide">WHY IMA ?</Link>
+                <Link href="/contact-us" className="mobile-nav-link block py-3 px-4 text-gray-800 font-medium text-sm uppercase tracking-wide">Contact Us</Link>
                 <button onClick={() => setShowLoginModal(true)} className="w-full mt-4 px-6 py-2.5 rounded-md text-white font-medium text-sm uppercase tracking-wide" style={{background:'#1677C8'}}>Login</button>
               </div>
             </div>
@@ -70,7 +161,7 @@ export default function Navbar() {
             <button onClick={() => setShowLoginModal(false)} className="absolute top-2 right-2 text-4xl text-gray-400 hover:text-gray-600 leading-none" style={{fontSize: '40px'}}>&times;</button>
             <div className="text-center py-8 px-10">
               <div className="mb-4">
-                <Image src="/images/3520795826_both.png" width={100} height={40} alt="IMA Jodhpur" className="mx-auto" style={{height: 'auto', width: '100px'}} />
+                <Image src="/images/new_logo.png" width={100} height={40} alt="IMA Jodhpur" className="mx-auto" style={{height: 'auto', width: '100px'}} />
               </div>
               <p className="my-6 font-bold" style={{fontSize: '16px'}}>Enter your details to continue</p>
               <form onSubmit={(e) => { e.preventDefault(); alert('Login functionality coming soon!'); }} className="mb-3">

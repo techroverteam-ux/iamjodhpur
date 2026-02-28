@@ -119,7 +119,7 @@ export default function AdminDashboard() {
         <div className="bg-white shadow-md">
           <div className="container mx-auto px-4 py-4 flex justify-between items-center">
             <div className="flex items-center gap-4">
-              <Image src="https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png" width={100} height={40} alt="IMA Jodhpur" />
+              <Image src="/images/new_logo.png" width={100} height={40} alt="IMA Jodhpur" />
               <h1 className="text-xl font-bold" style={{color: '#1977f3'}}>Admin Dashboard</h1>
             </div>
             <button onClick={handleLogout} className="px-4 py-2 rounded text-white font-semibold" style={{background: '#dc3545'}}>

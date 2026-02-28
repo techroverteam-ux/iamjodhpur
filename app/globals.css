@@ -20,6 +20,10 @@
   --text-dark: #1E1E1E;
   --text-gray: #6B7280;
   --bg-light: #F5F7FA;
+  /* New logo inspired colors */
+  --logo-blue: #1B5A96;
+  --logo-blue-light: #2E6BA8;
+  --logo-blue-dark: #0F4A7A;
 }
 
 * {

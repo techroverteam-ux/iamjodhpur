@@ -37,7 +37,7 @@ export default function Footer() {
         <div className="footer-grid grid grid-cols-1 md:grid-cols-4 gap-3">
           <div>
             <Link href="/">
-              <Image src="/images/3520795826_both.png" width={80} height={32} alt="IMA Jodhpur" className="footer-logo" />
+              <Image src="/images/new_logo.png" width={120} height={48} alt="IMA Jodhpur" className="footer-logo" />
             </Link>
             <p className="text-white mt-1 footer-link" style={{fontSize: '15px'}}>Leading coaching institute for JEE, NEET, and Foundation.</p>
           </div>
@@ -77,16 +77,16 @@ export default function Footer() {
             <ul className="space-y-0.5">
               <li className="footer-link flex items-start text-white" style={{fontSize: '15px'}}>
                 <i className="fa fa-map-marker mr-1 mt-0.5"></i>
-                <span>E-74 main pal road, Jodhpur</span>
+                <span>MAIN, Pal Rd, near BARKATULLAH KHAN STADIUM, near SHRI RAM FILLING STATION, Sector-E, Shastri Nagar, Jodhpur, Rajasthan 342003</span>
               </li>
               <li>
-                <a href="tel:9828019432" className="footer-link flex items-center hover:underline text-white" style={{fontSize: '15px'}}>
-                  <i className="fa fa-phone mr-1"></i> +91 - 9828019432
+                <a href="tel:9571037333" className="footer-link flex items-center hover:underline text-white" style={{fontSize: '15px'}}>
+                  <i className="fa fa-phone mr-1"></i> +91 - 9571037333
                 </a>
               </li>
               <li>
-                <a href="mailto:ceo.imajodhpur@gmail.com" className="footer-link flex items-center hover:underline text-white" style={{fontSize: '15px'}}>
-                  <i className="fa fa-envelope mr-1"></i> ceo.imajodhpur@gmail.com
+                <a href="mailto:ceo.iitacademy@gmail.com" className="footer-link flex items-center hover:underline text-white" style={{fontSize: '15px'}}>
+                  <i className="fa fa-envelope mr-1"></i> ceo.iitacademy@gmail.com
                 </a>
               </li>
             </ul>

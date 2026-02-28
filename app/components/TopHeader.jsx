@@ -6,11 +6,11 @@ export default function TopHeader() {
       <div className="container">
         <div className="row">
           <div className="col-md-12 munberss">
-            <a href="tel:9828019432" className="text-white">
-              <i className="fa fa-phone" aria-hidden="true"></i> +91 - 9828019432
+            <a href="tel:9571037333" className="text-white">
+              <i className="fa fa-phone" aria-hidden="true"></i> +91 - 9571037333
             </a>
-            <a href="mailto:ceo.imajodhpur@gmail.com" className="text-white pull-right">
-              <i className="fa fa-envelope-o" aria-hidden="true"></i> ceo.imajodhpur@gmail.com
+            <a href="mailto:ceo.iitacademy@gmail.com" className="text-white pull-right">
+              <i className="fa fa-envelope-o" aria-hidden="true"></i> ceo.iitacademy@gmail.com
             </a>
           </div>
         </div>

@@ -169,7 +169,7 @@ export default function Courses() {
             <button onClick={() => setShowLoginModal(false)} className="absolute top-2 right-2 text-4xl text-gray-400 hover:text-gray-600 leading-none" style={{fontSize: '40px'}}>&times;</button>
             <div className="text-center py-8 px-10">
               <div className="mb-4">
-                <Image src="/images/3520795826_both.png" width={100} height={40} alt="IMA Jodhpur" className="mx-auto" style={{height: 'auto', width: '100px'}} />
+                <Image src="/images/new_logo.png" width={100} height={40} alt="IMA Jodhpur" className="mx-auto" style={{height: 'auto', width: '100px'}} />
               </div>
               <p className="my-6 font-bold" style={{fontSize: '16px'}}>Enter your details to continue</p>
               <form onSubmit={(e) => { e.preventDefault(); alert('Login functionality coming soon!'); }} className="mb-3">

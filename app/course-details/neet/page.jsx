@@ -207,7 +207,7 @@ export default function NEETCourseDetail() {
 
           <div>
             <div className="course-card">
-              <img src="/images/3520795826_both.png" alt="NEET Preparation" className="course-card-image" />
+              <img src="/images/new_logo.png" alt="NEET Preparation" className="course-card-image" />
               <div className="course-card-body">
                 <h3 className="course-card-title">NEET Preparation</h3>
                 <p className="course-card-author">By IMA Jodhpur</p>

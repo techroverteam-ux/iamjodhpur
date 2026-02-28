@@ -84,7 +84,7 @@ export default function AboutUs() {
         }
 
         .hero-section {
-          background: linear-gradient(135deg, #0f2557 0%, #1977f3 50%, #00d4ff 100%);
+          background: linear-gradient(135deg, #1B5A96 0%, #2E6BA8 50%, #4FB3E8 100%);
           padding: 80px 20px 60px;
           position: relative;
           overflow: hidden;
@@ -184,7 +184,7 @@ export default function AboutUs() {
         .section-title {
           font-size: 2.5rem;
           font-weight: 800;
-          background: linear-gradient(135deg, #1977f3, #00d4ff);
+          background: linear-gradient(135deg, #1B5A96, #4FB3E8);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
@@ -213,11 +213,11 @@ export default function AboutUs() {
         }
 
         .stat-card {
-          background: linear-gradient(135deg, #1977f3 0%, #00d4ff 100%);
+          background: linear-gradient(135deg, #1B5A96 0%, #4FB3E8 100%);
           padding: 40px 30px;
           border-radius: 20px;
           text-align: center;
-          box-shadow: 0 15px 40px rgba(25, 119, 243, 0.3);
+          box-shadow: 0 15px 40px rgba(27, 90, 150, 0.3);
           transition: all 0.4s ease;
           position: relative;
           overflow: hidden;
