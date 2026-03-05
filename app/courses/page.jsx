@@ -63,7 +63,7 @@ export default function CoursesPage() {
           left: -100%;
           width: 100%;
           height: 4px;
-          background: linear-gradient(90deg, #0B4F8A, #FF6B35);
+          background: linear-gradient(90deg, #1B5A96, #FF6B35);
           transition: left 0.4s;
         }
         .course-card:hover::before {
@@ -77,14 +77,14 @@ export default function CoursesPage() {
           transition: all 0.3s;
         }
         .btn-explore:hover {
-          background: #0052CC !important;
+          background: #1B5A96 !important;
           transform: scale(1.05);
         }
         .btn-enroll {
           transition: all 0.3s;
         }
         .btn-enroll:hover {
-          background: #0B4F8A !important;
+          background: #1B5A96 !important;
           color: white !important;
         }
         @media (max-width: 768px) {
@@ -114,18 +114,15 @@ export default function CoursesPage() {
 
       <Navbar />
       
+      <div style={{position: 'relative', height: '400px', overflow: 'hidden'}}>
+        <img src="/images/2.png" alt="Courses" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+        <div style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+          <h1 style={{color: 'white', fontSize: '48px', fontWeight: 'bold', textShadow: '2px 2px 4px rgba(0,0,0,0.5)'}}>Our Courses</h1>
+        </div>
+      </div>
+      
       <section style={{background: 'linear-gradient(135deg, #F8FAFC 0%, #E8EEF5 100%)', padding: '40px 0'}}>
         <div className="container" style={{maxWidth: '1200px', margin: '0 auto', padding: '0 8px'}}>
-          <div style={{marginBottom: '40px', textAlign: 'center'}}>
-            <div style={{display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '14px', color: '#6B7280', marginBottom: '20px', background: 'white', padding: '8px 16px', borderRadius: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.05)'}}>
-              <a href="/" style={{color: '#6B7280', textDecoration: 'none'}}>Home</a>
-              <span>›</span>
-              <span style={{color: '#0B4F8A', fontWeight: '600'}}>All Courses</span>
-            </div>
-            <h1 className="page-title" style={{fontSize: '42px', fontWeight: '700', color: '#0B4F8A', marginBottom: '12px'}}>Explore Our Courses</h1>
-            <p className="page-subtitle" style={{color: '#6B7280', fontSize: '18px', maxWidth: '600px', margin: '0 auto'}}>Choose the perfect program to achieve your academic goals</p>
-          </div>
-
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {courses.map((item, index) => (
               <div 
@@ -146,14 +143,14 @@ export default function CoursesPage() {
                   <div style={{padding: '16px'}}>
                     <h3 style={{fontSize: '17px', fontWeight: '600', color: '#222222', marginBottom: '12px', minHeight: '48px', lineHeight: '1.4'}}>{item.title}</h3>
                     <div style={{display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '12px', padding: '6px 10px', background: '#F8FAFC', borderRadius: '8px'}}>
-                      <i className="fa fa-calendar" style={{color: '#0B4F8A', fontSize: '14px'}}></i>
+                      <i className="fa fa-calendar" style={{color: '#1B5A96', fontSize: '14px'}}></i>
                       <span style={{fontSize: '13px', color: '#6B7280', fontWeight: '500'}}>{item.validity}</span>
                     </div>
                     <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-                      <button className="btn-explore" style={{width: '100%', padding: '12px', background: '#0B4F8A', color: 'white', border: 'none', borderRadius: '8px', fontWeight: '600', cursor: 'pointer', fontSize: '14px'}}>
+                      <button className="btn-explore" style={{width: '100%', padding: '12px', background: '#1B5A96', color: 'white', border: 'none', borderRadius: '8px', fontWeight: '600', cursor: 'pointer', fontSize: '14px'}}>
                         Explore Course
                       </button>
-                      <button onClick={(e) => { e.preventDefault(); setShowRegisterModal(true); }} className="btn-enroll" style={{width: '100%', padding: '12px', background: 'transparent', color: '#0B4F8A', border: '2px solid #0B4F8A', borderRadius: '8px', fontWeight: '600', cursor: 'pointer', fontSize: '14px'}}>
+                      <button onClick={(e) => { e.preventDefault(); setShowRegisterModal(true); }} className="btn-enroll" style={{width: '100%', padding: '12px', background: 'transparent', color: '#1B5A96', border: '2px solid #1B5A96', borderRadius: '8px', fontWeight: '600', cursor: 'pointer', fontSize: '14px'}}>
                         Register Now
                       </button>
                     </div>
@@ -176,10 +173,9 @@ export default function CoursesPage() {
               <p className="my-6 font-bold text-lg">Student Registration</p>
               <form onSubmit={handleRegister} className="space-y-4">
                 <input type="text" placeholder="Full Name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full p-3 border border-gray-300 rounded outline-none" required />
-                <input type="email" placeholder="Email Address" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className="w-full p-3 border border-gray-300 rounded outline-none" required />
                 <div className="flex">
                   <span className="flex items-center px-3 border border-r-0 border-gray-300 rounded-l bg-gray-50">+91</span>
-                  <input type="tel" placeholder="Phone Number" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value.replace(/\D/g, '')})} maxLength="10" className="w-full p-3 border border-gray-300 rounded-r outline-none" required />
+                  <input type="tel" placeholder="WhatsApp Number" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value.replace(/\D/g, '')})} maxLength="10" className="w-full p-3 border border-gray-300 rounded-r outline-none" required />
                 </div>
                 <select value={formData.course} onChange={(e) => setFormData({...formData, course: e.target.value})} className="w-full p-3 border border-gray-300 rounded outline-none" required>
                   <option value="">Select Course</option>

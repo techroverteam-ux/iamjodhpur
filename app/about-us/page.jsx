@@ -84,7 +84,7 @@ export default function AboutUs() {
         }
 
         .hero-section {
-          background: linear-gradient(135deg, #1B5A96 0%, #2E6BA8 50%, #4FB3E8 100%);
+          background: linear-gradient(135deg, #1B5A96 0%, #1B5A96 50%, #1B5A96 100%);
           padding: 80px 20px 60px;
           position: relative;
           overflow: hidden;
@@ -161,7 +161,7 @@ export default function AboutUs() {
           box-shadow: 0 30px 80px rgba(25, 119, 243, 0.2);
           border: 4px solid transparent;
           background: linear-gradient(white, white) padding-box,
-                      linear-gradient(135deg, #1977f3, #00d4ff, #ff6b9d) border-box;
+                      linear-gradient(135deg, #1B5A96, #1B5A96, #ff6b9d) border-box;
           position: relative;
           overflow: hidden;
         }
@@ -184,7 +184,7 @@ export default function AboutUs() {
         .section-title {
           font-size: 2.5rem;
           font-weight: 800;
-          background: linear-gradient(135deg, #1B5A96, #4FB3E8);
+          background: linear-gradient(135deg, #1B5A96, #1B5A96);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
@@ -201,7 +201,7 @@ export default function AboutUs() {
           transform: translateX(-50%);
           width: 120px;
           height: 5px;
-          background: linear-gradient(90deg, #1B5A96, #2E6BA8, #4FB3E8);
+          background: linear-gradient(90deg, #1B5A96, #1B5A96, #1B5A96);
           border-radius: 3px;
         }
 
@@ -213,7 +213,7 @@ export default function AboutUs() {
         }
 
         .stat-card {
-          background: linear-gradient(135deg, #1B5A96 0%, #4FB3E8 100%);
+          background: linear-gradient(135deg, #1B5A96 0%, #1B5A96 100%);
           padding: 40px 30px;
           border-radius: 20px;
           text-align: center;
@@ -268,7 +268,7 @@ export default function AboutUs() {
 
         .highlight-box {
           background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
-          border-left: 6px solid #1977f3;
+          border-left: 6px solid #1B5A96;
           padding: 30px;
           border-radius: 15px;
           margin: 40px 0;
@@ -287,7 +287,7 @@ export default function AboutUs() {
         }
 
         .vision-card {
-          background: linear-gradient(135deg, #1977f3 0%, #00d4ff 100%);
+          background: linear-gradient(135deg, #1B5A96 0%, #1B5A96 100%);
           border-radius: 20px;
           padding: 30px;
           color: white;
@@ -330,7 +330,7 @@ export default function AboutUs() {
           box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
           border: 3px solid transparent;
           background: linear-gradient(white, white) padding-box,
-                      linear-gradient(135deg, #1977f3, #00d4ff) border-box;
+                      linear-gradient(135deg, #1B5A96, #1B5A96) border-box;
           position: relative;
           overflow: hidden;
         }
@@ -342,7 +342,7 @@ export default function AboutUs() {
           left: 0;
           width: 100%;
           height: 6px;
-          background: linear-gradient(90deg, #1B5A96, #2E6BA8, #4FB3E8);
+          background: linear-gradient(90deg, #1B5A96, #1B5A96, #1B5A96);
         }
 
         .vision-card.animate-in {
@@ -356,7 +356,7 @@ export default function AboutUs() {
         .vm-title {
           font-size: 2.2rem;
           font-weight: 800;
-          color: #1977f3;
+          color: #1B5A96;
           margin-bottom: 25px;
           display: flex;
           align-items: center;
@@ -366,7 +366,7 @@ export default function AboutUs() {
         .vm-icon {
           width: 50px;
           height: 50px;
-          background: linear-gradient(135deg, #1977f3, #00d4ff);
+          background: linear-gradient(135deg, #1B5A96, #1B5A96);
           border-radius: 12px;
           display: flex;
           align-items: center;
@@ -399,7 +399,7 @@ export default function AboutUs() {
           top: 20px;
           width: 35px;
           height: 35px;
-          background: linear-gradient(135deg, #1977f3, #00d4ff);
+          background: linear-gradient(135deg, #1B5A96, #1B5A96);
           color: white;
           border-radius: 50%;
           display: flex;
@@ -411,7 +411,7 @@ export default function AboutUs() {
         }
 
         .director-section {
-          background: linear-gradient(135deg, #0f2557 0%, #1977f3 100%);
+          background: linear-gradient(135deg, #0f2557 0%, #1B5A96 100%);
           color: white;
           padding: 60px 40px;
           margin: 50px 0 0;
@@ -519,15 +519,12 @@ export default function AboutUs() {
         }
       `}</style>
 
-      {/* Hero Section */}
-      <section className="hero-section" style={{padding: '60px 20px 40px'}}>
-        <div className="hero-content">
-          <h1 className="hero-title">About IIT Medical Academy</h1>
-          <p className="hero-subtitle">
-            26 Years of Excellence in Shaping Future Doctors & Engineers
-          </p>
+      <div style={{position: 'relative', height: '400px', overflow: 'hidden'}}>
+        <img src="/images/1.png" alt="About Us" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+        <div style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+          <h1 style={{color: 'white', fontSize: '48px', fontWeight: 'bold', textShadow: '2px 2px 4px rgba(0,0,0,0.5)'}}>About IIT Medical Academy</h1>
         </div>
-      </section>
+      </div>
 
       {/* Intro Section */}
       <div className="intro-section">

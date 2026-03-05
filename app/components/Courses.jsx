@@ -177,10 +177,9 @@ export default function Courses() {
               <p className="my-6 font-bold" style={{fontSize: '18px', color: '#000'}}>Student Registration</p>
               <form onSubmit={handleRegister}>
                 <input type="text" placeholder="Full Name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} style={{width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '4px', marginBottom: '16px', fontSize: '14px', color: '#000'}} required />
-                <input type="email" placeholder="Email Address" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} style={{width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '4px', marginBottom: '16px', fontSize: '14px', color: '#000'}} required />
                 <div style={{display: 'flex', marginBottom: '16px'}}>
                   <span style={{display: 'flex', alignItems: 'center', padding: '12px', border: '1px solid #ddd', borderRight: 'none', borderRadius: '4px 0 0 4px', background: '#f5f5f5', color: '#000'}}>+91</span>
-                  <input type="tel" placeholder="Phone Number" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value.replace(/\D/g, '')})} maxLength="10" style={{flex: 1, padding: '12px', border: '1px solid #ddd', borderRadius: '0 4px 4px 0', fontSize: '14px', color: '#000'}} required />
+                  <input type="tel" placeholder="WhatsApp Number" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value.replace(/\D/g, '')})} maxLength="10" style={{flex: 1, padding: '12px', border: '1px solid #ddd', borderRadius: '0 4px 4px 0', fontSize: '14px', color: '#000'}} required />
                 </div>
                 <select value={formData.course} onChange={(e) => setFormData({...formData, course: e.target.value})} style={{width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '4px', marginBottom: '16px', fontSize: '14px', color: '#000'}} required>
                   <option value="">Select Course</option>

@@ -94,7 +94,7 @@ export default function Blog() {
           left: 0;
           width: 4px;
           height: 0;
-          background: #0B4F8A;
+          background: #1B5A96;
           transition: height 0.4s;
         }
         .blog-card:hover::before {
@@ -180,19 +180,26 @@ export default function Blog() {
 
       <Navbar />
       
+      <div style={{position: 'relative', height: '400px', overflow: 'hidden'}}>
+        <img src="/images/4.png" alt="Blogs" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+        <div style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+         
+        </div>
+      </div>
+      
       <section className="blog-section" style={{background: '#FFFFFF', padding: '40px 0'}}>
         <div className="container" style={{maxWidth: '1200px', margin: '0 auto', padding: '0 8px'}}>
           <div className="header-section" style={{textAlign: 'center', marginBottom: '50px'}}>
-            <h1 className="blog-title" style={{fontSize: '48px', fontWeight: '700', color: '#0B4F8A', marginBottom: '12px'}}>Latest Insights</h1>
+            <h1 className="blog-title" style={{fontSize: '48px', fontWeight: '700', color: '#1B5A96', marginBottom: '12px'}}>Latest Insights</h1>
             <p className="blog-subtitle" style={{color: '#6B7280', fontSize: '18px', maxWidth: '600px', margin: '0 auto 20px'}}>Stay updated with exam tips, admission guides, and success stories</p>
             <div className="category-dropdown" style={{display: 'inline-block', position: 'relative'}}>
-              <select className="category-select" style={{padding: '12px 40px 12px 20px', fontSize: '16px', fontWeight: '600', color: '#0B4F8A', background: 'white', border: '2px solid #0B4F8A', borderRadius: '12px', cursor: 'pointer', appearance: 'none', minWidth: '250px'}} onChange={(e) => e.target.value && (window.location.href = `/blog-details?id=${e.target.value}`)}>
+              <select className="category-select" style={{padding: '12px 40px 12px 20px', fontSize: '16px', fontWeight: '600', color: '#1B5A96', background: 'white', border: '2px solid #1B5A96', borderRadius: '12px', cursor: 'pointer', appearance: 'none', minWidth: '250px'}} onChange={(e) => e.target.value && (window.location.href = `/blog-details?id=${e.target.value}`)}>
                 <option value="">Select Category</option>
                 {blogs.map((blog) => (
                   <option key={blog.id} value={blog.id}>{blog.category} - {blog.title}</option>
                 ))}
               </select>
-              <i className="fa fa-chevron-down" style={{position: 'absolute', right: '15px', top: '50%', transform: 'translateY(-50%)', color: '#0B4F8A', pointerEvents: 'none'}}></i>
+              <i className="fa fa-chevron-down" style={{position: 'absolute', right: '15px', top: '50%', transform: 'translateY(-50%)', color: '#1B5A96', pointerEvents: 'none'}}></i>
             </div>
           </div>
 
@@ -226,20 +233,20 @@ export default function Blog() {
                       background: '#F8FAFC'
                     }} 
                   />
-                  <div className="category-badge" style={{position: 'absolute', top: '16px', right: '16px', background: '#0B4F8A', color: 'white', padding: '6px 14px', borderRadius: '20px', fontSize: '12px', fontWeight: '600'}}>
+                  <div className="category-badge" style={{position: 'absolute', top: '16px', right: '16px', background: '#1B5A96', color: 'white', padding: '6px 14px', borderRadius: '20px', fontSize: '12px', fontWeight: '600'}}>
                     {blog.category}
                   </div>
                 </div>
                 <div style={{padding: '12px'}}>
                   <h3 style={{fontSize: '18px', fontWeight: '600', color: '#222222', marginBottom: '12px', minHeight: '48px', lineHeight: '1.4'}}>{blog.title}</h3>
                   <div className="date-section" style={{display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px'}}>
-                    <i className="fa fa-clock-o" style={{color: '#0B4F8A', fontSize: '14px'}}></i>
+                    <i className="fa fa-clock-o" style={{color: '#1B5A96', fontSize: '14px'}}></i>
                     <span style={{fontSize: '13px', color: '#6B7280'}}>{blog.date}</span>
                   </div>
                   {blog.description && blog.description.trim() && (
                     <p style={{color: '#6B7280', fontSize: '14px', marginBottom: '16px', lineHeight: '1.6'}}>{blog.description}</p>
                   )}
-                  <div className="read-more" style={{display: 'flex', alignItems: 'center', gap: '8px', color: '#0B4F8A', fontWeight: '600', fontSize: '14px'}}>
+                  <div className="read-more" style={{display: 'flex', alignItems: 'center', gap: '8px', color: '#1B5A96', fontWeight: '600', fontSize: '14px'}}>
                     Read More
                     <span style={{transition: 'transform 0.3s'}}>→</span>
                   </div>
@@ -256,3 +263,4 @@ export default function Blog() {
     </>
   )
 }
+

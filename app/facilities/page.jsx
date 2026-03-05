@@ -82,7 +82,7 @@ export default function Facilities() {
           inset: -2px;
           border-radius: 20px;
           padding: 2px;
-          background: linear-gradient(135deg, #1977f3, #00d4ff, #ff6b9d, #1977f3);
+          background: linear-gradient(135deg, #1B5A96, #1B5A96, #ff6b9d, #1B5A96);
           -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
           -webkit-mask-composite: xor;
           mask-composite: exclude;
@@ -164,40 +164,24 @@ export default function Facilities() {
       
       <Navbar />
       
-      <section style={{background: 'linear-gradient(135deg, #0a1628 0%, #1977f3 100%)', padding: '20px 0', color: 'white', position: 'relative', overflow: 'hidden'}}>
-        <div style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, opacity: 0.05}}>
-          {[...Array(15)].map((_, i) => (
-            <div key={i} style={{
-              position: 'absolute',
-              width: '3px',
-              height: '3px',
-              background: 'white',
-              borderRadius: '50%',
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animation: `float ${3 + Math.random() * 2}s ease-in-out infinite`,
-              animationDelay: `${Math.random() * 2}s`
-            }}></div>
-          ))}
+      <div style={{position: 'relative', height: '400px', overflow: 'hidden'}}>
+        <img src="/images/3.png" alt="Facilities" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+        <div style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+          <h1 style={{color: 'white', fontSize: '48px', fontWeight: 'bold', textShadow: '2px 2px 4px rgba(0,0,0,0.5)'}}>Our Facilities</h1>
         </div>
-        <div className="container mx-auto px-2 md:px-4" style={{maxWidth: '1140px', position: 'relative', zIndex: 1}}>
-          <div className="text-center">
-            <h1 className="text-xl md:text-3xl font-bold" style={{textShadow: '0 4px 20px rgba(0,0,0,0.3)'}}>Our Facilities</h1>
-          </div>
-        </div>
-      </section>
-
+      </div>
+      
       <section style={{padding: '20px 0', background: 'linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%)'}}>
         <div className="container mx-auto px-2 md:px-4" style={{maxWidth: '1140px'}}>
           <div className="space-y-2 md:space-y-3">
             
             <div className="facility-card animate-zoom">
               <div className="flex items-center">
-                <div className="facility-icon-wrapper" style={{background: 'linear-gradient(135deg, #1977f3, #00d4ff)'}}>
+                <div className="facility-icon-wrapper" style={{background: 'linear-gradient(135deg, #1B5A96, #1B5A96)'}}>
                   <i className="fa fa-bus facility-icon"></i>
                 </div>
                 <div style={{marginLeft: '20px', flex: 1}}>
-                  <h3 className="text-lg font-bold mb-2" style={{color: '#1977f3'}}>
+                  <h3 className="text-lg font-bold mb-2" style={{color: '#1B5A96'}}>
                     <span style={{fontSize: '18px', marginRight: '6px'}}>✦</span>
                     Transport Facility
                   </h3>
@@ -211,7 +195,7 @@ export default function Facilities() {
             <div className="facility-card animate-zoom">
               <div className="flex items-center">
                 <div style={{flex: 1, marginRight: '20px'}}>
-                  <h3 className="text-lg font-bold mb-2" style={{color: '#00d4ff'}}>
+                  <h3 className="text-lg font-bold mb-2" style={{color: '#1B5A96'}}>
                     <span style={{fontSize: '18px', marginRight: '6px'}}>✦</span>
                     Hostel Facility
                   </h3>
@@ -219,7 +203,7 @@ export default function Facilities() {
                     IMA offers a well-managed hostel facility designed for students who want a fully focused preparation environment. We provide separate hostel facilities for both boys and girls, ensuring comfort, safety, and a disciplined academic routine. Students can choose AC or Non-AC rooms as per their preference. Hostel life helps students stay connected to a fixed study schedule, improves self-discipline, and removes daily travel distractions. A structured environment supports better time management, regular self-study, and consistent improvement throughout NEET/JEE preparation.
                   </p>
                 </div>
-                <div className="facility-icon-wrapper" style={{background: 'linear-gradient(135deg, #00d4ff, #1977f3)'}}>
+                <div className="facility-icon-wrapper" style={{background: 'linear-gradient(135deg, #1B5A96, #1B5A96)'}}>
                   <i className="fa fa-building facility-icon"></i>
                 </div>
               </div>
@@ -227,7 +211,7 @@ export default function Facilities() {
 
             <div className="facility-card animate-zoom">
               <div className="flex items-center">
-                <div className="facility-icon-wrapper" style={{background: 'linear-gradient(135deg, #10b981, #00d4ff)'}}>
+                <div className="facility-icon-wrapper" style={{background: 'linear-gradient(135deg, #10b981, #1B5A96)'}}>
                   <i className="fa fa-cutlery facility-icon"></i>
                 </div>
                 <div style={{marginLeft: '20px', flex: 1}}>

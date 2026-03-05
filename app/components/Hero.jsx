@@ -50,7 +50,7 @@ export default function Hero() {
           transition: all 0.3s;
         }
         .dot.active {
-          background: #1677C8;
+          background: #1B5A96;
           width: 40px;
         }
       `}</style>

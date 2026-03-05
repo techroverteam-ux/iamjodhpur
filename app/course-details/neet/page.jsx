@@ -24,7 +24,7 @@ export default function NEETCourseDetail() {
             font-size: 14px;
           }
           .breadcrumb-text a {
-            color: #1977f3;
+            color: #1B5A96;
             text-decoration: none;
           }
           .course-container {
@@ -38,7 +38,7 @@ export default function NEETCourseDetail() {
             gap: 30px;
           }
           .course-content h2 {
-            color: #1977f3;
+            color: #1B5A96;
             font-size: 32px;
             font-weight: bold;
             margin-bottom: 20px;
@@ -99,7 +99,7 @@ export default function NEETCourseDetail() {
           .current-price {
             font-size: 28px;
             font-weight: bold;
-            color: #1977f3;
+            color: #1B5A96;
           }
           .original-price {
             font-size: 18px;
@@ -123,7 +123,7 @@ export default function NEETCourseDetail() {
           .enroll-btn {
             width: 100%;
             padding: 12px;
-            background: #1977f3;
+            background: #1B5A96;
             color: white;
             border: none;
             border-radius: 4px;

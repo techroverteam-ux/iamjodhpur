@@ -103,8 +103,8 @@ export default function Testimonials() {
       <section className="testimonials-section py-6 md:py-12" style={{background: '#F8FAFC'}}>
         <div className="container mx-auto px-2 md:px-4" style={{maxWidth: '1200px'}}>
           <div className="text-center mb-10">
-            <h3 className="testimonial-title text-3xl font-bold mb-2" style={{color: '#0B4F8A'}}>What students say</h3>
-            <div className="w-20 h-1 mx-auto rounded-full" style={{background: '#0B4F8A'}}></div>
+            <h3 className="testimonial-title text-3xl font-bold mb-2" style={{color: '#1B5A96'}}>What students say</h3>
+            <div className="w-20 h-1 mx-auto rounded-full" style={{background: '#1B5A96'}}></div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6">
             {testimonials.map((item, index) => (
@@ -115,7 +115,7 @@ export default function Testimonials() {
                 }`}
                 style={{ 
                   animationDelay: `${index * 150}ms`,
-                  borderTop: '4px solid #0B4F8A'
+                  borderTop: '4px solid #1B5A96'
                 }}
               >
                 <div className="p-4 md:p-6">
@@ -123,9 +123,9 @@ export default function Testimonials() {
                     <div className="w-10 h-10 md:w-14 md:h-14 rounded-full flex items-center justify-center mr-2 md:mr-3" style={{background: '#E8EEF5'}}>
                       <img src={item.image} alt="icon" className="w-6 h-6 md:w-8 md:h-8" />
                     </div>
-                    <h4 className="testimonial-card-title font-bold text-lg" style={{color: '#0B4F8A'}}>{item.title}</h4>
+                    <h4 className="testimonial-card-title font-bold text-lg" style={{color: '#1B5A96'}}>{item.title}</h4>
                   </div>
-                  <div className="border-l-3 pl-3 md:pl-4" style={{borderLeft: '3px solid #0B4F8A'}}>
+                  <div className="border-l-3 pl-3 md:pl-4" style={{borderLeft: '3px solid #1B5A96'}}>
                     <i className="fa fa-quote-left text-sm mb-2 block" style={{color: '#4D94FF'}}></i>
                     <p className="testimonial-text text-gray-700 text-sm leading-relaxed">{item.text}</p>
                   </div>

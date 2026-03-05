@@ -85,12 +85,12 @@ export default function CourseDetail() {
           font-size: 15px;
         }
         .breadcrumb-text a {
-          color: #0B4F8A;
+          color: #1B5A96;
           text-decoration: none;
           transition: color 0.3s;
         }
         .breadcrumb-text a:hover {
-          color: #0052CC;
+          color: #1B5A96;
         }
         .course-container {
           max-width: 1200px;
@@ -106,7 +106,7 @@ export default function CourseDetail() {
           animation: fadeInUp 0.6s ease-out;
         }
         .course-content h2 {
-          color: #0B4F8A;
+          color: #1B5A96;
           font-size: 32px;
           font-weight: 700;
           margin-bottom: 20px;
@@ -114,7 +114,7 @@ export default function CourseDetail() {
           padding: 20px 30px;
           background: linear-gradient(135deg, #F8FAFC, #E8EEF5);
           border-radius: 12px;
-          border-left: 5px solid #0B4F8A;
+          border-left: 5px solid #1B5A96;
           box-shadow: 0 4px 12px rgba(11, 79, 138, 0.1);
         }
         .course-content h3 {
@@ -124,7 +124,7 @@ export default function CourseDetail() {
           margin-top: 25px;
           margin-bottom: 12px;
           padding-left: 12px;
-          border-left: 3px solid #0B4F8A;
+          border-left: 3px solid #1B5A96;
         }
         .course-content p {
           color: #555;
@@ -150,7 +150,7 @@ export default function CourseDetail() {
           content: '✓';
           position: absolute;
           left: 0;
-          color: #0B4F8A;
+          color: #1B5A96;
           font-weight: bold;
         }
         .course-card {
@@ -186,7 +186,7 @@ export default function CourseDetail() {
         .course-price {
           font-size: 28px;
           font-weight: 700;
-          color: #0B4F8A;
+          color: #1B5A96;
           margin-bottom: 10px;
         }
         .validity-text {
@@ -201,12 +201,12 @@ export default function CourseDetail() {
         }
         .validity-text i {
           margin-right: 8px;
-          color: #0B4F8A;
+          color: #1B5A96;
         }
         .enroll-btn {
           width: 100%;
           padding: 14px;
-          background: #0B4F8A;
+          background: #1B5A96;
           color: white;
           border: none;
           border-radius: 8px;
@@ -216,7 +216,7 @@ export default function CourseDetail() {
           transition: all 0.3s;
         }
         .enroll-btn:hover {
-          background: #0052CC;
+          background: #1B5A96;
           transform: translateY(-2px);
           box-shadow: 0 4px 12px rgba(0,102,255,0.3);
         }
@@ -310,10 +310,9 @@ export default function CourseDetail() {
               <p className="my-6 font-bold text-lg">Student Registration</p>
               <form onSubmit={handleRegister} className="space-y-4">
                 <input type="text" placeholder="Full Name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full p-3 border border-gray-300 rounded outline-none" required />
-                <input type="email" placeholder="Email Address" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className="w-full p-3 border border-gray-300 rounded outline-none" required />
                 <div className="flex">
                   <span className="flex items-center px-3 border border-r-0 border-gray-300 rounded-l bg-gray-50">+91</span>
-                  <input type="tel" placeholder="Phone Number" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value.replace(/\D/g, '')})} maxLength="10" className="w-full p-3 border border-gray-300 rounded-r outline-none" required />
+                  <input type="tel" placeholder="WhatsApp Number" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value.replace(/\D/g, '')})} maxLength="10" className="w-full p-3 border border-gray-300 rounded-r outline-none" required />
                 </div>
                 <select value={formData.course} onChange={(e) => setFormData({...formData, course: e.target.value})} className="w-full p-3 border border-gray-300 rounded outline-none" required>
                   <option value="">Select Course</option>

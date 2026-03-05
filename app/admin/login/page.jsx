@@ -25,7 +25,7 @@ export default function AdminLogin() {
         <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-8">
           <div className="text-center mb-6">
             <Image src="/images/new_logo.png" width={120} height={50} alt="IMA Jodhpur" className="mx-auto mb-4" />
-            <h2 className="text-2xl font-bold" style={{color: '#1977f3'}}>Admin Login</h2>
+            <h2 className="text-2xl font-bold" style={{color: '#1B5A96'}}>Admin Login</h2>
           </div>
           <form onSubmit={handleLogin}>
             <div className="mb-4">
@@ -46,7 +46,7 @@ export default function AdminLogin() {
                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="flex-1 outline-none" style={{padding: '10px 12px', fontSize: '14px'}} required />
               </div>
             </div>
-            <button type="submit" className="w-full text-white font-semibold" style={{background: '#1977f3', padding: '12px', borderRadius: '4px', fontSize: '16px', border: 'none', cursor: 'pointer'}}>Login</button>
+            <button type="submit" className="w-full text-white font-semibold" style={{background: '#1B5A96', padding: '12px', borderRadius: '4px', fontSize: '16px', border: 'none', cursor: 'pointer'}}>Login</button>
           </form>
           <p className="text-center mt-4 text-sm text-gray-600">Demo: admin@imajodhpur.com / admin123</p>
         </div>
