@@ -5,6 +5,23 @@ import Footer from '../components/Footer';
 
 export default function CourseDetail() {
   const [course, setCourse] = useState(null);
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', course: '' });
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      const registration = { ...formData, date: new Date().toLocaleDateString(), id: Date.now() };
+      const existing = JSON.parse(localStorage.getItem('courseRegistrations') || '[]');
+      existing.push(registration);
+      localStorage.setItem('courseRegistrations', JSON.stringify(existing));
+      alert('Registration successful!');
+      setShowRegisterModal(false);
+      setFormData({ name: '', email: '', phone: '', course: '' });
+    } catch (error) {
+      alert('Registration failed!');
+    }
+  };
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -272,20 +289,45 @@ export default function CourseDetail() {
               <img src={course.image} alt={course.title} className="course-card-image" />
               <div className="course-card-body">
                 <h3 className="course-card-title">{course.title}</h3>
-                <div style={{display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '5px'}}>
-                  <div className="course-price">{course.discountedPrice || course.price}</div>
-                  {course.discountedPrice && <div style={{fontSize: '18px', color: '#999', textDecoration: 'line-through'}}>{course.price}</div>}
-                </div>
-                <p style={{fontSize: '13px', color: '#666', marginBottom: '10px'}}>GST Included</p>
                 <div className="validity-text">
                   <i className="fa fa-calendar"></i> Validity {course.validity}
                 </div>
-                <button className="enroll-btn">Enroll Now</button>
+                <button onClick={() => setShowRegisterModal(true)} className="enroll-btn">Enroll Now</button>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {showRegisterModal && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 p-4" onClick={() => setShowRegisterModal(false)} style={{background: 'rgba(0,0,0,0.5)'}}>
+          <div className="bg-white rounded-lg w-full max-w-md relative" onClick={(e) => e.stopPropagation()}>
+            <button onClick={() => setShowRegisterModal(false)} className="absolute top-2 right-2 text-4xl text-gray-400 hover:text-gray-600 leading-none">&times;</button>
+            <div className="text-center py-8 px-10">
+              <div className="mb-4">
+                <img src="/images/new_logo.png" alt="IMA Jodhpur" className="mx-auto" style={{height: 'auto', width: '100px'}} />
+              </div>
+              <p className="my-6 font-bold text-lg">Student Registration</p>
+              <form onSubmit={handleRegister} className="space-y-4">
+                <input type="text" placeholder="Full Name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full p-3 border border-gray-300 rounded outline-none" required />
+                <input type="email" placeholder="Email Address" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className="w-full p-3 border border-gray-300 rounded outline-none" required />
+                <div className="flex">
+                  <span className="flex items-center px-3 border border-r-0 border-gray-300 rounded-l bg-gray-50">+91</span>
+                  <input type="tel" placeholder="Phone Number" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value.replace(/\D/g, '')})} maxLength="10" className="w-full p-3 border border-gray-300 rounded-r outline-none" required />
+                </div>
+                <select value={formData.course} onChange={(e) => setFormData({...formData, course: e.target.value})} className="w-full p-3 border border-gray-300 rounded outline-none" required>
+                  <option value="">Select Course</option>
+                  <option value="NEET">NEET</option>
+                  <option value="JEE">JEE</option>
+                  <option value="Pre-Foundation">Pre-Foundation</option>
+                  <option value="AITS">AITS</option>
+                </select>
+                <button type="submit" className="w-full text-white font-semibold py-3 rounded" style={{background:'#dc3545'}}>Register Now</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </>

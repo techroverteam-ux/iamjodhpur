@@ -5,8 +5,9 @@ import Image from 'next/image'
 
 export default function AdminDashboard() {
   const router = useRouter()
-  const [activeTab, setActiveTab] = useState('registrations')
+  const [activeTab, setActiveTab] = useState('inquiries')
   const [registrations, setRegistrations] = useState([])
+  const [courseRegistrations, setCourseRegistrations] = useState([])
   const [blogs, setBlogs] = useState([])
   const [courses, setCourses] = useState([
     { id: 42147, title: 'Pre Foundation Course', price: 'Free', validity: '354 Days', description: 'Foundation course for early preparation', content: 'Complete foundation course details...', image: 'https://d3aj4itat0hxro.cloudfront.net/826/admin_v1/bundle_management/course/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png' },
@@ -16,7 +17,7 @@ export default function AdminDashboard() {
   ])
   const [showModal, setShowModal] = useState(false)
   const [editItem, setEditItem] = useState(null)
-  const [formData, setFormData] = useState({ title: '', date: '', category: '', price: '', discountedPrice: '', validity: '', description: '', content: [], image: '', imageFile: null })
+  const [formData, setFormData] = useState({ title: '', date: '', category: '', validity: '', description: '', content: [], image: '', imageFile: null })
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -26,9 +27,11 @@ export default function AdminDashboard() {
       const savedBlogs = localStorage.getItem('blogs')
       const savedCourses = localStorage.getItem('courses')
       const savedRegistrations = localStorage.getItem('registrations')
+      const savedCourseRegistrations = localStorage.getItem('courseRegistrations')
       if (savedBlogs) setBlogs(JSON.parse(savedBlogs))
       if (savedCourses) setCourses(JSON.parse(savedCourses))
       if (savedRegistrations) setRegistrations(JSON.parse(savedRegistrations))
+      if (savedCourseRegistrations) setCourseRegistrations(JSON.parse(savedCourseRegistrations))
     }
   }, [router])
 
@@ -39,7 +42,7 @@ export default function AdminDashboard() {
 
   const handleAdd = () => {
     setEditItem(null)
-    setFormData({ title: '', date: '', category: '', price: '', discountedPrice: '', validity: '', description: '', content: [], image: '', imageFile: null })
+    setFormData({ title: '', date: '', category: '', validity: '', description: '', content: [], image: '', imageFile: null })
     setShowModal(true)
   }
 
@@ -134,8 +137,11 @@ export default function AdminDashboard() {
         <div className="container mx-auto px-4 py-8">
           <div className="bg-white rounded-lg shadow-md p-6">
             <div className="flex gap-4 mb-6 border-b">
+              <button onClick={() => setActiveTab('inquiries')} className={`px-6 py-3 font-semibold ${activeTab === 'inquiries' ? 'border-b-2' : ''}`} style={activeTab === 'inquiries' ? {borderColor: '#1977f3', color: '#1977f3'} : {color: '#666'}}>
+                <i className="fa fa-users mr-2"></i>Inquiries
+              </button>
               <button onClick={() => setActiveTab('registrations')} className={`px-6 py-3 font-semibold ${activeTab === 'registrations' ? 'border-b-2' : ''}`} style={activeTab === 'registrations' ? {borderColor: '#1977f3', color: '#1977f3'} : {color: '#666'}}>
-                <i className="fa fa-users mr-2"></i>Registrations
+                <i className="fa fa-user-plus mr-2"></i>Registrations
               </button>
               <button onClick={() => setActiveTab('blogs')} className={`px-6 py-3 font-semibold ${activeTab === 'blogs' ? 'border-b-2' : ''}`} style={activeTab === 'blogs' ? {borderColor: '#1977f3', color: '#1977f3'} : {color: '#666'}}>
                 <i className="fa fa-newspaper-o mr-2"></i>Blogs
@@ -145,14 +151,14 @@ export default function AdminDashboard() {
               </button>
             </div>
 
-            {activeTab !== 'registrations' && (
+            {activeTab !== 'inquiries' && activeTab !== 'registrations' && (
               <button onClick={handleAdd} className="mb-6 px-6 py-2 rounded text-white font-semibold" style={{background: '#1977f3'}}>
                 <i className="fa fa-plus mr-2"></i>Add {activeTab === 'blogs' ? 'Blog' : 'Course'}
               </button>
             )}
 
             <div className="overflow-x-auto">
-              {activeTab === 'registrations' ? (
+              {activeTab === 'inquiries' ? (
                 <table className="w-full">
                   <thead style={{background: '#f8f9fa'}}>
                     <tr>
@@ -175,6 +181,29 @@ export default function AdminDashboard() {
                     ))}
                   </tbody>
                 </table>
+              ) : activeTab === 'registrations' ? (
+                <table className="w-full">
+                  <thead style={{background: '#f8f9fa'}}>
+                    <tr>
+                      <th className="px-4 py-3 text-left">Date</th>
+                      <th className="px-4 py-3 text-left">Name</th>
+                      <th className="px-4 py-3 text-left">Email</th>
+                      <th className="px-4 py-3 text-left">Phone</th>
+                      <th className="px-4 py-3 text-left">Course</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {courseRegistrations.map((reg) => (
+                      <tr key={reg.id} className="border-b">
+                        <td className="px-4 py-3">{reg.date}</td>
+                        <td className="px-4 py-3">{reg.name}</td>
+                        <td className="px-4 py-3">{reg.email}</td>
+                        <td className="px-4 py-3">{reg.phone}</td>
+                        <td className="px-4 py-3">{reg.course}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               ) : (
                 <table className="w-full">
                   <thead style={{background: '#f8f9fa'}}>
@@ -184,10 +213,7 @@ export default function AdminDashboard() {
                       {activeTab === 'blogs' ? (
                         <th className="px-4 py-3 text-left">Date</th>
                       ) : (
-                        <>
-                          <th className="px-4 py-3 text-left">Price</th>
-                          <th className="px-4 py-3 text-left">Validity</th>
-                        </>
+                        <th className="px-4 py-3 text-left">Validity</th>
                       )}
                       <th className="px-4 py-3 text-left">Actions</th>
                     </tr>
@@ -202,10 +228,7 @@ export default function AdminDashboard() {
                         {activeTab === 'blogs' ? (
                           <td className="px-4 py-3">{item.date}</td>
                         ) : (
-                          <>
-                            <td className="px-4 py-3">{item.price}</td>
-                            <td className="px-4 py-3">{item.validity}</td>
-                          </>
+                          <td className="px-4 py-3">{item.validity}</td>
                         )}
                         <td className="px-4 py-3">
                           <button onClick={() => handleEdit(item)} className="px-3 py-1 rounded text-white mr-2" style={{background: '#28a745'}}>
@@ -273,22 +296,10 @@ export default function AdminDashboard() {
                   <input type="text" value={formData.date} onChange={(e) => setFormData({...formData, date: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '5px', fontSize: '13px'}} required />
                 </div>
               ) : (
-                <>
-                  <div className="grid grid-cols-2 gap-2 mb-3">
-                    <div>
-                      <label className="block mb-1 font-semibold text-xs">Price</label>
-                      <input type="text" value={formData.price} onChange={(e) => setFormData({...formData, price: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '5px', fontSize: '13px'}} required />
-                    </div>
-                    <div>
-                      <label className="block mb-1 font-semibold text-xs">Discounted Price</label>
-                      <input type="text" value={formData.discountedPrice} onChange={(e) => setFormData({...formData, discountedPrice: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '5px', fontSize: '13px'}} />
-                    </div>
-                  </div>
-                  <div className="mb-3">
-                    <label className="block mb-1 font-semibold text-xs">Validity</label>
-                    <input type="text" value={formData.validity} onChange={(e) => setFormData({...formData, validity: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '5px', fontSize: '13px'}} required />
-                  </div>
-                </>
+                <div className="mb-3">
+                  <label className="block mb-1 font-semibold text-xs">Validity</label>
+                  <input type="text" value={formData.validity} onChange={(e) => setFormData({...formData, validity: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '5px', fontSize: '13px'}} required />
+                </div>
               )}
               <div className="mb-3">
                 <label className="block mb-1 font-semibold text-xs">Upload Image</label>
