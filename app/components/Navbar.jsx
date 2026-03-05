@@ -5,7 +5,26 @@ import Image from 'next/image'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
-  const [showLoginModal, setShowLoginModal] = useState(false)
+  const [showRegisterModal, setShowRegisterModal] = useState(false)
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', course: '' })
+
+  const handleRegister = async (e) => {
+    e.preventDefault()
+    try {
+      const registration = { ...formData, date: new Date().toLocaleDateString(), id: Date.now() }
+      
+      // Save to localStorage
+      const existing = JSON.parse(localStorage.getItem('registrations') || '[]')
+      existing.push(registration)
+      localStorage.setItem('registrations', JSON.stringify(existing))
+      
+      alert('Registration successful!')
+      setShowRegisterModal(false)
+      setFormData({ name: '', email: '', phone: '', course: '' })
+    } catch (error) {
+      alert('Registration failed!')
+    }
+  }
 
   return (
     <div className="sticky top-0 z-50">
@@ -132,8 +151,8 @@ export default function Navbar() {
               <Link href="/blog" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1">Blogs</Link>
               <Link href="/why-ima" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1">WHY IMA ?</Link>
               <Link href="/contact-us" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1">Contact Us</Link>
-              <button onClick={() => setShowLoginModal(true)} className="login-btn px-6 py-2.5 rounded-md text-white font-medium text-sm uppercase tracking-wide" style={{background:'#1677C8'}}>
-                Login
+              <button onClick={() => setShowRegisterModal(true)} className="login-btn px-6 py-2.5 rounded-md text-white font-medium text-sm uppercase tracking-wide" style={{background:'#dc3545'}}>
+                STHE
               </button>
             </div>
           </nav>
@@ -148,46 +167,38 @@ export default function Navbar() {
                 <Link href="/blog" className="mobile-nav-link block py-3 px-4 text-gray-800 font-medium text-sm uppercase tracking-wide">Blogs</Link>
                 <Link href="/why-ima" className="mobile-nav-link block py-3 px-4 text-gray-800 font-medium text-sm uppercase tracking-wide">WHY IMA ?</Link>
                 <Link href="/contact-us" className="mobile-nav-link block py-3 px-4 text-gray-800 font-medium text-sm uppercase tracking-wide">Contact Us</Link>
-                <button onClick={() => setShowLoginModal(true)} className="w-full mt-4 px-6 py-2.5 rounded-md text-white font-medium text-sm uppercase tracking-wide" style={{background:'#1677C8'}}>Login</button>
+                <button onClick={() => setShowRegisterModal(true)} className="w-full mt-4 px-6 py-2.5 rounded-md text-white font-medium text-sm uppercase tracking-wide" style={{background:'#dc3545'}}>STHE</button>
               </div>
             </div>
           )}
         </div>
       </div>
 
-      {showLoginModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 p-4" onClick={() => setShowLoginModal(false)} style={{background: 'rgba(0,0,0,0.5)'}}>
-          <div className="bg-white rounded-lg w-full max-w-md relative" onClick={(e) => e.stopPropagation()} style={{maxWidth: '400px'}}>
-            <button onClick={() => setShowLoginModal(false)} className="absolute top-2 right-2 text-4xl text-gray-400 hover:text-gray-600 leading-none" style={{fontSize: '40px'}}>&times;</button>
+      {showRegisterModal && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 p-4" onClick={() => setShowRegisterModal(false)} style={{background: 'rgba(0,0,0,0.5)'}}>
+          <div className="bg-white rounded-lg w-full max-w-md relative" onClick={(e) => e.stopPropagation()}>
+            <button onClick={() => setShowRegisterModal(false)} className="absolute top-2 right-2 text-4xl text-gray-400 hover:text-gray-600 leading-none">&times;</button>
             <div className="text-center py-8 px-10">
               <div className="mb-4">
                 <Image src="/images/new_logo.png" width={100} height={40} alt="IMA Jodhpur" className="mx-auto" style={{height: 'auto', width: '100px'}} />
               </div>
-              <p className="my-6 font-bold" style={{fontSize: '16px'}}>Enter your details to continue</p>
-              <form onSubmit={(e) => { e.preventDefault(); alert('Login functionality coming soon!'); }} className="mb-3">
-                <div className="form-group mb-4">
-                  <div className="input-group flex" style={{border: '1px solid #cfcccc', borderRadius: '4px'}}>
-                    <div className="input-group-prepend" style={{background: '#f8f9fa', borderRight: '1px solid #cfcccc', padding: '10px 12px'}}>
-                      <span style={{fontSize: '14px'}}>+91</span>
-                    </div>
-                    <input type="tel" maxLength="10" placeholder="Mobile Number" className="flex-1 outline-none" style={{padding: '10px 12px', fontSize: '14px', border: 'none'}} required />
-                  </div>
+              <p className="my-6 font-bold text-lg">Student Registration</p>
+              <form onSubmit={handleRegister} className="space-y-4">
+                <input type="text" placeholder="Full Name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full p-3 border border-gray-300 rounded outline-none" required />
+                <input type="email" placeholder="Email Address" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className="w-full p-3 border border-gray-300 rounded outline-none" required />
+                <div className="flex">
+                  <span className="flex items-center px-3 border border-r-0 border-gray-300 rounded-l bg-gray-50">+91</span>
+                  <input type="tel" placeholder="Phone Number" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value.replace(/\D/g, '')})} maxLength="10" className="w-full p-3 border border-gray-300 rounded-r outline-none" required />
                 </div>
-                <div className="form-group mb-4">
-                  <div className="input-group flex" style={{border: '1px solid #cfcccc', borderRadius: '4px'}}>
-                    <div className="input-group-prepend" style={{background: '#f8f9fa', borderRight: '1px solid #cfcccc', padding: '10px 12px'}}>
-                      <i className="fa fa-lock" style={{fontSize: '14px', color: '#666'}}></i>
-                    </div>
-                    <input type="password" placeholder="Password" className="flex-1 outline-none" style={{padding: '10px 12px', fontSize: '14px', border: 'none'}} required />
-                    <div className="input-group-prepend cursor-pointer" style={{background: '#f8f9fa', borderLeft: '1px solid #cfcccc', padding: '10px 12px'}}>
-                      <i className="fa fa-eye" style={{fontSize: '14px', color: '#666'}}></i>
-                    </div>
-                  </div>
-                </div>
-                <button type="submit" className="w-full text-white font-semibold" style={{background:'#1677C8', padding: '10px 40px', borderRadius: '4px', fontSize: '16px', border: 'none', cursor: 'pointer'}}>Login</button>
+                <select value={formData.course} onChange={(e) => setFormData({...formData, course: e.target.value})} className="w-full p-3 border border-gray-300 rounded outline-none" required>
+                  <option value="">Select Course</option>
+                  <option value="NEET">NEET</option>
+                  <option value="JEE">JEE</option>
+                  <option value="Pre-Foundation">Pre-Foundation</option>
+                  <option value="AITS">AITS</option>
+                </select>
+                <button type="submit" className="w-full text-white font-semibold py-3 rounded" style={{background:'#dc3545'}}>Register Now</button>
               </form>
-              <p className="mb-4" style={{fontSize: '14px'}}>Don't have an account yet? <a href="#" onClick={(e) => {e.preventDefault(); alert('SignUp coming soon!');}} className="font-bold" style={{color:'#1677C8', textDecoration: 'none'}}>SignUp</a></p>
-              <a href="#" onClick={(e) => {e.preventDefault(); alert('Forgot Password coming soon!');}} className="font-bold" style={{color:'#1677C8', fontSize: '14px', textDecoration: 'none'}}>Forgot Password?</a>
             </div>
           </div>
         </div>

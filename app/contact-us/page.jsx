@@ -119,76 +119,104 @@ export default function ContactUs() {
         }
         .contact-card {
           background: white;
-          border: 1px solid #e5e7eb;
-          border-radius: 8px;
-          padding: 24px;
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-          transition: all 0.3s;
+          border-radius: 16px;
+          padding: 25px;
+          transition: all 0.4s;
+          box-shadow: 0 4px 15px rgba(25, 119, 243, 0.1);
+          position: relative;
+          overflow: hidden;
+        }
+        .contact-card::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 4px;
+          background: linear-gradient(90deg, #1977f3, #00d4ff);
         }
         .contact-card:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+          transform: translateY(-8px);
+          box-shadow: 0 12px 30px rgba(25, 119, 243, 0.25);
+        }
+        .icon-circle {
+          width: 70px;
+          height: 70px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #1977f3, #00d4ff);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 auto 15px;
+          box-shadow: 0 8px 20px rgba(25, 119, 243, 0.3);
         }
         .advantage-item {
           display: flex;
           align-items: flex-start;
-          gap: 8px;
-          padding: 8px 0;
+          gap: 12px;
+          padding: 15px;
+          background: white;
+          border-radius: 10px;
           transition: all 0.3s;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+          border-left: 4px solid #1977f3;
+        }
+        .advantage-item:hover {
+          transform: translateX(8px);
+          box-shadow: 0 4px 15px rgba(25, 119, 243, 0.2);
         }
       `}</style>
       
       <Navbar />
       
-      <section className="py-16" style={{background: 'linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f0f9ff 100%)'}}>
-        <div className="px-4">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold mb-4" style={{color: '#0B4F8A'}}>Contact Us</h1>
-            <p className="text-gray-600" style={{fontSize: '18px', lineHeight: '1.6'}}>We're here to help you succeed</p>
+      <section style={{background: 'linear-gradient(135deg, #0a1628 0%, #1977f3 100%)', padding: '40px 0', color: 'white'}}>
+        <div className="container mx-auto px-4" style={{maxWidth: '1140px'}}>
+          <div className="text-center animate-slide up">
+            <h1 className="text-3xl font-bold mb-2">Contact Us</h1>
+            <p className="text-base">We're here to help you succeed</p>
           </div>
         </div>
       </section>
 
-      <section className="py-16" style={{background: 'linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%)'}}>
-        <div className="px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-            <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100 animate-slide left">
+      <section style={{padding: '40px 0', background: '#f8f9fa'}}>
+        <div className="container mx-auto px-4" style={{maxWidth: '1140px'}}>
+          <div className="grid md:grid-cols-3 gap-4 mb-8">
+            <div className="contact-card animate-slide left">
               <div className="text-center">
-                <div className="mb-6">
-                  <i className="fa fa-map-marker text-[#0B4F8A]" style={{fontSize: '4rem'}}></i>
+                <div className="icon-circle">
+                  <i className="fa fa-map-marker" style={{fontSize: '30px', color: 'white'}}></i>
                 </div>
-                <h4 className="text-xl font-bold mb-4" style={{color: '#333'}}>Address</h4>
-                <p className="text-gray-600" style={{fontSize: '16px', lineHeight: '1.5'}}>MAIN, Pal Rd, near BARKATULLAH KHAN STADIUM, near SHRI RAM FILLING STATION, Sector-E, Shastri Nagar, Jodhpur, Rajasthan 342003</p>
+                <h4 className="font-bold mb-2 text-base" style={{color: '#1977f3'}}>Address</h4>
+                <p className="text-gray-700 text-sm">Pal Rd, near Barkatullah Khan Stadium, Shastri Nagar, Jodhpur, Rajasthan 342003</p>
               </div>
             </div>
             
-            <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100 animate-slide up" style={{animationDelay: '0.2s'}}>
+            <div className="contact-card animate-slide up" style={{animationDelay: '0.2s'}}>
               <div className="text-center">
-                <div className="mb-6">
-                  <i className="fa fa-phone text-green-600" style={{fontSize: '4rem'}}></i>
+                <div className="icon-circle">
+                  <i className="fa fa-phone" style={{fontSize: '30px', color: 'white'}}></i>
                 </div>
-                <h4 className="text-xl font-bold mb-4" style={{color: '#333'}}>Phone Number</h4>
-                <p className="text-gray-600" style={{fontSize: '16px', lineHeight: '1.5'}}>+91 9571037333</p>
-                <p className="text-sm text-gray-500 mt-2">For more queries, call us anytime</p>
+                <h4 className="font-bold mb-2 text-base" style={{color: '#1977f3'}}>Phone Number</h4>
+                <p className="text-gray-700 text-sm">+91 9571037333</p>
               </div>
             </div>
             
-            <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100 animate-slide right" style={{animationDelay: '0.4s'}}>
+            <div className="contact-card animate-slide right" style={{animationDelay: '0.4s'}}>
               <div className="text-center">
-                <div className="mb-6">
-                  <i className="fa fa-envelope text-purple-600" style={{fontSize: '4rem'}}></i>
+                <div className="icon-circle">
+                  <i className="fa fa-envelope" style={{fontSize: '30px', color: 'white'}}></i>
                 </div>
-                <h4 className="text-xl font-bold mb-4" style={{color: '#333'}}>Email Address</h4>
-                <p className="text-gray-600" style={{fontSize: '16px', lineHeight: '1.5'}}>ceo.iitacademy@gmail.com</p>
+                <h4 className="font-bold mb-2 text-base" style={{color: '#1977f3'}}>Email Address</h4>
+                <p className="text-gray-700 text-sm">ceo.iitacademy@gmail.com</p>
               </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-            <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100 animate-slide left">
-              <h3 className="text-xl font-bold mb-4" style={{color: '#333'}}>IMA Jodhpur Classroom Advantages</h3>
-              <p className="text-gray-600 mb-6" style={{fontSize: '16px', lineHeight: '1.6'}}>
-                IMA Jodhpur Classroom Classes offer a disciplined and focused learning environment where students prepare with consistency and clarity. Offline teaching ensures direct interaction between teachers and students, allowing better concept understanding, quicker doubt resolution, and stronger academic control.
+          <div className="grid md:grid-cols-2 gap-8 items-start mb-8">
+            <div className="animate-slide left" style={{background: 'white', padding: '30px', borderRadius: '16px', boxShadow: '0 4px 15px rgba(0,0,0,0.08)'}}>
+              <h3 className="text-2xl font-bold mb-3" style={{color: '#1977f3', borderBottom: '3px solid #1977f3', paddingBottom: '10px', display: 'inline-block'}}>IMA Jodhpur Classroom Advantages</h3>
+              <p className="text-gray-700 mb-4 text-sm" style={{lineHeight: '1.6', marginTop: '20px'}}>
+                IMA Jodhpur Classroom Classes offer a disciplined and focused learning environment where students prepare with consistency and clarity. Offline teaching ensures direct interaction, better concept understanding, quicker doubt resolution, and stronger academic control.
               </p>
               <ul className="text-gray-600 space-y-2" style={{fontSize: '15px', lineHeight: '1.5'}}>
                 <li>• Personal Attention in Every Class</li>
@@ -198,92 +226,76 @@ export default function ContactUs() {
               </ul>
             </div>
 
-            <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100 animate-slide right">
-              <h3 className="text-xl font-bold mb-4" style={{color: '#333'}}>Send us a Message</h3>
-              {submitted && (
-                <div className="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
-                  Thank you! Your message has been sent successfully.
-                </div>
-              )}
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-gray-700 font-medium mb-2" style={{fontSize: '15px'}}>Full Name *</label>
-                  <input 
-                    type="text" 
-                    value={formData.name}
-                    onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    className={`w-full px-4 py-3 border rounded focus:outline-none focus:ring-2 ${errors.name ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-600'}`}
-                    style={{fontSize: '16px'}}
-                    placeholder="Enter your name"
-                  />
-                  {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
-                </div>
-                <div>
-                  <label className="block text-gray-700 font-medium mb-2" style={{fontSize: '15px'}}>Email Address *</label>
-                  <input 
-                    type="email" 
-                    value={formData.email}
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    className={`w-full px-4 py-3 border rounded focus:outline-none focus:ring-2 ${errors.email ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-600'}`}
-                    style={{fontSize: '16px'}}
-                    placeholder="Enter your email"
-                  />
-                  {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-                </div>
-                <div>
-                  <label className="block text-gray-700 font-medium mb-2" style={{fontSize: '15px'}}>Phone Number *</label>
-                  <input 
-                    type="tel" 
-                    value={formData.phone}
-                    onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    className={`w-full px-4 py-3 border rounded focus:outline-none focus:ring-2 ${errors.phone ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-600'}`}
-                    style={{fontSize: '16px'}}
-                    placeholder="Enter 10-digit phone number"
-                    maxLength="10"
-                  />
-                  {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
-                </div>
-                <div>
-                  <label className="block text-gray-700 font-medium mb-2" style={{fontSize: '15px'}}>Message *</label>
-                  <textarea 
-                    rows="4"
-                    value={formData.message}
-                    onChange={(e) => setFormData({...formData, message: e.target.value})}
-                    className={`w-full px-4 py-3 border rounded focus:outline-none focus:ring-2 ${errors.message ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-600'}`}
-                    style={{fontSize: '16px'}}
-                    placeholder="Your message"
-                  ></textarea>
-                  {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
-                </div>
-                <button type="submit" className="w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700 transition font-semibold" style={{fontSize: '16px'}}>
-                  Send Message
-                </button>
-              </form>
-                  <label className="block text-gray-700 font-medium mb-2" style={{fontSize: '15px'}}>Message</label>
-                  <textarea 
-                    rows="4"
-                    value={formData.message}
-                    onChange={(e) => setFormData({...formData, message: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-600"
-                    style={{fontSize: '16px'}}
-                    placeholder="Your message"
-                    required
-                  ></textarea>
-                </div>
-                <button type="submit" className="w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700 transition font-semibold" style={{fontSize: '16px'}}>
-                  Send Message
-                </button>
-              </form>
-            </div>
-          </div>
-          
-          <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100 animate-slide up">
-            <h3 className="text-xl font-bold mb-6 text-center" style={{color: '#333'}}>Find Us Here</h3>
+            <div className="animate-slide right">
+              <div style={{background: 'white', padding: '30px', borderRadius: '16px', boxShadow: '0 4px 15px rgba(0,0,0,0.08)'}}>
+                <h3 className="text-2xl font-bold mb-4" style={{color: '#1977f3', borderBottom: '3px solid #1977f3', paddingBottom: '10px', display: 'inline-block'}}>Send us a Message</h3>
+                {submitted && (
+                  <div className="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
+                    Thank you! Your message has been sent successfully.
+                  </div>
+                )}
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div>
+                    <label className="block text-gray-700 font-medium mb-2" style={{fontSize: '15px'}}>Full Name *</label>
+                    <input 
+                      type="text" 
+                      value={formData.name}
+                      onChange={(e) => setFormData({...formData, name: e.target.value})}
+                      className={`w-full px-4 py-3 border rounded focus:outline-none focus:ring-2 ${errors.name ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-600'}`}
+                      style={{fontSize: '16px'}}
+                      placeholder="Enter your name"
+                    />
+                    {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+                  </div>
+                  <div>
+                    <label className="block text-gray-700 font-medium mb-2" style={{fontSize: '15px'}}>Email Address *</label>
+                    <input 
+                      type="email" 
+                      value={formData.email}
+                      onChange={(e) => setFormData({...formData, email: e.target.value})}
+                      className={`w-full px-4 py-3 border rounded focus:outline-none focus:ring-2 ${errors.email ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-600'}`}
+                      style={{fontSize: '16px'}}
+                      placeholder="Enter your email"
+                    />
+                    {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+                  </div>
+                  <div>
+                    <label className="block text-gray-700 font-medium mb-2" style={{fontSize: '15px'}}>Phone Number *</label>
+                    <input 
+                      type="tel" 
+                      value={formData.phone}
+                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                      className={`w-full px-4 py-3 border rounded focus:outline-none focus:ring-2 ${errors.phone ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-600'}`}
+                      style={{fontSize: '16px'}}
+                      placeholder="Enter 10-digit phone number"
+                      maxLength="10"
+                    />
+                    {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
+                  </div>
+                  <div>
+                    <label className="block text-gray-700 font-medium mb-2" style={{fontSize: '15px'}}>Message *</label>
+                    <textarea 
+                      rows="4"
+                      value={formData.message}
+                      onChange={(e) => setFormData({...formData, message: e.target.value})}
+                      className={`w-full px-4 py-3 border rounded focus:outline-none focus:ring-2 ${errors.message ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-600'}`}
+                      style={{fontSize: '16px'}}
+                      placeholder="Your message"
+                    ></textarea>
+                    {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
+                  </div>
+                  <button type="submit" className="w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700 transition font-semibold" style={{fontSize: '16px'}}>
+                    Send Message
+                  </button>
+                </form>
+              </div>
+          <div className="animate-slide up">
+            <h3 className="text-2xl font-bold mb-4 text-center" style={{color: '#1977f3'}}>Find Us Here</h3>
             <div className="rounded-lg overflow-hidden shadow-lg">
               <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3577.123456789!2d73.0243!3d26.2389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39418c4444444444%3A0x1111111111111111!2sIMA%20Jodhpur%20-%20IIT%20Academy%20Medical%20Academy%2C%20MAIN%2C%20Pal%20Rd%2C%20near%20BARKATULLAH%20KHAN%20STADIUM%2C%20Shastri%20Nagar%2C%20Jodhpur%2C%20Rajasthan%20342003!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin"
                 width="100%" 
-                height="400" 
+                height="350" 
                 style={{border: 0}} 
                 allowFullScreen="" 
                 loading="lazy" 

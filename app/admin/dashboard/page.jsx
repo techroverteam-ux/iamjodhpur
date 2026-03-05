@@ -5,7 +5,9 @@ import Image from 'next/image'
 
 export default function AdminDashboard() {
   const router = useRouter()
-  const [activeTab, setActiveTab] = useState('blogs')
+  const [activeTab, setActiveTab] = useState('inquiries')
+  const [registrations, setRegistrations] = useState([])
+  const [courseRegistrations, setCourseRegistrations] = useState([])
   const [blogs, setBlogs] = useState([])
   const [courses, setCourses] = useState([
     { id: 42147, title: 'Pre Foundation Course', price: 'Free', validity: '354 Days', description: 'Foundation course for early preparation', content: 'Complete foundation course details...', image: 'https://d3aj4itat0hxro.cloudfront.net/826/admin_v1/bundle_management/course/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png' },
@@ -28,9 +30,13 @@ export default function AdminDashboard() {
       const savedBlogs = localStorage.getItem('blogs')
       const savedCourses = localStorage.getItem('courses')
       const savedEnquiries = localStorage.getItem('enquiries')
+      const savedRegistrations = localStorage.getItem('registrations')
+      const savedCourseRegistrations = localStorage.getItem('courseRegistrations')
       if (savedBlogs) setBlogs(JSON.parse(savedBlogs))
       if (savedCourses) setCourses(JSON.parse(savedCourses))
       if (savedEnquiries) setEnquiries(JSON.parse(savedEnquiries))
+      if (savedRegistrations) setRegistrations(JSON.parse(savedRegistrations))
+      if (savedCourseRegistrations) setCourseRegistrations(JSON.parse(savedCourseRegistrations))
     }
   }, [router])
 
@@ -41,7 +47,7 @@ export default function AdminDashboard() {
 
   const handleAdd = () => {
     setEditItem(null)
-    setFormData({ title: '', date: '', category: '', price: '', discountedPrice: '', validity: '', description: '', content: [], image: '', imageFile: null })
+    setFormData({ title: '', date: '', category: '', validity: '', description: '', content: [], image: '', imageFile: null })
     setShowModal(true)
   }
 
@@ -154,6 +160,12 @@ export default function AdminDashboard() {
           </div>
           <div className="bg-white rounded-lg shadow-md p-6">
             <div className="flex gap-4 mb-6 border-b">
+              <button onClick={() => setActiveTab('inquiries')} className={`px-6 py-3 font-semibold ${activeTab === 'inquiries' ? 'border-b-2' : ''}`} style={activeTab === 'inquiries' ? {borderColor: '#0B4F8A', color: '#0B4F8A'} : {color: '#666'}}>
+                <i className="fa fa-users mr-2"></i>Inquiries
+              </button>
+              <button onClick={() => setActiveTab('registrations')} className={`px-6 py-3 font-semibold ${activeTab === 'registrations' ? 'border-b-2' : ''}`} style={activeTab === 'registrations' ? {borderColor: '#0B4F8A', color: '#0B4F8A'} : {color: '#666'}}>
+                <i className="fa fa-user-plus mr-2"></i>Registrations
+              </button>
               <button onClick={() => setActiveTab('blogs')} className={`px-6 py-3 font-semibold ${activeTab === 'blogs' ? 'border-b-2' : ''}`} style={activeTab === 'blogs' ? {borderColor: '#0B4F8A', color: '#0B4F8A'} : {color: '#666'}}>
                 <i className="fa fa-newspaper-o mr-2"></i>Blogs
               </button>
@@ -165,72 +177,127 @@ export default function AdminDashboard() {
               </button>
             </div>
 
-            {activeTab !== 'enquiries' && (
+            {activeTab !== 'inquiries' && activeTab !== 'registrations' && activeTab !== 'enquiries' && (
               <button onClick={handleAdd} className="mb-6 px-6 py-2 rounded text-white font-semibold" style={{background: '#0B4F8A'}}>
                 <i className="fa fa-plus mr-2"></i>Add {activeTab === 'blogs' ? 'Blog' : 'Course'}
               </button>
             )}
 
             <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead style={{background: '#f8f9fa'}}>
-                  <tr>
-                    {activeTab !== 'enquiries' && <th className="px-2 py-2 text-left text-xs">Image</th>}
-                    <th className="px-2 py-2 text-left text-xs">{activeTab === 'enquiries' ? 'Name' : 'Title'}</th>
-                    {activeTab === 'blogs' ? (
+              {activeTab === 'inquiries' ? (
+                <table className="w-full">
+                  <thead style={{background: '#f8f9fa'}}>
+                    <tr>
+                      <th className="px-4 py-3 text-left">Date</th>
+                      <th className="px-4 py-3 text-left">Name</th>
+                      <th className="px-4 py-3 text-left">Email</th>
+                      <th className="px-4 py-3 text-left">Phone</th>
+                      <th className="px-4 py-3 text-left">Course</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {registrations.map((reg) => (
+                      <tr key={reg.id} className="border-b">
+                        <td className="px-4 py-3">{reg.date}</td>
+                        <td className="px-4 py-3">{reg.name}</td>
+                        <td className="px-4 py-3">{reg.email}</td>
+                        <td className="px-4 py-3">{reg.phone}</td>
+                        <td className="px-4 py-3">{reg.course}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : activeTab === 'registrations' ? (
+                <table className="w-full">
+                  <thead style={{background: '#f8f9fa'}}>
+                    <tr>
+                      <th className="px-4 py-3 text-left">Date</th>
+                      <th className="px-4 py-3 text-left">Name</th>
+                      <th className="px-4 py-3 text-left">Email</th>
+                      <th className="px-4 py-3 text-left">Phone</th>
+                      <th className="px-4 py-3 text-left">Course</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {courseRegistrations.map((reg) => (
+                      <tr key={reg.id} className="border-b">
+                        <td className="px-4 py-3">{reg.date}</td>
+                        <td className="px-4 py-3">{reg.name}</td>
+                        <td className="px-4 py-3">{reg.email}</td>
+                        <td className="px-4 py-3">{reg.phone}</td>
+                        <td className="px-4 py-3">{reg.course}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : activeTab === 'enquiries' ? (
+                <table className="w-full text-sm">
+                  <thead style={{background: '#f8f9fa'}}>
+                    <tr>
+                      <th className="px-2 py-2 text-left text-xs">Name</th>
+                      <th className="px-2 py-2 text-left text-xs">Email</th>
+                      <th className="px-2 py-2 text-left text-xs">Phone</th>
                       <th className="px-2 py-2 text-left text-xs">Date</th>
-                    ) : activeTab === 'courses' ? (
-                      <>
-                        <th className="px-2 py-2 text-left text-xs">Price</th>
-                        <th className="px-2 py-2 text-left text-xs">Validity</th>
-                      </>
-                    ) : (
-                      <>
-                        <th className="px-2 py-2 text-left text-xs">Email</th>
-                        <th className="px-2 py-2 text-left text-xs">Phone</th>
-                        <th className="px-2 py-2 text-left text-xs">Date</th>
-                      </>
-                    )}
-                    {activeTab !== 'enquiries' && <th className="px-2 py-2 text-left text-xs">Actions</th>}
-                  </tr>
-                </thead>
-                <tbody>
-                  {getCurrentItems().map((item) => (
-                    <tr key={item.id} className="border-b hover:bg-gray-50">
-                      {activeTab !== 'enquiries' && (
-                        <td className="px-2 py-2">
-                          <img src={item.image} alt={item.title} className="w-10 h-10 object-contain" />
-                        </td>
-                      )}
-                      <td className="px-2 py-2 text-xs">{activeTab === 'enquiries' ? item.name : item.title}</td>
-                      {activeTab === 'blogs' ? (
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {getCurrentItems().map((item) => (
+                      <tr key={item.id} className="border-b hover:bg-gray-50">
+                        <td className="px-2 py-2 text-xs">{item.name}</td>
+                        <td className="px-2 py-2 text-xs">{item.email}</td>
+                        <td className="px-2 py-2 text-xs">{item.phone}</td>
                         <td className="px-2 py-2 text-xs">{item.date}</td>
-                      ) : activeTab === 'courses' ? (
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : (
+                <table className="w-full">
+                  <thead style={{background: '#f8f9fa'}}>
+                    <tr>
+                      <th className="px-4 py-3 text-left">Image</th>
+                      <th className="px-4 py-3 text-left">Title</th>
+                      {activeTab === 'blogs' ? (
                         <>
-                          <td className="px-2 py-2 text-xs">{item.price}</td>
-                          <td className="px-2 py-2 text-xs">{item.validity}</td>
+                          <th className="px-4 py-3 text-left">Date</th>
                         </>
                       ) : (
                         <>
-                          <td className="px-2 py-2 text-xs">{item.email}</td>
-                          <td className="px-2 py-2 text-xs">{item.phone}</td>
-                          <td className="px-2 py-2 text-xs">{item.date}</td>
+                          <th className="px-4 py-3 text-left">Price</th>
+                          <th className="px-4 py-3 text-left">Validity</th>
                         </>
                       )}
-                      {activeTab !== 'enquiries' && (
-                        <td className="px-2 py-2">
-                          <button onClick={() => handleEdit(item)} className="px-2 py-1 rounded text-white mr-1 text-xs" style={{background: '#28a745'}}>
+                      <th className="px-4 py-3 text-left">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {(activeTab === 'blogs' ? blogs : courses).map((item) => (
+                      <tr key={item.id} className="border-b">
+                        <td className="px-4 py-3">
+                          <img src={item.image} alt={item.title} className="w-16 h-16 object-contain" />
+                        </td>
+                        <td className="px-4 py-3">{item.title}</td>
+                        {activeTab === 'blogs' ? (
+                          <td className="px-4 py-3">{item.date}</td>
+                        ) : (
+                          <>
+                            <td className="px-4 py-3">{item.price}</td>
+                            <td className="px-4 py-3">{item.validity}</td>
+                          </>
+                        )}
+                        <td className="px-4 py-3">
+                          <button onClick={() => handleEdit(item)} className="px-3 py-1 rounded text-white mr-2" style={{background: '#28a745'}}>
                             <i className="fa fa-edit"></i>
                           </button>
-                          <button onClick={() => handleDelete(item.id)} className="px-2 py-1 rounded text-white text-xs" style={{background: '#dc3545'}}>
+                          <button onClick={() => handleDelete(item.id)} className="px-3 py-1 rounded text-white" style={{background: '#dc3545'}}>
                             <i className="fa fa-trash"></i>
                           </button>
                         </td>
-                      )}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
             </div>
             
             {/* Pagination */}
@@ -319,22 +386,10 @@ export default function AdminDashboard() {
                   <input type="text" value={formData.date} onChange={(e) => setFormData({...formData, date: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '5px', fontSize: '13px'}} required />
                 </div>
               ) : (
-                <>
-                  <div className="grid grid-cols-2 gap-2 mb-3">
-                    <div>
-                      <label className="block mb-1 font-semibold text-xs">Price</label>
-                      <input type="text" value={formData.price} onChange={(e) => setFormData({...formData, price: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '5px', fontSize: '13px'}} required />
-                    </div>
-                    <div>
-                      <label className="block mb-1 font-semibold text-xs">Discounted Price</label>
-                      <input type="text" value={formData.discountedPrice} onChange={(e) => setFormData({...formData, discountedPrice: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '5px', fontSize: '13px'}} />
-                    </div>
-                  </div>
-                  <div className="mb-3">
-                    <label className="block mb-1 font-semibold text-xs">Validity</label>
-                    <input type="text" value={formData.validity} onChange={(e) => setFormData({...formData, validity: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '5px', fontSize: '13px'}} required />
-                  </div>
-                </>
+                <div className="mb-3">
+                  <label className="block mb-1 font-semibold text-xs">Validity</label>
+                  <input type="text" value={formData.validity} onChange={(e) => setFormData({...formData, validity: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '5px', fontSize: '13px'}} required />
+                </div>
               )}
               <div className="mb-3">
                 <label className="block mb-1 font-semibold text-xs">Upload Image</label>

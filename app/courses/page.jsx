@@ -4,13 +4,30 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 
 export default function CoursesPage() {
+  const [showRegisterModal, setShowRegisterModal] = useState(false)
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', course: '' })
   const [courses, setCourses] = useState([
-    { id: 42147, title: 'Pre Foundation Course', price: '₹15,000', discountedPrice: '₹12,000', validity: '354 Days', description: 'Foundation course for early preparation', image: 'https://d3aj4itat0hxro.cloudfront.net/826/admin_v1/bundle_management/course/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png' },
-    { id: 42161, title: 'NEET Preparation', price: '₹25,000', discountedPrice: '₹20,000', validity: '365 Days', description: 'Complete NEET preparation course', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
-    { id: 42286, title: 'JEE (Mains+Advance)', price: '₹25,000', discountedPrice: '₹20,000', validity: '365 Days', description: 'JEE Mains and Advanced preparation', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
-    { id: 42385, title: 'All India Test Series (AITS)', price: '₹10,000', discountedPrice: '₹8,000', validity: '365 Days', description: 'All India Test Series for practice', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
+    { id: 42147, title: 'Pre Foundation Course', validity: '354 Days', description: 'Foundation course for early preparation', image: 'https://d3aj4itat0hxro.cloudfront.net/826/admin_v1/bundle_management/course/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png' },
+    { id: 42161, title: 'NEET Preparation', validity: '365 Days', description: 'Complete NEET preparation course', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
+    { id: 42286, title: 'JEE (Mains+Advance)', validity: '365 Days', description: 'JEE Mains and Advanced preparation', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
+    { id: 42385, title: 'All India Test Series (AITS)', validity: '365 Days', description: 'All India Test Series for practice', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
   ])
   const [visible, setVisible] = useState(false)
+
+  const handleRegister = async (e) => {
+    e.preventDefault()
+    try {
+      const registration = { ...formData, date: new Date().toLocaleDateString(), id: Date.now() }
+      const existing = JSON.parse(localStorage.getItem('courseRegistrations') || '[]')
+      existing.push(registration)
+      localStorage.setItem('courseRegistrations', JSON.stringify(existing))
+      alert('Registration successful!')
+      setShowRegisterModal(false)
+      setFormData({ name: '', email: '', phone: '', course: '' })
+    } catch (error) {
+      alert('Registration failed!')
+    }
+  }
 
   useEffect(() => {
     setVisible(true)
@@ -128,11 +145,6 @@ export default function CoursesPage() {
                   </div>
                   <div style={{padding: '16px'}}>
                     <h3 style={{fontSize: '17px', fontWeight: '600', color: '#222222', marginBottom: '12px', minHeight: '48px', lineHeight: '1.4'}}>{item.title}</h3>
-                    <div style={{display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px'}}>
-                      <span style={{fontSize: '18px', fontWeight: '700', color: '#0B4F8A'}}>{item.discountedPrice}</span>
-                      <span style={{fontSize: '14px', color: '#999', textDecoration: 'line-through'}}>{item.price}</span>
-                    </div>
-                    <p style={{fontSize: '12px', color: '#666', marginBottom: '12px'}}>GST Included</p>
                     <div style={{display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '12px', padding: '6px 10px', background: '#F8FAFC', borderRadius: '8px'}}>
                       <i className="fa fa-calendar" style={{color: '#0B4F8A', fontSize: '14px'}}></i>
                       <span style={{fontSize: '13px', color: '#6B7280', fontWeight: '500'}}>{item.validity}</span>
@@ -141,8 +153,8 @@ export default function CoursesPage() {
                       <button className="btn-explore" style={{width: '100%', padding: '12px', background: '#0B4F8A', color: 'white', border: 'none', borderRadius: '8px', fontWeight: '600', cursor: 'pointer', fontSize: '14px'}}>
                         Explore Course
                       </button>
-                      <button className="btn-enroll" style={{width: '100%', padding: '12px', background: 'transparent', color: '#0B4F8A', border: '2px solid #0B4F8A', borderRadius: '8px', fontWeight: '600', cursor: 'pointer', fontSize: '14px'}}>
-                        Enroll Now
+                      <button onClick={(e) => { e.preventDefault(); setShowRegisterModal(true); }} className="btn-enroll" style={{width: '100%', padding: '12px', background: 'transparent', color: '#0B4F8A', border: '2px solid #0B4F8A', borderRadius: '8px', fontWeight: '600', cursor: 'pointer', fontSize: '14px'}}>
+                        Register Now
                       </button>
                     </div>
                   </div>
@@ -152,6 +164,36 @@ export default function CoursesPage() {
           </div>
         </div>
       </section>
+
+      {showRegisterModal && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 p-4" onClick={() => setShowRegisterModal(false)} style={{background: 'rgba(0,0,0,0.5)'}}>
+          <div className="bg-white rounded-lg w-full max-w-md relative" onClick={(e) => e.stopPropagation()}>
+            <button onClick={() => setShowRegisterModal(false)} className="absolute top-2 right-2 text-4xl text-gray-400 hover:text-gray-600 leading-none">&times;</button>
+            <div className="text-center py-8 px-10">
+              <div className="mb-4">
+                <img src="/images/new_logo.png" alt="IMA Jodhpur" className="mx-auto" style={{height: 'auto', width: '100px'}} />
+              </div>
+              <p className="my-6 font-bold text-lg">Student Registration</p>
+              <form onSubmit={handleRegister} className="space-y-4">
+                <input type="text" placeholder="Full Name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full p-3 border border-gray-300 rounded outline-none" required />
+                <input type="email" placeholder="Email Address" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className="w-full p-3 border border-gray-300 rounded outline-none" required />
+                <div className="flex">
+                  <span className="flex items-center px-3 border border-r-0 border-gray-300 rounded-l bg-gray-50">+91</span>
+                  <input type="tel" placeholder="Phone Number" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value.replace(/\D/g, '')})} maxLength="10" className="w-full p-3 border border-gray-300 rounded-r outline-none" required />
+                </div>
+                <select value={formData.course} onChange={(e) => setFormData({...formData, course: e.target.value})} className="w-full p-3 border border-gray-300 rounded outline-none" required>
+                  <option value="">Select Course</option>
+                  <option value="NEET">NEET</option>
+                  <option value="JEE">JEE</option>
+                  <option value="Pre-Foundation">Pre-Foundation</option>
+                  <option value="AITS">AITS</option>
+                </select>
+                <button type="submit" className="w-full text-white font-semibold py-3 rounded" style={{background:'#dc3545'}}>Register Now</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </>
