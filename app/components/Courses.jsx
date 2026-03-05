@@ -128,7 +128,7 @@ export default function Courses() {
     <section className="courses-section py-6" style={{background: 'linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%)'}}>
       <div className="container mx-auto px-4" style={{maxWidth: '1140px'}}>
         <div className="text-center mb-4">
-          <h3 className="text-3xl font-bold" style={{color:'var(--primary-medium)'}}>Our Popular Courses</h3>
+          <h3 className="text-2xl font-bold mb-6" style={{color: '#0B4F8A'}}>Our Popular Courses</h3>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -138,9 +138,9 @@ export default function Courses() {
                 <div className="flip-card-front">
                   <img src={course.image} alt={course.title} className="w-full h-56 object-contain p-2" />
                   <div className="p-3">
-                    <h6 className="course-title text-base mb-2">{course.title}</h6>
+                    <h6 className="text-base font-semibold mb-2" style={{color: '#333'}}>{course.title}</h6>
                     <div className="flex items-center gap-2 mb-1">
-                      <h6 className="text-lg font-bold" style={{color: 'var(--primary-medium)'}}>{course.discountedPrice}</h6>
+                      <h6 className="text-lg font-bold" style={{color: '#0B4F8A'}}>{course.discountedPrice}</h6>
                       <span className="text-sm text-gray-400 line-through">{course.price}</span>
                     </div>
                     <p className="text-xs text-gray-500 mb-2">GST Included</p>
@@ -150,11 +150,11 @@ export default function Courses() {
                   </div>
                 </div>
                 <div className="flip-card-back">
-                  <h4 className="text-xl font-bold mb-4">{course.title}</h4>
+                  <h4 className="text-xl font-bold mb-4" style={{color: 'white'}}>{course.title}</h4>
                   <p className="text-sm mb-6 text-center">Comprehensive preparation with expert guidance</p>
                   <div className="flex flex-col gap-3 w-full">
                     <a href={course.id === 42147 ? "/course-details/pre-foundation" : course.id === 42161 ? "/course-details/neet" : course.id === 42286 ? "/course-details/jee" : "/course-details/aits"} className="py-2 px-4 rounded text-white font-semibold text-center" style={{background:'rgba(255,255,255,0.2)', border: '2px solid white'}}>Explore Course</a>
-                    <button onClick={() => setShowLoginModal(true)} className="py-2 px-4 rounded font-semibold" style={{background:'white', color:'var(--primary-medium)'}}>Enroll Now</button>
+                    <button onClick={() => setShowLoginModal(true)} className="py-2 px-4 rounded font-semibold" style={{background:'white', color:'#0B4F8A'}}>Enroll Now</button>
                   </div>
                 </div>
               </div>
@@ -192,10 +192,10 @@ export default function Courses() {
                     </div>
                   </div>
                 </div>
-                <button type="submit" className="w-full text-white font-semibold" style={{background:'var(--primary-medium)', padding: '10px 40px', borderRadius: '4px', fontSize: '16px', border: 'none', cursor: 'pointer'}}>Login</button>
+                <button type="submit" className="w-full text-white font-semibold" style={{background:'#0B4F8A', padding: '10px 40px', borderRadius: '4px', fontSize: '16px', border: 'none', cursor: 'pointer'}}>Login</button>
               </form>
-              <p className="mb-4" style={{fontSize: '14px'}}>Don't have an account yet? <a href="#" onClick={(e) => {e.preventDefault(); alert('SignUp coming soon!');}} className="font-bold" style={{color:'var(--primary-medium)', textDecoration: 'none'}}>SignUp</a></p>
-              <a href="#" onClick={(e) => {e.preventDefault(); alert('Forgot Password coming soon!');}} className="font-bold" style={{color:'var(--primary-medium)', fontSize: '14px', textDecoration: 'none'}}>Forgot Password?</a>
+              <p className="mb-4" style={{fontSize: '14px', color: '#666'}}>Don't have an account yet? <a href="#" onClick={(e) => {e.preventDefault(); alert('SignUp coming soon!');}} className="font-bold" style={{color:'#0B4F8A', textDecoration: 'none'}}>SignUp</a></p>
+              <a href="#" onClick={(e) => {e.preventDefault(); alert('Forgot Password coming soon!');}} className="font-bold" style={{color:'#0B4F8A', fontSize: '14px', textDecoration: 'none'}}>Forgot Password?</a>
             </div>
           </div>
         </div>

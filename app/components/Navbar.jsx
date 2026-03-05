@@ -23,7 +23,7 @@ export default function Navbar() {
           left: 50%;
           width: 0;
           height: 2px;
-          background: linear-gradient(90deg, #1B5A96, #2E6BA8, #4FB3E8);
+          background: linear-gradient(90deg, #0B4F8A, #1677C8, #4FB3E8);
           transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
           transform: translateX(-50%);
         }
@@ -48,9 +48,9 @@ export default function Navbar() {
         }
         
         .nav-link:hover {
-          color: #1B5A96 !important;
+          color: #0B4F8A !important;
           transform: translateY(-2px);
-          text-shadow: 0 2px 8px rgba(27, 90, 150, 0.3);
+          text-shadow: 0 2px 8px rgba(11, 79, 138, 0.3);
         }
         
         .logo-container {
@@ -59,7 +59,7 @@ export default function Navbar() {
         
         .logo-container:hover {
           transform: scale(1.05);
-          filter: drop-shadow(0 4px 12px rgba(27, 90, 150, 0.3));
+          filter: drop-shadow(0 4px 12px rgba(11, 79, 138, 0.3));
         }
         
         .login-btn {
@@ -94,8 +94,8 @@ export default function Navbar() {
         }
         
         .mobile-nav-link:hover {
-          border-left-color: #1677C8;
-          background: rgba(22, 119, 200, 0.05);
+          border-left-color: #0B4F8A;
+          background: rgba(11, 79, 138, 0.05);
           transform: translateX(8px);
         }
       `}</style>

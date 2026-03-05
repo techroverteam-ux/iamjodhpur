@@ -13,9 +13,12 @@ export default function AdminDashboard() {
     { id: 42286, title: 'JEE (Mains+Advance)', price: 'Free', validity: '365 Days', description: 'JEE Mains and Advanced preparation', content: 'Complete JEE preparation package...', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
     { id: 42385, title: 'All India Test Series (AITS)', price: 'Free', validity: '365 Days', description: 'All India Test Series for practice', content: 'Regular test series for assessment...', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
   ])
+  const [enquiries, setEnquiries] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [editItem, setEditItem] = useState(null)
   const [formData, setFormData] = useState({ title: '', date: '', category: '', price: '', discountedPrice: '', validity: '', description: '', content: [], image: '', imageFile: null })
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage] = useState(5)
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -24,8 +27,10 @@ export default function AdminDashboard() {
       }
       const savedBlogs = localStorage.getItem('blogs')
       const savedCourses = localStorage.getItem('courses')
+      const savedEnquiries = localStorage.getItem('enquiries')
       if (savedBlogs) setBlogs(JSON.parse(savedBlogs))
       if (savedCourses) setCourses(JSON.parse(savedCourses))
+      if (savedEnquiries) setEnquiries(JSON.parse(savedEnquiries))
     }
   }, [router])
 
@@ -86,6 +91,18 @@ export default function AdminDashboard() {
     setFormData({...formData, content: formData.content.filter((_, i) => i !== index)})
   }
 
+  const getCurrentData = () => {
+    if (activeTab === 'blogs') return blogs
+    if (activeTab === 'courses') return courses
+    return enquiries
+  }
+  
+  const getCurrentItems = () => {
+    const data = getCurrentData()
+    const startIndex = (currentPage - 1) * itemsPerPage
+    return data.slice(startIndex, startIndex + itemsPerPage)
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
     const submitData = {...formData}
@@ -110,6 +127,7 @@ export default function AdminDashboard() {
       localStorage.setItem('courses', JSON.stringify(updatedCourses))
     }
     setShowModal(false)
+    setCurrentPage(1)
   }
 
   return (
@@ -120,7 +138,7 @@ export default function AdminDashboard() {
           <div className="container mx-auto px-4 py-4 flex justify-between items-center">
             <div className="flex items-center gap-4">
               <Image src="/images/new_logo.png" width={100} height={40} alt="IMA Jodhpur" />
-              <h1 className="text-xl font-bold" style={{color: '#1977f3'}}>Admin Dashboard</h1>
+              <h1 className="text-xl font-bold" style={{color: '#0B4F8A'}}>Admin Dashboard</h1>
             </div>
             <button onClick={handleLogout} className="px-4 py-2 rounded text-white font-semibold" style={{background: '#dc3545'}}>
               <i className="fa fa-sign-out mr-2"></i>Logout
@@ -129,68 +147,125 @@ export default function AdminDashboard() {
         </div>
 
         <div className="container mx-auto px-4 py-8">
+          <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded">
+            <p className="text-sm text-blue-800">
+              <strong>Admin Login:</strong> URL: /admin/login | Email: admin@imajodhpur.com | Password: admin123
+            </p>
+          </div>
           <div className="bg-white rounded-lg shadow-md p-6">
             <div className="flex gap-4 mb-6 border-b">
-              <button onClick={() => setActiveTab('blogs')} className={`px-6 py-3 font-semibold ${activeTab === 'blogs' ? 'border-b-2' : ''}`} style={activeTab === 'blogs' ? {borderColor: '#1977f3', color: '#1977f3'} : {color: '#666'}}>
+              <button onClick={() => setActiveTab('blogs')} className={`px-6 py-3 font-semibold ${activeTab === 'blogs' ? 'border-b-2' : ''}`} style={activeTab === 'blogs' ? {borderColor: '#0B4F8A', color: '#0B4F8A'} : {color: '#666'}}>
                 <i className="fa fa-newspaper-o mr-2"></i>Blogs
               </button>
-              <button onClick={() => setActiveTab('courses')} className={`px-6 py-3 font-semibold ${activeTab === 'courses' ? 'border-b-2' : ''}`} style={activeTab === 'courses' ? {borderColor: '#1977f3', color: '#1977f3'} : {color: '#666'}}>
+              <button onClick={() => setActiveTab('courses')} className={`px-6 py-3 font-semibold ${activeTab === 'courses' ? 'border-b-2' : ''}`} style={activeTab === 'courses' ? {borderColor: '#0B4F8A', color: '#0B4F8A'} : {color: '#666'}}>
                 <i className="fa fa-book mr-2"></i>Courses
+              </button>
+              <button onClick={() => setActiveTab('enquiries')} className={`px-6 py-3 font-semibold ${activeTab === 'enquiries' ? 'border-b-2' : ''}`} style={activeTab === 'enquiries' ? {borderColor: '#0B4F8A', color: '#0B4F8A'} : {color: '#666'}}>
+                <i className="fa fa-envelope mr-2"></i>Enquiries
               </button>
             </div>
 
-            <button onClick={handleAdd} className="mb-6 px-6 py-2 rounded text-white font-semibold" style={{background: '#1977f3'}}>
-              <i className="fa fa-plus mr-2"></i>Add {activeTab === 'blogs' ? 'Blog' : 'Course'}
-            </button>
+            {activeTab !== 'enquiries' && (
+              <button onClick={handleAdd} className="mb-6 px-6 py-2 rounded text-white font-semibold" style={{background: '#0B4F8A'}}>
+                <i className="fa fa-plus mr-2"></i>Add {activeTab === 'blogs' ? 'Blog' : 'Course'}
+              </button>
+            )}
 
             <div className="overflow-x-auto">
-              <table className="w-full">
+              <table className="w-full text-sm">
                 <thead style={{background: '#f8f9fa'}}>
                   <tr>
-                    <th className="px-4 py-3 text-left">Image</th>
-                    <th className="px-4 py-3 text-left">Title</th>
+                    {activeTab !== 'enquiries' && <th className="px-2 py-2 text-left text-xs">Image</th>}
+                    <th className="px-2 py-2 text-left text-xs">{activeTab === 'enquiries' ? 'Name' : 'Title'}</th>
                     {activeTab === 'blogs' ? (
+                      <th className="px-2 py-2 text-left text-xs">Date</th>
+                    ) : activeTab === 'courses' ? (
                       <>
-                        <th className="px-4 py-3 text-left">Date</th>
+                        <th className="px-2 py-2 text-left text-xs">Price</th>
+                        <th className="px-2 py-2 text-left text-xs">Validity</th>
                       </>
                     ) : (
                       <>
-                        <th className="px-4 py-3 text-left">Price</th>
-                        <th className="px-4 py-3 text-left">Validity</th>
+                        <th className="px-2 py-2 text-left text-xs">Email</th>
+                        <th className="px-2 py-2 text-left text-xs">Phone</th>
+                        <th className="px-2 py-2 text-left text-xs">Date</th>
                       </>
                     )}
-                    <th className="px-4 py-3 text-left">Actions</th>
+                    {activeTab !== 'enquiries' && <th className="px-2 py-2 text-left text-xs">Actions</th>}
                   </tr>
                 </thead>
                 <tbody>
-                  {(activeTab === 'blogs' ? blogs : courses).map((item) => (
-                    <tr key={item.id} className="border-b">
-                      <td className="px-4 py-3">
-                        <img src={item.image} alt={item.title} className="w-16 h-16 object-contain" />
-                      </td>
-                      <td className="px-4 py-3">{item.title}</td>
+                  {getCurrentItems().map((item) => (
+                    <tr key={item.id} className="border-b hover:bg-gray-50">
+                      {activeTab !== 'enquiries' && (
+                        <td className="px-2 py-2">
+                          <img src={item.image} alt={item.title} className="w-10 h-10 object-contain" />
+                        </td>
+                      )}
+                      <td className="px-2 py-2 text-xs">{activeTab === 'enquiries' ? item.name : item.title}</td>
                       {activeTab === 'blogs' ? (
+                        <td className="px-2 py-2 text-xs">{item.date}</td>
+                      ) : activeTab === 'courses' ? (
                         <>
-                          <td className="px-4 py-3">{item.date}</td>
+                          <td className="px-2 py-2 text-xs">{item.price}</td>
+                          <td className="px-2 py-2 text-xs">{item.validity}</td>
                         </>
                       ) : (
                         <>
-                          <td className="px-4 py-3">{item.price}</td>
-                          <td className="px-4 py-3">{item.validity}</td>
+                          <td className="px-2 py-2 text-xs">{item.email}</td>
+                          <td className="px-2 py-2 text-xs">{item.phone}</td>
+                          <td className="px-2 py-2 text-xs">{item.date}</td>
                         </>
                       )}
-                      <td className="px-4 py-3">
-                        <button onClick={() => handleEdit(item)} className="px-3 py-1 rounded text-white mr-2" style={{background: '#28a745'}}>
-                          <i className="fa fa-edit"></i>
-                        </button>
-                        <button onClick={() => handleDelete(item.id)} className="px-3 py-1 rounded text-white" style={{background: '#dc3545'}}>
-                          <i className="fa fa-trash"></i>
-                        </button>
-                      </td>
+                      {activeTab !== 'enquiries' && (
+                        <td className="px-2 py-2">
+                          <button onClick={() => handleEdit(item)} className="px-2 py-1 rounded text-white mr-1 text-xs" style={{background: '#28a745'}}>
+                            <i className="fa fa-edit"></i>
+                          </button>
+                          <button onClick={() => handleDelete(item.id)} className="px-2 py-1 rounded text-white text-xs" style={{background: '#dc3545'}}>
+                            <i className="fa fa-trash"></i>
+                          </button>
+                        </td>
+                      )}
                     </tr>
                   ))}
                 </tbody>
               </table>
+            </div>
+            
+            {/* Pagination */}
+            <div className="flex justify-between items-center mt-4">
+              <div className="text-sm text-gray-600">
+                Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, getCurrentData().length)} of {getCurrentData().length} entries
+              </div>
+              <div className="flex gap-1">
+                <button 
+                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                  disabled={currentPage === 1}
+                  className="px-3 py-1 rounded text-xs"
+                  style={{background: currentPage === 1 ? '#e9ecef' : '#0B4F8A', color: currentPage === 1 ? '#6c757d' : 'white'}}
+                >
+                  Prev
+                </button>
+                {Array.from({length: Math.ceil(getCurrentData().length / itemsPerPage)}, (_, i) => (
+                  <button
+                    key={i + 1}
+                    onClick={() => setCurrentPage(i + 1)}
+                    className="px-3 py-1 rounded text-xs"
+                    style={{background: currentPage === i + 1 ? '#0B4F8A' : '#e9ecef', color: currentPage === i + 1 ? 'white' : '#6c757d'}}
+                  >
+                    {i + 1}
+                  </button>
+                ))}
+                <button 
+                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, Math.ceil(getCurrentData().length / itemsPerPage)))}
+                  disabled={currentPage === Math.ceil(getCurrentData().length / itemsPerPage)}
+                  className="px-3 py-1 rounded text-xs"
+                  style={{background: currentPage === Math.ceil(getCurrentData().length / itemsPerPage) ? '#e9ecef' : '#0B4F8A', color: currentPage === Math.ceil(getCurrentData().length / itemsPerPage) ? '#6c757d' : 'white'}}
+                >
+                  Next
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -199,7 +274,7 @@ export default function AdminDashboard() {
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center z-50 p-4" onClick={() => setShowModal(false)} style={{background: 'rgba(0,0,0,0.5)'}}>
           <div className="bg-white rounded-lg w-full max-w-xl p-6 max-h-screen overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-            <h3 className="text-base font-bold mb-3" style={{color: '#1977f3'}}>
+            <h3 className="text-base font-bold mb-3" style={{color: '#0B4F8A'}}>
               {editItem ? 'Edit' : 'Add'} {activeTab === 'blogs' ? 'Blog' : 'Course'}
             </h3>
             <form onSubmit={handleSubmit}>
@@ -215,7 +290,7 @@ export default function AdminDashboard() {
                 <div className="flex justify-between items-center mb-2">
                   <label className="font-semibold text-xs">Content</label>
                   <div className="flex gap-1">
-                    <button type="button" onClick={() => addContentItem('heading')} className="px-2 py-1 rounded text-white text-xs" style={{background: '#1977f3'}}>
+                    <button type="button" onClick={() => addContentItem('heading')} className="px-2 py-1 rounded text-white text-xs" style={{background: '#0B4F8A'}}>
                       +Heading
                     </button>
                     <button type="button" onClick={() => addContentItem('description')} className="px-2 py-1 rounded text-white text-xs" style={{background: '#28a745'}}>
@@ -228,7 +303,7 @@ export default function AdminDashboard() {
                 </div>
                 {Array.isArray(formData.content) && formData.content.map((item, index) => (
                   <div key={index} className="flex gap-2 mb-2">
-                    <span className="text-xs font-semibold px-2 py-1 rounded" style={{background: item.type === 'heading' ? '#1977f3' : item.type === 'description' ? '#28a745' : '#ff6b9d', color: 'white', minWidth: '70px', textAlign: 'center'}}>
+                    <span className="text-xs font-semibold px-2 py-1 rounded" style={{background: item.type === 'heading' ? '#0B4F8A' : item.type === 'description' ? '#28a745' : '#ff6b9d', color: 'white', minWidth: '70px', textAlign: 'center'}}>
                       {item.type}
                     </span>
                     <input type="text" placeholder={item.type === 'heading' ? 'Heading text' : item.type === 'description' ? 'Description text' : 'Bullet point'} value={item.value} onChange={(e) => updateContentItem(index, e.target.value)} className="flex-1 outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '5px', fontSize: '12px'}} />
@@ -271,7 +346,7 @@ export default function AdminDashboard() {
                 )}
               </div>
               <div className="flex gap-2">
-                <button type="submit" className="flex-1 py-2 rounded text-white font-semibold" style={{background: '#1977f3'}}>Save</button>
+                <button type="submit" className="flex-1 py-2 rounded text-white font-semibold" style={{background: '#0B4F8A'}}>Save</button>
                 <button type="button" onClick={() => setShowModal(false)} className="flex-1 py-2 rounded text-white font-semibold" style={{background: '#6c757d'}}>Cancel</button>
               </div>
             </form>

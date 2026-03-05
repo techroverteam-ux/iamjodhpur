@@ -1,9 +1,61 @@
 'use client'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 export default function ContactUs() {
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' })
+  const [submitted, setSubmitted] = useState(false)
+  const [errors, setErrors] = useState({})
+  const [showToast, setShowToast] = useState(false)
+  const [toastMessage, setToastMessage] = useState('')
+
+  const validateForm = () => {
+    const newErrors = {}
+    
+    if (!formData.name.trim()) newErrors.name = 'Name is required'
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required'
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Email is invalid'
+    }
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone is required'
+    } else if (!/^[0-9]{10}$/.test(formData.phone.replace(/\D/g, ''))) {
+      newErrors.phone = 'Phone must be 10 digits'
+    }
+    if (!formData.message.trim()) newErrors.message = 'Message is required'
+    
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
+
+  const showToastMessage = (message, type = 'success') => {
+    setToastMessage(message)
+    setShowToast(true)
+    setTimeout(() => setShowToast(false), 4000)
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    
+    if (!validateForm()) {
+      showToastMessage('Please fix the errors below', 'error')
+      return
+    }
+    
+    const enquiries = JSON.parse(localStorage.getItem('enquiries') || '[]')
+    const newEnquiry = { ...formData, id: Date.now(), date: new Date().toLocaleDateString() }
+    enquiries.push(newEnquiry)
+    localStorage.setItem('enquiries', JSON.stringify(enquiries))
+    
+    setSubmitted(true)
+    setFormData({ name: '', email: '', phone: '', message: '' })
+    setErrors({})
+    showToastMessage('Thank you! Your message has been sent successfully. We will contact you soon!')
+    
+    setTimeout(() => setSubmitted(false), 5000)
+  }
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -66,125 +118,167 @@ export default function ContactUs() {
           animation: fadeInUp 0.8s ease-out forwards;
         }
         .contact-card {
-          background: linear-gradient(white, white) padding-box,
-                      linear-gradient(135deg, #1977f3, #00d4ff) border-box;
-          border: 3px solid transparent;
-          border-radius: 15px;
-          padding: 30px;
-          transition: all 0.4s;
+          background: white;
+          border: 1px solid #e5e7eb;
+          border-radius: 8px;
+          padding: 24px;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+          transition: all 0.3s;
         }
         .contact-card:hover {
-          transform: translateY(-10px);
-          box-shadow: 0 20px 40px rgba(25, 119, 243, 0.3);
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
         .advantage-item {
           display: flex;
           align-items: flex-start;
-          gap: 15px;
-          padding: 15px;
-          border-left: 4px solid #1977f3;
-          background: linear-gradient(90deg, rgba(25, 119, 243, 0.05) 0%, transparent 100%);
-          border-radius: 8px;
+          gap: 8px;
+          padding: 8px 0;
           transition: all 0.3s;
-        }
-        .advantage-item:hover {
-          background: linear-gradient(90deg, rgba(25, 119, 243, 0.1) 0%, transparent 100%);
-          transform: translateX(10px);
         }
       `}</style>
       
       <Navbar />
       
-      <section style={{background: 'linear-gradient(135deg, #0a1628 0%, #1977f3 100%)', padding: '60px 0', color: 'white'}}>
-        <div className="container mx-auto px-4" style={{maxWidth: '1140px'}}>
-          <div className="text-center animate-slide up">
-            <h1 className="text-4xl font-bold mb-3">Contact Us</h1>
-            <p className="text-lg">We're here to help you succeed</p>
+      <section className="py-16" style={{background: 'linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f0f9ff 100%)'}}>
+        <div className="px-4">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-bold mb-4" style={{color: '#0B4F8A'}}>Contact Us</h1>
+            <p className="text-gray-600" style={{fontSize: '18px', lineHeight: '1.6'}}>We're here to help you succeed</p>
           </div>
         </div>
       </section>
 
-      <section style={{padding: '60px 0', background: '#f8f9fa'}}>
-        <div className="container mx-auto px-4" style={{maxWidth: '1140px'}}>
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            <div className="contact-card animate-slide left">
+      <section className="py-16" style={{background: 'linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%)'}}>
+        <div className="px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+            <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100 animate-slide left">
               <div className="text-center">
-                <div className="mb-4" style={{fontSize: '50px', color: '#1977f3'}}>
-                  <i className="fa fa-map-marker"></i>
+                <div className="mb-6">
+                  <i className="fa fa-map-marker text-[#0B4F8A]" style={{fontSize: '4rem'}}></i>
                 </div>
-                <h4 className="font-bold mb-3" style={{color: '#1977f3'}}>Address</h4>
-                <p className="text-gray-700">MAIN, Pal Rd, near BARKATULLAH KHAN STADIUM, near SHRI RAM FILLING STATION, Sector-E, Shastri Nagar, Jodhpur, Rajasthan 342003</p>
+                <h4 className="text-xl font-bold mb-4" style={{color: '#333'}}>Address</h4>
+                <p className="text-gray-600" style={{fontSize: '16px', lineHeight: '1.5'}}>MAIN, Pal Rd, near BARKATULLAH KHAN STADIUM, near SHRI RAM FILLING STATION, Sector-E, Shastri Nagar, Jodhpur, Rajasthan 342003</p>
               </div>
             </div>
             
-            <div className="contact-card animate-slide up" style={{animationDelay: '0.2s'}}>
+            <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100 animate-slide up" style={{animationDelay: '0.2s'}}>
               <div className="text-center">
-                <div className="mb-4" style={{fontSize: '50px', color: '#1977f3'}}>
-                  <i className="fa fa-phone"></i>
+                <div className="mb-6">
+                  <i className="fa fa-phone text-green-600" style={{fontSize: '4rem'}}></i>
                 </div>
-                <h4 className="font-bold mb-3" style={{color: '#1977f3'}}>Phone Number</h4>
-                <p className="text-gray-700">+91 9571037333</p>
+                <h4 className="text-xl font-bold mb-4" style={{color: '#333'}}>Phone Number</h4>
+                <p className="text-gray-600" style={{fontSize: '16px', lineHeight: '1.5'}}>+91 9571037333</p>
+                <p className="text-sm text-gray-500 mt-2">For more queries, call us anytime</p>
               </div>
             </div>
             
-            <div className="contact-card animate-slide right" style={{animationDelay: '0.4s'}}>
+            <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100 animate-slide right" style={{animationDelay: '0.4s'}}>
               <div className="text-center">
-                <div className="mb-4" style={{fontSize: '50px', color: '#1977f3'}}>
-                  <i className="fa fa-envelope"></i>
+                <div className="mb-6">
+                  <i className="fa fa-envelope text-purple-600" style={{fontSize: '4rem'}}></i>
                 </div>
-                <h4 className="font-bold mb-3" style={{color: '#1977f3'}}>Email Address</h4>
-                <p className="text-gray-700">ceo.iitacademy@gmail.com</p>
+                <h4 className="text-xl font-bold mb-4" style={{color: '#333'}}>Email Address</h4>
+                <p className="text-gray-600" style={{fontSize: '16px', lineHeight: '1.5'}}>ceo.iitacademy@gmail.com</p>
               </div>
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="animate-slide left">
-              <h3 className="text-3xl font-bold mb-4" style={{color: '#1977f3'}}>IMA Jodhpur Classroom Advantages</h3>
-              <p className="text-gray-700 mb-6" style={{lineHeight: '1.8'}}>
-                IMA Jodhpur Classroom Classes offer a disciplined and focused learning environment where students prepare with consistency and clarity. Offline teaching ensures direct interaction between teachers and students, allowing better concept understanding, quicker doubt resolution, and stronger academic control. With a structured routine, regular practice, and continuous guidance, classroom learning at IMA helps students stay motivated, improve performance steadily, and build the exam-ready mindset required for NEET and JEE.
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100 animate-slide left">
+              <h3 className="text-xl font-bold mb-4" style={{color: '#333'}}>IMA Jodhpur Classroom Advantages</h3>
+              <p className="text-gray-600 mb-6" style={{fontSize: '16px', lineHeight: '1.6'}}>
+                IMA Jodhpur Classroom Classes offer a disciplined and focused learning environment where students prepare with consistency and clarity. Offline teaching ensures direct interaction between teachers and students, allowing better concept understanding, quicker doubt resolution, and stronger academic control.
               </p>
+              <ul className="text-gray-600 space-y-2" style={{fontSize: '15px', lineHeight: '1.5'}}>
+                <li>• Personal Attention in Every Class</li>
+                <li>• Better Concept Clarity</li>
+                <li>• Daily Doubt Support</li>
+                <li>• Discipline and Consistent Routine</li>
+              </ul>
             </div>
 
-            <div className="animate-slide right">
-              <div className="space-y-4">
-                <div className="advantage-item">
-                  <div style={{fontSize: '24px', color: '#1977f3', minWidth: '30px'}}>✦</div>
-                  <div>
-                    <h5 className="font-bold mb-1">Personal Attention in Every Class</h5>
-                    <p className="text-sm text-gray-600">Individual focus and one-to-one guidance for every student.</p>
-                  </div>
+            <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100 animate-slide right">
+              <h3 className="text-xl font-bold mb-4" style={{color: '#333'}}>Send us a Message</h3>
+              {submitted && (
+                <div className="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
+                  Thank you! Your message has been sent successfully.
                 </div>
-                
-                <div className="advantage-item">
-                  <div style={{fontSize: '24px', color: '#1977f3', minWidth: '30px'}}>✦</div>
-                  <div>
-                    <h5 className="font-bold mb-1">Better Concept Clarity</h5>
-                    <p className="text-sm text-gray-600">Strong fundamentals through detailed teaching and real-time explanation.</p>
-                  </div>
+              )}
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-gray-700 font-medium mb-2" style={{fontSize: '15px'}}>Full Name *</label>
+                  <input 
+                    type="text" 
+                    value={formData.name}
+                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                    className={`w-full px-4 py-3 border rounded focus:outline-none focus:ring-2 ${errors.name ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-600'}`}
+                    style={{fontSize: '16px'}}
+                    placeholder="Enter your name"
+                  />
+                  {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
                 </div>
-                
-                <div className="advantage-item">
-                  <div style={{fontSize: '24px', color: '#1977f3', minWidth: '30px'}}>✦</div>
-                  <div>
-                    <h5 className="font-bold mb-1">Daily Doubt Support</h5>
-                    <p className="text-sm text-gray-600">Immediate doubt clearing and extra help for difficult topics.</p>
-                  </div>
+                <div>
+                  <label className="block text-gray-700 font-medium mb-2" style={{fontSize: '15px'}}>Email Address *</label>
+                  <input 
+                    type="email" 
+                    value={formData.email}
+                    onChange={(e) => setFormData({...formData, email: e.target.value})}
+                    className={`w-full px-4 py-3 border rounded focus:outline-none focus:ring-2 ${errors.email ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-600'}`}
+                    style={{fontSize: '16px'}}
+                    placeholder="Enter your email"
+                  />
+                  {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                 </div>
-                
-                <div className="advantage-item">
-                  <div style={{fontSize: '24px', color: '#1977f3', minWidth: '30px'}}>✦</div>
-                  <div>
-                    <h5 className="font-bold mb-1">Discipline and Consistent Routine</h5>
-                    <p className="text-sm text-gray-600">Fixed schedule, regular practice, and serious study culture.</p>
-                  </div>
+                <div>
+                  <label className="block text-gray-700 font-medium mb-2" style={{fontSize: '15px'}}>Phone Number *</label>
+                  <input 
+                    type="tel" 
+                    value={formData.phone}
+                    onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                    className={`w-full px-4 py-3 border rounded focus:outline-none focus:ring-2 ${errors.phone ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-600'}`}
+                    style={{fontSize: '16px'}}
+                    placeholder="Enter 10-digit phone number"
+                    maxLength="10"
+                  />
+                  {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
                 </div>
-              </div>
+                <div>
+                  <label className="block text-gray-700 font-medium mb-2" style={{fontSize: '15px'}}>Message *</label>
+                  <textarea 
+                    rows="4"
+                    value={formData.message}
+                    onChange={(e) => setFormData({...formData, message: e.target.value})}
+                    className={`w-full px-4 py-3 border rounded focus:outline-none focus:ring-2 ${errors.message ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-600'}`}
+                    style={{fontSize: '16px'}}
+                    placeholder="Your message"
+                  ></textarea>
+                  {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
+                </div>
+                <button type="submit" className="w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700 transition font-semibold" style={{fontSize: '16px'}}>
+                  Send Message
+                </button>
+              </form>
+                  <label className="block text-gray-700 font-medium mb-2" style={{fontSize: '15px'}}>Message</label>
+                  <textarea 
+                    rows="4"
+                    value={formData.message}
+                    onChange={(e) => setFormData({...formData, message: e.target.value})}
+                    className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    style={{fontSize: '16px'}}
+                    placeholder="Your message"
+                    required
+                  ></textarea>
+                </div>
+                <button type="submit" className="w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700 transition font-semibold" style={{fontSize: '16px'}}>
+                  Send Message
+                </button>
+              </form>
             </div>
           </div>
           
-          <div className="mt-12 animate-slide up">
-            <h3 className="text-3xl font-bold mb-6 text-center" style={{color: '#1977f3'}}>Find Us Here</h3>
+          <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100 animate-slide up">
+            <h3 className="text-xl font-bold mb-6 text-center" style={{color: '#333'}}>Find Us Here</h3>
             <div className="rounded-lg overflow-hidden shadow-lg">
               <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3577.123456789!2d73.0243!3d26.2389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39418c4444444444%3A0x1111111111111111!2sIMA%20Jodhpur%20-%20IIT%20Academy%20Medical%20Academy%2C%20MAIN%2C%20Pal%20Rd%2C%20near%20BARKATULLAH%20KHAN%20STADIUM%2C%20Shastri%20Nagar%2C%20Jodhpur%2C%20Rajasthan%20342003!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin"
@@ -199,6 +293,18 @@ export default function ContactUs() {
           </div>
         </div>
       </section>
+
+      {/* Toast Notification */}
+      {showToast && (
+        <div className="fixed top-4 right-4 z-50 max-w-sm">
+          <div className={`p-4 rounded-lg shadow-lg ${toastMessage.includes('error') || toastMessage.includes('fix') ? 'bg-red-500' : 'bg-green-500'} text-white`}>
+            <div className="flex items-center">
+              <i className={`fa ${toastMessage.includes('error') || toastMessage.includes('fix') ? 'fa-exclamation-circle' : 'fa-check-circle'} mr-2`}></i>
+              <span className="text-sm font-medium">{toastMessage}</span>
+            </div>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </>

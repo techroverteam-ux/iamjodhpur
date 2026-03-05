@@ -39,7 +39,7 @@ export default function Hero() {
     <>
       <style jsx>{`
         .nav-btn {
-          background: rgba(22, 119, 200, 0.8);
+          background: rgba(11, 79, 138, 0.8);
           transition: all 0.3s;
         }
         .nav-btn:hover {
@@ -50,7 +50,7 @@ export default function Hero() {
           transition: all 0.3s;
         }
         .dot.active {
-          background: #1677C8;
+          background: #0B4F8A;
           width: 40px;
         }
       `}</style>
@@ -81,7 +81,7 @@ export default function Hero() {
             transform: 'translateY(-50%)',
             width: isMobile ? '32px' : '48px',
             height: isMobile ? '32px' : '48px',
-            background: 'rgba(22, 119, 200, 0.8)'
+            background: 'rgba(11, 79, 138, 0.8)'
           }}
         >
           <i className="fa fa-angle-left" style={{fontSize: isMobile ? '16px' : '24px'}}></i>
@@ -96,7 +96,7 @@ export default function Hero() {
             transform: 'translateY(-50%)',
             width: isMobile ? '32px' : '48px',
             height: isMobile ? '32px' : '48px',
-            background: 'rgba(22, 119, 200, 0.8)'
+            background: 'rgba(11, 79, 138, 0.8)'
           }}
         >
           <i className="fa fa-angle-right text-2xl"></i>

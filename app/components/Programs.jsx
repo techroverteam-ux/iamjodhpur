@@ -17,8 +17,8 @@ export default function Programs() {
             />
             <div className="program-content">
               <div className="program-badge">JEE</div>
-              <h3 className="program-title">JEE (Main+Advanced)</h3>
-              <p className="program-description">
+              <h3 className="text-xl font-bold mb-3" style={{color: '#0B4F8A'}}>JEE (Main+Advanced)</h3>
+              <p className="text-gray-600" style={{fontSize: '14px', lineHeight: '1.5'}}>
                 At IIT Medical Academy (IMA), our JEE program is designed to build strong academic fundamentals and develop the competitive skills required for JEE Main and JEE Advanced.
               </p>
             </div>
@@ -35,8 +35,8 @@ export default function Programs() {
             />
             <div className="program-content">
               <div className="program-badge">NEET</div>
-              <h3 className="program-title">NEET Preparation</h3>
-              <p className="program-description">
+              <h3 className="text-xl font-bold mb-3" style={{color: '#0B4F8A'}}>NEET Preparation</h3>
+              <p className="text-gray-600" style={{fontSize: '14px', lineHeight: '1.5'}}>
                 NEET preparation is designed with a complete academic system that builds strong concepts from the beginning and gradually upgrades students to the actual NEET level.
               </p>
             </div>
