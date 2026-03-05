@@ -66,130 +66,152 @@ export default function ContactUs() {
           animation: fadeInUp 0.8s ease-out forwards;
         }
         .contact-card {
-          background: linear-gradient(white, white) padding-box,
-                      linear-gradient(135deg, #1977f3, #00d4ff) border-box;
-          border: 3px solid transparent;
-          border-radius: 15px;
-          padding: 30px;
+          background: white;
+          border-radius: 16px;
+          padding: 25px;
           transition: all 0.4s;
+          box-shadow: 0 4px 15px rgba(25, 119, 243, 0.1);
+          position: relative;
+          overflow: hidden;
+        }
+        .contact-card::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 4px;
+          background: linear-gradient(90deg, #1977f3, #00d4ff);
         }
         .contact-card:hover {
-          transform: translateY(-10px);
-          box-shadow: 0 20px 40px rgba(25, 119, 243, 0.3);
+          transform: translateY(-8px);
+          box-shadow: 0 12px 30px rgba(25, 119, 243, 0.25);
+        }
+        .icon-circle {
+          width: 70px;
+          height: 70px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #1977f3, #00d4ff);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 auto 15px;
+          box-shadow: 0 8px 20px rgba(25, 119, 243, 0.3);
         }
         .advantage-item {
           display: flex;
           align-items: flex-start;
-          gap: 15px;
+          gap: 12px;
           padding: 15px;
-          border-left: 4px solid #1977f3;
-          background: linear-gradient(90deg, rgba(25, 119, 243, 0.05) 0%, transparent 100%);
-          border-radius: 8px;
+          background: white;
+          border-radius: 10px;
           transition: all 0.3s;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+          border-left: 4px solid #1977f3;
         }
         .advantage-item:hover {
-          background: linear-gradient(90deg, rgba(25, 119, 243, 0.1) 0%, transparent 100%);
-          transform: translateX(10px);
+          transform: translateX(8px);
+          box-shadow: 0 4px 15px rgba(25, 119, 243, 0.2);
         }
       `}</style>
       
       <Navbar />
       
-      <section style={{background: 'linear-gradient(135deg, #0a1628 0%, #1977f3 100%)', padding: '60px 0', color: 'white'}}>
+      <section style={{background: 'linear-gradient(135deg, #0a1628 0%, #1977f3 100%)', padding: '40px 0', color: 'white'}}>
         <div className="container mx-auto px-4" style={{maxWidth: '1140px'}}>
           <div className="text-center animate-slide up">
-            <h1 className="text-4xl font-bold mb-3">Contact Us</h1>
-            <p className="text-lg">We're here to help you succeed</p>
+            <h1 className="text-3xl font-bold mb-2">Contact Us</h1>
+            <p className="text-base">We're here to help you succeed</p>
           </div>
         </div>
       </section>
 
-      <section style={{padding: '60px 0', background: '#f8f9fa'}}>
+      <section style={{padding: '40px 0', background: '#f8f9fa'}}>
         <div className="container mx-auto px-4" style={{maxWidth: '1140px'}}>
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
+          <div className="grid md:grid-cols-3 gap-4 mb-8">
             <div className="contact-card animate-slide left">
               <div className="text-center">
-                <div className="mb-4" style={{fontSize: '50px', color: '#1977f3'}}>
-                  <i className="fa fa-map-marker"></i>
+                <div className="icon-circle">
+                  <i className="fa fa-map-marker" style={{fontSize: '30px', color: 'white'}}></i>
                 </div>
-                <h4 className="font-bold mb-3" style={{color: '#1977f3'}}>Address</h4>
-                <p className="text-gray-700">MAIN, Pal Rd, near BARKATULLAH KHAN STADIUM, near SHRI RAM FILLING STATION, Sector-E, Shastri Nagar, Jodhpur, Rajasthan 342003</p>
+                <h4 className="font-bold mb-2 text-base" style={{color: '#1977f3'}}>Address</h4>
+                <p className="text-gray-700 text-sm">Pal Rd, near Barkatullah Khan Stadium, Shastri Nagar, Jodhpur, Rajasthan 342003</p>
               </div>
             </div>
             
             <div className="contact-card animate-slide up" style={{animationDelay: '0.2s'}}>
               <div className="text-center">
-                <div className="mb-4" style={{fontSize: '50px', color: '#1977f3'}}>
-                  <i className="fa fa-phone"></i>
+                <div className="icon-circle">
+                  <i className="fa fa-phone" style={{fontSize: '30px', color: 'white'}}></i>
                 </div>
-                <h4 className="font-bold mb-3" style={{color: '#1977f3'}}>Phone Number</h4>
-                <p className="text-gray-700">+91 9571037333</p>
+                <h4 className="font-bold mb-2 text-base" style={{color: '#1977f3'}}>Phone Number</h4>
+                <p className="text-gray-700 text-sm">+91 9571037333</p>
               </div>
             </div>
             
             <div className="contact-card animate-slide right" style={{animationDelay: '0.4s'}}>
               <div className="text-center">
-                <div className="mb-4" style={{fontSize: '50px', color: '#1977f3'}}>
-                  <i className="fa fa-envelope"></i>
+                <div className="icon-circle">
+                  <i className="fa fa-envelope" style={{fontSize: '30px', color: 'white'}}></i>
                 </div>
-                <h4 className="font-bold mb-3" style={{color: '#1977f3'}}>Email Address</h4>
-                <p className="text-gray-700">ceo.iitacademy@gmail.com</p>
+                <h4 className="font-bold mb-2 text-base" style={{color: '#1977f3'}}>Email Address</h4>
+                <p className="text-gray-700 text-sm">ceo.iitacademy@gmail.com</p>
               </div>
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="animate-slide left">
-              <h3 className="text-3xl font-bold mb-4" style={{color: '#1977f3'}}>IMA Jodhpur Classroom Advantages</h3>
-              <p className="text-gray-700 mb-6" style={{lineHeight: '1.8'}}>
-                IMA Jodhpur Classroom Classes offer a disciplined and focused learning environment where students prepare with consistency and clarity. Offline teaching ensures direct interaction between teachers and students, allowing better concept understanding, quicker doubt resolution, and stronger academic control. With a structured routine, regular practice, and continuous guidance, classroom learning at IMA helps students stay motivated, improve performance steadily, and build the exam-ready mindset required for NEET and JEE.
+          <div className="grid md:grid-cols-2 gap-8 items-start mb-8">
+            <div className="animate-slide left" style={{background: 'white', padding: '30px', borderRadius: '16px', boxShadow: '0 4px 15px rgba(0,0,0,0.08)'}}>
+              <h3 className="text-2xl font-bold mb-3" style={{color: '#1977f3', borderBottom: '3px solid #1977f3', paddingBottom: '10px', display: 'inline-block'}}>IMA Jodhpur Classroom Advantages</h3>
+              <p className="text-gray-700 mb-4 text-sm" style={{lineHeight: '1.6', marginTop: '20px'}}>
+                IMA Jodhpur Classroom Classes offer a disciplined and focused learning environment where students prepare with consistency and clarity. Offline teaching ensures direct interaction, better concept understanding, quicker doubt resolution, and stronger academic control.
               </p>
             </div>
 
             <div className="animate-slide right">
-              <div className="space-y-4">
+              <div className="space-y-3">
                 <div className="advantage-item">
-                  <div style={{fontSize: '24px', color: '#1977f3', minWidth: '30px'}}>✦</div>
+                  <div style={{fontSize: '24px', color: '#1977f3', minWidth: '30px', fontWeight: 'bold'}}>✓</div>
                   <div>
-                    <h5 className="font-bold mb-1">Personal Attention in Every Class</h5>
-                    <p className="text-sm text-gray-600">Individual focus and one-to-one guidance for every student.</p>
+                    <h5 className="font-bold mb-1 text-sm" style={{color: '#333'}}>Personal Attention in Every Class</h5>
+                    <p className="text-xs text-gray-600">Individual focus and one-to-one guidance for every student.</p>
                   </div>
                 </div>
                 
                 <div className="advantage-item">
-                  <div style={{fontSize: '24px', color: '#1977f3', minWidth: '30px'}}>✦</div>
+                  <div style={{fontSize: '24px', color: '#1977f3', minWidth: '30px', fontWeight: 'bold'}}>✓</div>
                   <div>
-                    <h5 className="font-bold mb-1">Better Concept Clarity</h5>
-                    <p className="text-sm text-gray-600">Strong fundamentals through detailed teaching and real-time explanation.</p>
+                    <h5 className="font-bold mb-1 text-sm" style={{color: '#333'}}>Better Concept Clarity</h5>
+                    <p className="text-xs text-gray-600">Strong fundamentals through detailed teaching and real-time explanation.</p>
                   </div>
                 </div>
                 
                 <div className="advantage-item">
-                  <div style={{fontSize: '24px', color: '#1977f3', minWidth: '30px'}}>✦</div>
+                  <div style={{fontSize: '24px', color: '#1977f3', minWidth: '30px', fontWeight: 'bold'}}>✓</div>
                   <div>
-                    <h5 className="font-bold mb-1">Daily Doubt Support</h5>
-                    <p className="text-sm text-gray-600">Immediate doubt clearing and extra help for difficult topics.</p>
+                    <h5 className="font-bold mb-1 text-sm" style={{color: '#333'}}>Daily Doubt Support</h5>
+                    <p className="text-xs text-gray-600">Immediate doubt clearing and extra help for difficult topics.</p>
                   </div>
                 </div>
                 
                 <div className="advantage-item">
-                  <div style={{fontSize: '24px', color: '#1977f3', minWidth: '30px'}}>✦</div>
+                  <div style={{fontSize: '24px', color: '#1977f3', minWidth: '30px', fontWeight: 'bold'}}>✓</div>
                   <div>
-                    <h5 className="font-bold mb-1">Discipline and Consistent Routine</h5>
-                    <p className="text-sm text-gray-600">Fixed schedule, regular practice, and serious study culture.</p>
+                    <h5 className="font-bold mb-1 text-sm" style={{color: '#333'}}>Discipline and Consistent Routine</h5>
+                    <p className="text-xs text-gray-600">Fixed schedule, regular practice, and serious study culture.</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           
-          <div className="mt-12 animate-slide up">
-            <h3 className="text-3xl font-bold mb-6 text-center" style={{color: '#1977f3'}}>Find Us Here</h3>
+          <div className="animate-slide up">
+            <h3 className="text-2xl font-bold mb-4 text-center" style={{color: '#1977f3'}}>Find Us Here</h3>
             <div className="rounded-lg overflow-hidden shadow-lg">
               <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3577.123456789!2d73.0243!3d26.2389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39418c4444444444%3A0x1111111111111111!2sIMA%20Jodhpur%20-%20IIT%20Academy%20Medical%20Academy%2C%20MAIN%2C%20Pal%20Rd%2C%20near%20BARKATULLAH%20KHAN%20STADIUM%2C%20Shastri%20Nagar%2C%20Jodhpur%2C%20Rajasthan%20342003!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin"
                 width="100%" 
-                height="400" 
+                height="350" 
                 style={{border: 0}} 
                 allowFullScreen="" 
                 loading="lazy" 
