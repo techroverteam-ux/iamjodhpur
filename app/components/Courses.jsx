@@ -154,7 +154,7 @@ export default function Courses() {
                   <p className="text-sm mb-6 text-center">Comprehensive preparation with expert guidance</p>
                   <div className="flex flex-col gap-3 w-full">
                     <a href={course.id === 42147 ? "/course-details/pre-foundation" : course.id === 42161 ? "/course-details/neet" : course.id === 42286 ? "/course-details/jee" : "/course-details/aits"} className="py-2 px-4 rounded text-white font-semibold text-center" style={{background:'rgba(255,255,255,0.2)', border: '2px solid white'}}>Explore Course</a>
-                    <button onClick={() => setShowLoginModal(true)} className="py-2 px-4 rounded font-semibold" style={{background:'white', color:'var(--primary-medium)'}}>Enroll Now</button>
+                    <button onClick={() => setShowLoginModal(true)} className="py-2 px-4 rounded font-semibold" style={{background:'white', color:'var(--primary-medium)'}}>Register Now</button>
                   </div>
                 </div>
               </div>

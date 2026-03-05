@@ -5,7 +5,8 @@ import Image from 'next/image'
 
 export default function AdminDashboard() {
   const router = useRouter()
-  const [activeTab, setActiveTab] = useState('blogs')
+  const [activeTab, setActiveTab] = useState('registrations')
+  const [registrations, setRegistrations] = useState([])
   const [blogs, setBlogs] = useState([])
   const [courses, setCourses] = useState([
     { id: 42147, title: 'Pre Foundation Course', price: 'Free', validity: '354 Days', description: 'Foundation course for early preparation', content: 'Complete foundation course details...', image: 'https://d3aj4itat0hxro.cloudfront.net/826/admin_v1/bundle_management/course/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png' },
@@ -24,8 +25,10 @@ export default function AdminDashboard() {
       }
       const savedBlogs = localStorage.getItem('blogs')
       const savedCourses = localStorage.getItem('courses')
+      const savedRegistrations = localStorage.getItem('registrations')
       if (savedBlogs) setBlogs(JSON.parse(savedBlogs))
       if (savedCourses) setCourses(JSON.parse(savedCourses))
+      if (savedRegistrations) setRegistrations(JSON.parse(savedRegistrations))
     }
   }, [router])
 
@@ -131,6 +134,9 @@ export default function AdminDashboard() {
         <div className="container mx-auto px-4 py-8">
           <div className="bg-white rounded-lg shadow-md p-6">
             <div className="flex gap-4 mb-6 border-b">
+              <button onClick={() => setActiveTab('registrations')} className={`px-6 py-3 font-semibold ${activeTab === 'registrations' ? 'border-b-2' : ''}`} style={activeTab === 'registrations' ? {borderColor: '#1977f3', color: '#1977f3'} : {color: '#666'}}>
+                <i className="fa fa-users mr-2"></i>Registrations
+              </button>
               <button onClick={() => setActiveTab('blogs')} className={`px-6 py-3 font-semibold ${activeTab === 'blogs' ? 'border-b-2' : ''}`} style={activeTab === 'blogs' ? {borderColor: '#1977f3', color: '#1977f3'} : {color: '#666'}}>
                 <i className="fa fa-newspaper-o mr-2"></i>Blogs
               </button>
@@ -139,58 +145,81 @@ export default function AdminDashboard() {
               </button>
             </div>
 
-            <button onClick={handleAdd} className="mb-6 px-6 py-2 rounded text-white font-semibold" style={{background: '#1977f3'}}>
-              <i className="fa fa-plus mr-2"></i>Add {activeTab === 'blogs' ? 'Blog' : 'Course'}
-            </button>
+            {activeTab !== 'registrations' && (
+              <button onClick={handleAdd} className="mb-6 px-6 py-2 rounded text-white font-semibold" style={{background: '#1977f3'}}>
+                <i className="fa fa-plus mr-2"></i>Add {activeTab === 'blogs' ? 'Blog' : 'Course'}
+              </button>
+            )}
 
             <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead style={{background: '#f8f9fa'}}>
-                  <tr>
-                    <th className="px-4 py-3 text-left">Image</th>
-                    <th className="px-4 py-3 text-left">Title</th>
-                    {activeTab === 'blogs' ? (
-                      <>
-                        <th className="px-4 py-3 text-left">Date</th>
-                      </>
-                    ) : (
-                      <>
-                        <th className="px-4 py-3 text-left">Price</th>
-                        <th className="px-4 py-3 text-left">Validity</th>
-                      </>
-                    )}
-                    <th className="px-4 py-3 text-left">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {(activeTab === 'blogs' ? blogs : courses).map((item) => (
-                    <tr key={item.id} className="border-b">
-                      <td className="px-4 py-3">
-                        <img src={item.image} alt={item.title} className="w-16 h-16 object-contain" />
-                      </td>
-                      <td className="px-4 py-3">{item.title}</td>
+              {activeTab === 'registrations' ? (
+                <table className="w-full">
+                  <thead style={{background: '#f8f9fa'}}>
+                    <tr>
+                      <th className="px-4 py-3 text-left">Date</th>
+                      <th className="px-4 py-3 text-left">Name</th>
+                      <th className="px-4 py-3 text-left">Email</th>
+                      <th className="px-4 py-3 text-left">Phone</th>
+                      <th className="px-4 py-3 text-left">Course</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {registrations.map((reg) => (
+                      <tr key={reg.id} className="border-b">
+                        <td className="px-4 py-3">{reg.date}</td>
+                        <td className="px-4 py-3">{reg.name}</td>
+                        <td className="px-4 py-3">{reg.email}</td>
+                        <td className="px-4 py-3">{reg.phone}</td>
+                        <td className="px-4 py-3">{reg.course}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : (
+                <table className="w-full">
+                  <thead style={{background: '#f8f9fa'}}>
+                    <tr>
+                      <th className="px-4 py-3 text-left">Image</th>
+                      <th className="px-4 py-3 text-left">Title</th>
                       {activeTab === 'blogs' ? (
-                        <>
-                          <td className="px-4 py-3">{item.date}</td>
-                        </>
+                        <th className="px-4 py-3 text-left">Date</th>
                       ) : (
                         <>
-                          <td className="px-4 py-3">{item.price}</td>
-                          <td className="px-4 py-3">{item.validity}</td>
+                          <th className="px-4 py-3 text-left">Price</th>
+                          <th className="px-4 py-3 text-left">Validity</th>
                         </>
                       )}
-                      <td className="px-4 py-3">
-                        <button onClick={() => handleEdit(item)} className="px-3 py-1 rounded text-white mr-2" style={{background: '#28a745'}}>
-                          <i className="fa fa-edit"></i>
-                        </button>
-                        <button onClick={() => handleDelete(item.id)} className="px-3 py-1 rounded text-white" style={{background: '#dc3545'}}>
-                          <i className="fa fa-trash"></i>
-                        </button>
-                      </td>
+                      <th className="px-4 py-3 text-left">Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {(activeTab === 'blogs' ? blogs : courses).map((item) => (
+                      <tr key={item.id} className="border-b">
+                        <td className="px-4 py-3">
+                          <img src={item.image} alt={item.title} className="w-16 h-16 object-contain" />
+                        </td>
+                        <td className="px-4 py-3">{item.title}</td>
+                        {activeTab === 'blogs' ? (
+                          <td className="px-4 py-3">{item.date}</td>
+                        ) : (
+                          <>
+                            <td className="px-4 py-3">{item.price}</td>
+                            <td className="px-4 py-3">{item.validity}</td>
+                          </>
+                        )}
+                        <td className="px-4 py-3">
+                          <button onClick={() => handleEdit(item)} className="px-3 py-1 rounded text-white mr-2" style={{background: '#28a745'}}>
+                            <i className="fa fa-edit"></i>
+                          </button>
+                          <button onClick={() => handleDelete(item.id)} className="px-3 py-1 rounded text-white" style={{background: '#dc3545'}}>
+                            <i className="fa fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
             </div>
           </div>
         </div>

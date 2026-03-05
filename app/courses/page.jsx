@@ -142,7 +142,7 @@ export default function CoursesPage() {
                         Explore Course
                       </button>
                       <button className="btn-enroll" style={{width: '100%', padding: '12px', background: 'transparent', color: '#0B4F8A', border: '2px solid #0B4F8A', borderRadius: '8px', fontWeight: '600', cursor: 'pointer', fontSize: '14px'}}>
-                        Enroll Now
+                        Register Now
                       </button>
                     </div>
                   </div>
