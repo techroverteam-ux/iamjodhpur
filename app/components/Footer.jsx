@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 export default function Footer() {
   return (
-    <footer style={{background:'#0B4F8A'}} className="text-white">
+    <footer style={{background:'#1B5A96'}} className="text-white">
       <style jsx>{`
         @media (max-width: 768px) {
           .footer-grid {

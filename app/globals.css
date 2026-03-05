@@ -8,12 +8,12 @@
 @tailwind utilities;
 
 :root {
-  --primary: #0B4F8A;
-  --primary-deep: #0E5DA3;
-  --primary-medium: #1677C8;
-  --primary-bright: #1E8EDC;
-  --primary-light: #4FB3E8;
-  --accent: #79C2F2;
+  --primary: #1B5A96;
+  --primary-deep: #1B5A96;
+  --primary-medium: #1B5A96;
+  --primary-bright: #1B5A96;
+  --primary-light: #1B5A96;
+  --accent: #1B5A96;
   --yellow: #F4C20D;
   --yellow-gold: #E0B000;
   --yellow-dark: #C99800;
@@ -22,8 +22,8 @@
   --bg-light: #F5F7FA;
   /* New logo inspired colors */
   --logo-blue: #1B5A96;
-  --logo-blue-light: #2E6BA8;
-  --logo-blue-dark: #0F4A7A;
+  --logo-blue-light: #1B5A96;
+  --logo-blue-dark: #1B5A96;
 }
 
 * {

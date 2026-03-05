@@ -77,7 +77,7 @@ export default function Home() {
           transform: translateX(80px) scale(0.9) rotate(3deg);
           transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
           background: linear-gradient(white, white) padding-box,
-                      linear-gradient(135deg, #1977f3, #00d4ff, #1977f3) border-box;
+                      linear-gradient(135deg, #1B5A96, #1B5A96, #1B5A96) border-box;
           border: 3px solid transparent;
           border-radius: 12px;
         }
@@ -88,7 +88,7 @@ export default function Home() {
         .animate-section .single-tutor:hover,
         .animate-section .counter_div:hover {
           background: linear-gradient(white, white) padding-box,
-                      linear-gradient(135deg, #00d4ff, #1977f3, #ff6b9d) border-box;
+                      linear-gradient(135deg, #1B5A96, #1B5A96, #ff6b9d) border-box;
           box-shadow: 0 12px 30px rgba(25, 119, 243, 0.4);
           transform: translateY(-5px) scale(1.02);
         }

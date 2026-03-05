@@ -139,7 +139,7 @@ export default function FAQs() {
         }
 
         .hero-section {
-          background: linear-gradient(135deg, #0f2557 0%, #1977f3 50%, #00d4ff 100%);
+          background: linear-gradient(135deg, #0f2557 0%, #1B5A96 50%, #1B5A96 100%);
           padding: 100px 20px 80px;
           position: relative;
           overflow: hidden;
@@ -206,7 +206,7 @@ export default function FAQs() {
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
           border: 3px solid transparent;
           background: linear-gradient(white, white) padding-box,
-                      linear-gradient(135deg, #1977f3, #00d4ff) border-box;
+                      linear-gradient(135deg, #1B5A96, #1B5A96) border-box;
           overflow: hidden;
           opacity: 0;
           transition: all 0.4s ease;
@@ -238,7 +238,7 @@ export default function FAQs() {
         .faq-number {
           min-width: 45px;
           height: 45px;
-          background: linear-gradient(135deg, #1977f3, #00d4ff);
+          background: linear-gradient(135deg, #1B5A96, #1B5A96);
           color: white;
           border-radius: 12px;
           display: flex;
@@ -262,7 +262,7 @@ export default function FAQs() {
           right: 30px;
           width: 40px;
           height: 40px;
-          background: linear-gradient(135deg, #1977f3, #00d4ff);
+          background: linear-gradient(135deg, #1B5A96, #1B5A96);
           border-radius: 50%;
           display: flex;
           align-items: center;
@@ -321,7 +321,7 @@ export default function FAQs() {
           box-shadow: 0 10px 30px rgba(25, 119, 243, 0.15);
           border: 3px solid transparent;
           background: linear-gradient(white, white) padding-box,
-                      linear-gradient(135deg, #1977f3, #00d4ff) border-box;
+                      linear-gradient(135deg, #1B5A96, #1B5A96) border-box;
           transition: transform 0.3s ease;
         }
 
@@ -337,7 +337,7 @@ export default function FAQs() {
         .stat-title {
           font-size: 1.3rem;
           font-weight: 700;
-          color: #1977f3;
+          color: #1B5A96;
           margin-bottom: 10px;
         }
 

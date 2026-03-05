@@ -18,7 +18,7 @@ export default function Navbar() {
       existing.push(registration)
       localStorage.setItem('registrations', JSON.stringify(existing))
       
-      alert('Registration successful!')
+      alert('Submitted Successfully\n\nFor more information call on\n+91 - 9571037333')
       setShowRegisterModal(false)
       setFormData({ name: '', email: '', phone: '', course: '' })
     } catch (error) {
@@ -32,7 +32,8 @@ export default function Navbar() {
         .nav-link {
           position: relative;
           overflow: hidden;
-          transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          transition: all 0.3s ease;
+          display: inline-block;
         }
         
         .nav-link::before {
@@ -42,7 +43,7 @@ export default function Navbar() {
           left: 50%;
           width: 0;
           height: 2px;
-          background: linear-gradient(90deg, #0B4F8A, #1677C8, #4FB3E8);
+          background: linear-gradient(90deg, #1B5A96, #1B5A96, #1B5A96);
           transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
           transform: translateX(-50%);
         }
@@ -67,9 +68,8 @@ export default function Navbar() {
         }
         
         .nav-link:hover {
-          color: #0B4F8A !important;
-          transform: translateY(-2px);
-          text-shadow: 0 2px 8px rgba(11, 79, 138, 0.3);
+          color: #1B5A96 !important;
+          transform: translateY(-3px) scale(1.1);
         }
         
         .logo-container {
@@ -78,7 +78,7 @@ export default function Navbar() {
         
         .logo-container:hover {
           transform: scale(1.05);
-          filter: drop-shadow(0 4px 12px rgba(11, 79, 138, 0.3));
+          filter: drop-shadow(0 4px 12px rgba(27, 90, 150, 0.3));
         }
         
         .login-btn {
@@ -103,7 +103,7 @@ export default function Navbar() {
         }
         
         .login-btn:hover {
-          transform: translateY(-2px);
+          transform: translateY(-2px) scale(1.1);
           box-shadow: 0 8px 25px rgba(22, 119, 200, 0.4);
         }
         
@@ -113,13 +113,13 @@ export default function Navbar() {
         }
         
         .mobile-nav-link:hover {
-          border-left-color: #0B4F8A;
-          background: rgba(11, 79, 138, 0.05);
+          border-left-color: #1B5A96;
+          background: rgba(22, 119, 200, 0.05);
           transform: translateX(8px);
         }
       `}</style>
       
-      <section className="top_heads top_heads_header top-head" style={{background:'#0B4F8A'}}>
+      <section className="top_heads top_heads_header top-head" style={{background:'#1B5A96'}}>
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center py-2.5">
             <a href="tel:9571037333" className="text-white text-sm">
@@ -144,14 +144,14 @@ export default function Navbar() {
             </button>
 
             <div className="hidden md:flex items-center space-x-4">
-              <Link href="/" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1">Home</Link>
-              <Link href="/about-us" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1">About Us</Link>
-              <Link href="/courses" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1">Courses</Link>
-              <Link href="/facilities" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1">Facilities</Link>
-              <Link href="/blog" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1">Blogs</Link>
-              <Link href="/why-ima" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1">WHY IMA ?</Link>
-              <Link href="/contact-us" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1">Contact Us</Link>
-              <button onClick={() => setShowRegisterModal(true)} className="login-btn px-6 py-2.5 rounded-md text-white font-medium text-sm uppercase tracking-wide" style={{background:'#dc3545'}}>
+              <Link href="/" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1" style={{display: 'inline-block'}} onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.15)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}>Home</Link>
+              <Link href="/about-us" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1" style={{display: 'inline-block'}} onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.15)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}>About Us</Link>
+              <Link href="/courses" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1" style={{display: 'inline-block'}} onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.15)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}>Courses</Link>
+              <Link href="/facilities" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1" style={{display: 'inline-block'}} onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.15)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}>Facilities</Link>
+              <Link href="/blog" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1" style={{display: 'inline-block'}} onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.15)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}>Blogs</Link>
+              <Link href="/why-ima" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1" style={{display: 'inline-block'}} onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.15)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}>WHY IMA ?</Link>
+              <Link href="/contact-us" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1" style={{display: 'inline-block'}} onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.15)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}>Contact Us</Link>
+              <button onClick={() => setShowRegisterModal(true)} className="login-btn px-6 py-2.5 rounded-md text-white font-medium text-sm uppercase tracking-wide" style={{background:'#dc3545', transition: 'all 0.3s ease'}} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px) scale(1.1)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0) scale(1)'}>
                 STHE
               </button>
             </div>
@@ -175,20 +175,27 @@ export default function Navbar() {
       </div>
 
       {showRegisterModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 p-4" onClick={() => setShowRegisterModal(false)} style={{background: 'rgba(0,0,0,0.5)'}}>
-          <div className="bg-white rounded-lg w-full max-w-md relative" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 flex items-center justify-center z-50 p-4" onClick={() => setShowRegisterModal(false)} style={{background: 'rgba(0,0,0,0.5)', paddingTop: '60px', paddingBottom: '60px'}}>
+          <div className="bg-white rounded-lg w-full max-w-md relative" onClick={(e) => e.stopPropagation()} style={{maxHeight: 'calc(100vh - 120px)', overflowY: 'auto'}}>
             <button onClick={() => setShowRegisterModal(false)} className="absolute top-2 right-2 text-4xl text-gray-400 hover:text-gray-600 leading-none">&times;</button>
-            <div className="text-center py-8 px-10">
-              <div className="mb-4">
-                <Image src="/images/new_logo.png" width={100} height={40} alt="IMA Jodhpur" className="mx-auto" style={{height: 'auto', width: '100px'}} />
+            <div className="text-center py-6 px-8">
+              <div className="mb-3">
+                <Image src="/images/new_logo.png" width={80} height={32} alt="IMA Jodhpur" className="mx-auto" style={{height: 'auto', width: '80px'}} />
               </div>
-              <p className="my-6 font-bold text-lg">Student Registration</p>
-              <form onSubmit={handleRegister} className="space-y-4">
+              <p className="my-4 font-bold text-base" style={{color: '#1B5A96'}}>Get Scholarship Upto 100%</p>
+              <div className="mb-4 text-left">
+                <h3 className="font-bold mb-2" style={{color: '#1B5A96', fontSize: '15px'}}>Science Talent Hunt Examination</h3>
+                <ul style={{listStyle: 'none', padding: 0, color: '#1B5A96', fontSize: '13px', lineHeight: '1.8'}}>
+                  <li><strong>📅 Every Sunday</strong></li>
+                  <li><strong>⏱️ 2 Hours Question Paper</strong></li>
+                  <li><strong>📝 75 Questions</strong></li>
+                </ul>
+              </div>
+              <form onSubmit={handleRegister} className="space-y-3">
                 <input type="text" placeholder="Full Name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full p-3 border border-gray-300 rounded outline-none" required />
-                <input type="email" placeholder="Email Address" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className="w-full p-3 border border-gray-300 rounded outline-none" required />
                 <div className="flex">
                   <span className="flex items-center px-3 border border-r-0 border-gray-300 rounded-l bg-gray-50">+91</span>
-                  <input type="tel" placeholder="Phone Number" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value.replace(/\D/g, '')})} maxLength="10" className="w-full p-3 border border-gray-300 rounded-r outline-none" required />
+                  <input type="tel" placeholder="WhatsApp Number" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value.replace(/\D/g, '')})} maxLength="10" className="w-full p-3 border border-gray-300 rounded-r outline-none" required />
                 </div>
                 <select value={formData.course} onChange={(e) => setFormData({...formData, course: e.target.value})} className="w-full p-3 border border-gray-300 rounded outline-none" required>
                   <option value="">Select Course</option>

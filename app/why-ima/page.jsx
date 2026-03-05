@@ -216,12 +216,13 @@ export default function WhyIAM() {
       `}} />
 
       <Navbar />
-
-      <section className="hero-section">
-        <div className="container text-center">
-          <h1 className="hero-title mb-3" style={{fontSize: '4rem'}}>WHY IMA ?</h1>
+      
+      <div style={{position: 'relative', height: '400px', overflow: 'hidden'}}>
+        <img src="/images/5.png" alt="Why IMA" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+        <div style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+          <h1 style={{color: 'white', fontSize: '48px', fontWeight: 'bold', textShadow: '2px 2px 4px rgba(0,0,0,0.5)'}}>Why Choose IMA</h1>
         </div>
-      </section>
+      </div>
 
       <section className="py-4 section-bg">
         <div className="container" style={{maxWidth: '100%', padding: '0 20px'}}>
@@ -317,3 +318,4 @@ export default function WhyIAM() {
     </>
   )
 }
+

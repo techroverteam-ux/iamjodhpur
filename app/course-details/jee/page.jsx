@@ -24,7 +24,7 @@ export default function JEECourseDetail() {
             font-size: 14px;
           }
           .breadcrumb-text a {
-            color: #1977f3;
+            color: #1B5A96;
             text-decoration: none;
           }
           .course-container {
@@ -38,7 +38,7 @@ export default function JEECourseDetail() {
             gap: 30px;
           }
           .course-content h2 {
-            color: #1977f3;
+            color: #1B5A96;
             font-size: 32px;
             font-weight: bold;
             margin-bottom: 20px;
@@ -95,7 +95,7 @@ export default function JEECourseDetail() {
           .current-price {
             font-size: 28px;
             font-weight: bold;
-            color: #1977f3;
+            color: #1B5A96;
           }
           .original-price {
             font-size: 18px;
@@ -119,7 +119,7 @@ export default function JEECourseDetail() {
           .enroll-btn {
             width: 100%;
             padding: 12px;
-            background: #1977f3;
+            background: #1B5A96;
             color: white;
             border: none;
             border-radius: 4px;
@@ -165,10 +165,6 @@ export default function JEECourseDetail() {
               <img src="/images/3520795826_both.png" alt="JEE Course" className="course-card-image" />
               <div className="course-card-body">
                 <h3 className="course-card-title">JEE (Mains+Advance)</h3>
-                <p className="course-card-author">By IMA Jodhpur</p>
-                <div className="course-price">
-                  <span className="current-price">Free</span>
-                </div>
                 <div className="validity-text">
                   <i className="fa fa-calendar"></i> Validity 365 Days
                 </div>

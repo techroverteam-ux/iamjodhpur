@@ -9,7 +9,7 @@ export default function PrivacyPolicy() {
       <div className="min-h-screen bg-white">
         
         {/* Header */}
-        <div className="relative pt-16 pb-12 text-center" style={{background: 'linear-gradient(135deg, #0B4F8A 0%, #1677C8 100%)'}}>
+        <div className="relative pt-16 pb-12 text-center" style={{background: 'linear-gradient(135deg, #1B5A96 0%, #1B5A96 100%)'}}>
           <div className="max-w-4xl mx-auto px-6">
             <h1 className="text-5xl md:text-6xl font-black text-white mb-4">
               Privacy Policy

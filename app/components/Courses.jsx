@@ -135,8 +135,8 @@ export default function Courses() {
       `}</style>
     <section className="courses-section py-4" style={{background: 'linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%)'}}>
       <div className="container mx-auto px-4" style={{maxWidth: '1140px'}}>
-        <div className="text-center mb-4">
-          <h3 className="text-2xl font-bold mb-6" style={{color: '#0B4F8A'}}>Our Popular Courses</h3>
+        <div className="text-center mb-3">
+          <h3 className="text-2xl font-bold" style={{color:'var(--primary-medium)'}}>Our Popular Courses</h3>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -144,20 +144,20 @@ export default function Courses() {
             <div key={course.id} className="course-card">
               <div className="flip-card">
                 <div className="flip-card-front">
-                  <img src={course.image} alt={course.title} className="w-full h-56 object-contain p-2" />
-                  <div className="p-3">
-                    <h6 className="text-base font-semibold mb-2" style={{color: '#333'}}>{course.title}</h6>
-                    <div className="flex items-center text-sm text-gray-600">
+                  <img src={course.image} alt={course.title} className="w-full h-40 object-contain p-2" />
+                  <div className="p-2">
+                    <h6 className="course-title text-sm mb-2">{course.title}</h6>
+                    <div className="flex items-center text-xs text-gray-600">
                       <i className="fa fa-calendar mr-2"></i> Validity {course.validity}
                     </div>
                   </div>
                 </div>
                 <div className="flip-card-back">
-                  <h4 className="text-xl font-bold mb-4" style={{color: 'white'}}>{course.title}</h4>
-                  <p className="text-sm mb-6 text-center">Comprehensive preparation with expert guidance</p>
-                  <div className="flex flex-col gap-3 w-full">
-                    <a href={course.id === 42147 ? "/course-details/pre-foundation" : course.id === 42161 ? "/course-details/neet" : course.id === 42286 ? "/course-details/jee" : "/course-details/aits"} className="py-2 px-4 rounded text-white font-semibold text-center" style={{background:'rgba(255,255,255,0.2)', border: '2px solid white'}}>Explore Course</a>
-                    <button onClick={() => setShowRegisterModal(true)} className="py-2 px-4 rounded font-semibold" style={{background:'white', color:'#0B4F8A'}}>Register Now</button>
+                  <h4 className="text-lg font-bold mb-3">{course.title}</h4>
+                  <p className="text-xs mb-4 text-center">Comprehensive preparation with expert guidance</p>
+                  <div className="flex flex-col gap-2 w-full">
+                    <a href={`/course-details?id=${course.id}`} className="py-2 px-4 rounded text-white font-semibold text-center text-sm" style={{background:'rgba(255,255,255,0.2)', border: '2px solid white'}}>Explore Course</a>
+                    <button onClick={() => setShowRegisterModal(true)} className="py-2 px-4 rounded font-semibold text-sm" style={{background:'white', color:'var(--primary-medium)'}}>Register Now</button>
                   </div>
                 </div>
               </div>
@@ -177,10 +177,9 @@ export default function Courses() {
               <p className="my-6 font-bold" style={{fontSize: '18px', color: '#000'}}>Student Registration</p>
               <form onSubmit={handleRegister}>
                 <input type="text" placeholder="Full Name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} style={{width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '4px', marginBottom: '16px', fontSize: '14px', color: '#000'}} required />
-                <input type="email" placeholder="Email Address" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} style={{width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '4px', marginBottom: '16px', fontSize: '14px', color: '#000'}} required />
                 <div style={{display: 'flex', marginBottom: '16px'}}>
                   <span style={{display: 'flex', alignItems: 'center', padding: '12px', border: '1px solid #ddd', borderRight: 'none', borderRadius: '4px 0 0 4px', background: '#f5f5f5', color: '#000'}}>+91</span>
-                  <input type="tel" placeholder="Phone Number" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value.replace(/\D/g, '')})} maxLength="10" style={{flex: 1, padding: '12px', border: '1px solid #ddd', borderRadius: '0 4px 4px 0', fontSize: '14px', color: '#000'}} required />
+                  <input type="tel" placeholder="WhatsApp Number" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value.replace(/\D/g, '')})} maxLength="10" style={{flex: 1, padding: '12px', border: '1px solid #ddd', borderRadius: '0 4px 4px 0', fontSize: '14px', color: '#000'}} required />
                 </div>
                 <select value={formData.course} onChange={(e) => setFormData({...formData, course: e.target.value})} style={{width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '4px', marginBottom: '16px', fontSize: '14px', color: '#000'}} required>
                   <option value="">Select Course</option>
@@ -190,6 +189,7 @@ export default function Courses() {
                   <option value="AITS">AITS</option>
                 </select>
                 <button type="submit" style={{width: '100%', padding: '12px', background: '#dc3545', color: '#fff', border: 'none', borderRadius: '4px', fontSize: '16px', fontWeight: '600', cursor: 'pointer'}}>Register Now</button>
+              </form>
             </div>
           </div>
         </div>

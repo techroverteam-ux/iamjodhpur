@@ -150,7 +150,7 @@ export default function Stats() {
       <section ref={sectionRef} className="py-12 md:py-20" style={{background: 'linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f0f9ff 100%)'}}>
         <div className="container mx-auto px-4" style={{maxWidth: '1200px'}}>
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{color:'#0B4F8A', fontFamily: 'Playfair Display, serif'}}>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{color:'#1B5A96', fontFamily: 'Playfair Display, serif'}}>
               SUCCESS HISTORY
             </h2>
             <p className="text-xl text-gray-600 font-medium">

@@ -9,18 +9,23 @@ export default function AdminDashboard() {
   const [registrations, setRegistrations] = useState([])
   const [courseRegistrations, setCourseRegistrations] = useState([])
   const [blogs, setBlogs] = useState([])
+  const [banners, setBanners] = useState({
+    aboutUs: '/images/1.png',
+    courses: '/images/2.png',
+    facilities: '/images/3.png',
+    blogs: '/images/4.png',
+    whyIma: '/images/5.png',
+    contactUs: '/images/1.png'
+  })
   const [courses, setCourses] = useState([
     { id: 42147, title: 'Pre Foundation Course', price: 'Free', validity: '354 Days', description: 'Foundation course for early preparation', content: 'Complete foundation course details...', image: 'https://d3aj4itat0hxro.cloudfront.net/826/admin_v1/bundle_management/course/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png' },
     { id: 42161, title: 'NEET Preparation', price: 'Free', validity: '365 Days', description: 'Complete NEET preparation course', content: 'NEET course includes all subjects...', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
     { id: 42286, title: 'JEE (Mains+Advance)', price: 'Free', validity: '365 Days', description: 'JEE Mains and Advanced preparation', content: 'Complete JEE preparation package...', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
     { id: 42385, title: 'All India Test Series (AITS)', price: 'Free', validity: '365 Days', description: 'All India Test Series for practice', content: 'Regular test series for assessment...', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
   ])
-  const [enquiries, setEnquiries] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [editItem, setEditItem] = useState(null)
-  const [formData, setFormData] = useState({ title: '', date: '', category: '', price: '', discountedPrice: '', validity: '', description: '', content: [], image: '', imageFile: null })
-  const [currentPage, setCurrentPage] = useState(1)
-  const [itemsPerPage] = useState(5)
+  const [formData, setFormData] = useState({ title: '', date: '', category: '', validity: '', description: '', content: [], image: '', imageFile: null })
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -29,14 +34,14 @@ export default function AdminDashboard() {
       }
       const savedBlogs = localStorage.getItem('blogs')
       const savedCourses = localStorage.getItem('courses')
-      const savedEnquiries = localStorage.getItem('enquiries')
       const savedRegistrations = localStorage.getItem('registrations')
       const savedCourseRegistrations = localStorage.getItem('courseRegistrations')
+      const savedBanners = localStorage.getItem('banners')
       if (savedBlogs) setBlogs(JSON.parse(savedBlogs))
       if (savedCourses) setCourses(JSON.parse(savedCourses))
-      if (savedEnquiries) setEnquiries(JSON.parse(savedEnquiries))
       if (savedRegistrations) setRegistrations(JSON.parse(savedRegistrations))
       if (savedCourseRegistrations) setCourseRegistrations(JSON.parse(savedCourseRegistrations))
+      if (savedBanners) setBanners(JSON.parse(savedBanners))
     }
   }, [router])
 
@@ -97,16 +102,18 @@ export default function AdminDashboard() {
     setFormData({...formData, content: formData.content.filter((_, i) => i !== index)})
   }
 
-  const getCurrentData = () => {
-    if (activeTab === 'blogs') return blogs
-    if (activeTab === 'courses') return courses
-    return enquiries
-  }
-  
-  const getCurrentItems = () => {
-    const data = getCurrentData()
-    const startIndex = (currentPage - 1) * itemsPerPage
-    return data.slice(startIndex, startIndex + itemsPerPage)
+  const handleBannerUpload = (page, e) => {
+    const file = e.target.files[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        const newBanners = {...banners, [page]: reader.result}
+        setBanners(newBanners)
+        localStorage.setItem('banners', JSON.stringify(newBanners))
+        alert('Banner updated successfully!')
+      }
+      reader.readAsDataURL(file)
+    }
   }
 
   const handleSubmit = (e) => {
@@ -133,19 +140,39 @@ export default function AdminDashboard() {
       localStorage.setItem('courses', JSON.stringify(updatedCourses))
     }
     setShowModal(false)
-    setCurrentPage(1)
   }
 
   return (
     <>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-      <div className="min-h-screen" style={{background: '#f5f5f5'}}>
+      <div className="min-h-screen" style={{background: '#f5f5f5', display: 'flex'}}>
+        <div style={{width: '250px', background: '#1B5A96', minHeight: '100vh', position: 'fixed', left: 0, top: 0}}>
+          <div style={{padding: '20px', borderBottom: '1px solid rgba(255,255,255,0.1)'}}>
+            <img src="/images/new_logo.png" width="100" height="40" alt="IMA Jodhpur" />
+          </div>
+          <div style={{padding: '20px 0'}}>
+            <button onClick={() => setActiveTab('inquiries')} style={{width: '100%', padding: '15px 20px', background: activeTab === 'inquiries' ? 'rgba(255,255,255,0.1)' : 'transparent', color: 'white', border: 'none', textAlign: 'left', cursor: 'pointer', borderLeft: activeTab === 'inquiries' ? '4px solid white' : '4px solid transparent'}}>
+              <i className="fa fa-trophy" style={{marginRight: '10px'}}></i>STHE
+            </button>
+            <button onClick={() => setActiveTab('registrations')} style={{width: '100%', padding: '15px 20px', background: activeTab === 'registrations' ? 'rgba(255,255,255,0.1)' : 'transparent', color: 'white', border: 'none', textAlign: 'left', cursor: 'pointer', borderLeft: activeTab === 'registrations' ? '4px solid white' : '4px solid transparent'}}>
+              <i className="fa fa-user-plus" style={{marginRight: '10px'}}></i>Registrations
+            </button>
+            <button onClick={() => setActiveTab('blogs')} style={{width: '100%', padding: '15px 20px', background: activeTab === 'blogs' ? 'rgba(255,255,255,0.1)' : 'transparent', color: 'white', border: 'none', textAlign: 'left', cursor: 'pointer', borderLeft: activeTab === 'blogs' ? '4px solid white' : '4px solid transparent'}}>
+              <i className="fa fa-newspaper-o" style={{marginRight: '10px'}}></i>Blogs
+            </button>
+            <button onClick={() => setActiveTab('courses')} style={{width: '100%', padding: '15px 20px', background: activeTab === 'courses' ? 'rgba(255,255,255,0.1)' : 'transparent', color: 'white', border: 'none', textAlign: 'left', cursor: 'pointer', borderLeft: activeTab === 'courses' ? '4px solid white' : '4px solid transparent'}}>
+              <i className="fa fa-book" style={{marginRight: '10px'}}></i>Courses
+            </button>
+            <button onClick={() => setActiveTab('banners')} style={{width: '100%', padding: '15px 20px', background: activeTab === 'banners' ? 'rgba(255,255,255,0.1)' : 'transparent', color: 'white', border: 'none', textAlign: 'left', cursor: 'pointer', borderLeft: activeTab === 'banners' ? '4px solid white' : '4px solid transparent'}}>
+              <i className="fa fa-image" style={{marginRight: '10px'}}></i>Banners
+            </button>
+          </div>
+        </div>
+
+        <div style={{marginLeft: '250px', flex: 1}}>
         <div className="bg-white shadow-md">
           <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-            <div className="flex items-center gap-4">
-              <Image src="/images/new_logo.png" width={100} height={40} alt="IMA Jodhpur" />
-              <h1 className="text-xl font-bold" style={{color: '#0B4F8A'}}>Admin Dashboard</h1>
-            </div>
+            <h1 className="text-xl font-bold" style={{color: '#1B5A96'}}>Admin Dashboard</h1>
             <button onClick={handleLogout} className="px-4 py-2 rounded text-white font-semibold" style={{background: '#dc3545'}}>
               <i className="fa fa-sign-out mr-2"></i>Logout
             </button>
@@ -153,38 +180,28 @@ export default function AdminDashboard() {
         </div>
 
         <div className="container mx-auto px-4 py-8">
-          <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded">
-            <p className="text-sm text-blue-800">
-              <strong>Admin Login:</strong> URL: /admin/login | Email: admin@imajodhpur.com | Password: admin123
-            </p>
-          </div>
           <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="flex gap-4 mb-6 border-b">
-              <button onClick={() => setActiveTab('inquiries')} className={`px-6 py-3 font-semibold ${activeTab === 'inquiries' ? 'border-b-2' : ''}`} style={activeTab === 'inquiries' ? {borderColor: '#0B4F8A', color: '#0B4F8A'} : {color: '#666'}}>
-                <i className="fa fa-users mr-2"></i>Inquiries
-              </button>
-              <button onClick={() => setActiveTab('registrations')} className={`px-6 py-3 font-semibold ${activeTab === 'registrations' ? 'border-b-2' : ''}`} style={activeTab === 'registrations' ? {borderColor: '#0B4F8A', color: '#0B4F8A'} : {color: '#666'}}>
-                <i className="fa fa-user-plus mr-2"></i>Registrations
-              </button>
-              <button onClick={() => setActiveTab('blogs')} className={`px-6 py-3 font-semibold ${activeTab === 'blogs' ? 'border-b-2' : ''}`} style={activeTab === 'blogs' ? {borderColor: '#0B4F8A', color: '#0B4F8A'} : {color: '#666'}}>
-                <i className="fa fa-newspaper-o mr-2"></i>Blogs
-              </button>
-              <button onClick={() => setActiveTab('courses')} className={`px-6 py-3 font-semibold ${activeTab === 'courses' ? 'border-b-2' : ''}`} style={activeTab === 'courses' ? {borderColor: '#0B4F8A', color: '#0B4F8A'} : {color: '#666'}}>
-                <i className="fa fa-book mr-2"></i>Courses
-              </button>
-              <button onClick={() => setActiveTab('enquiries')} className={`px-6 py-3 font-semibold ${activeTab === 'enquiries' ? 'border-b-2' : ''}`} style={activeTab === 'enquiries' ? {borderColor: '#0B4F8A', color: '#0B4F8A'} : {color: '#666'}}>
-                <i className="fa fa-envelope mr-2"></i>Enquiries
-              </button>
-            </div>
-
-            {activeTab !== 'inquiries' && activeTab !== 'registrations' && activeTab !== 'enquiries' && (
-              <button onClick={handleAdd} className="mb-6 px-6 py-2 rounded text-white font-semibold" style={{background: '#0B4F8A'}}>
+            {activeTab !== 'inquiries' && activeTab !== 'registrations' && activeTab !== 'banners' && (
+              <button onClick={handleAdd} className="mb-6 px-6 py-2 rounded text-white font-semibold" style={{background: '#1B5A96'}}>
                 <i className="fa fa-plus mr-2"></i>Add {activeTab === 'blogs' ? 'Blog' : 'Course'}
               </button>
             )}
 
             <div className="overflow-x-auto">
-              {activeTab === 'inquiries' ? (
+              {activeTab === 'banners' ? (
+                <div>
+                  <h2 className="text-xl font-bold mb-4" style={{color: '#1B5A96'}}>Manage Page Banners</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {Object.keys(banners).map((page) => (
+                      <div key={page} style={{border: '1px solid #e0e0e0', borderRadius: '8px', padding: '20px'}}>
+                        <h3 className="font-bold mb-2" style={{textTransform: 'capitalize'}}>{page.replace(/([A-Z])/g, ' $1').trim()}</h3>
+                        <img src={banners[page]} alt={page} style={{width: '100%', height: '150px', objectFit: 'cover', borderRadius: '4px', marginBottom: '10px'}} />
+                        <input type="file" accept="image/*" onChange={(e) => handleBannerUpload(page, e)} style={{width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px'}} />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : activeTab === 'inquiries' ? (
                 <table className="w-full">
                   <thead style={{background: '#f8f9fa'}}>
                     <tr>
@@ -230,27 +247,6 @@ export default function AdminDashboard() {
                     ))}
                   </tbody>
                 </table>
-              ) : activeTab === 'enquiries' ? (
-                <table className="w-full text-sm">
-                  <thead style={{background: '#f8f9fa'}}>
-                    <tr>
-                      <th className="px-2 py-2 text-left text-xs">Name</th>
-                      <th className="px-2 py-2 text-left text-xs">Email</th>
-                      <th className="px-2 py-2 text-left text-xs">Phone</th>
-                      <th className="px-2 py-2 text-left text-xs">Date</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {getCurrentItems().map((item) => (
-                      <tr key={item.id} className="border-b hover:bg-gray-50">
-                        <td className="px-2 py-2 text-xs">{item.name}</td>
-                        <td className="px-2 py-2 text-xs">{item.email}</td>
-                        <td className="px-2 py-2 text-xs">{item.phone}</td>
-                        <td className="px-2 py-2 text-xs">{item.date}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
               ) : (
                 <table className="w-full">
                   <thead style={{background: '#f8f9fa'}}>
@@ -258,14 +254,9 @@ export default function AdminDashboard() {
                       <th className="px-4 py-3 text-left">Image</th>
                       <th className="px-4 py-3 text-left">Title</th>
                       {activeTab === 'blogs' ? (
-                        <>
-                          <th className="px-4 py-3 text-left">Date</th>
-                        </>
+                        <th className="px-4 py-3 text-left">Date</th>
                       ) : (
-                        <>
-                          <th className="px-4 py-3 text-left">Price</th>
-                          <th className="px-4 py-3 text-left">Validity</th>
-                        </>
+                        <th className="px-4 py-3 text-left">Validity</th>
                       )}
                       <th className="px-4 py-3 text-left">Actions</th>
                     </tr>
@@ -280,10 +271,7 @@ export default function AdminDashboard() {
                         {activeTab === 'blogs' ? (
                           <td className="px-4 py-3">{item.date}</td>
                         ) : (
-                          <>
-                            <td className="px-4 py-3">{item.price}</td>
-                            <td className="px-4 py-3">{item.validity}</td>
-                          </>
+                          <td className="px-4 py-3">{item.validity}</td>
                         )}
                         <td className="px-4 py-3">
                           <button onClick={() => handleEdit(item)} className="px-3 py-1 rounded text-white mr-2" style={{background: '#28a745'}}>
@@ -299,49 +287,15 @@ export default function AdminDashboard() {
                 </table>
               )}
             </div>
-            
-            {/* Pagination */}
-            <div className="flex justify-between items-center mt-4">
-              <div className="text-sm text-gray-600">
-                Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, getCurrentData().length)} of {getCurrentData().length} entries
-              </div>
-              <div className="flex gap-1">
-                <button 
-                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                  disabled={currentPage === 1}
-                  className="px-3 py-1 rounded text-xs"
-                  style={{background: currentPage === 1 ? '#e9ecef' : '#0B4F8A', color: currentPage === 1 ? '#6c757d' : 'white'}}
-                >
-                  Prev
-                </button>
-                {Array.from({length: Math.ceil(getCurrentData().length / itemsPerPage)}, (_, i) => (
-                  <button
-                    key={i + 1}
-                    onClick={() => setCurrentPage(i + 1)}
-                    className="px-3 py-1 rounded text-xs"
-                    style={{background: currentPage === i + 1 ? '#0B4F8A' : '#e9ecef', color: currentPage === i + 1 ? 'white' : '#6c757d'}}
-                  >
-                    {i + 1}
-                  </button>
-                ))}
-                <button 
-                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, Math.ceil(getCurrentData().length / itemsPerPage)))}
-                  disabled={currentPage === Math.ceil(getCurrentData().length / itemsPerPage)}
-                  className="px-3 py-1 rounded text-xs"
-                  style={{background: currentPage === Math.ceil(getCurrentData().length / itemsPerPage) ? '#e9ecef' : '#0B4F8A', color: currentPage === Math.ceil(getCurrentData().length / itemsPerPage) ? '#6c757d' : 'white'}}
-                >
-                  Next
-                </button>
-              </div>
-            </div>
           </div>
+        </div>
         </div>
       </div>
 
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center z-50 p-4" onClick={() => setShowModal(false)} style={{background: 'rgba(0,0,0,0.5)'}}>
           <div className="bg-white rounded-lg w-full max-w-xl p-6 max-h-screen overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-            <h3 className="text-base font-bold mb-3" style={{color: '#0B4F8A'}}>
+            <h3 className="text-base font-bold mb-3" style={{color: '#1B5A96'}}>
               {editItem ? 'Edit' : 'Add'} {activeTab === 'blogs' ? 'Blog' : 'Course'}
             </h3>
             <form onSubmit={handleSubmit}>
@@ -357,7 +311,7 @@ export default function AdminDashboard() {
                 <div className="flex justify-between items-center mb-2">
                   <label className="font-semibold text-xs">Content</label>
                   <div className="flex gap-1">
-                    <button type="button" onClick={() => addContentItem('heading')} className="px-2 py-1 rounded text-white text-xs" style={{background: '#0B4F8A'}}>
+                    <button type="button" onClick={() => addContentItem('heading')} className="px-2 py-1 rounded text-white text-xs" style={{background: '#1B5A96'}}>
                       +Heading
                     </button>
                     <button type="button" onClick={() => addContentItem('description')} className="px-2 py-1 rounded text-white text-xs" style={{background: '#28a745'}}>
@@ -370,7 +324,7 @@ export default function AdminDashboard() {
                 </div>
                 {Array.isArray(formData.content) && formData.content.map((item, index) => (
                   <div key={index} className="flex gap-2 mb-2">
-                    <span className="text-xs font-semibold px-2 py-1 rounded" style={{background: item.type === 'heading' ? '#0B4F8A' : item.type === 'description' ? '#28a745' : '#ff6b9d', color: 'white', minWidth: '70px', textAlign: 'center'}}>
+                    <span className="text-xs font-semibold px-2 py-1 rounded" style={{background: item.type === 'heading' ? '#1B5A96' : item.type === 'description' ? '#28a745' : '#ff6b9d', color: 'white', minWidth: '70px', textAlign: 'center'}}>
                       {item.type}
                     </span>
                     <input type="text" placeholder={item.type === 'heading' ? 'Heading text' : item.type === 'description' ? 'Description text' : 'Bullet point'} value={item.value} onChange={(e) => updateContentItem(index, e.target.value)} className="flex-1 outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '5px', fontSize: '12px'}} />
@@ -401,7 +355,7 @@ export default function AdminDashboard() {
                 )}
               </div>
               <div className="flex gap-2">
-                <button type="submit" className="flex-1 py-2 rounded text-white font-semibold" style={{background: '#0B4F8A'}}>Save</button>
+                <button type="submit" className="flex-1 py-2 rounded text-white font-semibold" style={{background: '#1B5A96'}}>Save</button>
                 <button type="button" onClick={() => setShowModal(false)} className="flex-1 py-2 rounded text-white font-semibold" style={{background: '#6c757d'}}>Cancel</button>
               </div>
             </form>
