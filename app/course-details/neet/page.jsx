@@ -210,12 +210,6 @@ export default function NEETCourseDetail() {
               <img src="/images/new_logo.png" alt="NEET Preparation" className="course-card-image" />
               <div className="course-card-body">
                 <h3 className="course-card-title">NEET Preparation</h3>
-                <p className="course-card-author">By IMA Jodhpur</p>
-                <div className="course-price">
-                  <span className="current-price">₹10,000/-</span>
-                  <span className="original-price">₹20,000/-</span>
-                </div>
-                <p className="gst-text">(GST Included)</p>
                 <div className="validity-text">
                   <i className="fa fa-calendar"></i> Validity 365 Days
                 </div>

@@ -156,7 +156,7 @@ export default function Courses() {
                   <h4 className="text-lg font-bold mb-3">{course.title}</h4>
                   <p className="text-xs mb-4 text-center">Comprehensive preparation with expert guidance</p>
                   <div className="flex flex-col gap-2 w-full">
-                    <a href={course.id === 42147 ? "/course-details/pre-foundation" : course.id === 42161 ? "/course-details/neet" : course.id === 42286 ? "/course-details/jee" : "/course-details/aits"} className="py-2 px-4 rounded text-white font-semibold text-center text-sm" style={{background:'rgba(255,255,255,0.2)', border: '2px solid white'}}>Explore Course</a>
+                    <a href={`/course-details?id=${course.id}`} className="py-2 px-4 rounded text-white font-semibold text-center text-sm" style={{background:'rgba(255,255,255,0.2)', border: '2px solid white'}}>Explore Course</a>
                     <button onClick={() => setShowRegisterModal(true)} className="py-2 px-4 rounded font-semibold text-sm" style={{background:'white', color:'var(--primary-medium)'}}>Register Now</button>
                   </div>
                 </div>

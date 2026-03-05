@@ -169,16 +169,10 @@ export default function CourseDetail() {
               <img src="https://d3aj4itat0hxro.cloudfront.net/826/admin_v1/bundle_management/course/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png" alt="Pre Foundation Course" className="course-card-image" />
               <div className="course-card-body">
                 <h3 className="course-card-title">Pre Foundation Course</h3>
-                <p className="course-card-author">By IMA Jodhpur</p>
-                <div className="course-price">
-                  <span className="current-price">₹10,000/-</span>
-                  <span className="original-price">₹20,000/-</span>
-                </div>
-                <p className="gst-text">(GST Included)</p>
                 <div className="validity-text">
                   <i className="fa fa-calendar"></i> Validity 354 Days
                 </div>
-                <button className="enroll-btn">Purchased</button>
+                <button className="enroll-btn">Enroll Now</button>
               </div>
             </div>
           </div>

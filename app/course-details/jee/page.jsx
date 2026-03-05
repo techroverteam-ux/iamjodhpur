@@ -165,10 +165,6 @@ export default function JEECourseDetail() {
               <img src="/images/3520795826_both.png" alt="JEE Course" className="course-card-image" />
               <div className="course-card-body">
                 <h3 className="course-card-title">JEE (Mains+Advance)</h3>
-                <p className="course-card-author">By IMA Jodhpur</p>
-                <div className="course-price">
-                  <span className="current-price">Free</span>
-                </div>
                 <div className="validity-text">
                   <i className="fa fa-calendar"></i> Validity 365 Days
                 </div>
