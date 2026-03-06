@@ -61,11 +61,9 @@ export default function Blog() {
 
   useEffect(() => {
     setVisible(true)
+    // Always use fresh blog data with categories
+    localStorage.setItem('blogs', JSON.stringify(blogs))
     if (typeof window !== 'undefined') {
-      const savedBlogs = localStorage.getItem('blogs')
-      if (savedBlogs) {
-        setBlogs(JSON.parse(savedBlogs))
-      }
       const savedBanners = localStorage.getItem('banners')
       if (savedBanners) {
         const banners = JSON.parse(savedBanners)
