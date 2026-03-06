@@ -3,53 +3,6 @@ import { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
-const coursesData = [
-  {
-    id: 42147,
-    title: 'Pre Foundation Course',
-    validity: '354 Days',
-    description: 'Build a strong foundation for competitive exams with our comprehensive Pre-Foundation course designed for early starters.',
-    image: '/images/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png',
-    sections: [
-      { heading: 'Course Overview', description: 'Our Pre-Foundation course is specially designed for students in classes 8-10 who want to start their preparation early for competitive exams like JEE and NEET.' },
-      { heading: 'Key Features', bullets: ['Comprehensive study material', 'Regular doubt clearing sessions', 'Weekly tests and assessments', 'Experienced faculty guidance'] }
-    ]
-  },
-  {
-    id: 42161,
-    title: 'NEET Preparation',
-    validity: '365 Days',
-    description: 'Complete NEET preparation course with comprehensive study material, regular tests, and expert guidance.',
-    image: '/images/3520795826_both.png',
-    sections: [
-      { heading: 'About NEET Course', description: 'Our NEET preparation program is designed to help students crack the National Eligibility cum Entrance Test with comprehensive coverage of Physics, Chemistry, and Biology.' },
-      { heading: 'What You Get', bullets: ['Complete syllabus coverage', 'Daily practice questions', 'Mock tests and analysis', 'Personal mentorship', 'Study material and notes'] }
-    ]
-  },
-  {
-    id: 42286,
-    title: 'JEE (Mains+Advance)',
-    validity: '365 Days',
-    description: 'Comprehensive JEE Mains and Advanced preparation with expert faculty and proven teaching methodology.',
-    image: '/images/3520795826_both.png',
-    sections: [
-      { heading: 'JEE Program Details', description: 'Our JEE program covers both Mains and Advanced syllabus with in-depth conceptual clarity and problem-solving techniques.' },
-      { heading: 'Course Highlights', bullets: ['Complete JEE syllabus coverage', 'Advanced problem solving', 'Regular mock tests', 'Previous year papers analysis', 'Doubt clearing sessions'] }
-    ]
-  },
-  {
-    id: 42385,
-    title: 'All India Test Series (AITS)',
-    validity: '365 Days',
-    description: 'All India Test Series for comprehensive practice and performance analysis.',
-    image: '/images/3520795826_both.png',
-    sections: [
-      { heading: 'Test Series Overview', description: 'Our All India Test Series provides students with a competitive environment to assess their preparation level against thousands of students across India.' },
-      { heading: 'Benefits', bullets: ['Regular test schedule', 'Detailed performance analysis', 'All India ranking', 'Topic-wise assessment', 'Exam pattern practice'] }
-    ]
-  }
-];
-
 export default function CourseDetail() {
   const [course, setCourse] = useState(null);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
@@ -74,9 +27,11 @@ export default function CourseDetail() {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
       const courseId = urlParams.get('id');
+      const savedCourses = localStorage.getItem('courses');
       
-      if (courseId) {
-        const foundCourse = coursesData.find(c => c.id == courseId);
+      if (courseId && savedCourses) {
+        const courses = JSON.parse(savedCourses);
+        const foundCourse = courses.find(c => c.id == courseId);
         setCourse(foundCourse || null);
       }
     }

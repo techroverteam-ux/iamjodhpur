@@ -34,6 +34,13 @@ export default function Navbar() {
           overflow: hidden;
           transition: all 0.3s ease;
           display: inline-block;
+          border: 2px solid #1B5A96;
+          border-radius: 6px;
+        }
+        
+        .nav-link:hover {
+          box-shadow: 0 8px 25px rgba(27, 90, 150, 0.6);
+          transform: translateY(-2px);
         }
         
         .nav-link::before {
@@ -67,10 +74,7 @@ export default function Navbar() {
           left: 100%;
         }
         
-        .nav-link:hover {
-          color: #1B5A96 !important;
-          transform: translateY(-3px) scale(1.1);
-        }
+
         
         .logo-container {
           transition: all 0.3s ease;
@@ -143,15 +147,15 @@ export default function Navbar() {
               <span className="text-2xl text-gray-700">☰</span>
             </button>
 
-            <div className="hidden md:flex items-center space-x-4">
-              <Link href="/" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1" style={{display: 'inline-block'}} onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.15)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}>Home</Link>
-              <Link href="/about-us" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1" style={{display: 'inline-block'}} onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.15)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}>About Us</Link>
-              <Link href="/courses" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1" style={{display: 'inline-block'}} onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.15)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}>Courses</Link>
-              <Link href="/facilities" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1" style={{display: 'inline-block'}} onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.15)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}>Facilities</Link>
-              <Link href="/blog" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1" style={{display: 'inline-block'}} onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.15)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}>Blogs</Link>
-              <Link href="/why-ima" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1" style={{display: 'inline-block'}} onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.15)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}>WHY IMA ?</Link>
-              <Link href="/contact-us" className="nav-link text-gray-800 font-medium text-sm uppercase tracking-wide px-2 py-1" style={{display: 'inline-block'}} onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.15)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}>Contact Us</Link>
-              <button onClick={() => setShowRegisterModal(true)} className="login-btn px-6 py-2.5 rounded-md text-white font-medium text-sm uppercase tracking-wide" style={{background:'#dc3545', transition: 'all 0.3s ease'}} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px) scale(1.1)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0) scale(1)'}>
+            <div className="hidden md:flex items-center space-x-2">
+              <Link href="/" className="font-medium text-xs uppercase tracking-wide px-3 py-1.5 rounded-md transition-all duration-300" style={{color: '#1B5A96', border: 'none'}} onMouseEnter={(e) => {e.target.style.border = '3px solid #1B5A96'; e.target.style.boxShadow = '0 8px 25px rgba(27, 90, 150, 0.6)'}} onMouseLeave={(e) => {e.target.style.border = 'none'; e.target.style.boxShadow = 'none'}}>Home</Link>
+              <Link href="/about-us" className="font-medium text-xs uppercase tracking-wide px-3 py-1.5 rounded-md transition-all duration-300" style={{color: '#1B5A96', border: 'none'}} onMouseEnter={(e) => {e.target.style.border = '3px solid #1B5A96'; e.target.style.boxShadow = '0 8px 25px rgba(27, 90, 150, 0.6)'}} onMouseLeave={(e) => {e.target.style.border = 'none'; e.target.style.boxShadow = 'none'}}>About Us</Link>
+              <Link href="/courses" className="font-medium text-xs uppercase tracking-wide px-3 py-1.5 rounded-md transition-all duration-300" style={{color: '#1B5A96', border: 'none'}} onMouseEnter={(e) => {e.target.style.border = '3px solid #1B5A96'; e.target.style.boxShadow = '0 8px 25px rgba(27, 90, 150, 0.6)'}} onMouseLeave={(e) => {e.target.style.border = 'none'; e.target.style.boxShadow = 'none'}}>Courses</Link>
+              <Link href="/facilities" className="font-medium text-xs uppercase tracking-wide px-3 py-1.5 rounded-md transition-all duration-300" style={{color: '#1B5A96', border: 'none'}} onMouseEnter={(e) => {e.target.style.border = '3px solid #1B5A96'; e.target.style.boxShadow = '0 8px 25px rgba(27, 90, 150, 0.6)'}} onMouseLeave={(e) => {e.target.style.border = 'none'; e.target.style.boxShadow = 'none'}}>Facilities</Link>
+              <Link href="/blog" className="font-medium text-xs uppercase tracking-wide px-3 py-1.5 rounded-md transition-all duration-300" style={{color: '#1B5A96', border: 'none'}} onMouseEnter={(e) => {e.target.style.border = '3px solid #1B5A96'; e.target.style.boxShadow = '0 8px 25px rgba(27, 90, 150, 0.6)'}} onMouseLeave={(e) => {e.target.style.border = 'none'; e.target.style.boxShadow = 'none'}}>Blogs</Link>
+              <Link href="/why-ima" className="font-medium text-xs uppercase tracking-wide px-3 py-1.5 rounded-md transition-all duration-300" style={{color: '#1B5A96', border: 'none'}} onMouseEnter={(e) => {e.target.style.border = '3px solid #1B5A96'; e.target.style.boxShadow = '0 8px 25px rgba(27, 90, 150, 0.6)'}} onMouseLeave={(e) => {e.target.style.border = 'none'; e.target.style.boxShadow = 'none'}}>WHY IMA ?</Link>
+              <Link href="/contact-us" className="font-medium text-xs uppercase tracking-wide px-3 py-1.5 rounded-md transition-all duration-300" style={{color: '#1B5A96', border: 'none'}} onMouseEnter={(e) => {e.target.style.border = '3px solid #1B5A96'; e.target.style.boxShadow = '0 8px 25px rgba(27, 90, 150, 0.6)'}} onMouseLeave={(e) => {e.target.style.border = 'none'; e.target.style.boxShadow = 'none'}}>Contact Us</Link>
+              <button onClick={() => setShowRegisterModal(true)} className="login-btn px-6 py-2.5 rounded-md text-white font-medium text-sm uppercase tracking-wide" style={{background:'#dc3545'}}>
                 STHE
               </button>
             </div>
