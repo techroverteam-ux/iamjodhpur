@@ -4,66 +4,17 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 
 export default function Blog() {
-  const [blogs, setBlogs] = useState([
-    {
-      id: 1,
-      title: 'Counseling and Admission Process for NEET',
-      image: '/images/11886941558_WhatsApp Image 2026-01-14 at 12.03.12 PM.jpeg',
-      date: 'Thu-01-2026 15:14:58',
-      description: 'Complete guide to NEET counseling and admission process.',
-      slug: 'counseling-and-admission-process-for-neet',
-      content: '<p>Complete guide to NEET counseling and admission process.</p><h3>Counseling Rounds</h3><p>NEET counseling is conducted by MCC for 15% All India Quota seats and state authorities for 85% state quota seats.</p>',
-      category: 'NEET'
-    },
-    {
-      id: 2,
-      title: 'IMA Jodhpur classroom Advantages',
-      image: '/images/new_logo.png',
-      date: 'Tue-01-2026 11:48:27',
-      description: 'Discover the unique advantages of IMA Jodhpur classroom coaching.',
-      slug: 'ima-jodhpur-classroom-advantages',
-      content: '<p>IMA Jodhpur offers world-class coaching facilities with experienced faculty, comprehensive study materials, and personalized attention to help students achieve their goals in competitive exams.</p><h3>Key Advantages</h3><p>Our classrooms are equipped with modern teaching aids and technology to enhance the learning experience. We provide regular mock tests, doubt clearing sessions, and performance analysis to track student progress.</p>',
-      category: 'General'
-    },
-    {
-      id: 3,
-      title: 'Counselling and Admission Process for JEE',
-      image: '/images/3520795826_both.png',
-      date: 'Tue-01-2026 11:40:04',
-      description: 'Step-by-step guide to JEE counselling and admission process.',
-      slug: 'counselling-and-admission-process-for-jee',
-      content: '<p>After JEE results, the counselling process begins for admission to engineering colleges. JoSAA conducts counselling for IITs, NITs, and other centrally funded technical institutions.</p><h3>Counselling Rounds</h3><p>The process includes registration, choice filling, seat allotment, and document verification. Students must complete each step within the given deadlines to secure their admission.</p>',
-      category: 'JEE'
-    },
-    {
-      id: 4,
-      title: 'What is JEE (Main+ Advanced)?',
-      image: '/images/3520795826_both.png',
-      date: 'Tue-01-2026 11:24:53',
-      description: 'Official Overview, Eligibility, Timeline and exam pattern for JEE.',
-      slug: 'what-is-jee-mains-advanced',
-      content: '<p>JEE (Joint Entrance Examination) is conducted in two stages - JEE Main and JEE Advanced. JEE Main is for admission to NITs, IIITs, and other engineering colleges, while JEE Advanced is the gateway to IITs.</p><h3>Eligibility Criteria</h3><p>Students who have passed Class 12 or equivalent examination can appear for JEE Main. Top 2.5 lakh JEE Main qualifiers are eligible for JEE Advanced.</p>',
-      category: 'JEE'
-    },
-    {
-      id: 5,
-      title: 'What is NEET?',
-      image: '/images/24045961768826895_neet.webp',
-      date: 'Tue-01-2026 11:10:24',
-      description: 'NEET UG is the national level entrance examination for medical courses.',
-      slug: 'what-is-neet',
-      content: '<p>NEET UG is the national level entrance examination for admission to MBBS, BDS, and other medical courses in India. It is conducted by the National Testing Agency (NTA).</p><h3>Exam Pattern</h3><p>The exam consists of 180 multiple choice questions from Physics, Chemistry, and Biology. Students must qualify NEET to get admission in government and private medical colleges across India.</p>',
-      category: 'NEET'
-    }
-  ])
+  const [blogs, setBlogs] = useState([])
   const [visible, setVisible] = useState(false)
   const [bannerImage, setBannerImage] = useState('')
 
   useEffect(() => {
     setVisible(true)
-    // Always use fresh blog data with categories
-    localStorage.setItem('blogs', JSON.stringify(blogs))
     if (typeof window !== 'undefined') {
+      const savedBlogs = localStorage.getItem('blogs')
+      if (savedBlogs) {
+        setBlogs(JSON.parse(savedBlogs))
+      }
       const savedBanners = localStorage.getItem('banners')
       if (savedBanners) {
         const banners = JSON.parse(savedBanners)
@@ -241,7 +192,7 @@ export default function Blog() {
                     }} 
                   />
                   <div className="category-badge" style={{position: 'absolute', top: '16px', right: '16px', background: '#1B5A96', color: 'white', padding: '6px 14px', borderRadius: '20px', fontSize: '12px', fontWeight: '600', zIndex: 2}}>
-                    {blog.category}
+                    {blog.category || 'General'}
                   </div>
                 </div>
                 <div style={{padding: '12px'}}>

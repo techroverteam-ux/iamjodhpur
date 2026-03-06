@@ -345,10 +345,21 @@ export default function AdminDashboard() {
                 ))}
               </div>
               {activeTab === 'blogs' ? (
-                <div className="mb-3">
-                  <label className="block mb-1 font-semibold text-xs">Date</label>
-                  <input type="text" value={formData.date} onChange={(e) => setFormData({...formData, date: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '5px', fontSize: '13px'}} required />
-                </div>
+                <>
+                  <div className="mb-3">
+                    <label className="block mb-1 font-semibold text-xs">Category</label>
+                    <select value={formData.category || ''} onChange={(e) => setFormData({...formData, category: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '5px', fontSize: '13px'}} required>
+                      <option value="">Select Category</option>
+                      <option value="NEET">NEET</option>
+                      <option value="JEE">JEE</option>
+                      <option value="General">General</option>
+                    </select>
+                  </div>
+                  <div className="mb-3">
+                    <label className="block mb-1 font-semibold text-xs">Date</label>
+                    <input type="text" value={formData.date} onChange={(e) => setFormData({...formData, date: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '5px', fontSize: '13px'}} required />
+                  </div>
+                </>
               ) : (
                 <div className="mb-3">
                   <label className="block mb-1 font-semibold text-xs">Validity</label>
