@@ -62,8 +62,8 @@ export default function Stats() {
         .success-card {
           background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
           border: 1px solid #e2e8f0;
-          border-radius: 16px;
-          padding: 2rem;
+          border-radius: 12px;
+          padding: 1.5rem;
           text-align: center;
           transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
           position: relative;
@@ -92,25 +92,9 @@ export default function Stats() {
           border-color: var(--card-color);
         }
         
-        .success-icon {
-          width: 60px;
-          height: 60px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin: 0 auto 1.5rem;
-          transition: all 0.3s ease;
-          background: linear-gradient(135deg, var(--card-color), transparent);
-        }
-        
-        .success-card:hover .success-icon {
-          transform: scale(1.1) rotate(5deg);
-          box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
-        
+
         .success-number {
-          font-size: 2.5rem;
+          font-size: 2.2rem;
           font-weight: 800;
           color: var(--card-color);
           margin-bottom: 0.5rem;
@@ -123,9 +107,8 @@ export default function Stats() {
         }
         
         .success-label {
-          font-size: 0.95rem;
+          font-size: 0.75rem;
           font-weight: 600;
-          color: #64748b;
           text-transform: uppercase;
           letter-spacing: 0.5px;
         }
@@ -147,42 +130,39 @@ export default function Stats() {
         }
       `}</style>
       
-      <section ref={sectionRef} className="py-12 md:py-20" style={{background: 'linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f0f9ff 100%)'}}>
+      <section ref={sectionRef} className="py-8 md:py-12" style={{background: 'linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f0f9ff 100%)'}}>
         <div className="container mx-auto px-4" style={{maxWidth: '1200px'}}>
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{color:'#1B5A96', fontFamily: 'Playfair Display, serif'}}>
+          <div className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold mb-2" style={{color:'#1B5A96', fontFamily: 'Playfair Display, serif'}}>
               SUCCESS HISTORY
             </h2>
-            <p className="text-xl text-gray-600 font-medium">
+            <p className="text-lg text-gray-600 font-medium">
               Pre-Medical & IIT-JEE
             </p>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-700 mx-auto mt-4 rounded-full"></div>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
-                <h3 className="text-2xl md:text-3xl font-bold mb-4" style={{color: stat.color, letterSpacing: '1px'}}>
-                  {stat.title}
-                </h3>
                 <div 
                   className="success-card"
-                  style={{'--card-color': stat.color}}
+                  style={{'--card-color': '#1B5A96'}}
                 >
-                  <div className="success-icon" style={{background: `linear-gradient(135deg, ${stat.color}20, ${stat.color}10)`}}>
-                    <i className={`fa ${stat.icon}`} style={{color: stat.color, fontSize: '24px'}}></i>
-                  </div>
-                  <div className="success-number" style={{color: stat.color}}>
+                  <h3 className="text-2.2rem font-bold mb-2" style={{color: '#1B5A96'}}>
+                    {stat.title}
+                  </h3>
+                  <div className="success-number" style={{color: '#1B5A96'}}>
                     {counts[index] >= 1000 ? `${(counts[index]/1000).toFixed(1)}K` : counts[index]}
                   </div>
-                  <div className="success-label">{stat.label}</div>
+                  <div className="success-label" style={{color: '#1B5A96'}}>{stat.label}</div>
                 </div>
               </div>
             ))}
           </div>
           
-          <div className="text-center mt-12">
-            <p className="text-lg text-gray-600 italic">
+          <div className="text-center mt-8">
+            <p className="text-base" style={{color: '#1B5A96', fontStyle: 'italic'}}>
               "Excellence in education, proven by results"
             </p>
           </div>

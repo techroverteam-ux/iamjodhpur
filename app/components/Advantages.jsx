@@ -18,7 +18,7 @@ export default function Advantages() {
           <div className="space-y-4">
             <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
               <div className="advantage-icon mb-2">
-                <i className="fa fa-graduation-cap text-[#1B5A96]" style={{fontSize: '3.5rem'}}></i>
+                <i className="fa fa-graduation-cap" style={{fontSize: '3.5rem', color: 'var(--primary-medium)'}}></i>
               </div>
               <h3 className="text-lg font-bold mb-2" style={{color: '#333'}}>Start learning with IMA Jodhpur Classes</h3>
               <p className="text-gray-600 mb-3" style={{fontSize: '14px', lineHeight: '1.5'}}>
@@ -34,7 +34,7 @@ export default function Advantages() {
 
             <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
               <div className="advantage-icon mb-2">
-                <i className="fa fa-user text-green-600" style={{fontSize: '3.5rem'}}></i>
+                <i className="fa fa-user" style={{fontSize: '3.5rem', color: 'var(--primary-medium)'}}></i>
               </div>
               <h3 className="text-lg font-bold mb-2" style={{color: '#333'}}>Every Student is Unique</h3>
               <p className="text-gray-600 mb-2" style={{fontSize: '14px', lineHeight: '1.5'}}>
@@ -50,7 +50,7 @@ export default function Advantages() {
           <div className="space-y-4">
             <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
               <div className="advantage-icon mb-2">
-                <i className="fa fa-clock-o text-purple-600" style={{fontSize: '3.5rem'}}></i>
+                <i className="fa fa-clock-o" style={{fontSize: '3.5rem', color: 'var(--primary-medium)'}}></i>
               </div>
               <h3 className="text-lg font-bold mb-2" style={{color: '#333'}}>Whether they want to start a new chapter or revise an old one</h3>
               <p className="text-gray-600" style={{fontSize: '14px', lineHeight: '1.5'}}>
@@ -60,7 +60,7 @@ export default function Advantages() {
 
             <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
               <div className="advantage-icon mb-2">
-                <i className="fa fa-road text-orange-600" style={{fontSize: '3.5rem'}}></i>
+                <i className="fa fa-road" style={{fontSize: '3.5rem', color: 'var(--primary-medium)'}}></i>
               </div>
               <h3 className="text-lg font-bold mb-2" style={{color: '#333'}}>Learn better with individual learning paths</h3>
               <p className="text-gray-600" style={{fontSize: '14px', lineHeight: '1.5'}}>
@@ -70,7 +70,7 @@ export default function Advantages() {
 
             <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
               <div className="advantage-icon mb-2">
-                <i className="fa fa-line-chart text-teal-600" style={{fontSize: '3.5rem'}}></i>
+                <i className="fa fa-line-chart" style={{fontSize: '3.5rem', color: 'var(--primary-medium)'}}></i>
               </div>
               <h3 className="text-lg font-bold mb-2" style={{color: '#333'}}>Students experience all round academic growth</h3>
               <p className="text-gray-600" style={{fontSize: '14px', lineHeight: '1.5'}}>

@@ -121,6 +121,15 @@ export default function Navbar() {
           background: rgba(22, 119, 200, 0.05);
           transform: translateX(8px);
         }
+        
+        .menu-item {
+          transition: all 0.3s ease;
+        }
+        
+        .menu-item:hover {
+          font-weight: 900 !important;
+          transform: scale(1.1) !important;
+        }
       `}</style>
       
       <section className="top_heads top_heads_header top-head" style={{background:'#1B5A96'}}>
@@ -148,13 +157,13 @@ export default function Navbar() {
             </button>
 
             <div className="hidden md:flex items-center space-x-2">
-              <Link href="/" className="font-medium text-xs uppercase tracking-wide px-3 py-1.5 rounded-md transition-all duration-300" style={{color: '#1B5A96', border: 'none'}} onMouseEnter={(e) => {e.target.style.border = '3px solid #1B5A96'; e.target.style.boxShadow = '0 8px 25px rgba(27, 90, 150, 0.6)'}} onMouseLeave={(e) => {e.target.style.border = 'none'; e.target.style.boxShadow = 'none'}}>Home</Link>
-              <Link href="/about-us" className="font-medium text-xs uppercase tracking-wide px-3 py-1.5 rounded-md transition-all duration-300" style={{color: '#1B5A96', border: 'none'}} onMouseEnter={(e) => {e.target.style.border = '3px solid #1B5A96'; e.target.style.boxShadow = '0 8px 25px rgba(27, 90, 150, 0.6)'}} onMouseLeave={(e) => {e.target.style.border = 'none'; e.target.style.boxShadow = 'none'}}>About Us</Link>
-              <Link href="/courses" className="font-medium text-xs uppercase tracking-wide px-3 py-1.5 rounded-md transition-all duration-300" style={{color: '#1B5A96', border: 'none'}} onMouseEnter={(e) => {e.target.style.border = '3px solid #1B5A96'; e.target.style.boxShadow = '0 8px 25px rgba(27, 90, 150, 0.6)'}} onMouseLeave={(e) => {e.target.style.border = 'none'; e.target.style.boxShadow = 'none'}}>Courses</Link>
-              <Link href="/facilities" className="font-medium text-xs uppercase tracking-wide px-3 py-1.5 rounded-md transition-all duration-300" style={{color: '#1B5A96', border: 'none'}} onMouseEnter={(e) => {e.target.style.border = '3px solid #1B5A96'; e.target.style.boxShadow = '0 8px 25px rgba(27, 90, 150, 0.6)'}} onMouseLeave={(e) => {e.target.style.border = 'none'; e.target.style.boxShadow = 'none'}}>Facilities</Link>
-              <Link href="/blog" className="font-medium text-xs uppercase tracking-wide px-3 py-1.5 rounded-md transition-all duration-300" style={{color: '#1B5A96', border: 'none'}} onMouseEnter={(e) => {e.target.style.border = '3px solid #1B5A96'; e.target.style.boxShadow = '0 8px 25px rgba(27, 90, 150, 0.6)'}} onMouseLeave={(e) => {e.target.style.border = 'none'; e.target.style.boxShadow = 'none'}}>Blogs</Link>
-              <Link href="/why-ima" className="font-medium text-xs uppercase tracking-wide px-3 py-1.5 rounded-md transition-all duration-300" style={{color: '#1B5A96', border: 'none'}} onMouseEnter={(e) => {e.target.style.border = '3px solid #1B5A96'; e.target.style.boxShadow = '0 8px 25px rgba(27, 90, 150, 0.6)'}} onMouseLeave={(e) => {e.target.style.border = 'none'; e.target.style.boxShadow = 'none'}}>WHY IMA ?</Link>
-              <Link href="/contact-us" className="font-medium text-xs uppercase tracking-wide px-3 py-1.5 rounded-md transition-all duration-300" style={{color: '#1B5A96', border: 'none'}} onMouseEnter={(e) => {e.target.style.border = '3px solid #1B5A96'; e.target.style.boxShadow = '0 8px 25px rgba(27, 90, 150, 0.6)'}} onMouseLeave={(e) => {e.target.style.border = 'none'; e.target.style.boxShadow = 'none'}}>Contact Us</Link>
+              <Link href="/" className="menu-item font-bold text-sm uppercase tracking-wide px-3 py-1.5 rounded-md transition-all duration-300 hover:font-black hover:scale-110" style={{color: 'var(--primary-medium)'}}>Home</Link>
+              <Link href="/about-us" className="menu-item font-bold text-sm uppercase tracking-wide px-3 py-1.5 rounded-md transition-all duration-300 hover:font-black hover:scale-110" style={{color: 'var(--primary-medium)'}}>About Us</Link>
+              <Link href="/courses" className="menu-item font-bold text-sm uppercase tracking-wide px-3 py-1.5 rounded-md transition-all duration-300 hover:font-black hover:scale-110" style={{color: 'var(--primary-medium)'}}>Courses</Link>
+              <Link href="/facilities" className="menu-item font-bold text-sm uppercase tracking-wide px-3 py-1.5 rounded-md transition-all duration-300 hover:font-black hover:scale-110" style={{color: 'var(--primary-medium)'}}>Facilities</Link>
+              <Link href="/blog" className="menu-item font-bold text-sm uppercase tracking-wide px-3 py-1.5 rounded-md transition-all duration-300 hover:font-black hover:scale-110" style={{color: 'var(--primary-medium)'}}>Blogs</Link>
+              <Link href="/why-ima" className="menu-item font-bold text-sm uppercase tracking-wide px-3 py-1.5 rounded-md transition-all duration-300 hover:font-black hover:scale-110" style={{color: 'var(--primary-medium)'}}>WHY IMA ?</Link>
+              <Link href="/contact-us" className="menu-item font-bold text-sm uppercase tracking-wide px-3 py-1.5 rounded-md transition-all duration-300 hover:font-black hover:scale-110" style={{color: 'var(--primary-medium)'}}>Contact Us</Link>
               <button onClick={() => setShowRegisterModal(true)} className="login-btn px-6 py-2.5 rounded-md text-white font-medium text-sm uppercase tracking-wide" style={{background:'#dc3545'}}>
                 STHE
               </button>
