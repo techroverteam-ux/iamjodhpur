@@ -61,12 +61,8 @@ export default function Blog() {
   useEffect(() => {
     setVisible(true)
     if (typeof window !== 'undefined') {
-      const savedBlogs = localStorage.getItem('blogs')
-      if (savedBlogs) {
-        setBlogs(JSON.parse(savedBlogs))
-      } else {
-        localStorage.setItem('blogs', JSON.stringify(blogs))
-      }
+      localStorage.setItem('blogs', JSON.stringify(blogs))
+      setBlogs(blogs)
     }
   }, [])
 
@@ -231,7 +227,7 @@ export default function Blog() {
                     }} 
                   />
                   <div className="category-badge" style={{position: 'absolute', top: '16px', right: '16px', background: '#1B5A96', color: 'white', padding: '6px 14px', borderRadius: '20px', fontSize: '12px', fontWeight: '600', zIndex: 2}}>
-                    {blog.category || 'General'}
+                    {blog.category}
                   </div>
                 </div>
                 <div style={{padding: '12px'}}>
