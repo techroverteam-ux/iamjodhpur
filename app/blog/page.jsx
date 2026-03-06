@@ -182,9 +182,6 @@ export default function Blog() {
       
       <div style={{position: 'relative', height: '400px', overflow: 'hidden'}}>
         <img src="/images/4.png" alt="Blogs" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
-        <div style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-         
-        </div>
       </div>
       
       <section className="blog-section" style={{background: '#FFFFFF', padding: '40px 0'}}>
@@ -233,8 +230,8 @@ export default function Blog() {
                       background: '#F8FAFC'
                     }} 
                   />
-                  <div className="category-badge" style={{position: 'absolute', top: '16px', right: '16px', background: '#1B5A96', color: 'white', padding: '6px 14px', borderRadius: '20px', fontSize: '12px', fontWeight: '600'}}>
-                    {blog.category}
+                  <div className="category-badge" style={{position: 'absolute', top: '16px', right: '16px', background: '#1B5A96', color: 'white', padding: '6px 14px', borderRadius: '20px', fontSize: '12px', fontWeight: '600', zIndex: 2}}>
+                    {blog.category || 'General'}
                   </div>
                 </div>
                 <div style={{padding: '12px'}}>
