@@ -136,7 +136,7 @@ export default function Courses() {
     <section className="courses-section py-4" style={{background: 'linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%)'}}>
       <div className="container mx-auto px-4" style={{maxWidth: '1140px'}}>
         <div className="text-center mb-3">
-          <h3 className="text-2xl font-bold" style={{color:'var(--primary-medium)'}}>Our Popular Courses</h3>
+          <h3 className="text-3xl md:text-4xl font-bold" style={{color:'var(--primary-medium)'}}>Our Popular Courses</h3>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

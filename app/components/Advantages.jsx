@@ -5,7 +5,7 @@ export default function Advantages() {
         
         {/* Header */}
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold mb-4" style={{color: '#0B4F8A'}}>IMA Jodhpur Classes Advantages</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{color: 'var(--primary-medium)'}}>IMA Jodhpur Classes Advantages</h2>
           <p className="text-gray-600 mb-6" style={{fontSize: '16px', lineHeight: '1.6'}}>
             IMA Jodhpur is India's Premier institution established with the sole aim to initiate, enable and empower individuals to grow up to be extraordinary Teachers. IMA Jodhpur invites students who are prepared to interface their experience and diverse backgrounds with our high-end educational programmes.
           </p>

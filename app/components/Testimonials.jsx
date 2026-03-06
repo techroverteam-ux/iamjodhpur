@@ -103,7 +103,7 @@ export default function Testimonials() {
       <section className="testimonials-section py-6 md:py-12" style={{background: '#F8FAFC'}}>
         <div className="container mx-auto px-2 md:px-4" style={{maxWidth: '1200px'}}>
           <div className="text-center mb-10">
-            <h3 className="testimonial-title text-3xl font-bold mb-2" style={{color: '#1B5A96'}}>What students say</h3>
+            <h3 className="testimonial-title text-3xl md:text-4xl font-bold mb-2" style={{color: 'var(--primary-medium)'}}>What students say</h3>
             <div className="w-20 h-1 mx-auto rounded-full" style={{background: '#1B5A96'}}></div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6">
@@ -121,7 +121,7 @@ export default function Testimonials() {
                 <div className="p-4 md:p-6">
                   <div className="flex items-center mb-3 md:mb-4">
                     <div className="w-10 h-10 md:w-14 md:h-14 rounded-full flex items-center justify-center mr-2 md:mr-3" style={{background: '#E8EEF5'}}>
-                      <img src={item.image} alt="icon" className="w-6 h-6 md:w-8 md:h-8" />
+                      <img src={item.image} alt="icon" className="w-6 h-6 md:w-8 md:h-8" style={{filter: 'hue-rotate(200deg) saturate(2)'}} />
                     </div>
                     <h4 className="testimonial-card-title font-bold text-lg" style={{color: '#1B5A96'}}>{item.title}</h4>
                   </div>

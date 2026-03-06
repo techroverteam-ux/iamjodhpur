@@ -97,7 +97,7 @@ export default function CourseCategories() {
       <section className="course__categories facilities-section">
         <div className="container mx-auto px-4" style={{maxWidth: '1140px'}}>
           <div className="text-center section-hedding">
-            <h3 className="categories-title category-title">
+            <h3 className="categories-title category-title text-3xl md:text-4xl font-bold" style={{color: 'var(--primary-medium)'}}>
               Facilities
             </h3>
           </div>
@@ -114,7 +114,7 @@ export default function CourseCategories() {
                   className="facility-icon"
                   style={{background: `linear-gradient(135deg, ${facility.color}20, ${facility.color}10)`}}
                 >
-                  <i className={`fa ${facility.icon}`} style={{color: facility.color, fontSize: '24px'}}></i>
+                  <i className={`fa ${facility.icon}`} style={{color: 'var(--primary-medium)', fontSize: '24px'}}></i>
                 </div>
                 <h4 className="facility-name">{facility.name}</h4>
               </a>

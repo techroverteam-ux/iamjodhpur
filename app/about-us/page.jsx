@@ -546,7 +546,7 @@ export default function AboutUs() {
       {/* Intro Section */}
       <div className="intro-section">
         <div className="intro-card content-section" ref={(el) => (sectionsRef.current[0] = el)}>
-          <h2 className="section-title">Our Legacy Since 1999</h2>
+          <h2 className="section-title text-3xl md:text-4xl font-bold" style={{color: 'var(--primary-medium)'}}>Our Legacy Since 1999</h2>
           
           <div className="stats-grid" style={{gap: '15px'}}>
             <div className="stat-card">
@@ -589,7 +589,7 @@ export default function AboutUs() {
 
       {/* Vision and Mission */}
       <div className="vision-mission-wrapper">
-        <h2 className="section-title content-section" ref={(el) => (sectionsRef.current[1] = el)}>
+        <h2 className="section-title content-section text-3xl md:text-4xl font-bold" style={{color: 'var(--primary-medium)'}} ref={(el) => (sectionsRef.current[1] = el)}>
           Vision & Mission
         </h2>
 
@@ -625,7 +625,7 @@ export default function AboutUs() {
       {/* Director's Message */}
       <section className="director-section content-section" ref={(el) => (sectionsRef.current[4] = el)}>
         <div className="director-content">
-          <h3 className="director-title">Director's Message</h3>
+          <h3 className="director-title text-3xl md:text-4xl font-bold" style={{color: 'white'}}>Director's Message</h3>
 
           <p>
             <strong>Welcome to IIT Medical Academy (IMA).</strong>

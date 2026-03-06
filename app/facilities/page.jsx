@@ -199,7 +199,7 @@ export default function Facilities() {
                   <i className="fa fa-bus facility-icon"></i>
                 </div>
                 <div style={{marginLeft: '20px', flex: 1}}>
-                  <h3 className="text-lg font-bold mb-2" style={{color: '#1B5A96'}}>
+                  <h3 className="text-3xl md:text-4xl font-bold mb-2" style={{color: 'var(--primary-medium)'}}>
                     <span style={{fontSize: '18px', marginRight: '6px'}}>✦</span>
                     Transport Facility
                   </h3>
@@ -213,7 +213,7 @@ export default function Facilities() {
             <div className="facility-card animate-zoom">
               <div className="flex items-center">
                 <div style={{flex: 1, marginRight: '20px'}}>
-                  <h3 className="text-lg font-bold mb-2" style={{color: '#1B5A96'}}>
+                  <h3 className="text-3xl md:text-4xl font-bold mb-2" style={{color: 'var(--primary-medium)'}}>
                     <span style={{fontSize: '18px', marginRight: '6px'}}>✦</span>
                     Hostel Facility
                   </h3>
@@ -233,7 +233,7 @@ export default function Facilities() {
                   <i className="fa fa-cutlery facility-icon"></i>
                 </div>
                 <div style={{marginLeft: '20px', flex: 1}}>
-                  <h3 className="text-lg font-bold mb-2" style={{color: '#10b981'}}>
+                  <h3 className="text-3xl md:text-4xl font-bold mb-2" style={{color: 'var(--primary-medium)'}}>
                     <span style={{fontSize: '18px', marginRight: '6px'}}>✦</span>
                     Mess Facility
                   </h3>
