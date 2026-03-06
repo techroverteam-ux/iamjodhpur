@@ -1,10 +1,11 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 export default function AboutUs() {
   const sectionsRef = useRef([]);
+  const [bannerImage, setBannerImage] = useState('');
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -21,6 +22,16 @@ export default function AboutUs() {
     sectionsRef.current.forEach((section) => {
       if (section) observer.observe(section);
     });
+
+    if (typeof window !== 'undefined') {
+      const savedBanners = localStorage.getItem('banners');
+      if (savedBanners) {
+        const banners = JSON.parse(savedBanners);
+        if (banners.aboutUs && banners.aboutUs !== '') {
+          setBannerImage(banners.aboutUs);
+        }
+      }
+    }
 
     return () => observer.disconnect();
   }, []);
@@ -519,12 +530,18 @@ export default function AboutUs() {
         }
       `}</style>
 
-      <div style={{position: 'relative', height: '400px', overflow: 'hidden'}}>
-        <img src="/images/1.png" alt="About Us" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
-        <div style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-          <h1 style={{color: 'white', fontSize: '48px', fontWeight: 'bold', textShadow: '2px 2px 4px rgba(0,0,0,0.5)'}}>About IIT Medical Academy</h1>
+      {bannerImage ? (
+        <div style={{position: 'relative', width: '100%', overflow: 'hidden'}}>
+          <img src={bannerImage} alt="About Us" style={{width: '100%', height: 'auto', display: 'block'}} />
+          <div style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(27, 90, 150, 0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <h1 style={{color: 'white', fontSize: '2.5rem', fontWeight: '700', textShadow: '2px 2px 4px rgba(0,0,0,0.7)'}}>About IMA</h1>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div style={{background: 'linear-gradient(135deg, #1B5A96 0%, #1B5A96 100%)', padding: '80px 20px', textAlign: 'center'}}>
+          <h1 style={{color: 'white', fontSize: '2.5rem', fontWeight: '700', textShadow: '2px 2px 4px rgba(0,0,0,0.7)'}}>About IMA</h1>
+        </div>
+      )}
 
       {/* Intro Section */}
       <div className="intro-section">

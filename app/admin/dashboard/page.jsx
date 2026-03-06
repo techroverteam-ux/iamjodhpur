@@ -116,6 +116,15 @@ export default function AdminDashboard() {
     }
   }
 
+  const handleBannerRemove = (page) => {
+    if (confirm('Are you sure you want to remove this banner image?')) {
+      const newBanners = {...banners, [page]: ''}
+      setBanners(newBanners)
+      localStorage.setItem('banners', JSON.stringify(newBanners))
+      alert('Banner removed successfully!')
+    }
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
     const submitData = {...formData}
@@ -196,7 +205,8 @@ export default function AdminDashboard() {
                       <div key={page} style={{border: '1px solid #e0e0e0', borderRadius: '8px', padding: '20px'}}>
                         <h3 className="font-bold mb-2" style={{textTransform: 'capitalize'}}>{page.replace(/([A-Z])/g, ' $1').trim()}</h3>
                         <img src={banners[page]} alt={page} style={{width: '100%', height: '150px', objectFit: 'cover', borderRadius: '4px', marginBottom: '10px'}} />
-                        <input type="file" accept="image/*" onChange={(e) => handleBannerUpload(page, e)} style={{width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px'}} />
+                        <input type="file" accept="image/*" onChange={(e) => handleBannerUpload(page, e)} style={{width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px', marginBottom: '8px'}} />
+                        <button onClick={() => handleBannerRemove(page)} style={{width: '100%', padding: '8px', background: '#dc3545', color: 'white', border: 'none', borderRadius: '4px', fontSize: '14px', cursor: 'pointer'}}>Remove Image</button>
                       </div>
                     ))}
                   </div>

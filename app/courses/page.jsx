@@ -13,6 +13,7 @@ export default function CoursesPage() {
     { id: 42385, title: 'All India Test Series (AITS)', validity: '365 Days', description: 'All India Test Series for practice', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
   ])
   const [visible, setVisible] = useState(false)
+  const [bannerImage, setBannerImage] = useState('')
 
   const handleRegister = async (e) => {
     e.preventDefault()
@@ -35,6 +36,13 @@ export default function CoursesPage() {
       const savedCourses = localStorage.getItem('courses')
       if (savedCourses) {
         setCourses(JSON.parse(savedCourses))
+      }
+      const savedBanners = localStorage.getItem('banners')
+      if (savedBanners) {
+        const banners = JSON.parse(savedBanners)
+        if (banners.courses && banners.courses !== '') {
+          setBannerImage(banners.courses)
+        }
       }
     }
   }, [])
@@ -114,12 +122,18 @@ export default function CoursesPage() {
 
       <Navbar />
       
-      <div style={{position: 'relative', height: '400px', overflow: 'hidden'}}>
-        <img src="/images/2.png" alt="Courses" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
-        <div style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-          <h1 style={{color: 'white', fontSize: '48px', fontWeight: 'bold', textShadow: '2px 2px 4px rgba(0,0,0,0.5)'}}>Our Courses</h1>
+      {bannerImage ? (
+        <div style={{position: 'relative', width: '100%', overflow: 'hidden'}}>
+          <img src={bannerImage} alt="Courses" style={{width: '100%', height: 'auto', display: 'block'}} />
+          <div style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(27, 90, 150, 0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <h1 style={{color: 'white', fontSize: '2.5rem', fontWeight: '700', textShadow: '2px 2px 4px rgba(0,0,0,0.7)'}}>Our Courses</h1>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div style={{background: 'linear-gradient(135deg, #1B5A96 0%, #1B5A96 100%)', padding: '80px 20px', textAlign: 'center'}}>
+          <h1 style={{color: 'white', fontSize: '2.5rem', fontWeight: '700', textShadow: '2px 2px 4px rgba(0,0,0,0.7)'}}>Our Courses</h1>
+        </div>
+      )}
       
       <section style={{background: 'linear-gradient(135deg, #F8FAFC 0%, #E8EEF5 100%)', padding: '40px 0'}}>
         <div className="container" style={{maxWidth: '1200px', margin: '0 auto', padding: '0 8px'}}>

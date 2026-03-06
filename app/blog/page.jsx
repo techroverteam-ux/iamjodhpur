@@ -57,6 +57,7 @@ export default function Blog() {
     }
   ])
   const [visible, setVisible] = useState(false)
+  const [bannerImage, setBannerImage] = useState('')
 
   useEffect(() => {
     setVisible(true)
@@ -64,6 +65,13 @@ export default function Blog() {
       const savedBlogs = localStorage.getItem('blogs')
       if (savedBlogs) {
         setBlogs(JSON.parse(savedBlogs))
+      }
+      const savedBanners = localStorage.getItem('banners')
+      if (savedBanners) {
+        const banners = JSON.parse(savedBanners)
+        if (banners.blogs && banners.blogs !== '') {
+          setBannerImage(banners.blogs)
+        }
       }
     }
   }, [])
@@ -178,9 +186,15 @@ export default function Blog() {
 
       <Navbar />
       
-      <div style={{position: 'relative', height: '400px', overflow: 'hidden'}}>
-        <img src="/images/4.png" alt="Blogs" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
-      </div>
+      {bannerImage ? (
+        <div style={{position: 'relative', width: '100%', overflow: 'hidden'}}>
+          <img src={bannerImage} alt="Blogs" style={{width: '100%', height: 'auto', display: 'block'}} />
+        </div>
+      ) : (
+        <div style={{background: 'linear-gradient(135deg, #1B5A96 0%, #1B5A96 100%)', padding: '80px 20px', textAlign: 'center'}}>
+          <h1 style={{color: 'white', fontSize: '2.5rem', fontWeight: '700', textShadow: '2px 2px 4px rgba(0,0,0,0.7)'}}>Our Blogs</h1>
+        </div>
+      )}
       
       <section className="blog-section" style={{background: '#FFFFFF', padding: '40px 0'}}>
         <div className="container" style={{maxWidth: '1200px', margin: '0 auto', padding: '0 8px'}}>

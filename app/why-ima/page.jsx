@@ -1,9 +1,10 @@
 'use client'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function WhyIAM() {
+  const [bannerImage, setBannerImage] = useState('')
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -14,6 +15,17 @@ export default function WhyIAM() {
     }, { threshold: 0.1 })
 
     document.querySelectorAll('.feature-card').forEach(el => observer.observe(el))
+    
+    if (typeof window !== 'undefined') {
+      const savedBanners = localStorage.getItem('banners')
+      if (savedBanners) {
+        const banners = JSON.parse(savedBanners)
+        if (banners.whyIma && banners.whyIma !== '') {
+          setBannerImage(banners.whyIma)
+        }
+      }
+    }
+    
     return () => observer.disconnect()
   }, [])
 
@@ -217,12 +229,18 @@ export default function WhyIAM() {
 
       <Navbar />
       
-      <div style={{position: 'relative', height: '400px', overflow: 'hidden'}}>
-        <img src="/images/5.png" alt="Why IMA" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
-        <div style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-          <h1 style={{color: 'white', fontSize: '48px', fontWeight: 'bold', textShadow: '2px 2px 4px rgba(0,0,0,0.5)'}}>Why Choose IMA</h1>
+      {bannerImage ? (
+        <div style={{position: 'relative', width: '100%', overflow: 'hidden'}}>
+          <img src={bannerImage} alt="Why IMA" style={{width: '100%', height: 'auto', display: 'block'}} />
+          <div style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(27, 90, 150, 0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <h1 style={{color: 'white', fontSize: '2.5rem', fontWeight: '700', textShadow: '2px 2px 4px rgba(0,0,0,0.7)'}}>Why Choose IMA</h1>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div style={{background: 'linear-gradient(135deg, #1B5A96 0%, #1B5A96 100%)', padding: '80px 20px', textAlign: 'center'}}>
+          <h1 style={{color: 'white', fontSize: '2.5rem', fontWeight: '700', textShadow: '2px 2px 4px rgba(0,0,0,0.7)'}}>Why Choose IMA</h1>
+        </div>
+      )}
 
       <section className="py-4 section-bg">
         <div className="container" style={{maxWidth: '100%', padding: '0 20px'}}>
