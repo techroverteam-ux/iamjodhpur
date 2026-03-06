@@ -10,7 +10,6 @@ import CourseCategories from './components/CourseCategories'
 import Offerings from './components/Offerings'
 import Testimonials from './components/Testimonials'
 import Stats from './components/Stats'
-import Contact from './components/Contact'
 import Footer from './components/Footer'
 
 export default function Home() {
@@ -104,7 +103,6 @@ export default function Home() {
       <div className="animate-section"><Offerings /></div>
       <div className="animate-section"><Testimonials /></div>
       <div className="animate-section"><Stats /></div>
-      <div className="animate-section"><Contact /></div>
       <Footer />
     </>
   )
