@@ -8,19 +8,19 @@ export default function Blog() {
     {
       id: 1,
       title: 'Counseling and Admission Process for NEET',
-      image: 'https://d3aj4itat0hxro.cloudfront.net/826/admin_v1/menus/icon/11886941558_WhatsApp%20Image%202026-01-14%20at%2012.03.12%20PM.jpeg',
+      image: '/images/11886941558_WhatsApp Image 2026-01-14 at 12.03.12 PM.jpeg',
       date: 'Thu-01-2026 15:14:58',
-      description: ' ',
+      description: 'Complete guide to NEET counseling and admission process.',
       slug: 'counseling-and-admission-process-for-neet',
-      content: '<p>Complete guide to NEET counseling and admission process.</p>',
+      content: '<p>Complete guide to NEET counseling and admission process.</p><h3>Counseling Rounds</h3><p>NEET counseling is conducted by MCC for 15% All India Quota seats and state authorities for 85% state quota seats.</p>',
       category: 'NEET'
     },
     {
       id: 2,
       title: 'IMA Jodhpur classroom Advantages',
-      image: 'https://d3aj4itat0hxro.cloudfront.net/826/admin_v1/menus/icon/9442091304_WhatsApp%20Image%202026-01-14%20at%2012.03.12%20PM.jpeg',
+      image: '/images/new_logo.png',
       date: 'Tue-01-2026 11:48:27',
-      description: ' ',
+      description: 'Discover the unique advantages of IMA Jodhpur classroom coaching.',
       slug: 'ima-jodhpur-classroom-advantages',
       content: '<p>IMA Jodhpur offers world-class coaching facilities with experienced faculty, comprehensive study materials, and personalized attention to help students achieve their goals in competitive exams.</p><h3>Key Advantages</h3><p>Our classrooms are equipped with modern teaching aids and technology to enhance the learning experience. We provide regular mock tests, doubt clearing sessions, and performance analysis to track student progress.</p>',
       category: 'General'
@@ -28,9 +28,9 @@ export default function Blog() {
     {
       id: 3,
       title: 'Counselling and Admission Process for JEE',
-      image: 'https://d3aj4itat0hxro.cloudfront.net/826/admin_v1/menus/icon/70304721302_WhatsApp%20Image%202026-01-14%20at%2012.03.12%20PM.jpeg',
+      image: '/images/3520795826_both.png',
       date: 'Tue-01-2026 11:40:04',
-      description: ' ',
+      description: 'Step-by-step guide to JEE counselling and admission process.',
       slug: 'counselling-and-admission-process-for-jee',
       content: '<p>After JEE results, the counselling process begins for admission to engineering colleges. JoSAA conducts counselling for IITs, NITs, and other centrally funded technical institutions.</p><h3>Counselling Rounds</h3><p>The process includes registration, choice filling, seat allotment, and document verification. Students must complete each step within the given deadlines to secure their admission.</p>',
       category: 'JEE'
@@ -38,9 +38,9 @@ export default function Blog() {
     {
       id: 4,
       title: 'What is JEE (Main+ Advanced)?',
-      image: 'https://d3aj4itat0hxro.cloudfront.net/826/admin_v1/menus/icon/21229551300_WhatsApp%20Image%202026-01-14%20at%2012.03.12%20PM.jpeg',
+      image: '/images/3520795826_both.png',
       date: 'Tue-01-2026 11:24:53',
-      description: 'What is JEE (Main+ Advanced)? Official Overview, Eligibility, Timeline an',
+      description: 'Official Overview, Eligibility, Timeline and exam pattern for JEE.',
       slug: 'what-is-jee-mains-advanced',
       content: '<p>JEE (Joint Entrance Examination) is conducted in two stages - JEE Main and JEE Advanced. JEE Main is for admission to NITs, IIITs, and other engineering colleges, while JEE Advanced is the gateway to IITs.</p><h3>Eligibility Criteria</h3><p>Students who have passed Class 12 or equivalent examination can appear for JEE Main. Top 2.5 lakh JEE Main qualifiers are eligible for JEE Advanced.</p>',
       category: 'JEE'
@@ -48,9 +48,9 @@ export default function Blog() {
     {
       id: 5,
       title: 'What is NEET?',
-      image: 'https://d3aj4itat0hxro.cloudfront.net/826/admin_v1/menus/icon/73517151299_WhatsApp%20Image%202026-01-14%20at%2012.03.12%20PM.jpeg',
+      image: '/images/24045961768826895_neet.webp',
       date: 'Tue-01-2026 11:10:24',
-      description: 'What is NEET UG NEET UG is the nation',
+      description: 'NEET UG is the national level entrance examination for medical courses.',
       slug: 'what-is-neet',
       content: '<p>NEET UG is the national level entrance examination for admission to MBBS, BDS, and other medical courses in India. It is conducted by the National Testing Agency (NTA).</p><h3>Exam Pattern</h3><p>The exam consists of 180 multiple choice questions from Physics, Chemistry, and Biology. Students must qualify NEET to get admission in government and private medical colleges across India.</p>',
       category: 'NEET'
@@ -61,8 +61,10 @@ export default function Blog() {
   useEffect(() => {
     setVisible(true)
     if (typeof window !== 'undefined') {
-      localStorage.setItem('blogs', JSON.stringify(blogs))
-      setBlogs(blogs)
+      const savedBlogs = localStorage.getItem('blogs')
+      if (savedBlogs) {
+        setBlogs(JSON.parse(savedBlogs))
+      }
     }
   }, [])
 

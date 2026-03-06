@@ -14,14 +14,14 @@ export default function BlogDetail() {
       const id = urlParams.get('id');
       setBlogId(id);
       
-      if (!id) return;
-      
-      const savedBlogs = localStorage.getItem('blogs');
-      if (savedBlogs) {
-        const blogs = JSON.parse(savedBlogs);
-        const foundBlog = blogs.find(b => b.id == id);
-        if (foundBlog) {
-          setBlog(foundBlog);
+      if (id) {
+        const savedBlogs = localStorage.getItem('blogs');
+        if (savedBlogs) {
+          const blogs = JSON.parse(savedBlogs);
+          const foundBlog = blogs.find(b => b.id == id);
+          if (foundBlog) {
+            setBlog(foundBlog);
+          }
         }
       }
     }
@@ -32,7 +32,8 @@ export default function BlogDetail() {
       <>
         <Navbar />
         <div style={{ padding: '100px 20px', textAlign: 'center' }}>
-          <h2>Loading...</h2>
+          <h2>Blog content will be available soon</h2>
+          <a href="/blog" style={{color: '#1B5A96', textDecoration: 'underline'}}>← Back to Blogs</a>
         </div>
         <Footer />
       </>
@@ -74,9 +75,7 @@ export default function BlogDetail() {
               </div>
 
               <div className="blog-detail-content prose prose-lg max-w-none">
-                {typeof blog.content === 'string' ? (
-                  <div dangerouslySetInnerHTML={{ __html: blog.content }}></div>
-                ) : Array.isArray(blog.content) ? (
+                {Array.isArray(blog.content) && blog.content.length > 0 ? (
                   blog.content.map((item, index) => (
                     <div key={index}>
                       {item.type === 'heading' && <h3 className="text-xl md:text-2xl font-bold mt-8 mb-4">{item.value}</h3>}
@@ -88,7 +87,9 @@ export default function BlogDetail() {
                       )}
                     </div>
                   ))
-                ) : null}
+                ) : (
+                  <p className="text-gray-700">No content available for this blog.</p>
+                )}
               </div>
 
               <a href="/blog" className="inline-block mt-8 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
