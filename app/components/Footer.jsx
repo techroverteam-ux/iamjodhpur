@@ -7,8 +7,14 @@ export default function Footer() {
     <footer style={{background:'#1B5A96'}} className="text-white">
       <style jsx>{`
         @media (max-width: 768px) {
+          footer {
+            padding: 0 !important;
+          }
+          .footer-container {
+            padding: 1rem 0.5rem !important;
+          }
           .footer-grid {
-            grid-template-columns: 1fr 1fr !important;
+            grid-template-columns: 1fr !important;
             gap: 1rem !important;
           }
           .footer-title {
@@ -16,7 +22,7 @@ export default function Footer() {
             margin-bottom: 0.5rem !important;
           }
           .footer-link {
-            font-size: 13px !important;
+            font-size: 11px !important;
           }
           .footer-logo {
             width: 60px !important;
@@ -27,13 +33,30 @@ export default function Footer() {
             height: 20px !important;
           }
           .footer-bottom {
-            font-size: 12px !important;
+            font-size: 10px !important;
             flex-direction: column !important;
             gap: 0.5rem !important;
           }
+          .quick-links-mobile {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            gap: 0.5rem !important;
+            justify-content: center !important;
+          }
+          .quick-links-mobile li {
+            flex: 0 0 auto !important;
+          }
+          .quick-links-desktop {
+            display: none !important;
+          }
+        }
+        @media (min-width: 769px) {
+          .quick-links-mobile {
+            display: none !important;
+          }
         }
       `}</style>
-      <div className="container mx-auto px-4 py-2">
+      <div className="container mx-auto px-4 py-2 footer-container">
         <div className="footer-grid grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
             <Link href="/">
@@ -44,7 +67,7 @@ export default function Footer() {
 
           <div className="text-center">
             <h4 className="footer-title font-bold mb-3 text-white" style={{fontSize: '18px'}}>Quick Links</h4>
-            <div className="grid grid-cols-2 gap-x-1 justify-center max-w-xs mx-auto">
+            <div className="quick-links-desktop grid grid-cols-2 gap-x-1 justify-center max-w-xs mx-auto">
               <ul className="space-y-2 text-center">
                 <li><Link href="/about-us" className="footer-link hover:text-blue-200 transition-colors text-white/90" style={{fontSize: '15px'}}>About Us</Link></li>
                 <li><Link href="/courses" className="footer-link hover:text-blue-200 transition-colors text-white/90" style={{fontSize: '15px'}}>Courses</Link></li>
@@ -57,6 +80,15 @@ export default function Footer() {
                 <li><Link href="/faqs" className="footer-link hover:text-blue-200 transition-colors text-white/90" style={{fontSize: '15px'}}>FAQ's</Link></li>
               </ul>
             </div>
+            <ul className="quick-links-mobile">
+              <li><Link href="/about-us" className="footer-link hover:text-blue-200 transition-colors text-white/90" style={{fontSize: '15px'}}>About Us</Link></li>
+              <li><Link href="/courses" className="footer-link hover:text-blue-200 transition-colors text-white/90" style={{fontSize: '15px'}}>Courses</Link></li>
+              <li><Link href="/facilities" className="footer-link hover:text-blue-200 transition-colors text-white/90" style={{fontSize: '15px'}}>Facilities</Link></li>
+              <li><Link href="/blog" className="footer-link hover:text-blue-200 transition-colors text-white/90" style={{fontSize: '15px'}}>Blogs</Link></li>
+              <li><Link href="/why-ima" className="footer-link hover:text-blue-200 transition-colors text-white/90" style={{fontSize: '15px'}}>Why IMA?</Link></li>
+              <li><Link href="/contact-us" className="footer-link hover:text-blue-200 transition-colors text-white/90" style={{fontSize: '15px'}}>Contact Us</Link></li>
+              <li><Link href="/faqs" className="footer-link hover:text-blue-200 transition-colors text-white/90" style={{fontSize: '15px'}}>FAQ's</Link></li>
+            </ul>
           </div>
 
           <div>

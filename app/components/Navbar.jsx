@@ -29,6 +29,22 @@ export default function Navbar() {
   return (
     <div className="sticky top-0 z-50">
       <style jsx>{`
+        @media (max-width: 768px) {
+          .top_heads {
+            font-size: 11px !important;
+            padding: 0.25rem 0 !important;
+          }
+          .top_heads a {
+            font-size: 11px !important;
+          }
+          .navbar-container {
+            padding: 0 0.5rem !important;
+          }
+          .logo-container img {
+            width: 140px !important;
+            height: auto !important;
+          }
+        }
         .nav-link {
           position: relative;
           overflow: hidden;
@@ -134,7 +150,7 @@ export default function Navbar() {
       
       <section className="top_heads top_heads_header top-head" style={{background:'#1B5A96'}}>
         <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center py-2.5">
+          <div className="flex flex-wrap justify-between items-center py-2.5 gap-1">
             <a href="tel:9571037333" className="text-white text-sm">
               <i className="fa fa-phone mr-1"></i> +91 - 9571037333
             </a>
@@ -146,7 +162,7 @@ export default function Navbar() {
       </section>
 
       <div className="bg-white shadow-sm border-b">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 navbar-container">
           <nav className="flex justify-between items-center h-20">
             <Link href="/" className="flex items-center logo-container">
               <Image src="/images/new_logo.png" width={220} height={85} alt="IMA Jodhpur" className="h-20 w-auto" />
