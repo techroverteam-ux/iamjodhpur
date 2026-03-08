@@ -133,23 +133,21 @@ export default function Courses() {
           color: white;
         }
       `}</style>
-    <section className="courses-section py-4" style={{background: 'linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%)'}}>
+    <section className="courses-section py-2" style={{background: 'linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%)'}}>
       <div className="container mx-auto px-4" style={{maxWidth: '1140px'}}>
-        <div className="text-center mb-3">
+        <div className="text-center mb-2">
           <h3 className="text-3xl md:text-4xl font-bold" style={{color:'var(--primary-medium)'}}>Our Popular Courses</h3>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {courses.map((course) => (
             <div key={course.id} className="course-card">
               <div className="flip-card">
                 <div className="flip-card-front">
-                  <img src={course.image} alt={course.title} className="w-full h-40 object-contain p-2" />
-                  <div className="p-2">
-                    <h6 className="course-title text-sm mb-2">{course.title}</h6>
-                    <div className="flex items-center text-xs text-gray-600">
-                      <i className="fa fa-calendar mr-2"></i> Validity {course.validity}
-                    </div>
+                  <img src={course.image} alt={course.title} className="w-full h-56 object-contain" />
+                  <div className="p-0">
+                    <h6 className="course-title text-sm mb-2 text-center font-bold">{course.title}</h6>
+                   
                   </div>
                 </div>
                 <div className="flip-card-back">
@@ -185,8 +183,6 @@ export default function Courses() {
                   <option value="">Select Course</option>
                   <option value="NEET">NEET</option>
                   <option value="JEE">JEE</option>
-                  <option value="Pre-Foundation">Pre-Foundation</option>
-                  <option value="AITS">AITS</option>
                 </select>
                 <button type="submit" style={{width: '100%', padding: '12px', background: '#dc3545', color: '#fff', border: 'none', borderRadius: '4px', fontSize: '16px', fontWeight: '600', cursor: 'pointer'}}>Register Now</button>
               </form>

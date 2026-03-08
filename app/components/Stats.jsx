@@ -153,7 +153,7 @@ export default function Stats() {
                     {stat.title}
                   </h3>
                   <div className="success-number" style={{color: '#1B5A96'}}>
-                    {counts[index] >= 1000 ? `${(counts[index]/1000).toFixed(1)}K` : counts[index]}
+                    {counts[index] >= 1000 ? `${Math.floor(counts[index]/1000)}K` : counts[index]}
                   </div>
                   <div className="success-label" style={{color: '#1B5A96'}}>{stat.label}</div>
                 </div>

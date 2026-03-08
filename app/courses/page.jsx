@@ -5,12 +5,12 @@ import Footer from '../components/Footer'
 
 export default function CoursesPage() {
   const [showRegisterModal, setShowRegisterModal] = useState(false)
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '', course: '' })
+  const [formData, setFormData] = useState({ name: '',  phone: '', course: '' })
   const [courses, setCourses] = useState([
-    { id: 42147, title: 'Pre Foundation Course', validity: '354 Days', description: 'Foundation course for early preparation', image: 'https://d3aj4itat0hxro.cloudfront.net/826/admin_v1/bundle_management/course/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png' },
-    { id: 42161, title: 'NEET Preparation', validity: '365 Days', description: 'Complete NEET preparation course', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
-    { id: 42286, title: 'JEE (Mains+Advance)', validity: '365 Days', description: 'JEE Mains and Advanced preparation', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
-    { id: 42385, title: 'All India Test Series (AITS)', validity: '365 Days', description: 'All India Test Series for practice', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
+    { id: 42147, title: 'Pre Foundation Course', description: 'Foundation course for early preparation', image: 'https://d3aj4itat0hxro.cloudfront.net/826/admin_v1/bundle_management/course/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png' },
+    { id: 42161, title: 'NEET Preparation',  description: 'Complete NEET preparation course', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
+    { id: 42286, title: 'JEE (Mains+Advance)',  description: 'JEE Mains and Advanced preparation', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
+    { id: 42385, title: 'All India Test Series (AITS)',  description: 'All India Test Series for practice', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
   ])
   const [visible, setVisible] = useState(false)
   const [bannerImage, setBannerImage] = useState('')
@@ -24,7 +24,7 @@ export default function CoursesPage() {
       localStorage.setItem('courseRegistrations', JSON.stringify(existing))
       alert('Registration successful!')
       setShowRegisterModal(false)
-      setFormData({ name: '', email: '', phone: '', course: '' })
+      setFormData({ name: '', phone: '', course: '' })
     } catch (error) {
       alert('Registration failed!')
     }
@@ -195,8 +195,6 @@ export default function CoursesPage() {
                   <option value="">Select Course</option>
                   <option value="NEET">NEET</option>
                   <option value="JEE">JEE</option>
-                  <option value="Pre-Foundation">Pre-Foundation</option>
-                  <option value="AITS">AITS</option>
                 </select>
                 <button type="submit" className="w-full text-white font-semibold py-3 rounded" style={{background:'#dc3545'}}>Register Now</button>
               </form>

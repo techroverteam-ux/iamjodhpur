@@ -96,7 +96,9 @@ export default function Footer() {
             <ul className="space-y-2">
               <li className="footer-link flex items-start text-white/90" style={{fontSize: '15px'}}>
                 <i className="fa fa-map-marker mr-2 mt-1 text-blue-200"></i>
-                <span>Main Pal Road, Near Barkatullah Khan Stadium, Shastri Nagar, Jodhpur - 342003</span>
+                <a href="https://maps.google.com/?q=IMA+Jodhpur+IIT+Academy+Medical+Academy+Main+Pal+Road+Shastri+Nagar+Jodhpur+Rajasthan" target="_blank" rel="noopener noreferrer" className="text-white hover:!text-black transition-colors">
+                  Main Pal Road, Near Barkatullah Khan Stadium, Shastri Nagar, Jodhpur - 342003
+                </a>
               </li>
               <li>
                 <a href="tel:9571037333" className="footer-link flex items-center hover:text-blue-200 transition-colors text-white/90" style={{fontSize: '15px'}}>
@@ -134,13 +136,8 @@ export default function Footer() {
 
         <hr className="border-white/30 my-3" />
 
-        <div className="footer-bottom flex flex-col md:flex-row justify-between items-center text-white" style={{fontSize: '14px'}}>
+        <div className="footer-bottom flex justify-center items-center text-white" style={{fontSize: '14px'}}>
           <p>© 2026 IMA Jodhpur. All Rights Reserved</p>
-          <ul className="flex space-x-2 mt-1 md:mt-0">
-            <li><Link href="/privacy-policy" className="hover:underline text-white">Privacy Policy</Link></li>
-            <li><Link href="/refund-policy" className="hover:underline text-white">Refund Policy</Link></li>
-            <li><Link href="/terms-and-conditions" className="hover:underline text-white">Terms & Conditions</Link></li>
-          </ul>
         </div>
       </div>
     </footer>

@@ -9,6 +9,7 @@ export default function AdminDashboard() {
   const [registrations, setRegistrations] = useState([])
   const [courseRegistrations, setCourseRegistrations] = useState([])
   const [blogs, setBlogs] = useState([])
+  const [achievements, setAchievements] = useState([])
   const [banners, setBanners] = useState({
     aboutUs: '/images/1.png',
     courses: '/images/2.png',
@@ -18,14 +19,14 @@ export default function AdminDashboard() {
     contactUs: '/images/1.png'
   })
   const [courses, setCourses] = useState([
-    { id: 42147, title: 'Pre Foundation Course', price: 'Free', validity: '354 Days', description: 'Foundation course for early preparation', content: 'Complete foundation course details...', image: 'https://d3aj4itat0hxro.cloudfront.net/826/admin_v1/bundle_management/course/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png' },
-    { id: 42161, title: 'NEET Preparation', price: 'Free', validity: '365 Days', description: 'Complete NEET preparation course', content: 'NEET course includes all subjects...', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
-    { id: 42286, title: 'JEE (Mains+Advance)', price: 'Free', validity: '365 Days', description: 'JEE Mains and Advanced preparation', content: 'Complete JEE preparation package...', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
-    { id: 42385, title: 'All India Test Series (AITS)', price: 'Free', validity: '365 Days', description: 'All India Test Series for practice', content: 'Regular test series for assessment...', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
+    { id: 42147, title: 'Pre Foundation Course', price: 'Free', description: 'Foundation course for early preparation', content: 'Complete foundation course details...', image: 'https://d3aj4itat0hxro.cloudfront.net/826/admin_v1/bundle_management/course/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png' },
+    { id: 42161, title: 'NEET Preparation', price: 'Free',  description: 'Complete NEET preparation course', content: 'NEET course includes all subjects...', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
+    { id: 42286, title: 'JEE (Mains+Advance)', price: 'Free', description: 'JEE Mains and Advanced preparation', content: 'Complete JEE preparation package...', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
+    { id: 42385, title: 'All India Test Series (AITS)', price: 'Free',  description: 'All India Test Series for practice', content: 'Regular test series for assessment...', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
   ])
   const [showModal, setShowModal] = useState(false)
   const [editItem, setEditItem] = useState(null)
-  const [formData, setFormData] = useState({ title: '', date: '', category: '', validity: '', description: '', content: [], image: '', imageFile: null })
+  const [formData, setFormData] = useState({ title: '', date: '',  description: '', content: [], image: '', imageFile: null })
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -36,11 +37,13 @@ export default function AdminDashboard() {
       const savedCourses = localStorage.getItem('courses')
       const savedRegistrations = localStorage.getItem('registrations')
       const savedCourseRegistrations = localStorage.getItem('courseRegistrations')
+      const savedAchievements = localStorage.getItem('achievements')
       const savedBanners = localStorage.getItem('banners')
       if (savedBlogs) setBlogs(JSON.parse(savedBlogs))
       if (savedCourses) setCourses(JSON.parse(savedCourses))
       if (savedRegistrations) setRegistrations(JSON.parse(savedRegistrations))
       if (savedCourseRegistrations) setCourseRegistrations(JSON.parse(savedCourseRegistrations))
+      if (savedAchievements) setAchievements(JSON.parse(savedAchievements))
       if (savedBanners) setBanners(JSON.parse(savedBanners))
     }
   }, [router])
@@ -52,7 +55,7 @@ export default function AdminDashboard() {
 
   const handleAdd = () => {
     setEditItem(null)
-    setFormData({ title: '', date: '', category: '', validity: '', description: '', content: [], image: '', imageFile: null })
+    setFormData({ title: '', date: '', description: '', content: [], image: '', imageFile: null })
     setShowModal(true)
   }
 
@@ -102,34 +105,10 @@ export default function AdminDashboard() {
     setFormData({...formData, content: formData.content.filter((_, i) => i !== index)})
   }
 
-  const handleBannerUpload = (page, e) => {
-    const file = e.target.files[0]
-    if (file) {
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        const newBanners = {...banners, [page]: reader.result}
-        setBanners(newBanners)
-        localStorage.setItem('banners', JSON.stringify(newBanners))
-        alert('Banner updated successfully!')
-      }
-      reader.readAsDataURL(file)
-    }
-  }
-
-  const handleBannerRemove = (page) => {
-    if (confirm('Are you sure you want to remove this banner image?')) {
-      const newBanners = {...banners, [page]: ''}
-      setBanners(newBanners)
-      localStorage.setItem('banners', JSON.stringify(newBanners))
-      alert('Banner removed successfully!')
-    }
-  }
-
   const handleSubmit = (e) => {
     e.preventDefault()
     const submitData = {...formData}
     
-    // Preserve original content if no new content added during edit
     if (editItem && (!submitData.content || submitData.content.length === 0)) {
       if (editItem.content && editItem.content.length > 0) {
         submitData.content = editItem.content
@@ -172,6 +151,9 @@ export default function AdminDashboard() {
             <button onClick={() => setActiveTab('courses')} style={{width: '100%', padding: '15px 20px', background: activeTab === 'courses' ? 'rgba(255,255,255,0.1)' : 'transparent', color: 'white', border: 'none', textAlign: 'left', cursor: 'pointer', borderLeft: activeTab === 'courses' ? '4px solid white' : '4px solid transparent'}}>
               <i className="fa fa-book" style={{marginRight: '10px'}}></i>Courses
             </button>
+            <button onClick={() => setActiveTab('achievements')} style={{width: '100%', padding: '15px 20px', background: activeTab === 'achievements' ? 'rgba(255,255,255,0.1)' : 'transparent', color: 'white', border: 'none', textAlign: 'left', cursor: 'pointer', borderLeft: activeTab === 'achievements' ? '4px solid white' : '4px solid transparent'}}>
+              <i className="fa fa-trophy" style={{marginRight: '10px'}}></i>Achievements
+            </button>
             <button onClick={() => setActiveTab('banners')} style={{width: '100%', padding: '15px 20px', background: activeTab === 'banners' ? 'rgba(255,255,255,0.1)' : 'transparent', color: 'white', border: 'none', textAlign: 'left', cursor: 'pointer', borderLeft: activeTab === 'banners' ? '4px solid white' : '4px solid transparent'}}>
               <i className="fa fa-image" style={{marginRight: '10px'}}></i>Banners
             </button>
@@ -190,23 +172,107 @@ export default function AdminDashboard() {
 
         <div className="container mx-auto px-4 py-8">
           <div className="bg-white rounded-lg shadow-md p-6">
-            {activeTab !== 'inquiries' && activeTab !== 'registrations' && activeTab !== 'banners' && (
+            {activeTab !== 'inquiries' && activeTab !== 'registrations' && activeTab !== 'achievements' && activeTab !== 'banners' && (
               <button onClick={handleAdd} className="mb-6 px-6 py-2 rounded text-white font-semibold" style={{background: '#1B5A96'}}>
                 <i className="fa fa-plus mr-2"></i>Add {activeTab === 'blogs' ? 'Blog' : 'Course'}
               </button>
             )}
 
             <div className="overflow-x-auto">
-              {activeTab === 'banners' ? (
+              {activeTab === 'achievements' ? (
+                <div>
+                  <h2 className="text-xl font-bold mb-4" style={{color: '#1B5A96'}}>Manage Achievements</h2>
+                  <button onClick={() => {
+                    const heading = prompt('Enter achievement heading:')
+                    if (heading) {
+                      const newAchievement = { id: Date.now(), heading, image: '' }
+                      const updated = [...achievements, newAchievement]
+                      setAchievements(updated)
+                      localStorage.setItem('achievements', JSON.stringify(updated))
+                    }
+                  }} className="mb-4 px-4 py-2 rounded text-white font-semibold" style={{background: '#1B5A96'}}>
+                    <i className="fa fa-plus mr-2"></i>Add Achievement
+                  </button>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {achievements.map((achievement) => (
+                      <div key={achievement.id} style={{border: '1px solid #e0e0e0', borderRadius: '8px', padding: '20px'}}>
+                        <h3 className="font-bold mb-2">{achievement.heading}</h3>
+                        {achievement.image && <img src={achievement.image} alt={achievement.heading} style={{width: '100%', height: '150px', objectFit: 'cover', borderRadius: '4px', marginBottom: '10px'}} />}
+                        <input type="file" accept="image/*" onChange={(e) => {
+                          const file = e.target.files[0]
+                          if (file) {
+                            if (confirm('Are you sure you want to upload this image?')) {
+                              const reader = new FileReader()
+                              reader.onloadend = () => {
+                                const updated = achievements.map(a => a.id === achievement.id ? {...a, image: reader.result} : a)
+                                setAchievements(updated)
+                                localStorage.setItem('achievements', JSON.stringify(updated))
+                                alert('Image uploaded successfully!')
+                              }
+                              reader.readAsDataURL(file)
+                            } else {
+                              e.target.value = ''
+                            }
+                          }
+                        }} style={{width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px', marginBottom: '8px'}} />
+                        <div className="flex gap-2">
+                          {achievement.image && (
+                            <button onClick={() => {
+                              if (confirm('Are you sure you want to remove this image?')) {
+                                const updated = achievements.map(a => a.id === achievement.id ? {...a, image: ''} : a)
+                                setAchievements(updated)
+                                localStorage.setItem('achievements', JSON.stringify(updated))
+                                alert('Image removed successfully!')
+                              }
+                            }} style={{flex: 1, padding: '8px', background: '#dc3545', color: 'white', border: 'none', borderRadius: '4px', fontSize: '14px', cursor: 'pointer'}}>Remove Image</button>
+                          )}
+                          <button onClick={() => {
+                            if (confirm('Are you sure you want to delete this achievement?')) {
+                              const updated = achievements.filter(a => a.id !== achievement.id)
+                              setAchievements(updated)
+                              localStorage.setItem('achievements', JSON.stringify(updated))
+                            }
+                          }} style={{flex: 1, padding: '8px', background: '#6c757d', color: 'white', border: 'none', borderRadius: '4px', fontSize: '14px', cursor: 'pointer'}}>Delete</button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : activeTab === 'banners' ? (
                 <div>
                   <h2 className="text-xl font-bold mb-4" style={{color: '#1B5A96'}}>Manage Page Banners</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {Object.keys(banners).map((page) => (
                       <div key={page} style={{border: '1px solid #e0e0e0', borderRadius: '8px', padding: '20px'}}>
                         <h3 className="font-bold mb-2" style={{textTransform: 'capitalize'}}>{page.replace(/([A-Z])/g, ' $1').trim()}</h3>
-                        <img src={banners[page]} alt={page} style={{width: '100%', height: '150px', objectFit: 'cover', borderRadius: '4px', marginBottom: '10px'}} />
-                        <input type="file" accept="image/*" onChange={(e) => handleBannerUpload(page, e)} style={{width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px', marginBottom: '8px'}} />
-                        <button onClick={() => handleBannerRemove(page)} style={{width: '100%', padding: '8px', background: '#dc3545', color: 'white', border: 'none', borderRadius: '4px', fontSize: '14px', cursor: 'pointer'}}>Remove Image</button>
+                        {banners[page] && <img src={banners[page]} alt={page} style={{width: '100%', height: '150px', objectFit: 'cover', borderRadius: '4px', marginBottom: '10px'}} />}
+                        <input type="file" accept="image/*" onChange={(e) => {
+                          const file = e.target.files[0]
+                          if (file) {
+                            if (confirm('Are you sure you want to upload this banner image?')) {
+                              const reader = new FileReader()
+                              reader.onloadend = () => {
+                                const newBanners = {...banners, [page]: reader.result}
+                                setBanners(newBanners)
+                                localStorage.setItem('banners', JSON.stringify(newBanners))
+                                alert('Banner updated successfully!')
+                              }
+                              reader.readAsDataURL(file)
+                            } else {
+                              e.target.value = ''
+                            }
+                          }
+                        }} style={{width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px', marginBottom: '8px'}} />
+                        {banners[page] && (
+                          <button onClick={() => {
+                            if (confirm('Are you sure you want to remove this banner image?')) {
+                              const newBanners = {...banners, [page]: ''}
+                              setBanners(newBanners)
+                              localStorage.setItem('banners', JSON.stringify(newBanners))
+                              alert('Banner removed successfully!')
+                            }
+                          }} style={{width: '100%', padding: '8px', background: '#dc3545', color: 'white', border: 'none', borderRadius: '4px', fontSize: '14px', cursor: 'pointer'}}>Remove Image</button>
+                        )}
                       </div>
                     ))}
                   </div>
@@ -217,9 +283,9 @@ export default function AdminDashboard() {
                     <tr>
                       <th className="px-4 py-3 text-left">Date</th>
                       <th className="px-4 py-3 text-left">Name</th>
-                      <th className="px-4 py-3 text-left">Email</th>
-                      <th className="px-4 py-3 text-left">Phone</th>
+                      <th className="px-4 py-3 text-left">WhatsApp Number </th>
                       <th className="px-4 py-3 text-left">Course</th>
+                      <th className="px-4 py-3 text-left">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -227,9 +293,19 @@ export default function AdminDashboard() {
                       <tr key={reg.id} className="border-b">
                         <td className="px-4 py-3">{reg.date}</td>
                         <td className="px-4 py-3">{reg.name}</td>
-                        <td className="px-4 py-3">{reg.email}</td>
                         <td className="px-4 py-3">{reg.phone}</td>
                         <td className="px-4 py-3">{reg.course}</td>
+                        <td className="px-4 py-3">
+                          <button onClick={() => {
+                            if (confirm('Are you sure you want to delete this registration?')) {
+                              const updated = registrations.filter(r => r.id !== reg.id)
+                              setRegistrations(updated)
+                              localStorage.setItem('registrations', JSON.stringify(updated))
+                            }
+                          }} className="px-3 py-1 rounded text-white" style={{background: '#dc3545'}}>
+                            <i className="fa fa-trash"></i>
+                          </button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -240,9 +316,9 @@ export default function AdminDashboard() {
                     <tr>
                       <th className="px-4 py-3 text-left">Date</th>
                       <th className="px-4 py-3 text-left">Name</th>
-                      <th className="px-4 py-3 text-left">Email</th>
-                      <th className="px-4 py-3 text-left">Phone</th>
+                      <th className="px-4 py-3 text-left">WhatsApp Number</th>
                       <th className="px-4 py-3 text-left">Course</th>
+                      <th className="px-4 py-3 text-left">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -250,9 +326,19 @@ export default function AdminDashboard() {
                       <tr key={reg.id} className="border-b">
                         <td className="px-4 py-3">{reg.date}</td>
                         <td className="px-4 py-3">{reg.name}</td>
-                        <td className="px-4 py-3">{reg.email}</td>
                         <td className="px-4 py-3">{reg.phone}</td>
                         <td className="px-4 py-3">{reg.course}</td>
+                        <td className="px-4 py-3">
+                          <button onClick={() => {
+                            if (confirm('Are you sure you want to delete this registration?')) {
+                              const updated = courseRegistrations.filter(r => r.id !== reg.id)
+                              setCourseRegistrations(updated)
+                              localStorage.setItem('courseRegistrations', JSON.stringify(updated))
+                            }
+                          }} className="px-3 py-1 rounded text-white" style={{background: '#dc3545'}}>
+                            <i className="fa fa-trash"></i>
+                          </button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -263,11 +349,6 @@ export default function AdminDashboard() {
                     <tr>
                       <th className="px-4 py-3 text-left">Image</th>
                       <th className="px-4 py-3 text-left">Title</th>
-                      {activeTab === 'blogs' ? (
-                        <th className="px-4 py-3 text-left">Date</th>
-                      ) : (
-                        <th className="px-4 py-3 text-left">Validity</th>
-                      )}
                       <th className="px-4 py-3 text-left">Actions</th>
                     </tr>
                   </thead>
@@ -278,11 +359,6 @@ export default function AdminDashboard() {
                           <img src={item.image} alt={item.title} className="w-16 h-16 object-contain" />
                         </td>
                         <td className="px-4 py-3">{item.title}</td>
-                        {activeTab === 'blogs' ? (
-                          <td className="px-4 py-3">{item.date}</td>
-                        ) : (
-                          <td className="px-4 py-3">{item.validity}</td>
-                        )}
                         <td className="px-4 py-3">
                           <button onClick={() => handleEdit(item)} className="px-3 py-1 rounded text-white mr-2" style={{background: '#28a745'}}>
                             <i className="fa fa-edit"></i>
@@ -344,26 +420,10 @@ export default function AdminDashboard() {
                   </div>
                 ))}
               </div>
-              {activeTab === 'blogs' ? (
-                <>
-                  <div className="mb-3">
-                    <label className="block mb-1 font-semibold text-xs">Category</label>
-                    <select value={formData.category || ''} onChange={(e) => setFormData({...formData, category: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '5px', fontSize: '13px'}} required>
-                      <option value="">Select Category</option>
-                      <option value="NEET">NEET</option>
-                      <option value="JEE">JEE</option>
-                      <option value="General">General</option>
-                    </select>
-                  </div>
-                  <div className="mb-3">
-                    <label className="block mb-1 font-semibold text-xs">Date</label>
-                    <input type="text" value={formData.date} onChange={(e) => setFormData({...formData, date: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '5px', fontSize: '13px'}} required />
-                  </div>
-                </>
-              ) : (
+              {activeTab === 'blogs' && (
                 <div className="mb-3">
-                  <label className="block mb-1 font-semibold text-xs">Validity</label>
-                  <input type="text" value={formData.validity} onChange={(e) => setFormData({...formData, validity: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '5px', fontSize: '13px'}} required />
+                  <label className="block mb-1 font-semibold text-xs">Date</label>
+                  <input type="date" value={formData.date} onChange={(e) => setFormData({...formData, date: e.target.value})} className="w-full outline-none" style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '5px', fontSize: '13px'}} required />
                 </div>
               )}
               <div className="mb-3">

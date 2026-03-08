@@ -139,12 +139,101 @@ export default function Navbar() {
         }
         
         .menu-item {
-          transition: all 0.3s ease;
+          position: relative;
+          padding: 12px 16px;
+          transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          display: inline-block;
+          border-radius: 8px;
+          overflow: hidden;
+        }
+        
+        .menu-item::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(27, 90, 150, 0.1), transparent);
+          transition: left 0.6s ease;
+        }
+        
+        .menu-item::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 0;
+          height: 3px;
+          background: linear-gradient(90deg, #1B5A96, #4A90E2, #1B5A96);
+          transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          border-radius: 2px;
         }
         
         .menu-item:hover {
-          font-weight: 900 !important;
-          transform: scale(1.1) !important;
+          color: #1B5A96 !important;
+          transform: translateY(-3px) scale(1.05);
+          box-shadow: 0 8px 20px rgba(27, 90, 150, 0.2);
+          background: rgba(27, 90, 150, 0.05);
+        }
+        
+        .menu-item:hover::before {
+          left: 100%;
+        }
+        
+        .menu-item:hover::after {
+          width: 100%;
+        }
+        
+        .dropdown {
+          position: relative;
+        }
+        
+        .dropdown-menu {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          background: white;
+          border: 2px solid var(--primary-medium);
+          border-radius: 8px;
+          box-shadow: 0 8px 20px rgba(27, 90, 150, 0.2);
+          min-width: 220px;
+          z-index: 1000;
+          margin-top: 5px;
+          animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes slideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        .dropdown:hover .dropdown-menu {
+          display: block;
+        }
+        
+        .dropdown-menu a {
+          display: block;
+          padding: 12px 20px;
+          color: var(--primary-medium);
+          text-decoration: none;
+          font-size: 14px;
+          font-weight: 600;
+          transition: all 0.3s;
+          border-left: 3px solid transparent;
+        }
+        
+        .dropdown-menu a:hover {
+          background: linear-gradient(90deg, #f0f9ff, white);
+          border-left-color: var(--primary-medium);
+          padding-left: 25px;
         }
       `}</style>
       
@@ -162,28 +251,38 @@ export default function Navbar() {
       </section>
 
       <div className="bg-white shadow-sm border-b">
-        <div className="container mx-auto px-4 navbar-container">
-          <nav className="flex justify-between items-center h-20">
+        <div className="container mx-auto navbar-container">
+          <nav className="flex items-center h-20">
             <Link href="/" className="flex items-center logo-container">
               <Image src="/images/new_logo.png" width={220} height={85} alt="IMA Jodhpur" className="h-20 w-auto" />
             </Link>
 
+            <div className="hidden md:flex items-center justify-end flex-1 ml-16">
+              <div className="flex items-center space-x-6 whitespace-nowrap">
+                <Link href="/" className="menu-item font-bold text-sm uppercase tracking-wide" style={{color: '#1B5A96'}}>Home</Link>
+                <div className="dropdown">
+                  <Link href="/about-us" className="menu-item font-bold text-sm uppercase tracking-wide" style={{color: '#1B5A96'}}>About Us</Link>
+                  <div className="dropdown-menu">
+                    <a href="/about-us#about-ima">About IMA</a>
+                    <a href="/about-us#vision-mission">Vision & Mission</a>
+                    <a href="/about-us#director-message">Director's Message</a>
+                  </div>
+                </div>
+                <Link href="/courses" className="menu-item font-bold text-sm uppercase tracking-wide" style={{color: '#1B5A96'}}>Courses</Link>
+                <Link href="/facilities" className="menu-item font-bold text-sm uppercase tracking-wide" style={{color: '#1B5A96'}}>Facilities</Link>
+                <Link href="/blog" className="menu-item font-bold text-sm uppercase tracking-wide" style={{color: '#1B5A96'}}>Blogs</Link>
+                <Link href="/why-ima" className="menu-item font-bold text-sm uppercase tracking-wide" style={{color: '#1B5A96'}}>WHY IMA ?</Link>
+                <Link href="/contact-us" className="menu-item font-bold text-sm uppercase tracking-wide" style={{color: '#1B5A96'}}>Contact Us</Link>
+                <button onClick={() => setShowRegisterModal(true)} className="login-btn px-3 py-2.5 rounded-lg text-white font-bold text-xs uppercase tracking-wide whitespace-nowrap ml-8" style={{background:'linear-gradient(135deg, #dc3545, #c82333)', boxShadow: '0 4px 15px rgba(220, 53, 69, 0.4)'}}>
+                  <div style={{fontSize: '18px'}}>STHE</div>
+                  <div style={{fontSize: '15px', fontWeight: 'normal', textTransform: 'none', marginTop: '2px', opacity: '0.95'}}>Get Scholarship Upto 100%</div>
+                </button>
+              </div>
+            </div>
+
             <button onClick={() => setIsOpen(!isOpen)} className="md:hidden p-2">
               <span className="text-2xl text-gray-700">☰</span>
             </button>
-
-            <div className="hidden md:flex items-center space-x-2">
-              <Link href="/" className="menu-item font-bold text-sm uppercase tracking-wide px-3 py-1.5 rounded-md transition-all duration-300 hover:font-black hover:scale-110" style={{color: 'var(--primary-medium)'}}>Home</Link>
-              <Link href="/about-us" className="menu-item font-bold text-sm uppercase tracking-wide px-3 py-1.5 rounded-md transition-all duration-300 hover:font-black hover:scale-110" style={{color: 'var(--primary-medium)'}}>About Us</Link>
-              <Link href="/courses" className="menu-item font-bold text-sm uppercase tracking-wide px-3 py-1.5 rounded-md transition-all duration-300 hover:font-black hover:scale-110" style={{color: 'var(--primary-medium)'}}>Courses</Link>
-              <Link href="/facilities" className="menu-item font-bold text-sm uppercase tracking-wide px-3 py-1.5 rounded-md transition-all duration-300 hover:font-black hover:scale-110" style={{color: 'var(--primary-medium)'}}>Facilities</Link>
-              <Link href="/blog" className="menu-item font-bold text-sm uppercase tracking-wide px-3 py-1.5 rounded-md transition-all duration-300 hover:font-black hover:scale-110" style={{color: 'var(--primary-medium)'}}>Blogs</Link>
-              <Link href="/why-ima" className="menu-item font-bold text-sm uppercase tracking-wide px-3 py-1.5 rounded-md transition-all duration-300 hover:font-black hover:scale-110" style={{color: 'var(--primary-medium)'}}>WHY IMA ?</Link>
-              <Link href="/contact-us" className="menu-item font-bold text-sm uppercase tracking-wide px-3 py-1.5 rounded-md transition-all duration-300 hover:font-black hover:scale-110" style={{color: 'var(--primary-medium)'}}>Contact Us</Link>
-              <button onClick={() => setShowRegisterModal(true)} className="login-btn px-6 py-2.5 rounded-md text-white font-medium text-sm uppercase tracking-wide" style={{background:'#dc3545'}}>
-                STHE
-              </button>
-            </div>
           </nav>
 
           {isOpen && (
@@ -230,8 +329,7 @@ export default function Navbar() {
                   <option value="">Select Course</option>
                   <option value="NEET">NEET</option>
                   <option value="JEE">JEE</option>
-                  <option value="Pre-Foundation">Pre-Foundation</option>
-                  <option value="AITS">AITS</option>
+                  <option value="Pre-Foundation">Pre-Foundation 9th & 10th</option>
                 </select>
                 <button type="submit" className="w-full text-white font-semibold py-3 rounded" style={{background:'#dc3545'}}>Register Now</button>
               </form>

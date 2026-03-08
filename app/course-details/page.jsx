@@ -27,10 +27,18 @@ export default function CourseDetail() {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
       const courseId = urlParams.get('id');
-      const savedCourses = localStorage.getItem('courses');
       
-      if (courseId && savedCourses) {
-        const courses = JSON.parse(savedCourses);
+      const defaultCourses = [
+        { id: 42147, title: 'Pre Foundation Course', description: 'Foundation course for early preparation', content: [], image: '/images/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png' },
+        { id: 42161, title: 'NEET Preparation', description: 'Complete NEET preparation course', content: [], image: '/images/3520795826_both.png' },
+        { id: 42286, title: 'JEE (Mains+Advance)', description: 'JEE Mains and Advanced preparation', content: [], image: '/images/3520795826_both.png' },
+        { id: 42385, title: 'All India Test Series (AITS)', description: 'All India Test Series for practice', content: [], image: '/images/3520795826_both.png' },
+      ];
+      
+      const savedCourses = localStorage.getItem('courses');
+      const courses = savedCourses ? JSON.parse(savedCourses) : defaultCourses;
+      
+      if (courseId) {
         const foundCourse = courses.find(c => c.id == courseId);
         setCourse(foundCourse || null);
       }
@@ -289,10 +297,7 @@ export default function CourseDetail() {
               <img src={course.image} alt={course.title} className="course-card-image" />
               <div className="course-card-body">
                 <h3 className="course-card-title">{course.title}</h3>
-                <div className="validity-text">
-                  <i className="fa fa-calendar"></i> Validity {course.validity}
-                </div>
-                <button onClick={() => setShowRegisterModal(true)} className="enroll-btn">Enroll Now</button>
+                <button onClick={() => setShowRegisterModal(true)} className="enroll-btn">Register Now</button>
               </div>
             </div>
           </div>
@@ -318,8 +323,6 @@ export default function CourseDetail() {
                   <option value="">Select Course</option>
                   <option value="NEET">NEET</option>
                   <option value="JEE">JEE</option>
-                  <option value="Pre-Foundation">Pre-Foundation</option>
-                  <option value="AITS">AITS</option>
                 </select>
                 <button type="submit" className="w-full text-white font-semibold py-3 rounded" style={{background:'#dc3545'}}>Register Now</button>
               </form>

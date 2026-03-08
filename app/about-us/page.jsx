@@ -544,7 +544,7 @@ export default function AboutUs() {
       )}
 
       {/* Intro Section */}
-      <div className="intro-section">
+      <div className="intro-section" id="about-ima">
         <div className="intro-card content-section" ref={(el) => (sectionsRef.current[0] = el)}>
           <h2 className="section-title text-3xl md:text-4xl font-bold" style={{color: 'var(--primary-medium)'}}>Our Legacy Since 1999</h2>
           
@@ -588,7 +588,7 @@ export default function AboutUs() {
       </div>
 
       {/* Vision and Mission */}
-      <div className="vision-mission-wrapper">
+      <div className="vision-mission-wrapper" id="vision-mission">
         <h2 className="section-title content-section text-3xl md:text-4xl font-bold" style={{color: 'var(--primary-medium)'}} ref={(el) => (sectionsRef.current[1] = el)}>
           Vision & Mission
         </h2>
@@ -623,7 +623,7 @@ export default function AboutUs() {
       </div>
 
       {/* Director's Message */}
-      <section className="director-section content-section" ref={(el) => (sectionsRef.current[4] = el)}>
+      <section className="director-section content-section" id="director-message" ref={(el) => (sectionsRef.current[4] = el)}>
         <div className="director-content">
           <h3 className="director-title text-3xl md:text-4xl font-bold" style={{color: 'white'}}>Director's Message</h3>
 

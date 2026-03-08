@@ -5,10 +5,9 @@ import Hero from './components/Hero'
 import BannerText from './components/BannerText'
 import Programs from './components/Programs'
 import Courses from './components/Courses'
-import Advantages from './components/Advantages'
+import Achievements from './components/Achievements'
 import CourseCategories from './components/CourseCategories'
 import Offerings from './components/Offerings'
-import Testimonials from './components/Testimonials'
 import Stats from './components/Stats'
 import Footer from './components/Footer'
 
@@ -98,10 +97,10 @@ export default function Home() {
       <div className="animate-section"><BannerText /></div>
       <div className="animate-section"><Programs /></div>
       <div className="animate-section"><Courses /></div>
-      <div className="animate-section"><Advantages /></div>
+      <div className="animate-section"><Achievements index={0} /></div>
       <div className="animate-section"><CourseCategories /></div>
+      <div className="animate-section"><Achievements index={1} /></div>
       <div className="animate-section"><Offerings /></div>
-      <div className="animate-section"><Testimonials /></div>
       <div className="animate-section"><Stats /></div>
       <Footer />
     </>

@@ -151,7 +151,7 @@ export default function ContactUs() {
                   <i className="fa fa-map-marker" style={{fontSize: '30px', color: 'white'}}></i>
                 </div>
                 <h4 className="font-bold mb-2 text-base" style={{color: '#1B5A96'}}>Address</h4>
-                <p className="text-gray-700 text-sm">Pal Rd, near Barkatullah Khan Stadium, Shastri Nagar, Jodhpur, Rajasthan 342003</p>
+                <p className="text-gray-700 text-sm">Main Pal Road, near Barkatullah Khan Stadium, Shastri Nagar, Jodhpur, Rajasthan 342003</p>
               </div>
             </div>
             
@@ -225,9 +225,9 @@ export default function ContactUs() {
             <h3 className="text-2xl font-bold mb-4 text-center" style={{color: '#1B5A96'}}>Find Us Here</h3>
             <div className="rounded-lg overflow-hidden shadow-lg">
               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3577.123456789!2d73.0243!3d26.2389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39418c4444444444%3A0x1111111111111111!2sIMA%20Jodhpur%20-%20IIT%20Academy%20Medical%20Academy%2C%20MAIN%2C%20Pal%20Rd%2C%20near%20BARKATULLAH%20KHAN%20STADIUM%2C%20Shastri%20Nagar%2C%20Jodhpur%2C%20Rajasthan%20342003!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3577.6927696133885!2d72.99534307509018!3d26.271632877035064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39418c2641985b1d%3A0x2f69dbb671a8ff62!2s!5e0!3m2!1sen!2sin!4v1772957474139!5m2!1sen!2sin"
                 width="100%" 
-                height="350" 
+                height="450" 
                 style={{border: 0}} 
                 allowFullScreen="" 
                 loading="lazy" 
