@@ -138,51 +138,8 @@ export default function Navbar() {
           transform: translateX(8px);
         }
         
-        .menu-item {
-          position: relative;
-          padding: 12px 16px;
-          transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-          display: inline-block;
-          border-radius: 8px;
-          overflow: hidden;
-        }
-        
-        .menu-item::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(27, 90, 150, 0.1), transparent);
-          transition: left 0.6s ease;
-        }
-        
-        .menu-item::after {
-          content: '';
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 0;
-          height: 3px;
-          background: linear-gradient(90deg, #1B5A96, #4A90E2, #1B5A96);
-          transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-          border-radius: 2px;
-        }
-        
-        .menu-item:hover {
-          color: #1B5A96 !important;
-          transform: translateY(-3px) scale(1.05);
-          box-shadow: 0 8px 20px rgba(27, 90, 150, 0.2);
-          background: rgba(27, 90, 150, 0.05);
-        }
-        
-        .menu-item:hover::before {
-          left: 100%;
-        }
-        
-        .menu-item:hover::after {
-          width: 100%;
+        .nav-menu-item:hover {
+          color: #0066cc !important;
         }
         
         .dropdown {
@@ -259,20 +216,20 @@ export default function Navbar() {
 
             <div className="hidden md:flex items-center justify-end flex-1 ml-16">
               <div className="flex items-center space-x-6 whitespace-nowrap">
-                <Link href="/" className="menu-item font-bold text-sm uppercase tracking-wide" style={{color: '#1B5A96'}}>Home</Link>
+                <Link href="/" className="font-bold text-sm uppercase tracking-wide text-black hover:scale-110 transition-transform duration-200" style={{color: 'black'}} onMouseEnter={(e) => e.target.style.color = '#1B5A96'} onMouseLeave={(e) => e.target.style.color = 'black'}>Home</Link>
                 <div className="dropdown">
-                  <Link href="/about-us" className="menu-item font-bold text-sm uppercase tracking-wide" style={{color: '#1B5A96'}}>About Us</Link>
+                  <Link href="/about-us" className="font-bold text-sm uppercase tracking-wide text-black hover:scale-110 transition-transform duration-200" style={{color: 'black'}} onMouseEnter={(e) => e.target.style.color = '#1B5A96'} onMouseLeave={(e) => e.target.style.color = 'black'}>About Us</Link>
                   <div className="dropdown-menu">
                     <a href="/about-us#about-ima">About IMA</a>
                     <a href="/about-us#vision-mission">Vision & Mission</a>
                     <a href="/about-us#director-message">Director's Message</a>
                   </div>
                 </div>
-                <Link href="/courses" className="menu-item font-bold text-sm uppercase tracking-wide" style={{color: '#1B5A96'}}>Courses</Link>
-                <Link href="/facilities" className="menu-item font-bold text-sm uppercase tracking-wide" style={{color: '#1B5A96'}}>Facilities</Link>
-                <Link href="/blog" className="menu-item font-bold text-sm uppercase tracking-wide" style={{color: '#1B5A96'}}>Blogs</Link>
-                <Link href="/why-ima" className="menu-item font-bold text-sm uppercase tracking-wide" style={{color: '#1B5A96'}}>WHY IMA ?</Link>
-                <Link href="/contact-us" className="menu-item font-bold text-sm uppercase tracking-wide" style={{color: '#1B5A96'}}>Contact Us</Link>
+                <Link href="/courses" className="font-bold text-sm uppercase tracking-wide text-black hover:scale-110 transition-transform duration-200" style={{color: 'black'}} onMouseEnter={(e) => e.target.style.color = '#1B5A96'} onMouseLeave={(e) => e.target.style.color = 'black'}>Courses</Link>
+                <Link href="/facilities" className="font-bold text-sm uppercase tracking-wide text-black hover:scale-110 transition-transform duration-200" style={{color: 'black'}} onMouseEnter={(e) => e.target.style.color = '#1B5A96'} onMouseLeave={(e) => e.target.style.color = 'black'}>Facilities</Link>
+                <Link href="/blog" className="font-bold text-sm uppercase tracking-wide text-black hover:scale-110 transition-transform duration-200" style={{color: 'black'}} onMouseEnter={(e) => e.target.style.color = '#1B5A96'} onMouseLeave={(e) => e.target.style.color = 'black'}>Blogs</Link>
+                <Link href="/why-ima" className="font-bold text-sm uppercase tracking-wide text-black hover:scale-110 transition-transform duration-200" style={{color: 'black'}} onMouseEnter={(e) => e.target.style.color = '#1B5A96'} onMouseLeave={(e) => e.target.style.color = 'black'}>WHY IMA ?</Link>
+                <Link href="/contact-us" className="font-bold text-sm uppercase tracking-wide text-black hover:scale-110 transition-transform duration-200" style={{color: 'black'}} onMouseEnter={(e) => e.target.style.color = '#1B5A96'} onMouseLeave={(e) => e.target.style.color = 'black'}>Contact Us</Link>
                 <button onClick={() => setShowRegisterModal(true)} className="login-btn px-3 py-2.5 rounded-lg text-white font-bold text-xs uppercase tracking-wide whitespace-nowrap ml-8" style={{background:'linear-gradient(135deg, #dc3545, #c82333)', boxShadow: '0 4px 15px rgba(220, 53, 69, 0.4)'}}>
                   <div style={{fontSize: '18px'}}>STHE</div>
                   <div style={{fontSize: '15px', fontWeight: 'normal', textTransform: 'none', marginTop: '2px', opacity: '0.95'}}>Get Scholarship Upto 100%</div>
