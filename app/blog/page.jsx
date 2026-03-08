@@ -150,11 +150,11 @@ export default function Blog() {
           <div className="header-section" style={{textAlign: 'center', marginBottom: '50px'}}>
             <h1 className="blog-title" style={{fontSize: '48px', fontWeight: '700', color: '#1B5A96', marginBottom: '12px'}}>Latest Insights</h1>
             <p className="blog-subtitle" style={{color: '#6B7280', fontSize: '18px', maxWidth: '600px', margin: '0 auto 20px'}}>Stay updated with exam tips, admission guides, and success stories</p>
-            <div className="category-dropdown" style={{display: 'inline-block', position: 'relative'}}>
+            <div className="category-dropdown" style={{display: 'none'}}>
               <select className="category-select" style={{padding: '12px 40px 12px 20px', fontSize: '16px', fontWeight: '600', color: '#1B5A96', background: 'white', border: '2px solid #1B5A96', borderRadius: '12px', cursor: 'pointer', appearance: 'none', minWidth: '250px'}} onChange={(e) => e.target.value && (window.location.href = `/blog-details?id=${e.target.value}`)}>
                 <option value="">Select Category</option>
                 {blogs.map((blog) => (
-                  <option key={blog.id} value={blog.id}>{blog.category} - {blog.title}</option>
+                  <option key={blog.id} value={blog.id}>{blog.title}</option>
                 ))}
               </select>
               <i className="fa fa-chevron-down" style={{position: 'absolute', right: '15px', top: '50%', transform: 'translateY(-50%)', color: '#1B5A96', pointerEvents: 'none'}}></i>
@@ -191,7 +191,7 @@ export default function Blog() {
                       background: '#F8FAFC'
                     }} 
                   />
-                  <div className="category-badge" style={{position: 'absolute', top: '16px', right: '16px', background: '#1B5A96', color: 'white', padding: '6px 14px', borderRadius: '20px', fontSize: '12px', fontWeight: '600', zIndex: 2}}>
+                  <div className="category-badge" style={{display: 'none'}}>
                     {blog.category || 'General'}
                   </div>
                 </div>
