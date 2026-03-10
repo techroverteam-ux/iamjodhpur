@@ -189,16 +189,47 @@ export default function Facilities() {
         </div>
       )}
       
+      {/* IMA Achievement Results 2025 Section */}
+      <section style={{padding: '60px 0', background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)'}}>
+        <div className="container mx-auto px-4" style={{maxWidth: '1140px'}}>
+          <div style={{textAlign: 'center', marginBottom: '50px'}}>
+            <h2 style={{fontSize: '2.5rem', fontWeight: '700', color: '#1B5A96', marginBottom: '20px'}}>
+              IMA Achievement Results 2025
+            </h2>
+            <p style={{fontSize: '1.1rem', color: '#64748b', maxWidth: '600px', margin: '0 auto'}}>
+              Celebrating our students' outstanding performance in JEE and NEET examinations
+            </p>
+          </div>
+          
+          <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px', alignItems: 'center'}}>
+            <div style={{textAlign: 'center'}}>
+              <img src="/JEE Result2024_25.png" alt="JEE Results 2024-25" style={{width: '100%', maxWidth: '400px', height: 'auto', borderRadius: '15px', boxShadow: '0 10px 30px rgba(0,0,0,0.1)'}} />
+            </div>
+            <div style={{textAlign: 'center'}}>
+              <img src="/Neet Result2024.png" alt="NEET Results 2024" style={{width: '100%', maxWidth: '400px', height: 'auto', borderRadius: '15px', boxShadow: '0 10px 30px rgba(0,0,0,0.1)'}} />
+            </div>
+            <div style={{textAlign: 'center'}}>
+              <img src="/Neet Result2025.png" alt="NEET Results 2025" style={{width: '100%', maxWidth: '400px', height: 'auto', borderRadius: '15px', boxShadow: '0 10px 30px rgba(0,0,0,0.1)'}} />
+            </div>
+          </div>
+        </div>
+      </section>
+      
       <section style={{padding: '20px 0', background: 'linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%)'}}>
         <div className="container mx-auto px-2 md:px-4" style={{maxWidth: '1140px'}}>
+          <div style={{textAlign: 'center', marginBottom: '40px'}}>
+            <h2 style={{fontSize: '2.5rem', fontWeight: '700', color: '#1B5A96', marginBottom: '20px'}}>
+              Our Facilities
+            </h2>
+          </div>
           <div className="space-y-2 md:space-y-3">
             
             <div className="facility-card animate-zoom">
               <div className="flex items-center">
-                <div className="facility-icon-wrapper" style={{background: 'linear-gradient(135deg, #1B5A96, #1B5A96)'}}>
-                  <i className="fa fa-bus facility-icon"></i>
+                <div style={{marginRight: '20px'}}>
+                  <img src="/Transport Facility.png" alt="Transport Facility" style={{width: '120px', height: '120px', objectFit: 'cover', borderRadius: '15px'}} />
                 </div>
-                <div style={{marginLeft: '20px', flex: 1}}>
+                <div style={{flex: 1}}>
                   <h3 className="text-3xl md:text-4xl font-bold mb-2" style={{color: 'var(--primary-medium)'}}>
                     <span style={{fontSize: '18px', marginRight: '6px'}}>✦</span>
                     Transport Facility

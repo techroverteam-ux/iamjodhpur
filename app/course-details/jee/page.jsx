@@ -162,7 +162,7 @@ export default function JEECourseDetail() {
 
           <div>
             <div className="course-card">
-              <img src="/images/3520795826_both.png" alt="JEE Course" className="course-card-image" />
+              <img src="/Class Room2.jpeg" alt="JEE Course" className="course-card-image" />
               <div className="course-card-body">
                 <h3 className="course-card-title">JEE (Mains+Advance)</h3>
                 <div className="validity-text">
