@@ -2,196 +2,234 @@
 import { useState, useEffect } from 'react'
 
 export default function AchievementResults() {
-  const [currentSlide, setCurrentSlide] = useState(0)
+  const [isVisible, setIsVisible] = useState(false)
   
   const results = [
     {
       image: "/JEE Result2024_25.png",
-      title: "JEE Results 2024-25",
-      description: "Outstanding performance in JEE Main and Advanced"
+      exam: "JEE",
+      year: "2024-25",
+      title: "JEE Main & Advanced Results",
+      description: "Outstanding performance in JEE Main and Advanced examinations with multiple selections in top IITs and NITs",
+      stats: { selections: "150+", topRank: "AIR 45", percentage: "95%" }
     },
     {
       image: "/Neet Result2024.png", 
-      title: "NEET Results 2024",
-      description: "Exceptional achievements in NEET examination"
+      exam: "NEET",
+      year: "2024",
+      title: "NEET UG Results",
+      description: "Exceptional results in NEET UG with numerous selections in premier medical colleges across India",
+      stats: { selections: "200+", topRank: "AIR 89", percentage: "98%" }
     },
     {
       image: "/Neet Result2025.png",
-      title: "NEET Results 2025", 
-      description: "Continued excellence in medical entrance exams"
+      exam: "NEET",
+      year: "2025",
+      title: "NEET UG Results", 
+      description: "Continued excellence in NEET preparation with remarkable success rates and top rankings",
+      stats: { selections: "180+", topRank: "AIR 67", percentage: "96%" }
     }
   ]
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % results.length)
-    }, 4000)
-    return () => clearInterval(timer)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true)
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    const section = document.querySelector('.achievement-results-section')
+    if (section) observer.observe(section)
+    return () => observer.disconnect()
   }, [])
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % results.length)
-  }
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + results.length) % results.length)
-  }
 
   return (
     <>
       <style jsx>{`
-        .carousel-container {
+        .achievement-card {
+          background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+          border: 1px solid #e2e8f0;
+          border-radius: 20px;
+          padding: 0;
+          margin-bottom: 2rem;
+          transition: all 0.4s ease;
           position: relative;
           overflow: hidden;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        
+        .achievement-card:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 20px 50px rgba(27, 90, 150, 0.15);
+          border-color: #1B5A96;
+        }
+        
+        .achievement-image {
           width: 100%;
-          height: 500px;
+          height: 300px;
+          object-fit: cover;
+          border-radius: 20px 20px 0 0;
         }
         
-        .carousel-track {
-          display: flex;
-          transition: transform 0.5s ease-in-out;
-          transform: translateX(-${currentSlide * 100}%);
-          height: 100%;
+        .achievement-content {
+          padding: 1.5rem;
         }
         
-        .carousel-slide {
-          min-width: 100%;
-          position: relative;
-          height: 100%;
-        }
-        
-        .carousel-slide img {
-          width: 100%;
-          height: 100%;
-          object-fit: contain;
-          background: #f9f9f9;
-        }
-        
-        .carousel-overlay {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          background: linear-gradient(transparent, rgba(0,0,0,0.7));
+        .exam-badge {
+          display: inline-block;
+          background: linear-gradient(135deg, #1B5A96, #2563eb);
           color: white;
-          padding: 30px;
-          text-align: center;
+          padding: 6px 16px;
+          border-radius: 20px;
+          font-size: 12px;
+          font-weight: 700;
+          margin-bottom: 12px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
         }
         
-        .carousel-nav {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          background: rgba(255,255,255,0.9);
-          border: none;
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 18px;
+        .achievement-title {
+          font-size: 1.4rem;
+          font-weight: 700;
           color: #1B5A96;
-          transition: all 0.3s ease;
-          z-index: 2;
+          margin-bottom: 12px;
+          line-height: 1.3;
         }
         
-        .carousel-nav:hover {
-          background: white;
-          box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-          transform: translateY(-50%) scale(1.1);
+        .achievement-description {
+          font-size: 0.9rem;
+          color: #64748b;
+          line-height: 1.6;
+          margin-bottom: 20px;
         }
         
-        .carousel-nav.prev {
-          left: 20px;
+        .achievement-stats {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 15px;
+          margin-top: 15px;
         }
         
-        .carousel-nav.next {
-          right: 20px;
+        .stat-item {
+          text-align: center;
+          padding: 12px;
+          background: linear-gradient(135deg, #f8fafc, #ffffff);
+          border-radius: 10px;
+          border: 1px solid #e2e8f0;
         }
         
-        .carousel-dots {
-          display: flex;
-          justify-content: center;
-          gap: 10px;
-          margin-top: 20px;
+        .stat-number {
+          font-size: 1.2rem;
+          font-weight: 700;
+          color: #1B5A96;
+          display: block;
+          margin-bottom: 4px;
         }
         
-        .carousel-dot {
-          width: 12px;
-          height: 12px;
-          border-radius: 50%;
-          background: #ddd;
-          cursor: pointer;
-          transition: all 0.3s ease;
+        .stat-label {
+          font-size: 0.7rem;
+          color: #64748b;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          font-weight: 600;
         }
         
-        .carousel-dot.active {
-          background: #1B5A96;
-          transform: scale(1.2);
+        .year-highlight {
+          position: absolute;
+          top: 15px;
+          right: 15px;
+          background: rgba(27, 90, 150, 0.9);
+          color: white;
+          padding: 8px 16px;
+          border-radius: 12px;
+          font-size: 0.9rem;
+          font-weight: 700;
+          backdrop-filter: blur(10px);
+        }
+        
+        .results-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+          gap: 2rem;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 20px;
         }
         
         @media (max-width: 768px) {
-          .carousel-container {
-            height: 300px;
+          .results-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            padding: 0 15px;
           }
-          .carousel-overlay {
-            padding: 15px;
+          
+          .achievement-image {
+            height: 200px;
           }
-          .carousel-nav {
-            width: 40px;
-            height: 40px;
-            font-size: 14px;
+          
+          .achievement-content {
+            padding: 1.2rem;
+          }
+          
+          .achievement-title {
+            font-size: 1.2rem;
+          }
+          
+          .achievement-stats {
+            grid-template-columns: 1fr;
+            gap: 10px;
           }
         }
       `}</style>
       
-      <section style={{padding: '60px 0', background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)'}}>
+      <section className="achievement-results-section" style={{padding: '60px 0', background: 'linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f0f9ff 100%)'}}>
         <div style={{textAlign: 'center', marginBottom: '50px', padding: '0 20px'}}>
-          <h2 style={{fontSize: '2.5rem', fontWeight: '700', color: '#1B5A96', marginBottom: '20px'}}>
+          <h2 style={{fontSize: '2.5rem', fontWeight: '700', color: '#1B5A96', marginBottom: '15px'}}>
             IMA Achievement Results 2025
           </h2>
+          <div style={{width: '100px', height: '4px', background: '#1B5A96', margin: '0 auto 15px', borderRadius: '2px'}}></div>
           <p style={{fontSize: '1.1rem', color: '#64748b', maxWidth: '600px', margin: '0 auto'}}>
             Celebrating our students' outstanding performance in JEE and NEET examinations
           </p>
         </div>
         
-        <div style={{width: '100%'}}>
-          <div className="carousel-container">
-            <div className="carousel-track">
-              {results.map((result, index) => (
-                <div key={index} className="carousel-slide">
-                  <img src={result.image} alt={result.title} />
-                  <div className="carousel-overlay">
-                    <h3 style={{fontSize: '1.5rem', fontWeight: '600', marginBottom: '10px'}}>
-                      {result.title}
-                    </h3>
-                    <p style={{fontSize: '1rem', opacity: '0.9'}}>
-                      {result.description}
-                    </p>
+        <div className="results-grid">
+          {results.map((result, index) => (
+            <div key={index} className="achievement-card">
+              <div style={{position: 'relative'}}>
+                <img 
+                  src={result.image} 
+                  alt={`${result.exam} ${result.year} Results`} 
+                  className="achievement-image" 
+                />
+                <div className="year-highlight">{result.year}</div>
+              </div>
+              
+              <div className="achievement-content">
+                <div className="exam-badge">{result.exam} {result.year}</div>
+                <h3 className="achievement-title">{result.title}</h3>
+                <p className="achievement-description">{result.description}</p>
+                
+                <div className="achievement-stats">
+                  <div className="stat-item">
+                    <span className="stat-number">{result.stats.selections}</span>
+                    <span className="stat-label">Selections</span>
+                  </div>
+                  <div className="stat-item">
+                    <span className="stat-number">{result.stats.topRank}</span>
+                    <span className="stat-label">Top Rank</span>
+                  </div>
+                  <div className="stat-item">
+                    <span className="stat-number">{result.stats.percentage}</span>
+                    <span className="stat-label">Success Rate</span>
                   </div>
                 </div>
-              ))}
+              </div>
             </div>
-            
-            <button className="carousel-nav prev" onClick={prevSlide}>
-              <i className="fa fa-chevron-left"></i>
-            </button>
-            <button className="carousel-nav next" onClick={nextSlide}>
-              <i className="fa fa-chevron-right"></i>
-            </button>
-          </div>
-          
-          <div className="carousel-dots">
-            {results.map((_, index) => (
-              <div
-                key={index}
-                className={`carousel-dot ${index === currentSlide ? 'active' : ''}`}
-                onClick={() => setCurrentSlide(index)}
-              />
-            ))}
-          </div>
+          ))}
         </div>
       </section>
     </>

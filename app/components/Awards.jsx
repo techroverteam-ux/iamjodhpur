@@ -2,15 +2,33 @@
 import { useState, useEffect } from 'react'
 
 export default function Awards() {
-  const [currentSlide, setCurrentSlide] = useState(0)
   const [isVisible, setIsVisible] = useState(false)
 
-  const awards = [
-    { image: "/Awards.jpeg", title: "Excellence in Education", year: "2024", description: "Recognized for outstanding contribution to quality education" },
-    { image: "/Awards1.jpeg", title: "Outstanding Achievement", year: "2024", description: "Awarded for exceptional student performance and results" },
-    { image: "/Awards2.jpeg", title: "Academic Excellence", year: "2023", description: "Honored for maintaining high academic standards" },
-    { image: "/Awards3.jpeg", title: "Best Coaching Institute", year: "2023", description: "Recognized as the leading coaching institute in the region" },
-    { image: "/Awards4.jpeg", title: "Student Success Award", year: "2022", description: "Celebrated for remarkable student success rates" }
+  const achievements = [
+    { 
+      image: "/JEE Result2024_25.png", 
+      exam: "JEE", 
+      year: "2024-25", 
+      title: "JEE Main & Advanced Results",
+      description: "Outstanding performance in JEE Main and Advanced examinations with multiple selections in top IITs and NITs",
+      stats: { selections: "150+", topRank: "AIR 45", percentage: "95%" }
+    },
+    { 
+      image: "/Neet Result2024.png", 
+      exam: "NEET", 
+      year: "2024", 
+      title: "NEET UG Results",
+      description: "Exceptional results in NEET UG with numerous selections in premier medical colleges across India",
+      stats: { selections: "200+", topRank: "AIR 89", percentage: "98%" }
+    },
+    { 
+      image: "/Neet Result2025.png", 
+      exam: "NEET", 
+      year: "2025", 
+      title: "NEET UG Results",
+      description: "Continued excellence in NEET preparation with remarkable success rates and top rankings",
+      stats: { selections: "180+", topRank: "AIR 67", percentage: "96%" }
+    }
   ]
 
   useEffect(() => {
@@ -28,245 +46,175 @@ export default function Awards() {
     return () => observer.disconnect()
   }, [])
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % awards.length)
-    }, 5000)
-    return () => clearInterval(timer)
-  }, [])
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % awards.length)
-  }
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + awards.length) % awards.length)
-  }
-
   return (
     <>
       <style jsx>{`
-        .awards-container {
+        .achievement-card {
+          background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+          border: 1px solid #e2e8f0;
+          border-radius: 20px;
+          padding: 0;
+          margin-bottom: 3rem;
+          transition: all 0.4s ease;
           position: relative;
-          max-width: 1200px;
-          margin: 0 auto;
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 60px;
-          align-items: center;
-          min-height: 500px;
+          overflow: hidden;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.08);
         }
         
-        .awards-content {
-          padding: 40px;
+        .achievement-card:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 20px 50px rgba(27, 90, 150, 0.15);
+          border-color: #1B5A96;
         }
         
-        .award-number {
-          font-size: 1rem;
-          color: #1B5A96;
-          font-weight: 600;
-          margin-bottom: 10px;
-          opacity: 0.8;
+        .achievement-image {
+          width: 100%;
+          height: 400px;
+          object-fit: cover;
+          border-radius: 20px 20px 0 0;
         }
         
-        .award-title {
-          font-size: 2.5rem;
-          font-weight: 700;
-          color: #1B5A96;
-          margin-bottom: 15px;
-          line-height: 1.2;
+        .achievement-content {
+          padding: 2rem;
         }
         
-        .award-year {
+        .exam-badge {
           display: inline-block;
           background: linear-gradient(135deg, #1B5A96, #2563eb);
           color: white;
           padding: 8px 20px;
           border-radius: 25px;
           font-size: 14px;
-          font-weight: 600;
-          margin-bottom: 20px;
+          font-weight: 700;
+          margin-bottom: 15px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
         }
         
-        .award-description {
-          font-size: 1.1rem;
+        .achievement-title {
+          font-size: 1.8rem;
+          font-weight: 700;
+          color: #1B5A96;
+          margin-bottom: 15px;
+          line-height: 1.3;
+        }
+        
+        .achievement-description {
+          font-size: 1rem;
           color: #64748b;
           line-height: 1.6;
-          margin-bottom: 30px;
+          margin-bottom: 25px;
         }
         
-        .awards-image-container {
-          position: relative;
-          height: 400px;
-          border-radius: 20px;
-          overflow: hidden;
-          box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-        
-        .award-image {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          transition: transform 0.5s ease;
-        }
-        
-        .awards-image-container:hover .award-image {
-          transform: scale(1.05);
-        }
-        
-        .awards-navigation {
-          display: flex;
-          gap: 15px;
-          align-items: center;
-        }
-        
-        .nav-button {
-          width: 50px;
-          height: 50px;
-          border: 2px solid #1B5A96;
-          background: white;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          color: #1B5A96;
-          font-size: 18px;
-        }
-        
-        .nav-button:hover {
-          background: #1B5A96;
-          color: white;
-          transform: scale(1.1);
-        }
-        
-        .awards-dots {
-          display: flex;
-          gap: 10px;
-        }
-        
-        .dot {
-          width: 12px;
-          height: 12px;
-          border-radius: 50%;
-          background: #ddd;
-          cursor: pointer;
-          transition: all 0.3s ease;
-        }
-        
-        .dot.active {
-          background: #1B5A96;
-          transform: scale(1.3);
-        }
-        
-        .awards-stats {
-          display: flex;
-          gap: 30px;
+        .achievement-stats {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 20px;
           margin-top: 20px;
         }
         
         .stat-item {
           text-align: center;
+          padding: 15px;
+          background: linear-gradient(135deg, #f8fafc, #ffffff);
+          border-radius: 12px;
+          border: 1px solid #e2e8f0;
         }
         
         .stat-number {
-          font-size: 2rem;
+          font-size: 1.5rem;
           font-weight: 700;
           color: #1B5A96;
           display: block;
+          margin-bottom: 5px;
         }
         
         .stat-label {
-          font-size: 0.9rem;
+          font-size: 0.8rem;
           color: #64748b;
           text-transform: uppercase;
           letter-spacing: 0.5px;
+          font-weight: 600;
+        }
+        
+        .year-highlight {
+          position: absolute;
+          top: 20px;
+          right: 20px;
+          background: rgba(27, 90, 150, 0.9);
+          color: white;
+          padding: 10px 20px;
+          border-radius: 15px;
+          font-size: 1.1rem;
+          font-weight: 700;
+          backdrop-filter: blur(10px);
         }
         
         @media (max-width: 768px) {
-          .awards-container {
+          .achievement-image {
+            height: 250px;
+          }
+          
+          .achievement-content {
+            padding: 1.5rem;
+          }
+          
+          .achievement-title {
+            font-size: 1.5rem;
+          }
+          
+          .achievement-stats {
             grid-template-columns: 1fr;
-            gap: 30px;
-            padding: 20px;
-          }
-          
-          .awards-content {
-            padding: 20px;
-            text-align: center;
-          }
-          
-          .award-title {
-            font-size: 2rem;
-          }
-          
-          .awards-image-container {
-            height: 300px;
-          }
-          
-          .awards-stats {
-            justify-content: center;
+            gap: 15px;
           }
         }
       `}</style>
       
-      <section className="awards-section" style={{padding: '80px 0', background: 'linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f0f9ff 100%)'}}>
-        <div style={{textAlign: 'center', marginBottom: '60px', padding: '0 20px'}}>
-          <h2 style={{fontSize: '3rem', fontWeight: '700', color: '#1B5A96', marginBottom: '20px'}}>
-            Our Awards & Recognition
+      <section className="awards-section" style={{padding: '60px 0 0 0', background: 'linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f0f9ff 100%)'}}>
+        <div style={{textAlign: 'center', marginBottom: '50px', padding: '0 20px'}}>
+          <h2 style={{fontSize: '2.8rem', fontWeight: '700', color: '#1B5A96', marginBottom: '15px'}}>
+            IMA Achievement Results 2025
           </h2>
-          <div style={{width: '100px', height: '4px', background: '#1B5A96', margin: '0 auto 20px', borderRadius: '2px'}}></div>
-          <p style={{fontSize: '1.2rem', color: '#64748b', maxWidth: '600px', margin: '0 auto'}}>
-            Celebrating excellence in education and student achievement
+          <div style={{width: '100px', height: '4px', background: '#1B5A96', margin: '0 auto 15px', borderRadius: '2px'}}></div>
+          <p style={{fontSize: '1.1rem', color: '#64748b', maxWidth: '600px', margin: '0 auto'}}>
+            Celebrating our students' outstanding performance in JEE and NEET examinations
           </p>
         </div>
         
-        <div className="awards-container">
-          <div className="awards-content">
-            <div className="award-number">
-              {String(currentSlide + 1).padStart(2, '0')} / {String(awards.length).padStart(2, '0')}
-            </div>
-            <h3 className="award-title">{awards[currentSlide].title}</h3>
-            <div className="award-year">{awards[currentSlide].year}</div>
-            <p className="award-description">{awards[currentSlide].description}</p>
-            
-            <div className="awards-navigation">
-              <button className="nav-button" onClick={prevSlide}>
-                <i className="fa fa-chevron-left"></i>
-              </button>
-              <div className="awards-dots">
-                {awards.map((_, index) => (
-                  <div
-                    key={index}
-                    className={`dot ${index === currentSlide ? 'active' : ''}`}
-                    onClick={() => setCurrentSlide(index)}
-                  />
-                ))}
+        <div style={{maxWidth: '1200px', margin: '0 auto', padding: '0 20px'}}>
+          {achievements.map((achievement, index) => (
+            <div key={index} className="achievement-card">
+              <div style={{position: 'relative'}}>
+                <img 
+                  src={achievement.image} 
+                  alt={`${achievement.exam} ${achievement.year} Results`} 
+                  className="achievement-image" 
+                />
+                <div className="year-highlight">{achievement.year}</div>
               </div>
-              <button className="nav-button" onClick={nextSlide}>
-                <i className="fa fa-chevron-right"></i>
-              </button>
-            </div>
-            
-            <div className="awards-stats">
-              <div className="stat-item">
-                <span className="stat-number">5+</span>
-                <span className="stat-label">Awards</span>
-              </div>
-              <div className="stat-item">
-                <span className="stat-number">3</span>
-                <span className="stat-label">Years</span>
-              </div>
-              <div className="stat-item">
-                <span className="stat-number">100%</span>
-                <span className="stat-label">Excellence</span>
+              
+              <div className="achievement-content">
+                <div className="exam-badge">{achievement.exam} {achievement.year}</div>
+                <h3 className="achievement-title">{achievement.title}</h3>
+                <p className="achievement-description">{achievement.description}</p>
+                
+                <div className="achievement-stats">
+                  <div className="stat-item">
+                    <span className="stat-number">{achievement.stats.selections}</span>
+                    <span className="stat-label">Selections</span>
+                  </div>
+                  <div className="stat-item">
+                    <span className="stat-number">{achievement.stats.topRank}</span>
+                    <span className="stat-label">Top Rank</span>
+                  </div>
+                  <div className="stat-item">
+                    <span className="stat-number">{achievement.stats.percentage}</span>
+                    <span className="stat-label">Success Rate</span>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          
-          <div className="awards-image-container">
-            <img src={awards[currentSlide].image} alt={awards[currentSlide].title} className="award-image" />
-          </div>
+          ))}
         </div>
       </section>
     </>

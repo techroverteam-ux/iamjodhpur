@@ -8,8 +8,7 @@ import Courses from './components/Courses'
 import Achievements from './components/Achievements'
 import CourseCategories from './components/CourseCategories'
 import AchievementResults from './components/AchievementResults'
-import Awards from './components/Awards'
-import StudyResources from './components/StudyResources'
+
 import TestSeries from './components/TestSeries'
 import Facilities from './components/Facilities'
 import Offerings from './components/Offerings'
@@ -47,17 +46,34 @@ export default function Home() {
         * {
           margin: 0;
           padding: 0;
+          box-sizing: border-box;
         }
+        
+        html {
+          scroll-behavior: smooth;
+        }
+        
+        body {
+          overflow-x: hidden;
+        }
+        
+        img {
+          max-width: 100%;
+          height: auto;
+        }
+        
         section {
           padding: 0 !important;
           margin: 0 !important;
         }
+        
         section.cp_advantages__section.py-5, 
         .course__categories, 
         section.education-area-two.py-5 {
           padding: 0px 0px !important;
           margin: 0px 0px !important;
         }
+        
         @keyframes fadeDown {
           from {
             opacity: 0;
@@ -68,15 +84,18 @@ export default function Home() {
             transform: translateY(0);
           }
         }
+        
         .animate-section {
           opacity: 0;
           padding: 0 !important;
           margin: 0 !important;
           margin-bottom: 40px !important;
         }
+        
         .animate-section.animate-in {
           animation: fadeDown 1.2s ease-out forwards;
         }
+        
         .animate-section .card,
         .animate-section .border,
         .animate-section .quiz_post,
@@ -91,6 +110,7 @@ export default function Home() {
           border: 3px solid transparent;
           border-radius: 12px;
         }
+        
         .animate-section .card:hover,
         .animate-section .border:hover,
         .animate-section .quiz_post:hover,
@@ -103,7 +123,6 @@ export default function Home() {
           transform: translateY(-5px) scale(1.02);
         }
         
-        /* Enhanced section spacing and theme colors */
         .section-divider {
           height: 2px;
           background: linear-gradient(90deg, transparent, #1B5A96, transparent);
@@ -111,17 +130,22 @@ export default function Home() {
           opacity: 0.3;
         }
         
-        /* Smooth scroll behavior */
-        html {
-          scroll-behavior: smooth;
-        }
-        
-        /* Theme color variables */
         :root {
           --primary-blue: #1B5A96;
           --primary-light: #2563eb;
           --accent-gradient: linear-gradient(135deg, #1B5A96 0%, #2563eb 50%, #1B5A96 100%);
           --section-spacing: 40px;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+          .animate-section {
+            margin-bottom: 20px !important;
+          }
+          
+          .section-divider {
+            margin: 10px 0;
+          }
         }
       `}</style>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -138,10 +162,6 @@ export default function Home() {
       <div className="animate-section"><AchievementResults /></div>
       <div className="section-divider"></div>
       <div className="animate-section"><CourseCategories /></div>
-      <div className="section-divider"></div>
-      <div className="animate-section"><Awards /></div>
-      <div className="section-divider"></div>
-      <div className="animate-section"><StudyResources /></div>
       <div className="section-divider"></div>
       <div className="animate-section"><TestSeries /></div>
       <div className="section-divider"></div>
