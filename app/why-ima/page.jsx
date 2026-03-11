@@ -302,7 +302,7 @@ export default function WhyIAM() {
             <div className="feature-card">
               <div className="feature-content" style={{padding: '2rem', display: 'flex', alignItems: 'flex-start', gap: '2rem', boxShadow: '0 10px 30px rgba(0,0,0,0.1)', borderRadius: '20px', border: 'none', flexDirection: 'row-reverse', marginBottom: '2rem'}}>
                 <div style={{flex: '0 0 35%', minWidth: '300px'}}>
-                  <img src="/Archive.png" alt="Modules & Resources" style={{width: '100%', height: '220px', objectFit: 'cover', borderRadius: '15px', boxShadow: '0 8px 25px rgba(0,0,0,0.15)'}} />
+                  <img src="/Test Paper.png" alt="Modules & Resources" style={{width: '100%', height: '220px', objectFit: 'cover', borderRadius: '15px', boxShadow: '0 8px 25px rgba(0,0,0,0.15)'}} />
                 </div>
                 <div style={{flex: '1', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}}>
                   <h2 className="feature-title" style={{marginBottom: '15px'}}>Modules & Resources</h2>
@@ -330,7 +330,7 @@ export default function WhyIAM() {
             <div className="feature-card">
               <div className="feature-content" style={{padding: '2rem', display: 'flex', alignItems: 'flex-start', gap: '2rem', boxShadow: '0 10px 30px rgba(0,0,0,0.1)', borderRadius: '20px', border: 'none', flexDirection: 'row-reverse', marginBottom: '2rem'}}>
                 <div style={{flex: '0 0 35%', minWidth: '300px'}}>
-                  <img src="/Test Paper.png" alt="Sunday Tests" style={{width: '100%', height: '220px', objectFit: 'cover', borderRadius: '15px', boxShadow: '0 8px 25px rgba(0,0,0,0.15)'}} />
+                  <img src="/Class Room1.jpeg" alt="Sunday Tests" style={{width: '100%', height: '220px', objectFit: 'cover', borderRadius: '15px', boxShadow: '0 8px 25px rgba(0,0,0,0.15)'}} />
                 </div>
                 <div style={{flex: '1', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}}>
                   <h2 className="feature-title" style={{marginBottom: '15px'}}>Sunday Tests</h2>
@@ -343,7 +343,7 @@ export default function WhyIAM() {
 
             <div className="feature-card">
               <div className="feature-content" style={{padding: '2rem', display: 'flex', alignItems: 'flex-start', gap: '2rem', boxShadow: 'none', border: '1px solid #E8EEF5', marginBottom: '2rem'}}>
-                <i className="fa fa-users" style={{fontSize: '2rem', color: '#0B4F8A', minWidth: '40px'}}></i>
+                <img src="/Class room3.jpeg" alt="PTM Support" style={{width: '100px', height: '100px', objectFit: 'cover', borderRadius: '10px', flexShrink: 0}} />
                 <div style={{flex: '1'}}>
                   <h2 className="feature-title" style={{marginBottom: '15px'}}>PTM Support</h2>
                   <p className="text-justify feature-text" style={{lineHeight: '1.7', fontSize: '1rem'}}>
@@ -355,8 +355,6 @@ export default function WhyIAM() {
           </div>
         </div>
       </section>
-
-      <Awards />
 
       <Footer />
     </>
