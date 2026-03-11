@@ -3,21 +3,21 @@ import Image from 'next/image'
 export default function Events() {
   const events = [
     {
-      image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600",
+      image: "/Seminar.jpeg",
       date: "15 Dec 2024",
       title: "Annual Medical Conference 2024",
       description: "Join us for our flagship annual conference featuring renowned speakers and latest medical research",
       location: "Jodhpur Convention Center"
     },
     {
-      image: "https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=600",
+      image: "/Seminar2.jpeg",
       date: "22 Dec 2024",
       title: "CME Workshop on Cardiology",
       description: "Comprehensive workshop on latest advances in cardiovascular medicine and treatment protocols",
       location: "IMA Jodhpur Hall"
     },
     {
-      image: "https://images.unsplash.com/photo-1559757175-5700dde675bc?w=600",
+      image: "/IAM Seminar.jpeg",
       date: "05 Jan 2025",
       title: "Health Awareness Camp",
       description: "Free health checkup and awareness program for the community with expert consultations",

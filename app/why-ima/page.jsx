@@ -205,8 +205,8 @@ export default function WhyIAM() {
             gap: 12px !important;
           }
           .feature-content {
-            padding: 1rem !important;
-            gap: 1rem !important;
+            padding: 1.5rem !important;
+            gap: 1.5rem !important;
             flex-direction: column !important;
             align-items: center !important;
             text-align: center !important;
@@ -214,17 +214,24 @@ export default function WhyIAM() {
           .feature-content[style*="row-reverse"] {
             flex-direction: column !important;
           }
-          .feature-content img {
+          .feature-content > div[style*="flex: 0 0 40%"] {
+            flex: none !important;
             width: 100% !important;
-            max-width: 250px !important;
-            height: 120px !important;
+            max-width: 350px !important;
+          }
+          .feature-content > div[style*="flex: 0 0 60%"] {
+            flex: none !important;
+            width: 100% !important;
+          }
+          .feature-content img {
+            height: 200px !important;
           }
           .feature-title {
-            font-size: 1.1rem !important;
-            margin-bottom: 8px !important;
+            font-size: 1.3rem !important;
+            margin-bottom: 12px !important;
           }
           .feature-text {
-            font-size: 0.875rem !important;
+            font-size: 0.95rem !important;
             line-height: 1.6 !important;
             text-align: justify !important;
           }
@@ -248,84 +255,86 @@ export default function WhyIAM() {
 
       <section className="py-4 section-bg">
         <div className="container" style={{maxWidth: '100%', padding: '0 20px'}}>
-          <div className="space-y-3">
+          <div className="space-y-3" style={{display: 'flex', flexDirection: 'column', gap: '40px'}}>
             <div className="feature-card">
-              <div className="feature-content" style={{padding: '2rem', display: 'flex', alignItems: 'center', gap: '2rem', boxShadow: '0 10px 30px rgba(0,0,0,0.1)', borderRadius: '20px', border: 'none'}}>
-                <div style={{flex: '0 0 200px'}}>
-                  <img src="/Daut Class.png" alt="Academic Environment" style={{width: '100%', height: '150px', objectFit: 'cover', borderRadius: '15px'}} />
+              <div className="feature-content" style={{padding: '2.5rem', display: 'flex', alignItems: 'flex-start', gap: '3rem', boxShadow: '0 10px 30px rgba(0,0,0,0.1)', borderRadius: '20px', border: 'none', minHeight: '300px'}}>
+                <div style={{flex: '0 0 40%'}}>
+                  <img src="/Class Room2.jpeg" alt="Academic Environment" style={{width: '100%', height: '250px', objectFit: 'cover', borderRadius: '15px', boxShadow: '0 8px 25px rgba(0,0,0,0.15)'}} />
                 </div>
-                <div style={{flex: 1}}>
-                  <h2 className="feature-title">Academic Environment</h2>
-                  <p className="text-justify feature-text">
-                  At IMA, students learn in a focused and disciplined environment where preparation becomes a daily habit. Our classrooms are designed for long study hours so students can stay comfortable and attentive during lectures. We maintain a serious academic atmosphere that encourages consistency and regular learning. A strong classroom culture automatically reduces distractions and improves concentration. Students feel motivated when they study in a competitive yet positive setting.
+                <div style={{flex: '0 0 60%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}}>
+                  <h2 className="feature-title" style={{marginBottom: '20px'}}>Academic Environment</h2>
+                  <p className="text-justify feature-text" style={{lineHeight: '1.8', fontSize: '1.05rem'}}>
+                  At IMA, students learn in a focused and disciplined environment where preparation becomes a daily habit. Our classrooms are designed for long study hours so students can stay comfortable and attentive during lectures. We maintain a serious academic atmosphere that encourages consistency and regular learning. A strong classroom culture automatically reduces distractions and improves concentration. Students feel motivated when they study in a competitive yet positive setting. The learning flow remains structured so students don't feel confused or lost. We ensure students stay connected with their routine and preparation goals throughout the year.
                   </p>
                 </div>
               </div>
             </div>
 
             <div className="feature-card">
-              <div className="feature-content" style={{padding: '2rem', display: 'flex', alignItems: 'center', gap: '2rem', boxShadow: '0 10px 30px rgba(0,0,0,0.1)', borderRadius: '20px', border: 'none', flexDirection: 'row-reverse'}}>
-                <div style={{flex: '0 0 200px'}}>
-                  <img src="/Class Room.png" alt="Teaching Excellence" style={{width: '100%', height: '150px', objectFit: 'cover', borderRadius: '15px'}} />
+              <div className="feature-content" style={{padding: '2.5rem', display: 'flex', alignItems: 'flex-start', gap: '3rem', boxShadow: '0 10px 30px rgba(0,0,0,0.1)', borderRadius: '20px', border: 'none', flexDirection: 'row-reverse', minHeight: '300px'}}>
+                <div style={{flex: '0 0 40%'}}>
+                  <img src="/Daut Class.png" alt="Teaching Excellence" style={{width: '100%', height: '250px', objectFit: 'cover', borderRadius: '15px', boxShadow: '0 8px 25px rgba(0,0,0,0.15)'}} />
                 </div>
-                <div style={{flex: 1}}>
-                  <h2 className="feature-title">Teaching Excellence</h2>
-                  <p className="text-justify feature-text">
-                  IMA has a dedicated team of experienced faculty for Physics, Chemistry, Biology and Mathematics. Our teaching approach focuses on concept clarity first, and then builds question-solving ability step-by-step. Each topic is explained with proper logic, examples and exam-oriented practice. Teachers guide students on how to think in NEET/JEE pattern questions instead of learning by memorising.
+                <div style={{flex: '0 0 60%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}}>
+                  <h2 className="feature-title" style={{marginBottom: '20px'}}>Teaching Excellence</h2>
+                  <p className="text-justify feature-text" style={{lineHeight: '1.8', fontSize: '1.05rem'}}>
+                  IMA has a dedicated team of experienced faculty for Physics, Chemistry, Biology and Mathematics. Our teaching approach focuses on concept clarity first, and then builds question-solving ability step-by-step. Each topic is explained with proper logic, examples and exam-oriented practice. Teachers guide students on how to think in NEET/JEE pattern questions instead of learning by memorising. We focus on building accuracy because marks improve only when mistakes reduce. Along with accuracy, we also help students improve their speed through regular practice and smart methods.
                   </p>
                 </div>
               </div>
             </div>
 
             <div className="feature-card">
-              <div className="feature-content" style={{padding: '2rem', display: 'flex', alignItems: 'center', gap: '2rem', boxShadow: '0 10px 30px rgba(0,0,0,0.1)', borderRadius: '20px', border: 'none'}}>
-                <div style={{flex: '0 0 200px'}}>
-                  <img src="/Counselling.png" alt="Student Counselling" style={{width: '100%', height: '150px', objectFit: 'cover', borderRadius: '15px'}} />
+              <div className="feature-content" style={{padding: '2.5rem', display: 'flex', alignItems: 'flex-start', gap: '3rem', boxShadow: '0 10px 30px rgba(0,0,0,0.1)', borderRadius: '20px', border: 'none', minHeight: '300px'}}>
+                <div style={{flex: '0 0 40%'}}>
+                  <img src="/Counselling.png" alt="Student Counselling" style={{width: '100%', height: '250px', objectFit: 'cover', borderRadius: '15px', boxShadow: '0 8px 25px rgba(0,0,0,0.15)'}} />
                 </div>
-                <div style={{flex: 1}}>
-                  <h2 className="feature-title">Student Counselling</h2>
-                  <p className="text-justify feature-text">
-                  At IMA, management provides regular student counselling to ensure every student stays on the right track throughout the session. This counselling includes complete guidance related to marks, attendance, test performance and overall improvement. Many students work hard but still don't know what exactly to improve first, and counselling helps solve that.
+                <div style={{flex: '0 0 60%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}}>
+                  <h2 className="feature-title" style={{marginBottom: '20px'}}>Student Counselling</h2>
+                  <p className="text-justify feature-text" style={{lineHeight: '1.8', fontSize: '1.05rem'}}>
+                  At IMA, management provides regular student counselling to ensure every student stays on the right track throughout the session. This counselling includes complete guidance related to marks, attendance, test performance and overall improvement. Many students work hard but still don't know what exactly to improve first, and counselling helps solve that. We guide students on weak topics, subject priorities and daily improvement planning. Attendance is monitored because consistency is a major factor in selection.
                   </p>
                 </div>
               </div>
             </div>
 
             <div className="feature-card">
-              <div className="feature-content" style={{padding: '2rem', display: 'flex', alignItems: 'center', gap: '2rem', boxShadow: '0 10px 30px rgba(0,0,0,0.1)', borderRadius: '20px', border: 'none', flexDirection: 'row-reverse'}}>
-                <div style={{flex: '0 0 200px'}}>
-                  <img src="/Archive.png" alt="Modules & Resources" style={{width: '100%', height: '150px', objectFit: 'cover', borderRadius: '15px'}} />
+              <div className="feature-content" style={{padding: '2.5rem', display: 'flex', alignItems: 'flex-start', gap: '3rem', boxShadow: '0 10px 30px rgba(0,0,0,0.1)', borderRadius: '20px', border: 'none', flexDirection: 'row-reverse', minHeight: '300px'}}>
+                <div style={{flex: '0 0 40%'}}>
+                  <img src="/Archive.png" alt="Modules & Resources" style={{width: '100%', height: '250px', objectFit: 'cover', borderRadius: '15px', boxShadow: '0 8px 25px rgba(0,0,0,0.15)'}} />
                 </div>
-                <div style={{flex: 1}}>
-                  <h2 className="feature-title">Modules & Resources</h2>
-                  <p className="text-justify feature-text">
-                  Strong preparation requires strong content, and IMA provides complete study support designed for NEET and JEE patterns. We provide our own subject-wise modules for Physics, Chemistry, Biology and Maths. These modules help students build concepts step-by-step and then practice questions in the right manner.
+                <div style={{flex: '0 0 60%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}}>
+                  <h2 className="feature-title" style={{marginBottom: '20px'}}>Modules & Resources</h2>
+                  <p className="text-justify feature-text" style={{lineHeight: '1.8', fontSize: '1.05rem'}}>
+                  Strong preparation requires strong content, and IMA provides complete study support designed for NEET and JEE patterns. We provide our own subject-wise modules for Physics, Chemistry, Biology and Maths. These modules help students build concepts step-by-step and then practice questions in the right manner. The study material is structured topic-wise so students don't waste time in random learning. Along with modules, students receive Daily Practice Problems (DPP) after classes to continue learning every day.
                   </p>
                 </div>
               </div>
             </div>
 
             <div className="feature-card">
-              <div className="feature-content" style={{padding: '2rem', display: 'flex', alignItems: 'center', gap: '2rem', boxShadow: '0 10px 30px rgba(0,0,0,0.1)', borderRadius: '20px', border: 'none'}}>
-                <div style={{flex: '0 0 200px'}}>
-                  <img src="/Discussion.png" alt="Doubt Sessions" style={{width: '100%', height: '150px', objectFit: 'cover', borderRadius: '15px'}} />
+              <div className="feature-content" style={{padding: '2.5rem', display: 'flex', alignItems: 'flex-start', gap: '3rem', boxShadow: '0 10px 30px rgba(0,0,0,0.1)', borderRadius: '20px', border: 'none', minHeight: '300px'}}>
+                <div style={{flex: '0 0 40%'}}>
+                  <img src="/Discussion.png" alt="Doubt Sessions" style={{width: '100%', height: '250px', objectFit: 'cover', borderRadius: '15px', boxShadow: '0 8px 25px rgba(0,0,0,0.15)'}} />
                 </div>
-                <div style={{flex: 1}}>
-                  <h2 className="feature-title">Doubt Sessions</h2>
-                  <p className="text-justify feature-text">
-                  At IMA, doubt solving is taken seriously because even one small doubt can become a major weakness later. We conduct regular doubt sessions where students can ask questions from classroom topics, DPPs, modules, homework and test papers. Teachers ensure doubts are cleared properly and completely, not in a rushed manner.
+                <div style={{flex: '0 0 60%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}}>
+                  <h2 className="feature-title" style={{marginBottom: '20px'}}>Doubt Sessions</h2>
+                  <p className="text-justify feature-text" style={{lineHeight: '1.8', fontSize: '1.05rem'}}>
+                  At IMA, doubt solving is taken seriously because even one small doubt can become a major weakness later. We conduct regular doubt sessions where students can ask questions from classroom topics, DPPs, modules, homework and test papers. Teachers ensure doubts are cleared properly and completely, not in a rushed manner. The focus is to make students understand the concept behind the question, not just the final answer. Doubt sessions help students strengthen weak areas and correct their approach.
                   </p>
                 </div>
               </div>
             </div>
 
             <div className="feature-card">
-              <div className="feature-content" style={{padding: '1.5rem', display: 'flex', alignItems: 'flex-start', gap: '1rem', boxShadow: 'none', border: '1px solid #E8EEF5'}}>
-                <i className="fa fa-calendar-check-o" style={{fontSize: '2rem', color: '#0B4F8A', minWidth: '40px'}}></i>
-                <div>
-                  <h2 className="feature-title">Sunday Tests</h2>
-                  <p className="text-justify feature-text">
-                  IMA believes that regular testing is an essential part of true exam preparation. We conduct a fixed test every Sunday to ensure consistency and continuous evaluation. Weekly tests help students improve time management, build exam confidence, and develop disciplined performance habits. Along with Sunday tests, we also conduct chapter tests, unit tests, and full syllahs tests during revision phases. These assessments help students understand their current level and identify areas that need improvement. Our faculty guides students in analysing mistakes and strengthening weak topics with the right strategy. Regular testing gradually reduces exam pressure, as students become familiar with time-based practice and real exam conditions. With consistent evaluation and performance tracking, students improve accuracy, stay focused throughout the year, and achieve measurable progress in a structured manner.
+              <div className="feature-content" style={{padding: '2.5rem', display: 'flex', alignItems: 'flex-start', gap: '3rem', boxShadow: '0 10px 30px rgba(0,0,0,0.1)', borderRadius: '20px', border: 'none', flexDirection: 'row-reverse', minHeight: '300px'}}>
+                <div style={{flex: '0 0 40%'}}>
+                  <img src="/Test Paper.png" alt="Sunday Tests" style={{width: '100%', height: '250px', objectFit: 'cover', borderRadius: '15px', boxShadow: '0 8px 25px rgba(0,0,0,0.15)'}} />
+                </div>
+                <div style={{flex: '0 0 60%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}}>
+                  <h2 className="feature-title" style={{marginBottom: '20px'}}>Sunday Tests</h2>
+                  <p className="text-justify feature-text" style={{lineHeight: '1.8', fontSize: '1.05rem'}}>
+                  IMA believes that regular testing is an essential part of true exam preparation. We conduct a fixed test every Sunday to ensure consistency and continuous evaluation. Weekly tests help students improve time management, build exam confidence, and develop disciplined performance habits. Along with Sunday tests, we also conduct chapter tests, unit tests, and full syllabus tests during revision phases. These assessments help students understand their current level and identify areas that need improvement. Our faculty guides students in analysing mistakes and strengthening weak topics with the right strategy.
                   </p>
                 </div>
               </div>

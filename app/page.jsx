@@ -7,6 +7,11 @@ import Programs from './components/Programs'
 import Courses from './components/Courses'
 import Achievements from './components/Achievements'
 import CourseCategories from './components/CourseCategories'
+import AchievementResults from './components/AchievementResults'
+import Awards from './components/Awards'
+import StudyResources from './components/StudyResources'
+import TestSeries from './components/TestSeries'
+import Facilities from './components/Facilities'
 import Offerings from './components/Offerings'
 import Stats from './components/Stats'
 import Footer from './components/Footer'
@@ -47,6 +52,12 @@ export default function Home() {
           padding: 0 !important;
           margin: 0 !important;
         }
+        section.cp_advantages__section.py-5, 
+        .course__categories, 
+        section.education-area-two.py-5 {
+          padding: 0px 0px !important;
+          margin: 0px 0px !important;
+        }
         @keyframes fadeDown {
           from {
             opacity: 0;
@@ -59,8 +70,9 @@ export default function Home() {
         }
         .animate-section {
           opacity: 0;
-          padding: 0;
-          margin: 40px 0;
+          padding: 0 !important;
+          margin: 0 !important;
+          margin-bottom: 40px !important;
         }
         .animate-section.animate-in {
           animation: fadeDown 1.2s ease-out forwards;
@@ -90,17 +102,55 @@ export default function Home() {
           box-shadow: 0 12px 30px rgba(25, 119, 243, 0.4);
           transform: translateY(-5px) scale(1.02);
         }
+        
+        /* Enhanced section spacing and theme colors */
+        .section-divider {
+          height: 2px;
+          background: linear-gradient(90deg, transparent, #1B5A96, transparent);
+          margin: 20px 0;
+          opacity: 0.3;
+        }
+        
+        /* Smooth scroll behavior */
+        html {
+          scroll-behavior: smooth;
+        }
+        
+        /* Theme color variables */
+        :root {
+          --primary-blue: #1B5A96;
+          --primary-light: #2563eb;
+          --accent-gradient: linear-gradient(135deg, #1B5A96 0%, #2563eb 50%, #1B5A96 100%);
+          --section-spacing: 40px;
+        }
       `}</style>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
       <Navbar />
       <Hero />
       <div className="animate-section"><BannerText /></div>
+      <div className="section-divider"></div>
       <div className="animate-section"><Programs /></div>
+      <div className="section-divider"></div>
       <div className="animate-section"><Courses /></div>
+      <div className="section-divider"></div>
       <div className="animate-section"><Achievements index={0} /></div>
+      <div className="section-divider"></div>
+      <div className="animate-section"><AchievementResults /></div>
+      <div className="section-divider"></div>
       <div className="animate-section"><CourseCategories /></div>
+      <div className="section-divider"></div>
+      <div className="animate-section"><Awards /></div>
+      <div className="section-divider"></div>
+      <div className="animate-section"><StudyResources /></div>
+      <div className="section-divider"></div>
+      <div className="animate-section"><TestSeries /></div>
+      <div className="section-divider"></div>
       <div className="animate-section"><Achievements index={1} /></div>
+      <div className="section-divider"></div>
+      <div className="animate-section"><Facilities /></div>
+      <div className="section-divider"></div>
       <div className="animate-section"><Offerings /></div>
+      <div className="section-divider"></div>
       <div className="animate-section"><Stats /></div>
       <Footer />
     </>

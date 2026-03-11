@@ -162,7 +162,7 @@ export default function AITSCourseDetail() {
 
           <div>
             <div className="course-card">
-              <img src="/images/3520795826_both.png" alt="AITS" className="course-card-image" />
+              <img src="/Test Paper1.png" alt="AITS" className="course-card-image" />
               <div className="course-card-body">
                 <h3 className="course-card-title">All India Test Series (AITS)</h3>
                 <div className="validity-text">
