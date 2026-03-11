@@ -227,6 +227,9 @@ export default function WhyIAM() {
           .feature-content img {
             height: 200px !important;
           }
+          .feature-content {
+            min-height: 280px !important;
+          }
           .feature-title {
             font-size: 1.3rem !important;
             margin-bottom: 12px !important;
@@ -342,9 +345,9 @@ export default function WhyIAM() {
             </div>
 
             <div className="feature-card">
-              <div className="feature-content" style={{padding: '2rem', display: 'flex', alignItems: 'flex-start', gap: '2rem', boxShadow: '0 10px 30px rgba(0,0,0,0.1)', borderRadius: '20px', border: 'none', marginBottom: '2rem'}}>
+              <div className="feature-content" style={{padding: '2rem', display: 'flex', alignItems: 'flex-start', gap: '2rem', boxShadow: '0 10px 30px rgba(0,0,0,0.1)', borderRadius: '20px', border: 'none', marginBottom: '2rem', minHeight: '320px'}}>
                 <div style={{flex: '0 0 35%', minWidth: '300px'}}>
-                  <img src="/Class room3.jpeg" alt="PTM Support" style={{width: '100%', height: '220px', objectFit: 'cover', borderRadius: '15px', boxShadow: '0 8px 25px rgba(0,0,0,0.15)'}} />
+                  <img src="/Class Room2.jpeg" alt="PTM Support" style={{width: '100%', height: '280px', objectFit: 'cover', borderRadius: '15px', boxShadow: '0 8px 25px rgba(0,0,0,0.15)'}} />
                 </div>
                 <div style={{flex: '1', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}}>
                   <h2 className="feature-title" style={{marginBottom: '15px'}}>PTM Support</h2>
