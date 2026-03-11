@@ -342,9 +342,11 @@ export default function WhyIAM() {
             </div>
 
             <div className="feature-card">
-              <div className="feature-content" style={{padding: '2rem', display: 'flex', alignItems: 'flex-start', gap: '2rem', boxShadow: 'none', border: '1px solid #E8EEF5', marginBottom: '2rem'}}>
-                <img src="/Class room3.jpeg" alt="PTM Support" style={{width: '100px', height: '100px', objectFit: 'cover', borderRadius: '10px', flexShrink: 0}} />
-                <div style={{flex: '1'}}>
+              <div className="feature-content" style={{padding: '2rem', display: 'flex', alignItems: 'flex-start', gap: '2rem', boxShadow: '0 10px 30px rgba(0,0,0,0.1)', borderRadius: '20px', border: 'none', marginBottom: '2rem'}}>
+                <div style={{flex: '0 0 35%', minWidth: '300px'}}>
+                  <img src="/Class room3.jpeg" alt="PTM Support" style={{width: '100%', height: '220px', objectFit: 'cover', borderRadius: '15px', boxShadow: '0 8px 25px rgba(0,0,0,0.15)'}} />
+                </div>
+                <div style={{flex: '1', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}}>
                   <h2 className="feature-title" style={{marginBottom: '15px'}}>PTM Support</h2>
                   <p className="text-justify feature-text" style={{lineHeight: '1.7', fontSize: '1rem'}}>
                     IMA conducts regular Parent-Teacher Meetings (PTM) to keep parents connected with the student's journey. PTMs help parents understand test performance, attendance, discipline and overall progress. This keeps preparation transparent and properly monitored. Parents receive clear feedback about the student's strengths and areas where improvement is needed. Teachers also guide parents on how to support the student at home during the preparation phase. PTMs build a stronger support system for the student from both sides — institute and home. When parents stay informed, students become more regular and responsible. This creates better consistency and better long-term performance. PTM also helps in correcting issues early, before they affect results. At IMA, parent support is treated as an important part of student success.
