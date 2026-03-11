@@ -6,42 +6,73 @@ export default function Footer() {
   return (
     <footer style={{background:'#1B5A96'}} className="text-white">
       <style jsx>{`
+        /* Mobile-First Footer Responsive Design */
         @media (max-width: 768px) {
           footer {
-            padding: 0 !important;
+            padding: 1rem 0 !important;
           }
           .footer-container {
-            padding: 1rem 0.5rem !important;
+            padding: 1rem !important;
           }
           .footer-grid {
             grid-template-columns: 1fr !important;
-            gap: 1rem !important;
+            gap: 1.5rem !important;
+            text-align: center !important;
+          }
+          .footer-section {
+            padding: 1rem 0 !important;
           }
           .footer-title {
-            font-size: 14px !important;
-            margin-bottom: 0.5rem !important;
+            font-size: 1rem !important;
+            margin-bottom: 0.75rem !important;
           }
           .footer-link {
-            font-size: 11px !important;
+            font-size: 0.875rem !important;
+            line-height: 1.5 !important;
           }
           .footer-logo {
-            width: 60px !important;
-            height: 24px !important;
+            width: 100px !important;
+            height: auto !important;
+            margin: 0 auto 1rem auto !important;
+          }
+          .footer-description {
+            font-size: 0.875rem !important;
+            text-align: center !important;
+            max-width: 280px !important;
+            margin: 0 auto !important;
+          }
+          .footer-contact {
+            text-align: center !important;
+          }
+          .footer-contact li {
+            justify-content: center !important;
+            text-align: center !important;
+            margin-bottom: 0.75rem !important;
+          }
+          .footer-contact a {
+            text-align: center !important;
+            display: inline-block !important;
+          }
+          .footer-social {
+            justify-content: center !important;
+            gap: 1rem !important;
           }
           .footer-icon {
-            width: 20px !important;
-            height: 20px !important;
+            width: 24px !important;
+            height: 24px !important;
           }
           .footer-bottom {
-            font-size: 10px !important;
-            flex-direction: column !important;
-            gap: 0.5rem !important;
+            font-size: 0.75rem !important;
+            text-align: center !important;
+            padding-top: 1rem !important;
           }
           .quick-links-mobile {
             display: flex !important;
             flex-wrap: wrap !important;
-            gap: 0.5rem !important;
+            gap: 0.75rem !important;
             justify-content: center !important;
+            max-width: 300px !important;
+            margin: 0 auto !important;
           }
           .quick-links-mobile li {
             flex: 0 0 auto !important;
@@ -56,64 +87,64 @@ export default function Footer() {
           }
         }
       `}</style>
-      <div className="container mx-auto px-4 py-2 footer-container">
-        <div className="footer-grid grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div>
+      <div className="container mx-auto px-4 py-4 footer-container">
+        <div className="footer-grid grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="footer-section text-center md:text-left">
             <Link href="/">
-              <Image src="/images/new_logo.png" width={140} height={56} alt="IMA Jodhpur" className="footer-logo mb-3" />
+              <Image src="/images/new_logo.png" width={140} height={56} alt="IMA Jodhpur" className="footer-logo mb-4" />
             </Link>
-            <p className="text-white/90 footer-link leading-relaxed" style={{fontSize: '15px'}}>Leading coaching institute for JEE, NEET, and<br/>Pre-foundation courses with 26+ years of excellence.</p>
+            <p className="footer-description text-white/90 footer-link leading-relaxed">Leading coaching institute for JEE, NEET, and Pre-foundation courses with 26+ years of excellence.</p>
           </div>
 
-          <div className="text-center">
-            <h4 className="footer-title font-bold mb-3 text-white" style={{fontSize: '18px'}}>Quick Links</h4>
-            <div className="quick-links-desktop grid grid-cols-2 gap-x-1 justify-center max-w-xs mx-auto">
-              <ul className="space-y-2 text-center">
-                <li><Link href="/about-us" className="footer-link hover:text-blue-200 transition-colors text-white/90" style={{fontSize: '15px'}}>About Us</Link></li>
-                <li><Link href="/courses" className="footer-link hover:text-blue-200 transition-colors text-white/90" style={{fontSize: '15px'}}>Courses</Link></li>
-                <li><Link href="/facilities" className="footer-link hover:text-blue-200 transition-colors text-white/90" style={{fontSize: '15px'}}>Facilities</Link></li>
-                <li><Link href="/blog" className="footer-link hover:text-blue-200 transition-colors text-white/90" style={{fontSize: '15px'}}>Blogs</Link></li>
+          <div className="footer-section text-center">
+            <h4 className="footer-title font-bold mb-4 text-white">Quick Links</h4>
+            <div className="quick-links-desktop grid grid-cols-2 gap-x-2 justify-center max-w-xs mx-auto">
+              <ul className="space-y-3 text-center">
+                <li><Link href="/about-us" className="footer-link hover:text-blue-200 transition-colors text-white/90">About Us</Link></li>
+                <li><Link href="/courses" className="footer-link hover:text-blue-200 transition-colors text-white/90">Courses</Link></li>
+                <li><Link href="/facilities" className="footer-link hover:text-blue-200 transition-colors text-white/90">Facilities</Link></li>
+                <li><Link href="/blog" className="footer-link hover:text-blue-200 transition-colors text-white/90">Blogs</Link></li>
               </ul>
-              <ul className="space-y-2 text-center">
-                <li><Link href="/why-ima" className="footer-link hover:text-blue-200 transition-colors text-white/90" style={{fontSize: '15px'}}>Why IMA?</Link></li>
-                <li><Link href="/contact-us" className="footer-link hover:text-blue-200 transition-colors text-white/90" style={{fontSize: '15px'}}>Contact Us</Link></li>
-                <li><Link href="/faqs" className="footer-link hover:text-blue-200 transition-colors text-white/90" style={{fontSize: '15px'}}>FAQ's</Link></li>
+              <ul className="space-y-3 text-center">
+                <li><Link href="/why-ima" className="footer-link hover:text-blue-200 transition-colors text-white/90">Why IMA?</Link></li>
+                <li><Link href="/contact-us" className="footer-link hover:text-blue-200 transition-colors text-white/90">Contact Us</Link></li>
+                <li><Link href="/faqs" className="footer-link hover:text-blue-200 transition-colors text-white/90">FAQ's</Link></li>
               </ul>
             </div>
             <ul className="quick-links-mobile">
-              <li><Link href="/about-us" className="footer-link hover:text-blue-200 transition-colors text-white/90" style={{fontSize: '15px'}}>About Us</Link></li>
-              <li><Link href="/courses" className="footer-link hover:text-blue-200 transition-colors text-white/90" style={{fontSize: '15px'}}>Courses</Link></li>
-              <li><Link href="/facilities" className="footer-link hover:text-blue-200 transition-colors text-white/90" style={{fontSize: '15px'}}>Facilities</Link></li>
-              <li><Link href="/blog" className="footer-link hover:text-blue-200 transition-colors text-white/90" style={{fontSize: '15px'}}>Blogs</Link></li>
-              <li><Link href="/why-ima" className="footer-link hover:text-blue-200 transition-colors text-white/90" style={{fontSize: '15px'}}>Why IMA?</Link></li>
-              <li><Link href="/contact-us" className="footer-link hover:text-blue-200 transition-colors text-white/90" style={{fontSize: '15px'}}>Contact Us</Link></li>
-              <li><Link href="/faqs" className="footer-link hover:text-blue-200 transition-colors text-white/90" style={{fontSize: '15px'}}>FAQ's</Link></li>
+              <li><Link href="/about-us" className="footer-link hover:text-blue-200 transition-colors text-white/90">About Us</Link></li>
+              <li><Link href="/courses" className="footer-link hover:text-blue-200 transition-colors text-white/90">Courses</Link></li>
+              <li><Link href="/facilities" className="footer-link hover:text-blue-200 transition-colors text-white/90">Facilities</Link></li>
+              <li><Link href="/blog" className="footer-link hover:text-blue-200 transition-colors text-white/90">Blogs</Link></li>
+              <li><Link href="/why-ima" className="footer-link hover:text-blue-200 transition-colors text-white/90">Why IMA?</Link></li>
+              <li><Link href="/contact-us" className="footer-link hover:text-blue-200 transition-colors text-white/90">Contact Us</Link></li>
+              <li><Link href="/faqs" className="footer-link hover:text-blue-200 transition-colors text-white/90">FAQ's</Link></li>
             </ul>
           </div>
 
-          <div>
-            <h4 className="footer-title font-bold mb-3 text-white" style={{fontSize: '18px'}}>Contact Us</h4>
-            <ul className="space-y-2">
-              <li className="footer-link flex items-start text-white/90" style={{fontSize: '15px'}}>
+          <div className="footer-section text-center md:text-left">
+            <h4 className="footer-title font-bold mb-4 text-white">Contact Us</h4>
+            <ul className="footer-contact space-y-3">
+              <li className="footer-link flex items-start justify-center md:justify-start text-white/90">
                 <i className="fa fa-map-marker mr-2 mt-1 text-blue-200"></i>
-                <a href="https://maps.google.com/?q=IMA+Jodhpur+IIT+Academy+Medical+Academy+Main+Pal+Road+Shastri+Nagar+Jodhpur+Rajasthan" target="_blank" rel="noopener noreferrer" className="text-white hover:!text-black transition-colors">
+                <a href="https://maps.google.com/?q=IMA+Jodhpur+IIT+Academy+Medical+Academy+Main+Pal+Road+Shastri+Nagar+Jodhpur+Rajasthan" target="_blank" rel="noopener noreferrer" className="text-white hover:!text-blue-200 transition-colors">
                   Main Pal Road, Near Barkatullah Khan Stadium, Shastri Nagar, Jodhpur - 342003
                 </a>
               </li>
               <li>
-                <a href="tel:9571037333" className="footer-link flex items-center hover:text-blue-200 transition-colors text-white/90" style={{fontSize: '15px'}}>
+                <a href="tel:9571037333" className="footer-link flex items-center justify-center md:justify-start hover:text-blue-200 transition-colors text-white/90">
                   <i className="fa fa-phone mr-2 text-blue-200"></i> +91 - 9571037333
                 </a>
               </li>
               <li>
-                <a href="mailto:ceo.iitacademy@gmail.com" className="footer-link flex items-center hover:text-blue-200 transition-colors text-white/90" style={{fontSize: '15px'}}>
+                <a href="mailto:ceo.iitacademy@gmail.com" className="footer-link flex items-center justify-center md:justify-start hover:text-blue-200 transition-colors text-white/90">
                   <i className="fa fa-envelope mr-2 text-blue-200"></i> ceo.iitacademy@gmail.com
                 </a>
               </li>
             </ul>
-            <div className="mt-4">
-              <h5 className="footer-title font-bold mb-3 text-white" style={{fontSize: '18px'}}>Follow Us</h5>
-              <ul className="flex space-x-3">
+            <div className="mt-6">
+              <h5 className="footer-title font-bold mb-3 text-white">Follow Us</h5>
+              <ul className="footer-social flex space-x-4 justify-center md:justify-start">
                 <li>
                   <a href="https://facebook.com/imajodhpur" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
                     <Image src="https://imajodhpur.com/assets/images/facebook.png" width={28} height={28} alt="Facebook" className="footer-icon" />
@@ -134,9 +165,9 @@ export default function Footer() {
           </div>
         </div>
 
-        <hr className="border-white/30 my-3" />
+        <hr className="border-white/30 my-6" />
 
-        <div className="footer-bottom flex justify-center items-center text-white" style={{fontSize: '14px'}}>
+        <div className="footer-bottom text-center text-white">
           <p>© 2026 IMA Jodhpur. All Rights Reserved</p>
         </div>
       </div>

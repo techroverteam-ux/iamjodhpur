@@ -81,23 +81,46 @@ export default function AchievementResults() {
         
         @media (max-width: 768px) {
           .results-container {
-            gap: 2rem;
-            padding: 0 15px;
+            gap: 0 !important;
+            padding: 0 10px !important;
+          }
+          
+          .result-card {
+            margin-bottom: 0 !important;
+            border-radius: 10px !important;
           }
           
           .result-image {
-            min-height: 400px;
+            min-height: 200px !important;
+            border-radius: 10px 10px 0 0 !important;
           }
           
           .result-title {
-            font-size: 1.4rem;
-            padding: 1.5rem;
+            font-size: 1rem !important;
+            padding: 1rem !important;
+          }
+          
+          .achievement-results-section {
+            padding: 30px 0 !important;
+          }
+          
+          .section-header {
+            margin-bottom: 20px !important;
+            padding: 0 10px !important;
+          }
+          
+          .section-header h2 {
+            font-size: 1.8rem !important;
+          }
+          
+          .section-header p {
+            font-size: 0.9rem !important;
           }
         }
       `}</style>
       
       <section className="achievement-results-section" style={{padding: '80px 0', background: 'linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f0f9ff 100%)'}}>
-        <div style={{textAlign: 'center', marginBottom: '18px', padding: '0 3px'}}>
+        <div className="section-header" style={{textAlign: 'center', marginBottom: '18px', padding: '0 3px'}}>
           <h2 style={{fontSize: '3rem', fontWeight: '700', color: '#1B5A96', marginBottom: '20px'}}>
             IMA Achievement Results
           </h2>

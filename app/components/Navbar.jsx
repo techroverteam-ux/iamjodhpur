@@ -29,6 +29,7 @@ export default function Navbar() {
   return (
     <div className="sticky top-0 z-50">
       <style jsx>{`
+        /* Mobile Hamburger Menu Positioning */
         @media (max-width: 768px) {
           .top_heads {
             font-size: 11px !important;
@@ -38,11 +39,65 @@ export default function Navbar() {
             font-size: 11px !important;
           }
           .navbar-container {
-            padding: 0 0.5rem !important;
+            padding: 0 1rem !important;
+            position: relative;
           }
           .logo-container img {
-            width: 140px !important;
+            width: 120px !important;
             height: auto !important;
+          }
+          .hamburger-btn {
+            position: absolute !important;
+            right: 1rem !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            z-index: 10 !important;
+            padding: 0.5rem !important;
+            background: transparent !important;
+            border: none !important;
+          }
+          .hamburger-icon {
+            font-size: 1.5rem !important;
+            color: #1B5A96 !important;
+            font-weight: bold !important;
+          }
+          .mobile-menu {
+            position: absolute !important;
+            top: 100% !important;
+            left: 0 !important;
+            right: 0 !important;
+            background: white !important;
+            border-top: 1px solid #e5e7eb !important;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+            z-index: 50 !important;
+            border-radius: 0 0 15px 15px !important;
+          }
+          .mobile-nav-link {
+            transition: all 0.3s ease !important;
+            border-left: 3px solid transparent !important;
+            border-radius: 8px !important;
+            margin: 0 0.5rem !important;
+          }
+          .mobile-nav-link:hover {
+            border-left-color: #1B5A96 !important;
+            background: rgba(27, 90, 150, 0.1) !important;
+            transform: translateX(5px) !important;
+            color: #1B5A96 !important;
+          }
+          .mobile-register-btn {
+            background: linear-gradient(135deg, #dc3545, #c82333) !important;
+            border: none !important;
+            border-radius: 8px !important;
+            padding: 0.75rem 1rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
+            transition: all 0.3s ease !important;
+            margin: 0 0.5rem !important;
+          }
+          .mobile-register-btn:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4) !important;
           }
         }
         .nav-link {
@@ -237,22 +292,40 @@ export default function Navbar() {
               </div>
             </div>
 
-            <button onClick={() => setIsOpen(!isOpen)} className="md:hidden p-2">
-              <span className="text-2xl text-gray-700">☰</span>
+            <button onClick={() => setIsOpen(!isOpen)} className="md:hidden hamburger-btn">
+              <span className="hamburger-icon">☰</span>
             </button>
           </nav>
 
           {isOpen && (
-            <div className="md:hidden pb-6 border-t">
-              <div className="pt-4 space-y-3">
-                <Link href="/" className="mobile-nav-link block py-3 px-4 text-gray-800 font-medium text-sm uppercase tracking-wide">Home</Link>
-                <Link href="/about-us" className="mobile-nav-link block py-3 px-4 text-gray-800 font-medium text-sm uppercase tracking-wide">About Us</Link>
-                <Link href="/courses" className="mobile-nav-link block py-3 px-4 text-gray-800 font-medium text-sm uppercase tracking-wide">Courses</Link>
-                <Link href="/facilities" className="mobile-nav-link block py-3 px-4 text-gray-800 font-medium text-sm uppercase tracking-wide">Facilities</Link>
-                <Link href="/blog" className="mobile-nav-link block py-3 px-4 text-gray-800 font-medium text-sm uppercase tracking-wide">Blogs</Link>
-                <Link href="/why-ima" className="mobile-nav-link block py-3 px-4 text-gray-800 font-medium text-sm uppercase tracking-wide">WHY IMA ?</Link>
-                <Link href="/contact-us" className="mobile-nav-link block py-3 px-4 text-gray-800 font-medium text-sm uppercase tracking-wide">Contact Us</Link>
-                <button onClick={() => setShowRegisterModal(true)} className="w-full mt-4 px-6 py-2.5 rounded-md text-white font-medium text-sm uppercase tracking-wide" style={{background:'#dc3545'}}>STHE</button>
+            <div className="md:hidden mobile-menu">
+              <div className="py-4 px-2 space-y-1">
+                <Link href="/" className="mobile-nav-link block py-3 px-4 text-gray-700 font-semibold text-sm uppercase tracking-wide" onClick={() => setIsOpen(false)}>
+                  <i className="fa fa-home mr-3 text-blue-600"></i>Home
+                </Link>
+                <Link href="/about-us" className="mobile-nav-link block py-3 px-4 text-gray-700 font-semibold text-sm uppercase tracking-wide" onClick={() => setIsOpen(false)}>
+                  <i className="fa fa-info-circle mr-3 text-blue-600"></i>About Us
+                </Link>
+                <Link href="/courses" className="mobile-nav-link block py-3 px-4 text-gray-700 font-semibold text-sm uppercase tracking-wide" onClick={() => setIsOpen(false)}>
+                  <i className="fa fa-book mr-3 text-blue-600"></i>Courses
+                </Link>
+                <Link href="/facilities" className="mobile-nav-link block py-3 px-4 text-gray-700 font-semibold text-sm uppercase tracking-wide" onClick={() => setIsOpen(false)}>
+                  <i className="fa fa-building mr-3 text-blue-600"></i>Facilities
+                </Link>
+                <Link href="/blog" className="mobile-nav-link block py-3 px-4 text-gray-700 font-semibold text-sm uppercase tracking-wide" onClick={() => setIsOpen(false)}>
+                  <i className="fa fa-newspaper-o mr-3 text-blue-600"></i>Blogs
+                </Link>
+                <Link href="/why-ima" className="mobile-nav-link block py-3 px-4 text-gray-700 font-semibold text-sm uppercase tracking-wide" onClick={() => setIsOpen(false)}>
+                  <i className="fa fa-question-circle mr-3 text-blue-600"></i>Why IMA ?
+                </Link>
+                <Link href="/contact-us" className="mobile-nav-link block py-3 px-4 text-gray-700 font-semibold text-sm uppercase tracking-wide" onClick={() => setIsOpen(false)}>
+                  <i className="fa fa-phone mr-3 text-blue-600"></i>Contact Us
+                </Link>
+                <div className="pt-3 pb-2">
+                  <button onClick={() => { setShowRegisterModal(true); setIsOpen(false); }} className="mobile-register-btn w-full text-white font-semibold text-sm">
+                    <i className="fa fa-graduation-cap mr-2"></i>STHE - Get Scholarship
+                  </button>
+                </div>
               </div>
             </div>
           )}
