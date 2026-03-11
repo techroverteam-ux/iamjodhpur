@@ -1,142 +1,102 @@
 export default function Facilities() {
   const facilities = [
     {
-      image: "/Tranasport.png",
+      icon: "fa-bus",
       title: "Transport Facility",
-      description: "Safe and reliable transportation for students with dedicated pickup and drop services across Jodhpur."
+      link: "/facilities#transport"
     },
     {
-      image: "/Transport Facility.png", 
+      icon: "fa-home", 
       title: "Hostel Facility",
-      description: "Comfortable and secure hostel accommodation with separate facilities for boys and girls."
+      link: "/facilities#hostel"
     },
     {
-      image: "/Transport Facility.png", 
+      icon: "fa-cutlery", 
       title: "Mess Facility",
-      description: "Hygienic and nutritious meals with proper dining facilities to support students' health and energy."
+      link: "/facilities#mess"
     }
   ]
 
   return (
-    <section style={{width: '100%', minHeight: '100vh', background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)', padding: '60px 0'}}>
+    <section style={{padding: '60px 0', background: 'linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f0f9ff 100%)'}}>
       <div style={{textAlign: 'center', marginBottom: '50px', padding: '0 20px'}}>
         <h2 style={{fontSize: '2.5rem', fontWeight: '700', color: '#1B5A96', marginBottom: '20px'}}>
           Our Facilities
         </h2>
-        <div style={{width: '80px', height: '4px', background: '#1B5A96', margin: '0 auto 20px'}}></div>
+        <div style={{width: '100px', height: '4px', background: '#1B5A96', margin: '0 auto 20px', borderRadius: '2px'}}></div>
         <p style={{fontSize: '1.1rem', color: '#64748b', maxWidth: '600px', margin: '0 auto'}}>
           World-class facilities designed to support your academic journey
         </p>
       </div>
 
-      <div style={{width: '100%', padding: '0'}}>
-        {facilities.map((facility, index) => (
-          <div 
-            key={index}
-            style={{
-              width: '100%',
-              minHeight: '400px',
-              display: 'flex',
-              alignItems: 'center',
-              padding: '40px 0',
-              background: index % 2 === 0 ? 'rgba(255,255,255,0.5)' : 'transparent'
-            }}
-          >
-            <div 
+      <div style={{maxWidth: '1200px', margin: '0 auto', padding: '0 20px'}}>
+        <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem'}}>
+          {facilities.map((facility, index) => (
+            <a 
+              key={index}
+              href={facility.link}
               style={{
-                width: '100%',
-                maxWidth: '1200px',
-                margin: '0 auto',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '60px',
-                padding: '0 40px',
-                flexDirection: index % 2 === 0 ? 'row' : 'row-reverse'
+                display: 'block',
+                background: 'white',
+                padding: '2.5rem',
+                borderRadius: '15px',
+                textAlign: 'center',
+                textDecoration: 'none',
+                color: 'inherit',
+                boxShadow: '0 8px 25px rgba(0,0,0,0.1)',
+                transition: 'all 0.3s ease',
+                border: '2px solid transparent'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.transform = 'translateY(-5px)'
+                e.target.style.boxShadow = '0 15px 40px rgba(27, 90, 150, 0.15)'
+                e.target.style.borderColor = '#1B5A96'
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.transform = 'translateY(0)'
+                e.target.style.boxShadow = '0 8px 25px rgba(0,0,0,0.1)'
+                e.target.style.borderColor = 'transparent'
               }}
             >
-              <div style={{flex: '0 0 500px'}}>
-                <img 
-                  src={facility.image} 
-                  alt={facility.title}
-                  style={{
-                    width: '100%',
-                    height: '300px',
-                    objectFit: 'cover',
-                    borderRadius: '20px',
-                    boxShadow: '0 20px 40px rgba(0,0,0,0.1)'
-                  }}
-                />
-              </div>
-              <div style={{flex: 1}}>
-                <h3 style={{
-                  fontSize: '2.5rem',
-                  fontWeight: '700',
+              <i 
+                className={`fa ${facility.icon}`} 
+                style={{
+                  fontSize: '3.5rem',
                   color: '#1B5A96',
-                  marginBottom: '20px'
-                }}>
-                  {facility.title}
-                </h3>
-                <p style={{
-                  fontSize: '1.1rem',
-                  lineHeight: '1.8',
-                  color: '#4a5568',
-                  textAlign: 'justify'
-                }}>
-                  {facility.description}
-                </p>
-                <a 
-                  href="/facilities" 
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    marginTop: '30px',
-                    padding: '12px 24px',
-                    background: '#1B5A96',
-                    color: 'white',
-                    textDecoration: 'none',
-                    borderRadius: '8px',
-                    fontWeight: '600',
-                    transition: 'all 0.3s ease'
-                  }}
-                  onMouseEnter={(e) => e.target.style.background = '#0d4a7a'}
-                  onMouseLeave={(e) => e.target.style.background = '#1B5A96'}
-                >
-                  Learn More
-                  <svg style={{marginLeft: '8px', width: '16px', height: '16px'}} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-        ))}
+                  marginBottom: '1.5rem',
+                  display: 'block'
+                }}
+              ></i>
+              <h3 style={{
+                fontSize: '1.4rem',
+                fontWeight: '600',
+                color: '#1B5A96',
+                margin: '0'
+              }}>
+                {facility.title}
+              </h3>
+            </a>
+          ))}
+        </div>
       </div>
 
       <style jsx>{`
         @media (max-width: 768px) {
-          section {
-            min-height: auto !important;
-            padding: 40px 0 !important;
+          div[style*="grid-template-columns"] {
+            grid-template-columns: 1fr !important;
+            gap: 1.5rem !important;
           }
-          div[style*="flex"] {
-            flex-direction: column !important;
-            gap: 30px !important;
-            padding: 0 20px !important;
+          
+          a {
+            padding: 2rem !important;
           }
-          div[style*="flex: 0 0 500px"] {
-            flex: none !important;
-            width: 100% !important;
+          
+          i {
+            font-size: 3rem !important;
           }
-          img {
-            height: 200px !important;
-          }
+          
           h3 {
-            font-size: 1.8rem !important;
-            text-align: center !important;
-          }
-          p {
-            font-size: 1rem !important;
-            text-align: center !important;
+            font-size: 1.2rem !important;
           }
         }
       `}</style>

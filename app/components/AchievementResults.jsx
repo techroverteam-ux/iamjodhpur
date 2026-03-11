@@ -6,28 +6,16 @@ export default function AchievementResults() {
   
   const results = [
     {
+      image: "/Neet Result2025.png",
+      title: "NEET Results 2025"
+    },
+    {
       image: "/JEE Result2024_25.png",
-      exam: "JEE",
-      year: "2024-25",
-      title: "JEE Main & Advanced Results",
-      description: "Outstanding performance in JEE Main and Advanced examinations with multiple selections in top IITs and NITs",
-      stats: { selections: "150+", topRank: "AIR 45", percentage: "95%" }
+      title: "NEET Results 2024"
     },
     {
       image: "/Neet Result2024.png", 
-      exam: "NEET",
-      year: "2024",
-      title: "NEET UG Results",
-      description: "Exceptional results in NEET UG with numerous selections in premier medical colleges across India",
-      stats: { selections: "200+", topRank: "AIR 89", percentage: "98%" }
-    },
-    {
-      image: "/Neet Result2025.png",
-      exam: "NEET",
-      year: "2025",
-      title: "NEET UG Results", 
-      description: "Continued excellence in NEET preparation with remarkable success rates and top rankings",
-      stats: { selections: "180+", topRank: "AIR 67", percentage: "96%" }
+      title: "JEE Results 2024-25"
     }
   ]
 
@@ -49,184 +37,86 @@ export default function AchievementResults() {
   return (
     <>
       <style jsx>{`
-        .achievement-card {
-          background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-          border: 1px solid #e2e8f0;
+        .result-card {
+          background: white;
           border-radius: 20px;
-          padding: 0;
-          margin-bottom: 2rem;
-          transition: all 0.4s ease;
-          position: relative;
           overflow: hidden;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+          box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+          transition: all 0.4s ease;
+          margin-bottom: 3rem;
         }
         
-        .achievement-card:hover {
-          transform: translateY(-8px);
-          box-shadow: 0 20px 50px rgba(27, 90, 150, 0.15);
-          border-color: #1B5A96;
+        .result-card:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 25px 50px rgba(27, 90, 150, 0.2);
         }
         
-        .achievement-image {
+        .result-image {
           width: 100%;
-          height: 300px;
-          object-fit: cover;
-          border-radius: 20px 20px 0 0;
-        }
-        
-        .achievement-content {
-          padding: 1.5rem;
-        }
-        
-        .exam-badge {
-          display: inline-block;
-          background: linear-gradient(135deg, #1B5A96, #2563eb);
-          color: white;
-          padding: 6px 16px;
-          border-radius: 20px;
-          font-size: 12px;
-          font-weight: 700;
-          margin-bottom: 12px;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-        }
-        
-        .achievement-title {
-          font-size: 1.4rem;
-          font-weight: 700;
-          color: #1B5A96;
-          margin-bottom: 12px;
-          line-height: 1.3;
-        }
-        
-        .achievement-description {
-          font-size: 0.9rem;
-          color: #64748b;
-          line-height: 1.6;
-          margin-bottom: 20px;
-        }
-        
-        .achievement-stats {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 15px;
-          margin-top: 15px;
-        }
-        
-        .stat-item {
-          text-align: center;
-          padding: 12px;
-          background: linear-gradient(135deg, #f8fafc, #ffffff);
-          border-radius: 10px;
-          border: 1px solid #e2e8f0;
-        }
-        
-        .stat-number {
-          font-size: 1.2rem;
-          font-weight: 700;
-          color: #1B5A96;
+          height: auto;
+          min-height: 300px;
           display: block;
-          margin-bottom: 4px;
+          object-fit: contain;
+          background: #f8f9fa;
         }
         
-        .stat-label {
-          font-size: 0.7rem;
-          color: #64748b;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-          font-weight: 600;
-        }
-        
-        .year-highlight {
-          position: absolute;
-          top: 15px;
-          right: 15px;
-          background: rgba(27, 90, 150, 0.9);
-          color: white;
-          padding: 8px 16px;
-          border-radius: 12px;
-          font-size: 0.9rem;
+        .result-title {
+          padding: 2rem;
+          text-align: center;
+          font-size: 1.8rem;
           font-weight: 700;
-          backdrop-filter: blur(10px);
+          color: #1B5A96;
+          background: linear-gradient(135deg, #f8fafc, #ffffff);
+          border-top: 3px solid #1B5A96;
         }
         
-        .results-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-          gap: 2rem;
-          max-width: 1200px;
+        .results-container {
+          display: flex;
+          flex-direction: column;
+          gap: 4rem;
+          max-width: 1153px;
           margin: 0 auto;
           padding: 0 20px;
         }
         
         @media (max-width: 768px) {
-          .results-grid {
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
+          .results-container {
+            gap: 2rem;
             padding: 0 15px;
           }
           
-          .achievement-image {
-            height: 200px;
+          .result-image {
+            min-height: 400px;
           }
           
-          .achievement-content {
-            padding: 1.2rem;
-          }
-          
-          .achievement-title {
-            font-size: 1.2rem;
-          }
-          
-          .achievement-stats {
-            grid-template-columns: 1fr;
-            gap: 10px;
+          .result-title {
+            font-size: 1.4rem;
+            padding: 1.5rem;
           }
         }
       `}</style>
       
-      <section className="achievement-results-section" style={{padding: '60px 0', background: 'linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f0f9ff 100%)'}}>
-        <div style={{textAlign: 'center', marginBottom: '50px', padding: '0 20px'}}>
-          <h2 style={{fontSize: '2.5rem', fontWeight: '700', color: '#1B5A96', marginBottom: '15px'}}>
-            IMA Achievement Results 2025
+      <section className="achievement-results-section" style={{padding: '80px 0', background: 'linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f0f9ff 100%)'}}>
+        <div style={{textAlign: 'center', marginBottom: '18px', padding: '0 3px'}}>
+          <h2 style={{fontSize: '3rem', fontWeight: '700', color: '#1B5A96', marginBottom: '20px'}}>
+            IMA Achievement Results
           </h2>
-          <div style={{width: '100px', height: '4px', background: '#1B5A96', margin: '0 auto 15px', borderRadius: '2px'}}></div>
-          <p style={{fontSize: '1.1rem', color: '#64748b', maxWidth: '600px', margin: '0 auto'}}>
+          <div style={{width: '120px', height: '5px', background: '#1B5A96', margin: '0 auto 20px', borderRadius: '3px'}}></div>
+          <p style={{fontSize: '1.2rem', color: '#64748b', maxWidth: '700px', margin: '0 auto'}}>
             Celebrating our students' outstanding performance in JEE and NEET examinations
           </p>
         </div>
         
-        <div className="results-grid">
+        <div className="results-container">
           {results.map((result, index) => (
-            <div key={index} className="achievement-card">
-              <div style={{position: 'relative'}}>
-                <img 
-                  src={result.image} 
-                  alt={`${result.exam} ${result.year} Results`} 
-                  className="achievement-image" 
-                />
-                <div className="year-highlight">{result.year}</div>
-              </div>
-              
-              <div className="achievement-content">
-                <div className="exam-badge">{result.exam} {result.year}</div>
-                <h3 className="achievement-title">{result.title}</h3>
-                <p className="achievement-description">{result.description}</p>
-                
-                <div className="achievement-stats">
-                  <div className="stat-item">
-                    <span className="stat-number">{result.stats.selections}</span>
-                    <span className="stat-label">Selections</span>
-                  </div>
-                  <div className="stat-item">
-                    <span className="stat-number">{result.stats.topRank}</span>
-                    <span className="stat-label">Top Rank</span>
-                  </div>
-                  <div className="stat-item">
-                    <span className="stat-number">{result.stats.percentage}</span>
-                    <span className="stat-label">Success Rate</span>
-                  </div>
-                </div>
+            <div key={index} className="result-card">
+              <img 
+                src={result.image} 
+                alt={result.title} 
+                className="result-image" 
+              />
+              <div className="result-title">
+                {result.title}
               </div>
             </div>
           ))}

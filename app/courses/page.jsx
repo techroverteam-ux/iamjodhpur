@@ -156,10 +156,6 @@ export default function CoursesPage() {
                   </div>
                   <div style={{padding: '16px'}}>
                     <h3 style={{fontSize: '17px', fontWeight: '600', color: '#222222', marginBottom: '12px', minHeight: '48px', lineHeight: '1.4'}}>{item.title}</h3>
-                    <div style={{display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '12px', padding: '6px 10px', background: '#F8FAFC', borderRadius: '8px'}}>
-                      <i className="fa fa-calendar" style={{color: '#1B5A96', fontSize: '14px'}}></i>
-                      <span style={{fontSize: '13px', color: '#6B7280', fontWeight: '500'}}>{item.validity}</span>
-                    </div>
                     <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
                       <button className="btn-explore" style={{width: '100%', padding: '12px', background: '#1B5A96', color: 'white', border: 'none', borderRadius: '8px', fontWeight: '600', cursor: 'pointer', fontSize: '14px'}}>
                         Explore Course

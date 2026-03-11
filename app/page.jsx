@@ -9,7 +9,8 @@ import Achievements from './components/Achievements'
 import CourseCategories from './components/CourseCategories'
 import AchievementResults from './components/AchievementResults'
 
-import TestSeries from './components/TestSeries'
+
+
 import Facilities from './components/Facilities'
 import Offerings from './components/Offerings'
 import Stats from './components/Stats'
@@ -152,25 +153,14 @@ export default function Home() {
       <Navbar />
       <Hero />
       <div className="animate-section"><BannerText /></div>
-      <div className="section-divider"></div>
       <div className="animate-section"><Programs /></div>
-      <div className="section-divider"></div>
       <div className="animate-section"><Courses /></div>
-      <div className="section-divider"></div>
       <div className="animate-section"><Achievements index={0} /></div>
-      <div className="section-divider"></div>
       <div className="animate-section"><AchievementResults /></div>
-      <div className="section-divider"></div>
       <div className="animate-section"><CourseCategories /></div>
-      <div className="section-divider"></div>
-      <div className="animate-section"><TestSeries /></div>
-      <div className="section-divider"></div>
       <div className="animate-section"><Achievements index={1} /></div>
-      <div className="section-divider"></div>
       <div className="animate-section"><Facilities /></div>
-      <div className="section-divider"></div>
       <div className="animate-section"><Offerings /></div>
-      <div className="section-divider"></div>
       <div className="animate-section"><Stats /></div>
       <Footer />
     </>
