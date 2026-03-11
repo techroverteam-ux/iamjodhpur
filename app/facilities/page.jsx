@@ -198,7 +198,7 @@ export default function Facilities() {
       
       <section style={{padding: '20px 0', background: 'linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%)'}}>
         <div className="container mx-auto px-2 md:px-4" style={{maxWidth: '1140px'}}>
-          <div style={{textAlign: 'center', marginBottom: '40px'}}>
+          <div style={{textAlign: 'center', marginBottom: '40px', display: 'none'}}>
             <h2 style={{fontSize: '2.5rem', fontWeight: '700', color: '#1B5A96', marginBottom: '20px'}}>
               Our Facilities
             </h2>
