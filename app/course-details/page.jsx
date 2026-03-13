@@ -154,10 +154,12 @@ export default function CourseDetail() {
             }
             
             setCourse(foundCourse);
+            // Pre-select the course in the form
+            setFormData(prev => ({ ...prev, course: foundCourse.title }));
           } catch (error) {
             console.error('Error fetching course:', error);
             // Fallback course
-            setCourse({
+            const fallbackCourse = {
               id: courseId,
               title: 'Course Details',
               description: 'Course information will be available soon.',
@@ -166,7 +168,9 @@ export default function CourseDetail() {
                 { type: 'description', value: 'Please contact us for more details about this course.' }
               ],
               image: '/images/3520795826_both.png'
-            });
+            };
+            setCourse(fallbackCourse);
+            setFormData(prev => ({ ...prev, course: fallbackCourse.title }));
           }
         }
         setLoading(false);
@@ -464,8 +468,10 @@ export default function CourseDetail() {
                 </div>
                 <select value={formData.course} onChange={(e) => setFormData({...formData, course: e.target.value})} className="w-full p-3 border border-gray-300 rounded outline-none" required>
                   <option value="">Select Course</option>
-                  <option value="NEET">NEET</option>
-                  <option value="JEE">JEE</option>
+                  <option value="Pre Foundation Course">Pre Foundation Course</option>
+                  <option value="NEET Preparation">NEET Preparation</option>
+                  <option value="JEE (Mains+Advanced)">JEE (Mains+Advanced)</option>
+                  <option value="All India Test Series (AITS)">All India Test Series (AITS)</option>
                 </select>
                 <button type="submit" className="w-full text-white font-semibold py-3 rounded" style={{background:'#dc3545'}}>Register Now</button>
               </form>

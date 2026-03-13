@@ -31,6 +31,9 @@ export default function AdminDashboard() {
   const [itemsPerPage] = useState(10)
   const [loading, setLoading] = useState(false)
   const [loadingTab, setLoadingTab] = useState('')
+  const [showBannerModal, setShowBannerModal] = useState(false)
+  const [bannerFormData, setBannerFormData] = useState({ page: '', imageFile: null, image: '' })
+  const [editBanner, setEditBanner] = useState(null)
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -65,13 +68,20 @@ export default function AdminDashboard() {
         
         // Set fresh data after a small delay to ensure state is cleared
         setTimeout(() => {
-          setData(result)
+          // Load banners from localStorage
+          const savedBanners = JSON.parse(localStorage.getItem('banners') || '{}')
+          
+          setData({
+            ...result,
+            banners: savedBanners
+          })
           console.log('Data updated successfully:', {
             users: result.users?.length || 0,
             courses: result.courses?.length || 0,
             course_content: result.course_content?.length || 0,
             blogs: result.blogs?.length || 0,
-            contacts: result.contacts?.length || 0
+            contacts: result.contacts?.length || 0,
+            banners: Object.keys(savedBanners).length
           })
         }, 100)
       } else {
@@ -179,6 +189,71 @@ export default function AdminDashboard() {
 
   const removeContentItem = (index) => {
     setFormData({...formData, content: formData.content.filter((_, i) => i !== index)})
+  }
+
+  const handleBannerImageUpload = (e) => {
+    const file = e.target.files[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setBannerFormData({...bannerFormData, image: reader.result, imageFile: file})
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
+  const handleBannerSubmit = async (e) => {
+    e.preventDefault()
+    
+    let imageUrl = bannerFormData.image
+    if (bannerFormData.imageFile) {
+      try {
+        imageUrl = await uploadImage(bannerFormData.imageFile)
+      } catch (error) {
+        toast.error(`Image upload failed: ${error.message}`)
+        return
+      }
+    }
+    
+    // Update banners in localStorage
+    const currentBanners = JSON.parse(localStorage.getItem('banners') || '{}')
+    currentBanners[bannerFormData.page] = imageUrl
+    localStorage.setItem('banners', JSON.stringify(currentBanners))
+    
+    // Update state
+    setData(prev => ({
+      ...prev,
+      banners: currentBanners
+    }))
+    
+    toast.success('Banner updated successfully!')
+    setShowBannerModal(false)
+    setBannerFormData({ page: '', imageFile: null, image: '' })
+  }
+
+  const handleAddBanner = () => {
+    setBannerFormData({ page: '', imageFile: null, image: '' })
+    setEditBanner(null)
+    setShowBannerModal(true)
+  }
+
+  const handleEditBanner = (page, imageUrl) => {
+    setBannerFormData({ page, imageFile: null, image: imageUrl })
+    setEditBanner(page)
+    setShowBannerModal(true)
+  }
+
+  const handleDeleteBanner = (page) => {
+    const currentBanners = JSON.parse(localStorage.getItem('banners') || '{}')
+    delete currentBanners[page]
+    localStorage.setItem('banners', JSON.stringify(currentBanners))
+    
+    setData(prev => ({
+      ...prev,
+      banners: currentBanners
+    }))
+    
+    toast.success('Banner deleted successfully!')
   }
 
   const handleSubmit = async (e) => {
@@ -388,6 +463,25 @@ export default function AdminDashboard() {
           >
             <BookIcon style={{marginRight: '10px'}} size={16} />Courses
           </button>
+          <button 
+            onClick={() => handleTabChange('banners')} 
+            disabled={loading || loadingTab === 'banners'}
+            style={{
+              width: '100%', 
+              padding: '15px 20px', 
+              background: activeTab === 'banners' ? 'rgba(255,255,255,0.1)' : 'transparent', 
+              color: 'white', 
+              border: 'none', 
+              textAlign: 'left', 
+              cursor: loading || loadingTab === 'banners' ? 'not-allowed' : 'pointer', 
+              borderLeft: activeTab === 'banners' ? '4px solid white' : '4px solid transparent', 
+              display: 'flex', 
+              alignItems: 'center',
+              opacity: loading || loadingTab === 'banners' ? 0.6 : 1
+            }}
+          >
+            <ImageIcon style={{marginRight: '10px'}} size={16} />Banners
+          </button>
         </div>
       </div>
 
@@ -405,9 +499,15 @@ export default function AdminDashboard() {
       <div className="element-style" style={{marginLeft: '248px', paddingTop: '0px'}}>
         <div style={{padding: '20px'}}>
           <div className="bg-white rounded-lg shadow-md p-4">
-            {activeTab !== 'inquiries' && activeTab !== 'registrations' && (
+            {activeTab !== 'inquiries' && activeTab !== 'registrations' && activeTab !== 'banners' && (
               <button onClick={handleAdd} className="mb-4 px-4 py-2 rounded text-white font-semibold flex items-center" style={{background: '#1B5A96'}}>
                 <PlusIcon className="mr-2" size={16} />Add {activeTab === 'blogs' ? 'Blog' : 'Course'}
+              </button>
+            )}
+            
+            {activeTab === 'banners' && (
+              <button onClick={handleAddBanner} className="mb-4 px-4 py-2 rounded text-white font-semibold flex items-center" style={{background: '#1B5A96'}}>
+                <PlusIcon className="mr-2" size={16} />Add Banner
               </button>
             )}
 
@@ -539,6 +639,54 @@ export default function AdminDashboard() {
                   </table>
                   <PaginationComponent dataArray={data.course_content || []} />
                 </div>
+              ) : activeTab === 'banners' ? (
+                <div>
+                  <h2 className="text-lg font-bold mb-3" style={{color: '#1B5A96'}}>Banner Management</h2>
+                  <table className="w-full border-collapse" style={{fontSize: '13px'}}>
+                    <thead style={{background: '#f8f9fa'}}>
+                      <tr>
+                        <th className="px-2 py-2 text-left border-b">Page</th>
+                        <th className="px-2 py-2 text-left border-b">Banner Image</th>
+                        <th className="px-2 py-2 text-left border-b">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {Object.entries(data.banners || {}).map(([page, imageUrl]) => (
+                        <tr key={page} className="border-b hover:bg-gray-50">
+                          <td className="px-2 py-2 font-semibold" style={{textTransform: 'capitalize'}}>
+                            {page.replace(/([A-Z])/g, ' $1').trim()}
+                          </td>
+                          <td className="px-2 py-2">
+                            {imageUrl ? (
+                              <img src={imageUrl} alt={`${page} banner`} className="w-20 h-12 object-cover rounded" />
+                            ) : (
+                              <div className="w-20 h-12 bg-gray-200 rounded flex items-center justify-center">
+                                <ImageIcon size={16} style={{color: '#666'}} />
+                              </div>
+                            )}
+                          </td>
+                          <td className="px-2 py-2">
+                            <div className="flex gap-1">
+                              <button onClick={() => handleEditBanner(page, imageUrl)} className="px-2 py-1 rounded text-white text-xs" style={{background: '#28a745'}}>
+                                <EditIcon size={12} />
+                              </button>
+                              <button onClick={() => handleDeleteBanner(page)} className="px-2 py-1 rounded text-white text-xs" style={{background: '#dc3545'}}>
+                                <DeleteIcon size={12} />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                      {Object.keys(data.banners || {}).length === 0 && (
+                        <tr>
+                          <td colSpan="3" className="px-2 py-4 text-center text-gray-500">
+                            No banners configured. Click "Add Banner" to get started.
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
               ) : (
                 <div>
                   <h2 className="text-lg font-bold mb-3" style={{color: '#1B5A96'}}>Blogs</h2>
@@ -582,6 +730,58 @@ export default function AdminDashboard() {
           </div>
         </div>
       </div>
+
+      {showBannerModal && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 p-4" onClick={() => setShowBannerModal(false)} style={{background: 'rgba(0,0,0,0.5)'}}>
+          <div className="bg-white rounded-lg w-full max-w-md p-6" onClick={(e) => e.stopPropagation()}>
+            <h3 className="text-base font-bold mb-3" style={{color: '#1B5A96'}}>
+              {editBanner ? 'Edit Banner' : 'Add Banner'}
+            </h3>
+            <form onSubmit={handleBannerSubmit}>
+              <div className="mb-3">
+                <label className="block mb-1 font-semibold text-xs">Page</label>
+                <select 
+                  value={bannerFormData.page} 
+                  onChange={(e) => setBannerFormData({...bannerFormData, page: e.target.value})} 
+                  className="w-full outline-none" 
+                  style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '5px', fontSize: '13px'}} 
+                  required
+                  disabled={editBanner}
+                >
+                  <option value="">Select Page</option>
+                  <option value="home">Home</option>
+                  <option value="about">About Us</option>
+                  <option value="courses">Courses</option>
+                  <option value="facilities">Facilities</option>
+                  <option value="whyIma">Why IMA</option>
+                  <option value="contact">Contact Us</option>
+                  <option value="blog">Blog</option>
+                </select>
+              </div>
+              <div className="mb-3">
+                <label className="block mb-1 font-semibold text-xs">Banner Image</label>
+                <input 
+                  type="file" 
+                  accept="image/*" 
+                  onChange={handleBannerImageUpload} 
+                  className="w-full outline-none" 
+                  style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '5px', fontSize: '12px'}} 
+                  required={!editBanner}
+                />
+                {bannerFormData.image && (
+                  <div className="mt-2">
+                    <img src={bannerFormData.image} alt="Banner Preview" className="w-full h-32 object-cover rounded" style={{border: '1px solid #e0e0e0'}} />
+                  </div>
+                )}
+              </div>
+              <div className="flex gap-2">
+                <button type="submit" className="flex-1 py-2 rounded text-white font-semibold" style={{background: '#1B5A96'}}>Save Banner</button>
+                <button type="button" onClick={() => setShowBannerModal(false)} className="flex-1 py-2 rounded text-white font-semibold" style={{background: '#6c757d'}}>Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center z-50 p-4" onClick={() => setShowModal(false)} style={{background: 'rgba(0,0,0,0.5)'}}>
