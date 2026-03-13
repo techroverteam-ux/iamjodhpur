@@ -1,4 +1,4 @@
-import { readData, addItem, updateItem, deleteItem } from '../../../lib/mongoDataUtils';
+import { readData, addItem, updateItem, deleteItem } from '../../../lib/mongoOnlyDataUtils';
 
 export async function GET() {
   const data = await readData();

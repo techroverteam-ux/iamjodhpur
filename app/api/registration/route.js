@@ -1,4 +1,4 @@
-import { addItem } from '../../../lib/mongoDataUtils';
+import { addItem } from '../../../lib/mongoOnlyDataUtils';
 
 export async function POST(request) {
   try {
