@@ -65,31 +65,31 @@ export default function Facilities() {
               }}
             >
               {facility.type === "react-icon" ? (
-                <div style={{textAlign: 'center', marginBottom: '1.5rem'}}>
+                <div style={{textAlign: 'center', marginBottom: '1.5rem', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                   {React.createElement(facility.icon, {
                     size: 56,
                     style: { color: '#1B5A96' }
                   })}
                 </div>
               ) : facility.type === "image" ? (
-                <img 
-                  src={facility.icon}
-                  alt={facility.title}
-                  style={{
-                    width: '60px',
-                    height: '60px',
-                    marginBottom: '1.5rem',
-                    display: 'block',
-                    margin: '0 auto 1.5rem auto'
-                  }}
-                />
+                <div style={{textAlign: 'center', marginBottom: '1.5rem'}}>
+                  <img 
+                    src={facility.icon}
+                    alt={facility.title}
+                    style={{
+                      width: '60px',
+                      height: '60px'
+                    }}
+                  />
+                </div>
               ) : (
                 <div 
                   style={{
                     fontSize: '3.5rem',
                     color: '#1B5A96',
                     marginBottom: '1.5rem',
-                    display: 'block'
+                    display: 'block',
+                    textAlign: 'center'
                   }}
                 >
                   {facility.icon}
