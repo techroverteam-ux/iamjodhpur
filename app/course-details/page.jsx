@@ -1,49 +1,192 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { fetchData } from '../../lib/clientDataUtils';
 
 export default function CourseDetail() {
   const [course, setCourse] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', course: '' });
 
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const registration = { ...formData, date: new Date().toLocaleDateString(), id: Date.now() };
-      const existing = JSON.parse(localStorage.getItem('courseRegistrations') || '[]');
-      existing.push(registration);
-      localStorage.setItem('courseRegistrations', JSON.stringify(existing));
-      alert('Registration successful!');
-      setShowRegisterModal(false);
-      setFormData({ name: '', email: '', phone: '', course: '' });
+      const response = await fetch('/api/registration', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({...formData, course: course.title}),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        toast.success('Registration successful! We will contact you soon. For more information call +91 - 9571037333', {
+          duration: 6000,
+          position: 'bottom-center',
+        });
+        setShowRegisterModal(false);
+        setFormData({ name: '', email: '', phone: '', course: '' });
+      } else {
+        toast.error(result.error || 'Registration failed. Please try again.', {
+          duration: 4000,
+          position: 'bottom-center',
+        });
+      }
     } catch (error) {
-      alert('Registration failed!');
+      toast.error('Network error. Please try again.', {
+        duration: 4000,
+        position: 'bottom-center',
+      });
     }
   };
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const urlParams = new URLSearchParams(window.location.search);
-      const courseId = urlParams.get('id');
-      
-      const defaultCourses = [
-        { id: 42147, title: 'Pre Foundation Course', description: 'Foundation course for early preparation', content: [], image: '/images/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png' },
-        { id: 42161, title: 'NEET Preparation', description: 'Complete NEET preparation course', content: [], image: '/images/3520795826_both.png' },
-        { id: 42286, title: 'JEE (Mains+Advance)', description: 'JEE Mains and Advanced preparation', content: [], image: '/images/3520795826_both.png' },
-        { id: 42385, title: 'All India Test Series (AITS)', description: 'All India Test Series for practice', content: [], image: '/images/3520795826_both.png' },
-      ];
-      
-      const savedCourses = localStorage.getItem('courses');
-      const courses = savedCourses ? JSON.parse(savedCourses) : defaultCourses;
-      
-      if (courseId) {
-        const foundCourse = courses.find(c => c.id == courseId);
-        setCourse(foundCourse || null);
+    const loadCourse = async () => {
+      if (typeof window !== 'undefined') {
+        const urlParams = new URLSearchParams(window.location.search);
+        const courseId = urlParams.get('id');
+        
+        if (courseId) {
+          try {
+            // Fetch data from MongoDB via API
+            const data = await fetchData();
+            
+            let foundCourse = null;
+            
+            // First try to find in database courses
+            if (data && data.courses && data.courses.length > 0) {
+              // Filter only actual course content (not registrations)
+              const actualCourses = data.courses.filter(course => 
+                course.title && course.image && !course.phone && !course.name && course.type !== 'registration'
+              );
+              
+              foundCourse = actualCourses.find(c => c.id === courseId || c.id == courseId);
+            }
+            
+            // If not found in database, use default courses as fallback
+            if (!foundCourse) {
+              const defaultCourses = [
+                { 
+                  id: '42147', 
+                  title: 'Pre Foundation Course', 
+                  description: 'Foundation course for early preparation - Building strong fundamentals for Class 9th & 10th students', 
+                  content: [
+                    { type: 'heading', value: 'Course Overview' },
+                    { type: 'description', value: 'Our Pre Foundation Course is designed to build strong academic fundamentals for students in Class 9th & 10th, preparing them for competitive exams like JEE and NEET.' },
+                    { type: 'heading', value: 'Key Features' },
+                    { type: 'bullet', value: 'Comprehensive coverage of NCERT syllabus' },
+                    { type: 'bullet', value: 'Regular tests and assessments' },
+                    { type: 'bullet', value: 'Doubt clearing sessions' },
+                    { type: 'bullet', value: 'Study material and notes' },
+                    { type: 'heading', value: 'Duration' },
+                    { type: 'description', value: 'Complete academic year coverage with flexible batch timings' }
+                  ], 
+                  image: '/images/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png' 
+                },
+                { 
+                  id: '42161', 
+                  title: 'NEET Preparation', 
+                  description: 'Complete NEET preparation course with expert guidance and proven results', 
+                  content: [
+                    { type: 'heading', value: 'NEET Course Overview' },
+                    { type: 'description', value: 'Comprehensive NEET preparation program designed to help students crack the National Eligibility cum Entrance Test for medical admissions.' },
+                    { type: 'heading', value: 'Subjects Covered' },
+                    { type: 'bullet', value: 'Physics - Complete syllabus with problem solving' },
+                    { type: 'bullet', value: 'Chemistry - Organic, Inorganic & Physical Chemistry' },
+                    { type: 'bullet', value: 'Biology - Botany and Zoology with diagrams' },
+                    { type: 'heading', value: 'Special Features' },
+                    { type: 'bullet', value: 'Regular mock tests and practice papers' },
+                    { type: 'bullet', value: 'Previous year question analysis' },
+                    { type: 'bullet', value: 'Personal mentorship and guidance' }
+                  ], 
+                  image: '/images/3520795826_both.png' 
+                },
+                { 
+                  id: '42286', 
+                  title: 'JEE (Mains+Advanced)', 
+                  description: 'Complete JEE Mains and Advanced preparation with IIT focus', 
+                  content: [
+                    { type: 'heading', value: 'JEE Course Overview' },
+                    { type: 'description', value: 'Comprehensive JEE preparation covering both JEE Mains and JEE Advanced with focus on IIT admissions.' },
+                    { type: 'heading', value: 'Subjects Covered' },
+                    { type: 'bullet', value: 'Mathematics - Algebra, Calculus, Coordinate Geometry' },
+                    { type: 'bullet', value: 'Physics - Mechanics, Thermodynamics, Optics, Modern Physics' },
+                    { type: 'bullet', value: 'Chemistry - Physical, Organic, Inorganic Chemistry' },
+                    { type: 'heading', value: 'Course Benefits' },
+                    { type: 'bullet', value: 'IIT level problem solving techniques' },
+                    { type: 'bullet', value: 'Regular JEE Mains and Advanced mock tests' },
+                    { type: 'bullet', value: 'Rank improvement strategies' }
+                  ], 
+                  image: '/images/3520795826_both.png' 
+                },
+                { 
+                  id: '42385', 
+                  title: 'All India Test Series (AITS)', 
+                  description: 'Comprehensive test series for JEE and NEET preparation', 
+                  content: [
+                    { type: 'heading', value: 'Test Series Overview' },
+                    { type: 'description', value: 'All India Test Series designed to provide competitive environment and performance analysis for JEE and NEET aspirants.' },
+                    { type: 'heading', value: 'Test Features' },
+                    { type: 'bullet', value: 'Weekly tests covering complete syllabus' },
+                    { type: 'bullet', value: 'All India ranking and performance analysis' },
+                    { type: 'bullet', value: 'Detailed solutions and explanations' },
+                    { type: 'bullet', value: 'Subject-wise and topic-wise analysis' },
+                    { type: 'heading', value: 'Benefits' },
+                    { type: 'bullet', value: 'Time management skills development' },
+                    { type: 'bullet', value: 'Exam pattern familiarity' },
+                    { type: 'bullet', value: 'Weakness identification and improvement' }
+                  ], 
+                  image: '/images/3520795826_both.png' 
+                },
+              ];
+              
+              foundCourse = defaultCourses.find(c => c.id === courseId || c.id == courseId);
+              
+              // If still not found, show first default course
+              if (!foundCourse) {
+                foundCourse = defaultCourses[0];
+              }
+            }
+            
+            setCourse(foundCourse);
+          } catch (error) {
+            console.error('Error fetching course:', error);
+            // Fallback course
+            setCourse({
+              id: courseId,
+              title: 'Course Details',
+              description: 'Course information will be available soon.',
+              content: [
+                { type: 'heading', value: 'Course Information' },
+                { type: 'description', value: 'Please contact us for more details about this course.' }
+              ],
+              image: '/images/3520795826_both.png'
+            });
+          }
+        }
+        setLoading(false);
       }
-    }
+    };
+
+    loadCourse();
   }, []);
+
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <div style={{ padding: '100px 20px', textAlign: 'center' }}>
+          <h2>Loading course...</h2>
+        </div>
+        <Footer />
+      </>
+    );
+  }
 
   if (!course) {
     return (

@@ -17,11 +17,47 @@ export default function Blog() {
 
   const loadData = async () => {
     const data = await fetchData()
-    if (data) {
-      if (data.blogs) setBlogs(data.blogs)
-      if (data.banners && data.banners.blogs) {
-        setBannerImage(data.banners.blogs)
-      }
+    
+    if (data && data.blogs && data.blogs.length > 0) {
+      // Use blogs from database
+      setBlogs(data.blogs)
+    } else {
+      // Only use defaults if database is empty or no data
+      const defaultBlogs = [
+        {
+          id: '1773367661318',
+          title: 'NEET 2025: Complete Preparation Strategy',
+          date: '2024-01-15',
+          description: 'Master NEET 2025 with our comprehensive preparation guide and expert tips.',
+          image: '/images/3520795826_both.png'
+        },
+        {
+          id: '1773367661319',
+          title: 'JEE Main 2025: Tips for Success',
+          date: '2024-01-10',
+          description: 'Crack JEE Main 2025 with proven strategies and preparation techniques.',
+          image: '/images/3520795826_both.png'
+        },
+        {
+          id: '1773367661320',
+          title: 'Foundation Course: Building Strong Basics',
+          date: '2024-01-05',
+          description: 'Build a strong foundation for competitive exams with our comprehensive course.',
+          image: '/images/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png'
+        },
+        {
+          id: '1773367661321',
+          title: 'Study Tips for Competitive Exams',
+          date: '2024-01-01',
+          description: 'Effective study techniques and time management strategies for exam success.',
+          image: '/images/3520795826_both.png'
+        }
+      ]
+      setBlogs(defaultBlogs)
+    }
+    
+    if (data && data.banners && data.banners.blogs) {
+      setBannerImage(data.banners.blogs)
     }
   }
 

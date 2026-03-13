@@ -1,51 +1,180 @@
 'use client'
 import { useState, useEffect } from 'react'
+import { toast } from 'react-hot-toast'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import { fetchData } from '../../lib/clientDataUtils'
 
 export default function CoursesPage() {
   const [showRegisterModal, setShowRegisterModal] = useState(false)
-  const [formData, setFormData] = useState({ name: '',  phone: '', course: '' })
-  const [courses, setCourses] = useState([
-    { id: 42147, title: 'Pre Foundation Course', description: 'Foundation course for early preparation', image: 'https://d3aj4itat0hxro.cloudfront.net/826/admin_v1/bundle_management/course/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png' },
-    { id: 42161, title: 'NEET Preparation',  description: 'Complete NEET preparation course', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
-    { id: 42286, title: 'JEE (Mains+Advance)',  description: 'JEE Mains and Advanced preparation', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
-    { id: 42385, title: 'All India Test Series (AITS)',  description: 'All India Test Series for practice', image: 'https://decicqog4ulhy.cloudfront.net/0/admin_v1/application_management/clientlogo/3520795826_both.png' },
-  ])
+  const [formData, setFormData] = useState({ name: '', phone: '', course: '' })
+  const [courses, setCourses] = useState([])
+  const [loading, setLoading] = useState(true)
   const [visible, setVisible] = useState(false)
   const [bannerImage, setBannerImage] = useState('')
 
   const handleRegister = async (e) => {
     e.preventDefault()
     try {
-      const registration = { ...formData, date: new Date().toLocaleDateString(), id: Date.now() }
-      const existing = JSON.parse(localStorage.getItem('courseRegistrations') || '[]')
-      existing.push(registration)
-      localStorage.setItem('courseRegistrations', JSON.stringify(existing))
-      alert('Registration successful!')
-      setShowRegisterModal(false)
-      setFormData({ name: '', phone: '', course: '' })
+      const response = await fetch('/api/registration', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const result = await response.json()
+
+      if (response.ok) {
+        toast.success('Registration successful! We will contact you soon. For more information call +91 - 9571037333', {
+          duration: 6000,
+          position: 'bottom-center',
+        })
+        setShowRegisterModal(false)
+        setFormData({ name: '', phone: '', course: '' })
+      } else {
+        toast.error(result.error || 'Registration failed. Please try again.', {
+          duration: 4000,
+          position: 'bottom-center',
+        })
+      }
     } catch (error) {
-      alert('Registration failed!')
+      toast.error('Network error. Please try again.', {
+        duration: 4000,
+        position: 'bottom-center',
+      })
     }
   }
 
   useEffect(() => {
+    loadCourses()
     setVisible(true)
-    if (typeof window !== 'undefined') {
-      const savedCourses = localStorage.getItem('courses')
-      if (savedCourses) {
-        setCourses(JSON.parse(savedCourses))
-      }
-      const savedBanners = localStorage.getItem('banners')
-      if (savedBanners) {
-        const banners = JSON.parse(savedBanners)
-        if (banners.courses && banners.courses !== '') {
-          setBannerImage(banners.courses)
-        }
-      }
-    }
   }, [])
+
+  const loadCourses = async () => {
+    try {
+      const data = await fetchData()
+      
+      if (data && data.courses && data.courses.length > 0) {
+        // Filter only actual course content (not registrations)
+        const actualCourses = data.courses.filter(course => 
+          course.title && course.image && !course.phone && !course.name && course.type !== 'registration'
+        )
+        
+        if (actualCourses.length > 0) {
+          setCourses(actualCourses)
+        } else {
+          // Only use defaults if no actual courses in database
+          const defaultCourses = [
+            {
+              id: '42147',
+              title: 'Pre Foundation Course',
+              description: 'Foundation course for Class 9th & 10th students',
+              image: '/images/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png'
+            },
+            {
+              id: '42161',
+              title: 'NEET Preparation',
+              description: 'Complete NEET preparation course',
+              image: '/images/3520795826_both.png'
+            },
+            {
+              id: '42286',
+              title: 'JEE (Mains+Advanced)',
+              description: 'JEE Mains and Advanced preparation',
+              image: '/images/3520795826_both.png'
+            },
+            {
+              id: '42385',
+              title: 'All India Test Series (AITS)',
+              description: 'Comprehensive test series for practice',
+              image: '/images/3520795826_both.png'
+            }
+          ]
+          setCourses(defaultCourses)
+        }
+      } else {
+        // Only use defaults if database is empty
+        const defaultCourses = [
+          {
+            id: '42147',
+            title: 'Pre Foundation Course',
+            description: 'Foundation course for Class 9th & 10th students',
+            image: '/images/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png'
+          },
+          {
+            id: '42161',
+            title: 'NEET Preparation',
+            description: 'Complete NEET preparation course',
+            image: '/images/3520795826_both.png'
+          },
+          {
+            id: '42286',
+            title: 'JEE (Mains+Advanced)',
+            description: 'JEE Mains and Advanced preparation',
+            image: '/images/3520795826_both.png'
+          },
+          {
+            id: '42385',
+            title: 'All India Test Series (AITS)',
+            description: 'Comprehensive test series for practice',
+            image: '/images/3520795826_both.png'
+          }
+        ]
+        setCourses(defaultCourses)
+      }
+      
+      // Load banner image
+      if (data && data.banners && data.banners.courses) {
+        setBannerImage(data.banners.courses)
+      }
+    } catch (error) {
+      console.error('Error loading courses:', error)
+      // Fallback to default courses on error
+      const defaultCourses = [
+        {
+          id: '42147',
+          title: 'Pre Foundation Course',
+          description: 'Foundation course for Class 9th & 10th students',
+          image: '/images/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png'
+        },
+        {
+          id: '42161',
+          title: 'NEET Preparation',
+          description: 'Complete NEET preparation course',
+          image: '/images/3520795826_both.png'
+        },
+        {
+          id: '42286',
+          title: 'JEE (Mains+Advanced)',
+          description: 'JEE Mains and Advanced preparation',
+          image: '/images/3520795826_both.png'
+        },
+        {
+          id: '42385',
+          title: 'All India Test Series (AITS)',
+          description: 'Comprehensive test series for practice',
+          image: '/images/3520795826_both.png'
+        }
+      ]
+      setCourses(defaultCourses)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <div style={{padding: '100px 20px', textAlign: 'center'}}>
+          <h2>Loading courses...</h2>
+        </div>
+        <Footer />
+      </>
+    )
+  }
 
   return (
     <>
@@ -173,26 +302,146 @@ export default function CoursesPage() {
       </section>
 
       {showRegisterModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 p-4" onClick={() => setShowRegisterModal(false)} style={{background: 'rgba(0,0,0,0.5)'}}>
-          <div className="bg-white rounded-lg w-full max-w-md relative" onClick={(e) => e.stopPropagation()}>
-            <button onClick={() => setShowRegisterModal(false)} className="absolute top-2 right-2 text-4xl text-gray-400 hover:text-gray-600 leading-none">&times;</button>
-            <div className="text-center py-8 px-10">
-              <div className="mb-4">
-                <img src="/images/new_logo.png" alt="IMA Jodhpur" className="mx-auto" style={{height: 'auto', width: '100px'}} />
+        <div 
+          className="fixed inset-0 flex items-center justify-center p-4" 
+          onClick={() => setShowRegisterModal(false)} 
+          style={{
+            background: 'rgba(0,0,0,0.8)', 
+            zIndex: 99999,
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0
+          }}
+        >
+          <div 
+            className="bg-white w-full max-w-md relative" 
+            onClick={(e) => e.stopPropagation()} 
+            style={{
+              color: '#000',
+              borderRadius: '16px',
+              boxShadow: '0 25px 50px rgba(0, 0, 0, 0.25)',
+              maxHeight: '90vh',
+              overflowY: 'auto'
+            }}
+          >
+            <button 
+              onClick={() => setShowRegisterModal(false)} 
+              className="absolute top-4 right-4 hover:bg-gray-100 rounded-full w-8 h-8 flex items-center justify-center transition-colors"
+              style={{
+                color: '#666',
+                fontSize: '24px',
+                fontWeight: 'bold',
+                border: 'none',
+                background: 'transparent',
+                cursor: 'pointer'
+              }}
+            >
+              ×
+            </button>
+            
+            <div className="p-8">
+              <div className="text-center mb-6">
+                <img 
+                  src="/images/new_logo.png" 
+                  alt="IMA Jodhpur" 
+                  className="mx-auto mb-4" 
+                  style={{height: 'auto', width: '100px'}} 
+                />
+                <h3 className="text-2xl font-bold mb-2" style={{color: '#1B5A96'}}>
+                  Course Registration
+                </h3>
+                <p style={{color: '#666', fontSize: '14px'}}>Join IMA Jodhpur for excellence</p>
               </div>
-              <p className="my-6 font-bold text-lg">Student Registration</p>
+
               <form onSubmit={handleRegister} className="space-y-4">
-                <input type="text" placeholder="Full Name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full p-3 border border-gray-300 rounded outline-none" required />
-                <div className="flex">
-                  <span className="flex items-center px-3 border border-r-0 border-gray-300 rounded-l bg-gray-50">+91</span>
-                  <input type="tel" placeholder="WhatsApp Number" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value.replace(/\D/g, '')})} maxLength="10" className="w-full p-3 border border-gray-300 rounded-r outline-none" required />
+                <input 
+                  type="text" 
+                  placeholder="Full Name" 
+                  value={formData.name} 
+                  onChange={(e) => setFormData({...formData, name: e.target.value})} 
+                  style={{
+                    width: '100%',
+                    padding: '12px 16px',
+                    border: '2px solid #e5e7eb',
+                    borderRadius: '8px',
+                    fontSize: '14px',
+                    outline: 'none'
+                  }}
+                  required 
+                />
+                
+                <div style={{display: 'flex'}}>
+                  <span style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: '12px 16px',
+                    border: '2px solid #e5e7eb',
+                    borderRight: 'none',
+                    borderRadius: '8px 0 0 8px',
+                    background: '#f9fafb',
+                    color: '#374151',
+                    fontWeight: '600',
+                    fontSize: '14px'
+                  }}>
+                    +91
+                  </span>
+                  <input 
+                    type="tel" 
+                    placeholder="WhatsApp Number" 
+                    value={formData.phone} 
+                    onChange={(e) => setFormData({...formData, phone: e.target.value.replace(/\D/g, '')})} 
+                    maxLength="10" 
+                    style={{
+                      flex: 1,
+                      padding: '12px 16px',
+                      border: '2px solid #e5e7eb',
+                      borderRadius: '0 8px 8px 0',
+                      fontSize: '14px',
+                      outline: 'none'
+                    }}
+                    required 
+                  />
                 </div>
-                <select value={formData.course} onChange={(e) => setFormData({...formData, course: e.target.value})} className="w-full p-3 border border-gray-300 rounded outline-none" required>
+                
+                <select 
+                  value={formData.course} 
+                  onChange={(e) => setFormData({...formData, course: e.target.value})} 
+                  style={{
+                    width: '100%',
+                    padding: '12px 16px',
+                    border: '2px solid #e5e7eb',
+                    borderRadius: '8px',
+                    fontSize: '14px',
+                    outline: 'none',
+                    background: 'white'
+                  }}
+                  required
+                >
                   <option value="">Select Course</option>
-                  <option value="NEET">NEET</option>
-                  <option value="JEE">JEE</option>
+                  <option value="Pre Foundation Course">Pre Foundation Course</option>
+                  <option value="NEET Preparation">NEET Preparation</option>
+                  <option value="JEE (Mains+Advanced)">JEE (Mains+Advanced)</option>
+                  <option value="All India Test Series (AITS)">All India Test Series (AITS)</option>
                 </select>
-                <button type="submit" className="w-full text-white font-semibold py-3 rounded" style={{background:'#dc3545'}}>Register Now</button>
+                
+                <button 
+                  type="submit" 
+                  style={{
+                    width: '100%',
+                    padding: '14px',
+                    background: '#ef4444',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '8px',
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Register Now
+                </button>
               </form>
             </div>
           </div>

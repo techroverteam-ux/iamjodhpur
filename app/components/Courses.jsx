@@ -99,8 +99,74 @@ export default function Courses() {
 
   const loadCourses = async () => {
     const data = await fetchData()
+    
     if (data && data.courses && data.courses.length > 0) {
-      setCourses(data.courses)
+      // Filter only actual course content (not registrations)
+      const actualCourses = data.courses.filter(course => 
+        course.title && course.image && !course.phone && !course.name && course.type !== 'registration'
+      )
+      
+      if (actualCourses.length > 0) {
+        setCourses(actualCourses)
+      } else {
+        // Only use defaults if no actual courses in database
+        const defaultCourses = [
+          {
+            id: '42147',
+            title: "Pre Foundation Course",
+            image: "/images/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png",
+            validity: "354 Days"
+          },
+          {
+            id: '42161',
+            title: "NEET Preparation",
+            image: "/images/3520795826_both.png",
+            validity: "365 Days"
+          },
+          {
+            id: '42286',
+            title: "JEE (Mains+Advanced)",
+            image: "/images/3520795826_both.png",
+            validity: "365 Days"
+          },
+          {
+            id: '42385',
+            title: "All India Test Series (AITS)",
+            image: "/images/3520795826_both.png",
+            validity: "365 Days"
+          }
+        ]
+        setCourses(defaultCourses)
+      }
+    } else {
+      // Only use defaults if database is empty
+      const defaultCourses = [
+        {
+          id: '42147',
+          title: "Pre Foundation Course",
+          image: "/images/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png",
+          validity: "354 Days"
+        },
+        {
+          id: '42161',
+          title: "NEET Preparation",
+          image: "/images/3520795826_both.png",
+          validity: "365 Days"
+        },
+        {
+          id: '42286',
+          title: "JEE (Mains+Advanced)",
+          image: "/images/3520795826_both.png",
+          validity: "365 Days"
+        },
+        {
+          id: '42385',
+          title: "All India Test Series (AITS)",
+          image: "/images/3520795826_both.png",
+          validity: "365 Days"
+        }
+      ]
+      setCourses(defaultCourses)
     }
   }
 
@@ -206,16 +272,38 @@ export default function Courses() {
         <div 
           className="fixed inset-0 flex items-center justify-center p-4" 
           onClick={() => setShowRegisterModal(false)} 
-          style={{background: 'rgba(0,0,0,0.7)', zIndex: 9999}}
+          style={{
+            background: 'rgba(0,0,0,0.8)', 
+            zIndex: 99999,
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0
+          }}
         >
           <div 
-            className="bg-white rounded-2xl w-full max-w-md relative shadow-2xl" 
+            className="bg-white w-full max-w-md relative" 
             onClick={(e) => e.stopPropagation()} 
-            style={{color: '#000'}}
+            style={{
+              color: '#000',
+              borderRadius: '16px',
+              boxShadow: '0 25px 50px rgba(0, 0, 0, 0.25)',
+              maxHeight: '90vh',
+              overflowY: 'auto'
+            }}
           >
             <button 
               onClick={() => setShowRegisterModal(false)} 
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-3xl font-bold"
+              className="absolute top-4 right-4 hover:bg-gray-100 rounded-full w-8 h-8 flex items-center justify-center transition-colors"
+              style={{
+                color: '#666',
+                fontSize: '24px',
+                fontWeight: 'bold',
+                border: 'none',
+                background: 'transparent',
+                cursor: 'pointer'
+              }}
             >
               ×
             </button>
@@ -232,7 +320,7 @@ export default function Courses() {
                 <h3 className="text-2xl font-bold mb-2" style={{color: '#1B5A96'}}>
                   Course Registration
                 </h3>
-                <p className="text-gray-600">Join IMA Jodhpur for excellence</p>
+                <p style={{color: '#666', fontSize: '14px'}}>Join IMA Jodhpur for excellence</p>
               </div>
 
               <form onSubmit={handleRegister} className="space-y-4">
@@ -241,12 +329,33 @@ export default function Courses() {
                   placeholder="Full Name" 
                   value={formData.name} 
                   onChange={(e) => setFormData({...formData, name: e.target.value})} 
-                  className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  style={{
+                    width: '100%',
+                    padding: '12px 16px',
+                    border: '2px solid #e5e7eb',
+                    borderRadius: '8px',
+                    fontSize: '14px',
+                    outline: 'none',
+                    transition: 'border-color 0.2s'
+                  }}
+                  onFocus={(e) => e.target.style.borderColor = '#1B5A96'}
+                  onBlur={(e) => e.target.style.borderColor = '#e5e7eb'}
                   required 
                 />
                 
-                <div className="flex">
-                  <span className="flex items-center px-4 border border-r-0 border-gray-300 rounded-l-lg bg-gray-50 text-gray-700 font-semibold">
+                <div style={{display: 'flex'}}>
+                  <span style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: '12px 16px',
+                    border: '2px solid #e5e7eb',
+                    borderRight: 'none',
+                    borderRadius: '8px 0 0 8px',
+                    background: '#f9fafb',
+                    color: '#374151',
+                    fontWeight: '600',
+                    fontSize: '14px'
+                  }}>
                     +91
                   </span>
                   <input 
@@ -255,7 +364,23 @@ export default function Courses() {
                     value={formData.phone} 
                     onChange={(e) => setFormData({...formData, phone: e.target.value.replace(/\D/g, '')})} 
                     maxLength="10" 
-                    className="flex-1 p-4 border border-gray-300 rounded-r-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    style={{
+                      flex: 1,
+                      padding: '12px 16px',
+                      border: '2px solid #e5e7eb',
+                      borderRadius: '0 8px 8px 0',
+                      fontSize: '14px',
+                      outline: 'none',
+                      transition: 'border-color 0.2s'
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = '#1B5A96'
+                      e.target.previousElementSibling.style.borderColor = '#1B5A96'
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = '#e5e7eb'
+                      e.target.previousElementSibling.style.borderColor = '#e5e7eb'
+                    }}
                     required 
                   />
                 </div>
@@ -263,20 +388,46 @@ export default function Courses() {
                 <select 
                   value={formData.course} 
                   onChange={(e) => setFormData({...formData, course: e.target.value})} 
-                  className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  style={{
+                    width: '100%',
+                    padding: '12px 16px',
+                    border: '2px solid #e5e7eb',
+                    borderRadius: '8px',
+                    fontSize: '14px',
+                    outline: 'none',
+                    background: 'white',
+                    cursor: 'pointer'
+                  }}
                   required
                 >
                   <option value="">Select Course</option>
                   <option value="Pre Foundation Course">Pre Foundation Course</option>
                   <option value="NEET Preparation">NEET Preparation</option>
-                  <option value="JEE (Mains+Advance)">JEE (Mains+Advance)</option>
+                  <option value="JEE (Mains+Advanced)">JEE (Mains+Advanced)</option>
                   <option value="All India Test Series (AITS)">All India Test Series (AITS)</option>
                 </select>
                 
                 <button 
                   type="submit" 
                   disabled={loading}
-                  className="w-full bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white font-bold py-4 rounded-lg transition-colors"
+                  style={{
+                    width: '100%',
+                    padding: '14px',
+                    background: loading ? '#ef4444aa' : '#ef4444',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '8px',
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    cursor: loading ? 'not-allowed' : 'pointer',
+                    transition: 'all 0.2s'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!loading) e.target.style.background = '#dc2626'
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!loading) e.target.style.background = '#ef4444'
+                  }}
                 >
                   {loading ? 'Registering...' : 'Register Now'}
                 </button>

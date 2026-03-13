@@ -60,7 +60,9 @@ export default function AdminDashboard() {
   }
 
   const handleDelete = async (id) => {
-    if (confirm('Are you sure you want to delete?')) {
+    // Use a custom confirmation with toast
+    const confirmDelete = window.confirm('Are you sure you want to delete this item?')
+    if (confirmDelete) {
       let collection = activeTab;
       if (activeTab === 'inquiries') collection = 'users';
       if (activeTab === 'registrations') collection = 'courses';
@@ -146,7 +148,8 @@ export default function AdminDashboard() {
   }
 
   const handleAchievementImageUpload = async (achievement, file) => {
-    if (confirm('Are you sure you want to upload this image?')) {
+    const confirmUpload = window.confirm('Are you sure you want to upload this image?')
+    if (confirmUpload) {
       try {
         const imageUrl = await uploadImage(file)
         const result = await updateData('achievements', achievement.id, {...achievement, image: imageUrl})
@@ -163,7 +166,8 @@ export default function AdminDashboard() {
   }
 
   const handleAchievementImageRemove = async (achievement) => {
-    if (confirm('Are you sure you want to remove this image?')) {
+    const confirmRemove = window.confirm('Are you sure you want to remove this image?')
+    if (confirmRemove) {
       const result = await updateData('achievements', achievement.id, {...achievement, image: ''})
       if (result.success) {
         toast.success('Image removed successfully!')
@@ -175,7 +179,8 @@ export default function AdminDashboard() {
   }
 
   const handleBannerUpload = async (page, file) => {
-    if (confirm('Are you sure you want to upload this banner image?')) {
+    const confirmUpload = window.confirm('Are you sure you want to upload this banner image?')
+    if (confirmUpload) {
       try {
         const imageUrl = await uploadImage(file)
         const newBanners = {...(data.banners || {}), [page]: imageUrl}
@@ -193,7 +198,8 @@ export default function AdminDashboard() {
   }
 
   const handleBannerRemove = async (page) => {
-    if (confirm('Are you sure you want to remove this banner image?')) {
+    const confirmRemove = window.confirm('Are you sure you want to remove this banner image?')
+    if (confirmRemove) {
       const newBanners = {...(data.banners || {}), [page]: ''}
       const result = await updateData('banners', 'main', newBanners)
       if (result.success) {
@@ -216,16 +222,6 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen" style={{background: '#f5f5f5'}}>
-      {/* Fixed Header */}
-      <div className="fixed top-0 left-0 right-0 bg-white shadow-md z-40">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-xl font-bold" style={{color: '#1B5A96'}}>Admin Dashboard</h1>
-          <button onClick={handleLogout} className="px-4 py-2 rounded text-white font-semibold flex items-center" style={{background: '#dc3545'}}>
-            <LogoutIcon className="mr-2" size={16} />Logout
-          </button>
-        </div>
-      </div>
-
       {/* Sidebar */}
       <div style={{width: '250px', background: '#1B5A96', minHeight: '100vh', position: 'fixed', left: 0, top: 0, zIndex: 30}}>
         <div style={{padding: '20px', borderBottom: '1px solid rgba(255,255,255,0.1)'}}>
@@ -247,20 +243,24 @@ export default function AdminDashboard() {
           <button onClick={() => setActiveTab('courses')} style={{width: '100%', padding: '15px 20px', background: activeTab === 'courses' ? 'rgba(255,255,255,0.1)' : 'transparent', color: 'white', border: 'none', textAlign: 'left', cursor: 'pointer', borderLeft: activeTab === 'courses' ? '4px solid white' : '4px solid transparent', display: 'flex', alignItems: 'center'}}>
             <BookIcon style={{marginRight: '10px'}} size={16} />Courses
           </button>
-          <button onClick={() => setActiveTab('achievements')} style={{width: '100%', padding: '15px 20px', background: activeTab === 'achievements' ? 'rgba(255,255,255,0.1)' : 'transparent', color: 'white', border: 'none', textAlign: 'left', cursor: 'pointer', borderLeft: activeTab === 'achievements' ? '4px solid white' : '4px solid transparent', display: 'flex', alignItems: 'center'}}>
-            <TrophyIcon style={{marginRight: '10px'}} size={16} />Achievements
-          </button>
-          <button onClick={() => setActiveTab('banners')} style={{width: '100%', padding: '15px 20px', background: activeTab === 'banners' ? 'rgba(255,255,255,0.1)' : 'transparent', color: 'white', border: 'none', textAlign: 'left', cursor: 'pointer', borderLeft: activeTab === 'banners' ? '4px solid white' : '4px solid transparent', display: 'flex', alignItems: 'center'}}>
-            <ImageIcon style={{marginRight: '10px'}} size={16} />Banners
+        </div>
+      </div>
+
+      {/* Fixed Header */}
+      <div style={{position: 'fixed', top: 0, left: '250px', right: 0, background: 'white', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', zIndex: 40}}>
+        <div style={{padding: '16px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+          <h1 className="text-xl font-bold" style={{color: '#1B5A96'}}>Admin Dashboard</h1>
+          <button onClick={handleLogout} className="px-4 py-2 rounded text-white font-semibold flex items-center" style={{background: '#dc3545'}}>
+            <LogoutIcon className="mr-2" size={16} />Logout
           </button>
         </div>
       </div>
 
       {/* Main Content */}
-      <div style={{marginLeft: '250px', marginTop: '80px', flex: 1}}>
-        <div className="container mx-auto px-4 py-8">
+      <div style={{marginLeft: '250px', paddingTop: '70px'}}>
+        <div style={{padding: '24px'}}>
           <div className="bg-white rounded-lg shadow-md p-6">
-            {activeTab !== 'inquiries' && activeTab !== 'registrations' && activeTab !== 'achievements' && activeTab !== 'banners' && activeTab !== 'contacts' && (
+            {activeTab !== 'inquiries' && activeTab !== 'registrations' && activeTab !== 'contacts' && (
               <button onClick={handleAdd} className="mb-6 px-6 py-2 rounded text-white font-semibold flex items-center" style={{background: '#1B5A96'}}>
                 <PlusIcon className="mr-2" size={16} />Add {activeTab === 'blogs' ? 'Blog' : 'Course'}
               </button>
