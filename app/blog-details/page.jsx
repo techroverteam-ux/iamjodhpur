@@ -150,61 +150,239 @@ export default function BlogDetail() {
   return (
     <>
       <style jsx>{`
+        .blog-hero {
+          background: linear-gradient(135deg, #1B5A96 0%, #2563eb 50%, #1B5A96 100%);
+          position: relative;
+          overflow: hidden;
+        }
+        .blog-hero::before {
+          content: '';
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: radial-gradient(circle, rgba(255,255,255,0.1) 2px, transparent 2px);
+          background-size: 60px 60px;
+          animation: float 25s linear infinite;
+        }
+        @keyframes float {
+          0%, 100% { transform: translate(0, 0) rotate(0deg); }
+          50% { transform: translate(30px, 30px) rotate(180deg); }
+        }
+        .blog-container {
+          max-width: 900px;
+          margin: 0 auto;
+          background: white;
+          border-radius: 20px;
+          box-shadow: 0 20px 60px rgba(27, 90, 150, 0.15);
+          overflow: hidden;
+          position: relative;
+        }
+        .blog-header {
+          background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+          padding: 30px;
+          text-align: center;
+          border-bottom: 3px solid #1B5A96;
+          position: relative;
+        }
+        .blog-header::after {
+          content: '';
+          position: absolute;
+          bottom: -3px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 100px;
+          height: 6px;
+          background: linear-gradient(90deg, transparent, #1B5A96, transparent);
+        }
+        .blog-logo {
+          margin-bottom: 20px;
+          filter: drop-shadow(0 4px 12px rgba(27, 90, 150, 0.3));
+        }
+        .blog-title {
+          color: #1B5A96;
+          font-size: 2.5rem;
+          font-weight: 800;
+          margin-bottom: 15px;
+          line-height: 1.2;
+          text-shadow: 0 2px 4px rgba(27, 90, 150, 0.1);
+        }
+        .blog-date {
+          color: #64748b;
+          font-size: 1rem;
+          font-weight: 500;
+          background: #f1f5f9;
+          padding: 8px 20px;
+          border-radius: 25px;
+          display: inline-block;
+        }
+        .blog-image-container {
+          padding: 30px;
+          background: linear-gradient(135deg, #f8fafc 0%, #e8eef5 100%);
+        }
+        .blog-image {
+          width: 100%;
+          max-height: 400px;
+          object-fit: contain;
+          border-radius: 15px;
+          box-shadow: 0 10px 30px rgba(27, 90, 150, 0.2);
+          transition: transform 0.3s ease;
+        }
+        .blog-image:hover {
+          transform: scale(1.02);
+        }
+        .blog-content {
+          padding: 40px;
+          line-height: 1.8;
+        }
+        .blog-content h3 {
+          color: #1B5A96;
+          font-size: 1.8rem;
+          font-weight: 700;
+          margin: 30px 0 15px 0;
+          padding-left: 20px;
+          border-left: 4px solid #1B5A96;
+          position: relative;
+        }
+        .blog-content h3::before {
+          content: '';
+          position: absolute;
+          left: -8px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 12px;
+          height: 12px;
+          background: #1B5A96;
+          border-radius: 50%;
+        }
+        .blog-content p {
+          color: #374151;
+          font-size: 1.1rem;
+          margin-bottom: 20px;
+          text-align: justify;
+        }
+        .blog-content ul {
+          margin: 20px 0;
+          padding-left: 0;
+        }
+        .blog-content li {
+          color: #374151;
+          font-size: 1.1rem;
+          margin-bottom: 12px;
+          padding-left: 30px;
+          position: relative;
+          list-style: none;
+        }
+        .blog-content li::before {
+          content: '✓';
+          position: absolute;
+          left: 0;
+          color: #1B5A96;
+          font-weight: bold;
+          font-size: 1.2rem;
+        }
+        .back-button {
+          background: linear-gradient(135deg, #1B5A96, #2563eb);
+          color: white;
+          padding: 15px 30px;
+          border-radius: 50px;
+          text-decoration: none;
+          font-weight: 600;
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 15px rgba(27, 90, 150, 0.3);
+          margin: 30px 0;
+        }
+        .back-button:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(27, 90, 150, 0.4);
+          color: white;
+        }
         @media (max-width: 768px) {
-          .blog-detail-title {
-            font-size: 24px !important;
+          .blog-hero {
+            padding: 40px 15px !important;
           }
-          .blog-detail-content h3 {
-            font-size: 18px !important;
+          .blog-title {
+            font-size: 1.8rem !important;
           }
-          .blog-detail-content p {
-            font-size: 14px !important;
+          .blog-content {
+            padding: 25px !important;
+          }
+          .blog-content h3 {
+            font-size: 1.4rem !important;
+          }
+          .blog-content p, .blog-content li {
+            font-size: 1rem !important;
+          }
+          .blog-header {
+            padding: 20px !important;
+          }
+          .blog-image-container {
+            padding: 20px !important;
           }
         }
       `}</style>
+      
       <Navbar />
-      <section className="py-12 md:py-20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-white rounded-2xl p-6 md:p-10 shadow-lg">
-              <h1 className="blog-detail-title text-3xl md:text-4xl font-bold mb-6 text-gray-900">
-                {blog.title}
-              </h1>
-              
-              <div className="mb-8">
-                <img
-                  src={blog.image}
-                  alt={blog.title}
-                  className="w-full rounded-lg"
-                  style={{maxHeight: '250px', objectFit: 'contain'}}
-                />
-              </div>
-
-              <div className="blog-detail-content prose prose-lg max-w-none">
-                {Array.isArray(blog.content) && blog.content.length > 0 ? (
-                  blog.content.map((item, index) => (
-                    <div key={index}>
-                      {item.type === 'heading' && <h3 className="text-xl md:text-2xl font-bold mt-8 mb-4">{item.value}</h3>}
-                      {item.type === 'description' && <p className="mb-4 text-gray-700 leading-relaxed">{item.value}</p>}
-                      {item.type === 'bullet' && (
-                        <ul className="list-disc ml-6 mb-4">
-                          <li className="text-gray-700">{item.value}</li>
-                        </ul>
-                      )}
-                    </div>
-                  ))
-                ) : (
-                  <p className="text-gray-700">No content available for this blog.</p>
-                )}
-              </div>
-
-              <a href="/blog" className="inline-block mt-8 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                ← Back to Blogs
-              </a>
+      
+      <div className="blog-hero" style={{padding: '60px 20px'}}>
+        <div className="blog-container">
+          {/* Logo and Header Section */}
+          <div className="blog-header">
+            <div className="blog-logo">
+              <img 
+                src="/images/new_logo.png" 
+                alt="IMA Jodhpur" 
+                style={{height: '80px', width: 'auto'}} 
+              />
+            </div>
+            <h1 className="blog-title">{blog.title}</h1>
+            <div className="blog-date">
+              📅 {new Date(blog.date).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
             </div>
           </div>
+
+          {/* Blog Image */}
+          <div className="blog-image-container">
+            <img
+              src={blog.image}
+              alt={blog.title}
+              className="blog-image"
+            />
+          </div>
+
+          {/* Blog Content */}
+          <div className="blog-content">
+            {Array.isArray(blog.content) && blog.content.length > 0 ? (
+              blog.content.map((item, index) => (
+                <div key={index}>
+                  {item.type === 'heading' && <h3>{item.value}</h3>}
+                  {item.type === 'description' && <p>{item.value}</p>}
+                  {item.type === 'bullet' && (
+                    <ul>
+                      <li>{item.value}</li>
+                    </ul>
+                  )}
+                </div>
+              ))
+            ) : (
+              <p>No content available for this blog.</p>
+            )}
+
+            <a href="/blog" className="back-button">
+              ← Back to Blogs
+            </a>
+          </div>
         </div>
-      </section>
+      </div>
+      
       <Footer />
     </>
   );
