@@ -13,18 +13,25 @@ export default function Navbar() {
   const handleRegister = async (e) => {
     e.preventDefault()
     try {
-      const registration = { ...formData, date: new Date().toLocaleDateString() }
-      
-      const result = await addData('users', registration)
-      if (result.success) {
+      const response = await fetch('/api/inquiry', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const result = await response.json()
+
+      if (response.ok) {
         alert('Submitted Successfully\n\nFor more information call on\n+91 - 9571037333')
         setShowRegisterModal(false)
         setFormData({ name: '', email: '', phone: '', course: '' })
       } else {
-        alert('Registration failed!')
+        alert('Registration failed: ' + (result.error || 'Please try again'))
       }
     } catch (error) {
-      alert('Registration failed!')
+      alert('Network error. Please try again.')
     }
   }
 

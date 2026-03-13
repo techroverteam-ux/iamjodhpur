@@ -1,7 +1,7 @@
-import { readData, writeData, addItem, updateItem, deleteItem } from '../../../lib/dataUtils';
+import { readData, addItem, updateItem, deleteItem } from '../../../lib/mongoDataUtils';
 
 export async function GET() {
-  const data = readData();
+  const data = await readData();
   return Response.json(data);
 }
 
@@ -15,13 +15,13 @@ export async function POST(request) {
     
     switch (action) {
       case 'add':
-        result = addItem(category, item);
+        result = await addItem(category, item);
         break;
       case 'update':
-        result = updateItem(category, id, item);
+        result = await updateItem(category, id, item);
         break;
       case 'delete':
-        result = deleteItem(category, id);
+        result = await deleteItem(category, id);
         break;
       default:
         console.error('Invalid action:', action);

@@ -37,17 +37,25 @@ export default function Courses() {
   const handleRegister = async (e) => {
     e.preventDefault()
     try {
-      const registration = { ...formData, date: new Date().toLocaleDateString() }
-      const result = await addData('courses', registration)
-      if (result.success) {
-        alert('Registration successful!')
+      const response = await fetch('/api/registration', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const result = await response.json()
+
+      if (response.ok) {
+        alert('Registration successful! We will contact you soon.')
         setShowRegisterModal(false)
         setFormData({ name: '', email: '', phone: '', course: '' })
       } else {
-        alert('Registration failed!')
+        alert('Registration failed: ' + (result.error || 'Please try again'))
       }
     } catch (error) {
-      alert('Registration failed!')
+      alert('Network error. Please try again.')
     }
   }
 

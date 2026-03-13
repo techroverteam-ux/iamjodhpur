@@ -1,4 +1,51 @@
+'use client'
+import { useState } from 'react'
+
 export default function Contact() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitMessage, setSubmitMessage] = useState('')
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitMessage('')
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const result = await response.json()
+
+      if (response.ok) {
+        setSubmitMessage('Message sent successfully! We will get back to you soon.')
+        setFormData({ name: '', email: '', phone: '', message: '' })
+      } else {
+        setSubmitMessage(result.error || 'Failed to send message. Please try again.')
+      }
+    } catch (error) {
+      setSubmitMessage('Network error. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
   return (
     <section id="contact" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -13,41 +60,66 @@ export default function Contact() {
         <div className="grid md:grid-cols-2 gap-12">
           <div>
             <h3 className="text-2xl font-bold text-gray-800 mb-6">Send us a Message</h3>
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
+              {submitMessage && (
+                <div className={`p-3 rounded-lg text-sm ${submitMessage.includes('successfully') ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                  {submitMessage}
+                </div>
+              )}
               <div>
                 <label className="block text-gray-700 font-medium mb-2">Full Name</label>
                 <input 
                   type="text" 
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
                   placeholder="Enter your name"
+                  required
                 />
               </div>
               <div>
                 <label className="block text-gray-700 font-medium mb-2">Email Address</label>
                 <input 
                   type="email" 
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
                   placeholder="Enter your email"
+                  required
                 />
               </div>
               <div>
                 <label className="block text-gray-700 font-medium mb-2">Phone Number</label>
                 <input 
                   type="tel" 
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
                   placeholder="Enter your phone"
+                  required
                 />
               </div>
               <div>
                 <label className="block text-gray-700 font-medium mb-2">Message</label>
                 <textarea 
                   rows="4"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
                   placeholder="Your message"
+                  required
                 ></textarea>
               </div>
-              <button className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition font-semibold">
-                Send Message
+              <button 
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition font-semibold disabled:opacity-50"
+              >
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </button>
             </form>
           </div>

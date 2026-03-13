@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { fetchData, addData, updateData, deleteData } from '../../../lib/clientDataUtils'
+import { uploadImage } from '../../../lib/uploadUtils'
 import { TrophyIcon, UserIcon, BookIcon, PlusIcon, EditIcon, DeleteIcon, LogoutIcon, ImageIcon, NewsIcon, CloseIcon } from '../../../lib/icons'
 
 export default function AdminDashboard() {
@@ -16,7 +17,8 @@ export default function AdminDashboard() {
     achievements: [],
     facilities: [],
     events: [],
-    banners: {}
+    banners: {},
+    contacts: []
   })
   const [showModal, setShowModal] = useState(false)
   const [editItem, setEditItem] = useState(null)
@@ -58,7 +60,12 @@ export default function AdminDashboard() {
 
   const handleDelete = async (id) => {
     if (confirm('Are you sure you want to delete?')) {
-      const result = await deleteData(activeTab, id)
+      let collection = activeTab;
+      if (activeTab === 'inquiries') collection = 'users';
+      if (activeTab === 'registrations') collection = 'courses';
+      if (activeTab === 'contacts') collection = 'contacts';
+      
+      const result = await deleteData(collection, id)
       if (result.success) {
         loadData()
       }
@@ -94,6 +101,20 @@ export default function AdminDashboard() {
     e.preventDefault()
     const submitData = {...formData}
     
+    // Upload image if there's a file
+    if (formData.imageFile) {
+      const imageUrl = await uploadImage(formData.imageFile)
+      if (imageUrl) {
+        submitData.image = imageUrl
+      } else {
+        alert('Image upload failed. Please try again.')
+        return
+      }
+    }
+    
+    // Remove imageFile from submit data
+    delete submitData.imageFile
+    
     let result
     if (editItem) {
       result = await updateData(activeTab, editItem.id, submitData)
@@ -104,6 +125,8 @@ export default function AdminDashboard() {
     if (result.success) {
       loadData()
       setShowModal(false)
+    } else {
+      alert('Operation failed. Please try again.')
     }
   }
 
@@ -119,15 +142,18 @@ export default function AdminDashboard() {
 
   const handleAchievementImageUpload = async (achievement, file) => {
     if (confirm('Are you sure you want to upload this image?')) {
-      const reader = new FileReader()
-      reader.onloadend = async () => {
-        const result = await updateData('achievements', achievement.id, {...achievement, image: reader.result})
+      const imageUrl = await uploadImage(file)
+      if (imageUrl) {
+        const result = await updateData('achievements', achievement.id, {...achievement, image: imageUrl})
         if (result.success) {
           loadData()
           alert('Image uploaded successfully!')
+        } else {
+          alert('Failed to save image. Please try again.')
         }
+      } else {
+        alert('Image upload failed. Please try again.')
       }
-      reader.readAsDataURL(file)
     }
   }
 
@@ -143,16 +169,19 @@ export default function AdminDashboard() {
 
   const handleBannerUpload = async (page, file) => {
     if (confirm('Are you sure you want to upload this banner image?')) {
-      const reader = new FileReader()
-      reader.onloadend = async () => {
-        const newBanners = {...(data.banners || {}), [page]: reader.result}
+      const imageUrl = await uploadImage(file)
+      if (imageUrl) {
+        const newBanners = {...(data.banners || {}), [page]: imageUrl}
         const result = await updateData('banners', 'main', newBanners)
         if (result.success) {
           loadData()
           alert('Banner updated successfully!')
+        } else {
+          alert('Failed to save banner. Please try again.')
         }
+      } else {
+        alert('Banner upload failed. Please try again.')
       }
-      reader.readAsDataURL(file)
     }
   }
 
@@ -184,7 +213,10 @@ export default function AdminDashboard() {
         </div>
         <div style={{padding: '20px 0'}}>
           <button onClick={() => setActiveTab('inquiries')} style={{width: '100%', padding: '15px 20px', background: activeTab === 'inquiries' ? 'rgba(255,255,255,0.1)' : 'transparent', color: 'white', border: 'none', textAlign: 'left', cursor: 'pointer', borderLeft: activeTab === 'inquiries' ? '4px solid white' : '4px solid transparent', display: 'flex', alignItems: 'center'}}>
-            <TrophyIcon style={{marginRight: '10px'}} size={16} />STHE
+            <TrophyIcon style={{marginRight: '10px'}} size={16} />STHE Inquiries
+          </button>
+          <button onClick={() => setActiveTab('contacts')} style={{width: '100%', padding: '15px 20px', background: activeTab === 'contacts' ? 'rgba(255,255,255,0.1)' : 'transparent', color: 'white', border: 'none', textAlign: 'left', cursor: 'pointer', borderLeft: activeTab === 'contacts' ? '4px solid white' : '4px solid transparent', display: 'flex', alignItems: 'center'}}>
+            <UserIcon style={{marginRight: '10px'}} size={16} />Contact Forms
           </button>
           <button onClick={() => setActiveTab('registrations')} style={{width: '100%', padding: '15px 20px', background: activeTab === 'registrations' ? 'rgba(255,255,255,0.1)' : 'transparent', color: 'white', border: 'none', textAlign: 'left', cursor: 'pointer', borderLeft: activeTab === 'registrations' ? '4px solid white' : '4px solid transparent', display: 'flex', alignItems: 'center'}}>
             <UserIcon style={{marginRight: '10px'}} size={16} />Registrations
@@ -216,7 +248,7 @@ export default function AdminDashboard() {
 
         <div className="container mx-auto px-4 py-8">
           <div className="bg-white rounded-lg shadow-md p-6">
-            {activeTab !== 'inquiries' && activeTab !== 'registrations' && activeTab !== 'achievements' && activeTab !== 'banners' && (
+            {activeTab !== 'inquiries' && activeTab !== 'registrations' && activeTab !== 'achievements' && activeTab !== 'banners' && activeTab !== 'contacts' && (
               <button onClick={handleAdd} className="mb-6 px-6 py-2 rounded text-white font-semibold flex items-center" style={{background: '#1B5A96'}}>
                 <PlusIcon className="mr-2" size={16} />Add {activeTab === 'blogs' ? 'Blog' : 'Course'}
               </button>
@@ -272,32 +304,83 @@ export default function AdminDashboard() {
                   </div>
                 </div>
               ) : activeTab === 'inquiries' ? (
-                <table className="w-full">
-                  <thead style={{background: '#f8f9fa'}}>
-                    <tr>
-                      <th className="px-4 py-3 text-left">Date</th>
-                      <th className="px-4 py-3 text-left">Name</th>
-                      <th className="px-4 py-3 text-left">WhatsApp Number</th>
-                      <th className="px-4 py-3 text-left">Course</th>
-                      <th className="px-4 py-3 text-left">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {data.users.map((reg) => (
-                      <tr key={reg.id} className="border-b">
-                        <td className="px-4 py-3">{reg.date}</td>
-                        <td className="px-4 py-3">{reg.name}</td>
-                        <td className="px-4 py-3">{reg.phone}</td>
-                        <td className="px-4 py-3">{reg.course}</td>
-                        <td className="px-4 py-3">
-                          <button onClick={() => handleDelete(reg.id)} className="px-3 py-1 rounded text-white" style={{background: '#dc3545'}}>
-                            <DeleteIcon size={16} />
-                          </button>
-                        </td>
+                <div>
+                  <h2 className="text-xl font-bold mb-4" style={{color: '#1B5A96'}}>STHE Inquiries</h2>
+                  <table className="w-full">
+                    <thead style={{background: '#f8f9fa'}}>
+                      <tr>
+                        <th className="px-4 py-3 text-left">Date</th>
+                        <th className="px-4 py-3 text-left">Name</th>
+                        <th className="px-4 py-3 text-left">WhatsApp Number</th>
+                        <th className="px-4 py-3 text-left">Course</th>
+                        <th className="px-4 py-3 text-left">Message</th>
+                        <th className="px-4 py-3 text-left">Actions</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {data.users.map((inquiry) => (
+                        <tr key={inquiry.id} className="border-b">
+                          <td className="px-4 py-3">{inquiry.date}</td>
+                          <td className="px-4 py-3">{inquiry.name}</td>
+                          <td className="px-4 py-3">
+                            <a href={`https://wa.me/91${inquiry.phone}`} target="_blank" rel="noopener noreferrer" className="text-green-600 hover:underline">
+                              {inquiry.phone}
+                            </a>
+                          </td>
+                          <td className="px-4 py-3">{inquiry.course}</td>
+                          <td className="px-4 py-3">{inquiry.message || 'No message'}</td>
+                          <td className="px-4 py-3">
+                            <button onClick={() => handleDelete(inquiry.id)} className="px-3 py-1 rounded text-white" style={{background: '#dc3545'}}>
+                              <DeleteIcon size={16} />
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : activeTab === 'contacts' ? (
+                <div>
+                  <h2 className="text-xl font-bold mb-4" style={{color: '#1B5A96'}}>Contact Form Submissions</h2>
+                  <table className="w-full">
+                    <thead style={{background: '#f8f9fa'}}>
+                      <tr>
+                        <th className="px-4 py-3 text-left">Date</th>
+                        <th className="px-4 py-3 text-left">Name</th>
+                        <th className="px-4 py-3 text-left">Email</th>
+                        <th className="px-4 py-3 text-left">Phone</th>
+                        <th className="px-4 py-3 text-left">Message</th>
+                        <th className="px-4 py-3 text-left">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {data.contacts.map((contact) => (
+                        <tr key={contact.id} className="border-b">
+                          <td className="px-4 py-3">{contact.date}</td>
+                          <td className="px-4 py-3">{contact.name}</td>
+                          <td className="px-4 py-3">
+                            <a href={`mailto:${contact.email}`} className="text-blue-600 hover:underline">
+                              {contact.email}
+                            </a>
+                          </td>
+                          <td className="px-4 py-3">
+                            <a href={`tel:${contact.phone}`} className="text-green-600 hover:underline">
+                              {contact.phone}
+                            </a>
+                          </td>
+                          <td className="px-4 py-3" title={contact.message}>
+                            {contact.message.length > 50 ? contact.message.substring(0, 50) + '...' : contact.message}
+                          </td>
+                          <td className="px-4 py-3">
+                            <button onClick={() => handleDelete(contact.id)} className="px-3 py-1 rounded text-white" style={{background: '#dc3545'}}>
+                              <DeleteIcon size={16} />
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               ) : activeTab === 'registrations' ? (
                 <table className="w-full">
                   <thead style={{background: '#f8f9fa'}}>
