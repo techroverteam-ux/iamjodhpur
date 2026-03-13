@@ -1,10 +1,12 @@
+import { TransportIcon, HostelIcon, MessIcon } from '../../lib/icons'
+
 export default function Facilities() {
   const facilities = [
     {
-      icon: "🚌",
+      icon: TransportIcon,
       title: "Transport Facility",
       link: "/facilities#transport",
-      type: "emoji"
+      type: "react-icon"
     },
     {
       icon: "/hostel.png", 
@@ -13,10 +15,10 @@ export default function Facilities() {
       type: "image"
     },
     {
-      icon: "🍽️", 
+      icon: MessIcon, 
       title: "Mess Facility",
       link: "/facilities#mess",
-      type: "emoji"
+      type: "react-icon"
     }
   ]
 
@@ -73,6 +75,16 @@ export default function Facilities() {
                     margin: '0 auto 1.5rem auto'
                   }}
                 />
+              ) : facility.type === "react-icon" ? (
+                <facility.icon 
+                  style={{
+                    fontSize: '3.5rem',
+                    color: '#1B5A96',
+                    marginBottom: '1.5rem',
+                    display: 'block',
+                    margin: '0 auto 1.5rem auto'
+                  }}
+                />
               ) : (
                 <div 
                   style={{
@@ -111,11 +123,6 @@ export default function Facilities() {
           
           div[style*="font-size: 3.5rem"] {
             font-size: 3rem !important;
-          }
-          
-          img {
-            width: 50px !important;
-            height: 50px !important;
           }
           
           h3 {

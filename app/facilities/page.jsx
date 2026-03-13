@@ -225,7 +225,7 @@ export default function Facilities() {
             <div className="facility-card animate-zoom">
               <div className="flex items-center" style={{flexDirection: 'row-reverse'}}>
                 <div style={{marginLeft: '30px'}}>
-                  <img src="/Transport Facility.png" alt="Hostel Facility" style={{width: '280px', height: '200px', objectFit: 'cover', borderRadius: '15px'}} />
+                  <img src="/hostel.png" alt="Hostel Facility" style={{width: '280px', height: '200px', objectFit: 'cover', borderRadius: '15px'}} />
                 </div>
                 <div style={{flex: 1}}>
                   <h3 className="text-3xl md:text-4xl font-bold mb-2" style={{color: 'var(--primary-medium)'}}>
