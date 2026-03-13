@@ -159,7 +159,7 @@ export default function ContactUs() {
             <div className="contact-card animate-slide up" style={{animationDelay: '0.2s'}}>
               <div className="text-center">
                 <div className="icon-circle">
-                  <PhoneIcon style={{fontSize: '30px', color: 'white'}} size={30} />
+                  <PhoneIcon style={{fontSize: '30px', color: 'white', transform: 'scaleX(-1)'}} size={30} />
                 </div>
                 <h4 className="font-bold mb-2 text-base" style={{color: '#1B5A96'}}>Phone Number</h4>
                 <p className="text-gray-700 text-sm">+91 9571037333</p>

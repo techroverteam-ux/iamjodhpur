@@ -53,28 +53,23 @@ export default function CourseDetail() {
         
         if (courseId) {
           try {
-            // Fetch data from MongoDB via API
+            // Use the SAME data loading logic as courses page
             const data = await fetchData();
             
             let foundCourse = null;
+            let coursesData = [];
             
-            // First try to find in database courses
-            if (data && data.courses && data.courses.length > 0) {
-              // Filter only actual course content (not registrations)
-              const actualCourses = data.courses.filter(course => 
-                course.title && course.image && !course.phone && !course.name && course.type !== 'registration'
-              );
-              
-              foundCourse = actualCourses.find(c => c.id === courseId || c.id == courseId);
-            }
-            
-            // If not found in database, use default courses as fallback
-            if (!foundCourse) {
-              const defaultCourses = [
-                { 
-                  id: '42147', 
-                  title: 'Pre Foundation Course', 
-                  description: 'Foundation course for early preparation - Building strong fundamentals for Class 9th & 10th students', 
+            // First try to load from database (same as courses page)
+            if (data && data.course_content && data.course_content.length > 0) {
+              coursesData = data.course_content;
+            } else {
+              // Use same default courses as courses page
+              coursesData = [
+                {
+                  id: '42147',
+                  title: 'Pre Foundation Course',
+                  description: 'Foundation course for Class 9th & 10th students',
+                  image: '/images/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png',
                   content: [
                     { type: 'heading', value: 'Course Overview' },
                     { type: 'description', value: 'Our Pre Foundation Course is designed to build strong academic fundamentals for students in Class 9th & 10th, preparing them for competitive exams like JEE and NEET.' },
@@ -85,13 +80,13 @@ export default function CourseDetail() {
                     { type: 'bullet', value: 'Study material and notes' },
                     { type: 'heading', value: 'Duration' },
                     { type: 'description', value: 'Complete academic year coverage with flexible batch timings' }
-                  ], 
-                  image: '/images/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png' 
+                  ]
                 },
-                { 
-                  id: '42161', 
-                  title: 'NEET Preparation', 
-                  description: 'Complete NEET preparation course with expert guidance and proven results', 
+                {
+                  id: '42161',
+                  title: 'NEET Preparation',
+                  description: 'Complete NEET preparation course',
+                  image: '/images/3520795826_both.png',
                   content: [
                     { type: 'heading', value: 'NEET Course Overview' },
                     { type: 'description', value: 'Comprehensive NEET preparation program designed to help students crack the National Eligibility cum Entrance Test for medical admissions.' },
@@ -103,13 +98,13 @@ export default function CourseDetail() {
                     { type: 'bullet', value: 'Regular mock tests and practice papers' },
                     { type: 'bullet', value: 'Previous year question analysis' },
                     { type: 'bullet', value: 'Personal mentorship and guidance' }
-                  ], 
-                  image: '/images/3520795826_both.png' 
+                  ]
                 },
-                { 
-                  id: '42286', 
-                  title: 'JEE (Mains+Advanced)', 
-                  description: 'Complete JEE Mains and Advanced preparation with IIT focus', 
+                {
+                  id: '42286',
+                  title: 'JEE (Mains+Advanced)',
+                  description: 'JEE Mains and Advanced preparation',
+                  image: '/images/3520795826_both.png',
                   content: [
                     { type: 'heading', value: 'JEE Course Overview' },
                     { type: 'description', value: 'Comprehensive JEE preparation covering both JEE Mains and JEE Advanced with focus on IIT admissions.' },
@@ -121,13 +116,13 @@ export default function CourseDetail() {
                     { type: 'bullet', value: 'IIT level problem solving techniques' },
                     { type: 'bullet', value: 'Regular JEE Mains and Advanced mock tests' },
                     { type: 'bullet', value: 'Rank improvement strategies' }
-                  ], 
-                  image: '/images/3520795826_both.png' 
+                  ]
                 },
-                { 
-                  id: '42385', 
-                  title: 'All India Test Series (AITS)', 
-                  description: 'Comprehensive test series for JEE and NEET preparation', 
+                {
+                  id: '42385',
+                  title: 'All India Test Series (AITS)',
+                  description: 'Comprehensive test series for practice',
+                  image: '/images/3520795826_both.png',
                   content: [
                     { type: 'heading', value: 'Test Series Overview' },
                     { type: 'description', value: 'All India Test Series designed to provide competitive environment and performance analysis for JEE and NEET aspirants.' },
@@ -140,25 +135,28 @@ export default function CourseDetail() {
                     { type: 'bullet', value: 'Time management skills development' },
                     { type: 'bullet', value: 'Exam pattern familiarity' },
                     { type: 'bullet', value: 'Weakness identification and improvement' }
-                  ], 
-                  image: '/images/3520795826_both.png' 
-                },
+                  ]
+                }
               ];
-              
-              foundCourse = defaultCourses.find(c => c.id === courseId || c.id == courseId);
-              
-              // If still not found, show first default course
-              if (!foundCourse) {
-                foundCourse = defaultCourses[0];
-              }
             }
             
-            setCourse(foundCourse);
-            // Pre-select the course in the form
-            setFormData(prev => ({ ...prev, course: foundCourse.title }));
+            // Find the specific course by ID
+            foundCourse = coursesData.find(c => c.id === courseId || c.id == courseId);
+            
+            // If course not found, use first course as fallback
+            if (!foundCourse && coursesData.length > 0) {
+              foundCourse = coursesData[0];
+            }
+            
+            if (foundCourse) {
+              setCourse(foundCourse);
+              // Pre-select the course in the form
+              setFormData(prev => ({ ...prev, course: foundCourse.title }));
+            }
+            
           } catch (error) {
             console.error('Error fetching course:', error);
-            // Fallback course
+            // Fallback course with same structure as courses page
             const fallbackCourse = {
               id: courseId,
               title: 'Course Details',
