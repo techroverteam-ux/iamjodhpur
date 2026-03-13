@@ -30,20 +30,20 @@ export default function Navbar() {
       if (response.ok) {
         toast.success('Registration successful! We will contact you soon. For more information call +91 - 9571037333', {
           duration: 6000,
-          position: 'top-center',
+          position: 'bottom-center',
         })
         setShowRegisterModal(false)
         setFormData({ name: '', email: '', phone: '', course: '' })
       } else {
         toast.error(result.error || 'Registration failed. Please try again.', {
           duration: 4000,
-          position: 'top-center',
+          position: 'bottom-center',
         })
       }
     } catch (error) {
       toast.error('Network error. Please try again.', {
         duration: 4000,
-        position: 'top-center',
+        position: 'bottom-center',
       })
     } finally {
       setLoading(false)

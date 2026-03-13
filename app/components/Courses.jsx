@@ -53,20 +53,20 @@ export default function Courses() {
       if (response.ok) {
         toast.success('Registration successful! We will contact you soon. For more information call +91 - 9571037333', {
           duration: 6000,
-          position: 'top-center',
+          position: 'bottom-center',
         })
         setShowRegisterModal(false)
         setFormData({ name: '', email: '', phone: '', course: '' })
       } else {
         toast.error(result.error || 'Registration failed. Please try again.', {
           duration: 4000,
-          position: 'top-center',
+          position: 'bottom-center',
         })
       }
     } catch (error) {
       toast.error('Network error. Please try again.', {
         duration: 4000,
-        position: 'top-center',
+        position: 'bottom-center',
       })
     } finally {
       setLoading(false)
@@ -182,7 +182,18 @@ export default function Courses() {
                   <p className="text-xs mb-4 text-center">Comprehensive preparation with expert guidance</p>
                   <div className="flex flex-col gap-2 w-full">
                     <a href={`/course-details?id=${course.id}`} className="py-2 px-4 rounded text-white font-semibold text-center text-sm" style={{background:'rgba(255,255,255,0.2)', border: '2px solid white'}}>Explore Course</a>
-                    <button onClick={() => setShowRegisterModal(true)} className="py-2 px-4 rounded font-semibold text-sm" style={{background:'white', color:'var(--primary-medium)'}}>Register Now</button>
+                    <button 
+                      onClick={(e) => {
+                        e.preventDefault()
+                        e.stopPropagation()
+                        setFormData({...formData, course: course.title})
+                        setShowRegisterModal(true)
+                      }} 
+                      className="py-2 px-4 rounded font-semibold text-sm hover:shadow-lg transition-all" 
+                      style={{background:'white', color:'var(--primary-medium)'}}
+                    >
+                      Register Now
+                    </button>
                   </div>
                 </div>
               </div>
@@ -192,26 +203,83 @@ export default function Courses() {
       </div>
 
       {showRegisterModal && (
-        <div className="fixed inset-0 flex items-center justify-center p-4" onClick={() => setShowRegisterModal(false)} style={{background: 'rgba(0,0,0,0.5)', zIndex: 9999}}>
-          <div className="bg-white rounded-lg w-full max-w-md relative" onClick={(e) => e.stopPropagation()} style={{color: '#000'}}>
-            <button onClick={() => setShowRegisterModal(false)} className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 leading-none" style={{fontSize: '40px', color: '#999'}}>&times;</button>
-            <div className="text-center py-8 px-10">
-              <div className="mb-4">
-                <Image src="/images/new_logo.png" width={100} height={40} alt="IMA Jodhpur" className="mx-auto" style={{height: 'auto', width: '100px'}} />
+        <div 
+          className="fixed inset-0 flex items-center justify-center p-4" 
+          onClick={() => setShowRegisterModal(false)} 
+          style={{background: 'rgba(0,0,0,0.7)', zIndex: 9999}}
+        >
+          <div 
+            className="bg-white rounded-2xl w-full max-w-md relative shadow-2xl" 
+            onClick={(e) => e.stopPropagation()} 
+            style={{color: '#000'}}
+          >
+            <button 
+              onClick={() => setShowRegisterModal(false)} 
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-3xl font-bold"
+            >
+              ×
+            </button>
+            
+            <div className="p-8">
+              <div className="text-center mb-6">
+                <Image 
+                  src="/images/new_logo.png" 
+                  width={100} 
+                  height={40} 
+                  alt="IMA Jodhpur" 
+                  className="mx-auto mb-4" 
+                />
+                <h3 className="text-2xl font-bold mb-2" style={{color: '#1B5A96'}}>
+                  Course Registration
+                </h3>
+                <p className="text-gray-600">Join IMA Jodhpur for excellence</p>
               </div>
-              <p className="my-6 font-bold" style={{fontSize: '18px', color: '#000'}}>Student Registration</p>
-              <form onSubmit={handleRegister}>
-                <input type="text" placeholder="Full Name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} style={{width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '4px', marginBottom: '16px', fontSize: '14px', color: '#000'}} required />
-                <div style={{display: 'flex', marginBottom: '16px'}}>
-                  <span style={{display: 'flex', alignItems: 'center', padding: '12px', border: '1px solid #ddd', borderRight: 'none', borderRadius: '4px 0 0 4px', background: '#f5f5f5', color: '#000'}}>+91</span>
-                  <input type="tel" placeholder="WhatsApp Number" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value.replace(/\D/g, '')})} maxLength="10" style={{flex: 1, padding: '12px', border: '1px solid #ddd', borderRadius: '0 4px 4px 0', fontSize: '14px', color: '#000'}} required />
+
+              <form onSubmit={handleRegister} className="space-y-4">
+                <input 
+                  type="text" 
+                  placeholder="Full Name" 
+                  value={formData.name} 
+                  onChange={(e) => setFormData({...formData, name: e.target.value})} 
+                  className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  required 
+                />
+                
+                <div className="flex">
+                  <span className="flex items-center px-4 border border-r-0 border-gray-300 rounded-l-lg bg-gray-50 text-gray-700 font-semibold">
+                    +91
+                  </span>
+                  <input 
+                    type="tel" 
+                    placeholder="WhatsApp Number" 
+                    value={formData.phone} 
+                    onChange={(e) => setFormData({...formData, phone: e.target.value.replace(/\D/g, '')})} 
+                    maxLength="10" 
+                    className="flex-1 p-4 border border-gray-300 rounded-r-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    required 
+                  />
                 </div>
-                <select value={formData.course} onChange={(e) => setFormData({...formData, course: e.target.value})} style={{width: '100%', padding: '12px', border: '1px solid #ddd', borderRadius: '4px', marginBottom: '16px', fontSize: '14px', color: '#000'}} required>
+                
+                <select 
+                  value={formData.course} 
+                  onChange={(e) => setFormData({...formData, course: e.target.value})} 
+                  className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  required
+                >
                   <option value="">Select Course</option>
-                  <option value="NEET">NEET</option>
-                  <option value="JEE">JEE</option>
+                  <option value="Pre Foundation Course">Pre Foundation Course</option>
+                  <option value="NEET Preparation">NEET Preparation</option>
+                  <option value="JEE (Mains+Advance)">JEE (Mains+Advance)</option>
+                  <option value="All India Test Series (AITS)">All India Test Series (AITS)</option>
                 </select>
-                <button type="submit" style={{width: '100%', padding: '12px', background: '#dc3545', color: '#fff', border: 'none', borderRadius: '4px', fontSize: '16px', fontWeight: '600', cursor: 'pointer'}}>Register Now</button>
+                
+                <button 
+                  type="submit" 
+                  disabled={loading}
+                  className="w-full bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white font-bold py-4 rounded-lg transition-colors"
+                >
+                  {loading ? 'Registering...' : 'Register Now'}
+                </button>
               </form>
             </div>
           </div>

@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
       </head>
       <body style={{fontFamily: 'Outfit, sans-serif'}}>
         <Toaster 
-          position="top-center"
+          position="bottom-center"
           toastOptions={{
             duration: 4000,
             style: {
@@ -27,6 +27,7 @@ export default function RootLayout({ children }) {
               fontWeight: '500',
               padding: '12px 16px',
               boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+              marginBottom: '20px',
             },
             success: {
               iconTheme: {

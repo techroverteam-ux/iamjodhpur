@@ -107,11 +107,11 @@ export default function AdminDashboard() {
     
     // Upload image if there's a file
     if (formData.imageFile) {
-      const imageUrl = await uploadImage(formData.imageFile)
-      if (imageUrl) {
+      try {
+        const imageUrl = await uploadImage(formData.imageFile)
         submitData.image = imageUrl
-      } else {
-        toast.error('Image upload failed. Please try again.')
+      } catch (error) {
+        toast.error(`Image upload failed: ${error.message}`)
         return
       }
     }
@@ -147,8 +147,8 @@ export default function AdminDashboard() {
 
   const handleAchievementImageUpload = async (achievement, file) => {
     if (confirm('Are you sure you want to upload this image?')) {
-      const imageUrl = await uploadImage(file)
-      if (imageUrl) {
+      try {
+        const imageUrl = await uploadImage(file)
         const result = await updateData('achievements', achievement.id, {...achievement, image: imageUrl})
         if (result.success) {
           toast.success('Image uploaded successfully!')
@@ -156,8 +156,8 @@ export default function AdminDashboard() {
         } else {
           toast.error('Failed to save image. Please try again.')
         }
-      } else {
-        toast.error('Image upload failed. Please try again.')
+      } catch (error) {
+        toast.error(`Image upload failed: ${error.message}`)
       }
     }
   }
@@ -176,8 +176,8 @@ export default function AdminDashboard() {
 
   const handleBannerUpload = async (page, file) => {
     if (confirm('Are you sure you want to upload this banner image?')) {
-      const imageUrl = await uploadImage(file)
-      if (imageUrl) {
+      try {
+        const imageUrl = await uploadImage(file)
         const newBanners = {...(data.banners || {}), [page]: imageUrl}
         const result = await updateData('banners', 'main', newBanners)
         if (result.success) {
@@ -186,8 +186,8 @@ export default function AdminDashboard() {
         } else {
           toast.error('Failed to save banner. Please try again.')
         }
-      } else {
-        toast.error('Banner upload failed. Please try again.')
+      } catch (error) {
+        toast.error(`Banner upload failed: ${error.message}`)
       }
     }
   }
@@ -215,8 +215,19 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen" style={{background: '#f5f5f5', display: 'flex'}}>
-      <div style={{width: '250px', background: '#1B5A96', minHeight: '100vh', position: 'fixed', left: 0, top: 0}}>
+    <div className="min-h-screen" style={{background: '#f5f5f5'}}>
+      {/* Fixed Header */}
+      <div className="fixed top-0 left-0 right-0 bg-white shadow-md z-40">
+        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+          <h1 className="text-xl font-bold" style={{color: '#1B5A96'}}>Admin Dashboard</h1>
+          <button onClick={handleLogout} className="px-4 py-2 rounded text-white font-semibold flex items-center" style={{background: '#dc3545'}}>
+            <LogoutIcon className="mr-2" size={16} />Logout
+          </button>
+        </div>
+      </div>
+
+      {/* Sidebar */}
+      <div style={{width: '250px', background: '#1B5A96', minHeight: '100vh', position: 'fixed', left: 0, top: 0, zIndex: 30}}>
         <div style={{padding: '20px', borderBottom: '1px solid rgba(255,255,255,0.1)'}}>
           <img src="/images/new_logo.png" width="100" height="40" alt="IMA Jodhpur" />
         </div>
@@ -245,16 +256,8 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      <div style={{marginLeft: '250px', flex: 1}}>
-        <div className="bg-white shadow-md">
-          <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 className="text-xl font-bold" style={{color: '#1B5A96'}}>Admin Dashboard</h1>
-            <button onClick={handleLogout} className="px-4 py-2 rounded text-white font-semibold flex items-center" style={{background: '#dc3545'}}>
-              <LogoutIcon className="mr-2" size={16} />Logout
-            </button>
-          </div>
-        </div>
-
+      {/* Main Content */}
+      <div style={{marginLeft: '250px', marginTop: '80px', flex: 1}}>
         <div className="container mx-auto px-4 py-8">
           <div className="bg-white rounded-lg shadow-md p-6">
             {activeTab !== 'inquiries' && activeTab !== 'registrations' && activeTab !== 'achievements' && activeTab !== 'banners' && activeTab !== 'contacts' && (
