@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-hot-toast'
 import Image from 'next/image'
+import Navbar from '../../components/Navbar'
 import { EmailIcon, LockIcon } from '../../../lib/icons'
 
 export default function AdminLogin() {
@@ -25,10 +26,11 @@ export default function AdminLogin() {
     <>
       <style jsx global>{`
         .admin-login-page {
-          padding-top: 0 !important;
+          padding-top: 140px !important;
           min-height: 100vh !important;
         }
       `}</style>
+      <Navbar />
       <div className="admin-login-page min-h-screen flex items-center justify-center p-4" style={{background: '#f5f5f5'}}>
       <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
         <div className="text-center mb-6">

@@ -3,17 +3,20 @@ export default function Facilities() {
     {
       icon: "🚌",
       title: "Transport Facility",
-      link: "/facilities#transport"
+      link: "/facilities#transport",
+      type: "emoji"
     },
     {
-      icon: "🏠", 
+      icon: "/hostel.png", 
       title: "Hostel Facility",
-      link: "/facilities#hostel"
+      link: "/facilities#hostel",
+      type: "image"
     },
     {
       icon: "🍽️", 
       title: "Mess Facility",
-      link: "/facilities#mess"
+      link: "/facilities#mess",
+      type: "emoji"
     }
   ]
 
@@ -58,16 +61,30 @@ export default function Facilities() {
                 e.target.style.borderColor = 'transparent'
               }}
             >
-              <div 
-                style={{
-                  fontSize: '3.5rem',
-                  color: '#1B5A96',
-                  marginBottom: '1.5rem',
-                  display: 'block'
-                }}
-              >
-                {facility.icon}
-              </div>
+              {facility.type === "image" ? (
+                <img 
+                  src={facility.icon}
+                  alt={facility.title}
+                  style={{
+                    width: '60px',
+                    height: '60px',
+                    marginBottom: '1.5rem',
+                    display: 'block',
+                    margin: '0 auto 1.5rem auto'
+                  }}
+                />
+              ) : (
+                <div 
+                  style={{
+                    fontSize: '3.5rem',
+                    color: '#1B5A96',
+                    marginBottom: '1.5rem',
+                    display: 'block'
+                  }}
+                >
+                  {facility.icon}
+                </div>
+              )}
               <h3 style={{
                 fontSize: '1.4rem',
                 fontWeight: '600',
@@ -94,6 +111,11 @@ export default function Facilities() {
           
           div[style*="font-size: 3.5rem"] {
             font-size: 3rem !important;
+          }
+          
+          img {
+            width: 50px !important;
+            height: 50px !important;
           }
           
           h3 {
