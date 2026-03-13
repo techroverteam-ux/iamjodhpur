@@ -11,11 +11,11 @@ export default function AchievementResults() {
     },
     {
       image: "/JEE Result2024_25.png",
-      title: "JEE Results 2024-25"
+      title: "NEET Results 2024"
     },
     {
       image: "/Neet Result2024.png", 
-      title: "NEET Results 2024"
+      title: "JEE Results 2024-25"
     }
   ]
 
