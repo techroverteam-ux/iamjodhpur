@@ -28,6 +28,8 @@ export default function AdminDashboard() {
   const [formData, setFormData] = useState({ title: '', date: '', description: '', content: [], image: '', imageFile: null })
   const [currentPage, setCurrentPage] = useState({})
   const [itemsPerPage] = useState(10)
+  const [loading, setLoading] = useState(false)
+  const [loadingTab, setLoadingTab] = useState('')
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -38,16 +40,69 @@ export default function AdminDashboard() {
     }
   }, [router])
 
-  const loadData = async () => {
-    const result = await fetchData()
-    if (result) {
-      setData(result)
+  const loadData = async (forceRefresh = false) => {
+    if (loading && !forceRefresh) return // Prevent multiple simultaneous calls
+    
+    setLoading(true)
+    try {
+      console.log('Loading fresh data from database...');
+      const result = await fetchData()
+      if (result) {
+        // Clear any existing data first to prevent conflicts
+        setData({
+          users: [],
+          courses: [],
+          blogs: [],
+          testimonials: [],
+          achievements: [],
+          facilities: [],
+          events: [],
+          banners: {},
+          contacts: []
+        })
+        
+        // Set fresh data after a small delay to ensure state is cleared
+        setTimeout(() => {
+          setData(result)
+          console.log('Data updated successfully:', {
+            users: result.users?.length || 0,
+            courses: result.courses?.length || 0,
+            blogs: result.blogs?.length || 0,
+            contacts: result.contacts?.length || 0
+          })
+        }, 100)
+      } else {
+        toast.error('Failed to load data from database')
+      }
+    } catch (error) {
+      console.error('Error loading data:', error)
+      toast.error('Failed to load data')
+    } finally {
+      setLoading(false)
     }
   }
 
   const handleLogout = () => {
     localStorage.removeItem('adminLoggedIn')
     router.push('/admin/login')
+  }
+
+  const handleTabChange = async (tabName) => {
+    if (loadingTab === tabName || loading) return // Prevent rapid clicks
+    
+    setLoadingTab(tabName)
+    setActiveTab(tabName)
+    
+    // Reset pagination for new tab
+    setCurrentPage({ ...currentPage, [tabName]: 1 })
+    
+    // Force refresh data when switching tabs to ensure fresh data
+    await loadData(true)
+    
+    // Small delay to prevent UI conflicts
+    setTimeout(() => {
+      setLoadingTab('')
+    }, 300)
   }
 
   const handleAdd = () => {
@@ -78,7 +133,8 @@ export default function AdminDashboard() {
       const result = await deleteData(collection, deleteItem.id)
       if (result.success) {
         toast.success('Item deleted successfully!')
-        loadData()
+        // Force refresh to get updated data from database
+        await loadData(true)
       } else {
         toast.error('Failed to delete item. Please try again.')
       }
@@ -142,7 +198,8 @@ export default function AdminDashboard() {
     
     if (result.success) {
       toast.success(`${editItem ? 'Updated' : 'Added'} successfully!`)
-      loadData()
+      // Force refresh to get updated data from database
+      await loadData(true)
       setShowModal(false)
     } else {
       toast.error('Operation failed. Please try again.')
@@ -239,19 +296,99 @@ export default function AdminDashboard() {
           <img src="/images/new_logo.png" width="100" height="40" alt="IMA Jodhpur" />
         </div>
         <div style={{padding: '20px 0'}}>
-          <button onClick={() => setActiveTab('inquiries')} style={{width: '100%', padding: '15px 20px', background: activeTab === 'inquiries' ? 'rgba(255,255,255,0.1)' : 'transparent', color: 'white', border: 'none', textAlign: 'left', cursor: 'pointer', borderLeft: activeTab === 'inquiries' ? '4px solid white' : '4px solid transparent', display: 'flex', alignItems: 'center'}}>
+          <button 
+            onClick={() => handleTabChange('inquiries')} 
+            disabled={loading || loadingTab === 'inquiries'}
+            style={{
+              width: '100%', 
+              padding: '15px 20px', 
+              background: activeTab === 'inquiries' ? 'rgba(255,255,255,0.1)' : 'transparent', 
+              color: 'white', 
+              border: 'none', 
+              textAlign: 'left', 
+              cursor: loading || loadingTab === 'inquiries' ? 'not-allowed' : 'pointer', 
+              borderLeft: activeTab === 'inquiries' ? '4px solid white' : '4px solid transparent', 
+              display: 'flex', 
+              alignItems: 'center',
+              opacity: loading || loadingTab === 'inquiries' ? 0.6 : 1
+            }}
+          >
             <TrophyIcon style={{marginRight: '10px'}} size={16} />STHE Inquiries
           </button>
-          <button onClick={() => setActiveTab('contacts')} style={{width: '100%', padding: '15px 20px', background: activeTab === 'contacts' ? 'rgba(255,255,255,0.1)' : 'transparent', color: 'white', border: 'none', textAlign: 'left', cursor: 'pointer', borderLeft: activeTab === 'contacts' ? '4px solid white' : '4px solid transparent', display: 'flex', alignItems: 'center'}}>
+          <button 
+            onClick={() => handleTabChange('contacts')} 
+            disabled={loading || loadingTab === 'contacts'}
+            style={{
+              width: '100%', 
+              padding: '15px 20px', 
+              background: activeTab === 'contacts' ? 'rgba(255,255,255,0.1)' : 'transparent', 
+              color: 'white', 
+              border: 'none', 
+              textAlign: 'left', 
+              cursor: loading || loadingTab === 'contacts' ? 'not-allowed' : 'pointer', 
+              borderLeft: activeTab === 'contacts' ? '4px solid white' : '4px solid transparent', 
+              display: 'flex', 
+              alignItems: 'center',
+              opacity: loading || loadingTab === 'contacts' ? 0.6 : 1
+            }}
+          >
             <UserIcon style={{marginRight: '10px'}} size={16} />Contact Forms
           </button>
-          <button onClick={() => setActiveTab('registrations')} style={{width: '100%', padding: '15px 20px', background: activeTab === 'registrations' ? 'rgba(255,255,255,0.1)' : 'transparent', color: 'white', border: 'none', textAlign: 'left', cursor: 'pointer', borderLeft: activeTab === 'registrations' ? '4px solid white' : '4px solid transparent', display: 'flex', alignItems: 'center'}}>
+          <button 
+            onClick={() => handleTabChange('registrations')} 
+            disabled={loading || loadingTab === 'registrations'}
+            style={{
+              width: '100%', 
+              padding: '15px 20px', 
+              background: activeTab === 'registrations' ? 'rgba(255,255,255,0.1)' : 'transparent', 
+              color: 'white', 
+              border: 'none', 
+              textAlign: 'left', 
+              cursor: loading || loadingTab === 'registrations' ? 'not-allowed' : 'pointer', 
+              borderLeft: activeTab === 'registrations' ? '4px solid white' : '4px solid transparent', 
+              display: 'flex', 
+              alignItems: 'center',
+              opacity: loading || loadingTab === 'registrations' ? 0.6 : 1
+            }}
+          >
             <UserIcon style={{marginRight: '10px'}} size={16} />Registrations
           </button>
-          <button onClick={() => setActiveTab('blogs')} style={{width: '100%', padding: '15px 20px', background: activeTab === 'blogs' ? 'rgba(255,255,255,0.1)' : 'transparent', color: 'white', border: 'none', textAlign: 'left', cursor: 'pointer', borderLeft: activeTab === 'blogs' ? '4px solid white' : '4px solid transparent', display: 'flex', alignItems: 'center'}}>
+          <button 
+            onClick={() => handleTabChange('blogs')} 
+            disabled={loading || loadingTab === 'blogs'}
+            style={{
+              width: '100%', 
+              padding: '15px 20px', 
+              background: activeTab === 'blogs' ? 'rgba(255,255,255,0.1)' : 'transparent', 
+              color: 'white', 
+              border: 'none', 
+              textAlign: 'left', 
+              cursor: loading || loadingTab === 'blogs' ? 'not-allowed' : 'pointer', 
+              borderLeft: activeTab === 'blogs' ? '4px solid white' : '4px solid transparent', 
+              display: 'flex', 
+              alignItems: 'center',
+              opacity: loading || loadingTab === 'blogs' ? 0.6 : 1
+            }}
+          >
             <NewsIcon style={{marginRight: '10px'}} size={16} />Blogs
           </button>
-          <button onClick={() => setActiveTab('courses')} style={{width: '100%', padding: '15px 20px', background: activeTab === 'courses' ? 'rgba(255,255,255,0.1)' : 'transparent', color: 'white', border: 'none', textAlign: 'left', cursor: 'pointer', borderLeft: activeTab === 'courses' ? '4px solid white' : '4px solid transparent', display: 'flex', alignItems: 'center'}}>
+          <button 
+            onClick={() => handleTabChange('courses')} 
+            disabled={loading || loadingTab === 'courses'}
+            style={{
+              width: '100%', 
+              padding: '15px 20px', 
+              background: activeTab === 'courses' ? 'rgba(255,255,255,0.1)' : 'transparent', 
+              color: 'white', 
+              border: 'none', 
+              textAlign: 'left', 
+              cursor: loading || loadingTab === 'courses' ? 'not-allowed' : 'pointer', 
+              borderLeft: activeTab === 'courses' ? '4px solid white' : '4px solid transparent', 
+              display: 'flex', 
+              alignItems: 'center',
+              opacity: loading || loadingTab === 'courses' ? 0.6 : 1
+            }}
+          >
             <BookIcon style={{marginRight: '10px'}} size={16} />Courses
           </button>
         </div>
@@ -278,7 +415,14 @@ export default function AdminDashboard() {
             )}
 
             <div className="overflow-x-auto">
-              {activeTab === 'inquiries' ? (
+              {loading ? (
+                <div className="flex justify-center items-center py-8">
+                  <div className="text-center">
+                    <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-2"></div>
+                    <p className="text-gray-600">Loading data...</p>
+                  </div>
+                </div>
+              ) : activeTab === 'inquiries' ? (
                 <div>
                   <h2 className="text-lg font-bold mb-3" style={{color: '#1B5A96'}}>STHE Inquiries</h2>
                   <table className="w-full border-collapse" style={{fontSize: '13px'}}>
