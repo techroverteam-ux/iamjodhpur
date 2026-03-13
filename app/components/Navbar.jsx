@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { toast } from 'react-hot-toast'
 import { addData } from '../../lib/clientDataUtils'
-import { PhoneIcon, EmailIcon, HomeIcon, InfoIcon, BookIcon, BuildingIcon, NewsIcon, QuestionIcon, GraduationIcon } from '../../lib/icons'
+import { PhoneIcon, EmailIcon, HomeIcon, InfoIcon, BookIcon, BuildingIcon, NewsIcon, QuestionIcon, GraduationIcon, MenuIcon } from '../../lib/icons'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -76,52 +76,117 @@ export default function Navbar() {
             top: 50% !important;
             transform: translateY(-50%) !important;
             z-index: 10 !important;
-            padding: 0.5rem !important;
-            background: transparent !important;
+            padding: 0.75rem !important;
+            background: linear-gradient(135deg, #1B5A96, #2563eb) !important;
             border: none !important;
+            border-radius: 12px !important;
+            box-shadow: 0 4px 15px rgba(27, 90, 150, 0.3) !important;
+            transition: all 0.3s ease !important;
+          }
+          .hamburger-btn:hover {
+            background: linear-gradient(135deg, #2563eb, #1B5A96) !important;
+            transform: translateY(-50%) scale(1.05) !important;
+            box-shadow: 0 6px 20px rgba(27, 90, 150, 0.4) !important;
           }
           .hamburger-icon {
-            font-size: 1.5rem !important;
-            color: #1B5A96 !important;
-            font-weight: bold !important;
+            color: white !important;
+            transition: all 0.3s ease !important;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2)) !important;
+          }
+          .hamburger-btn:hover .hamburger-icon {
+            transform: rotate(180deg) !important;
           }
           .mobile-menu {
             position: absolute !important;
             top: 100% !important;
             left: 0 !important;
             right: 0 !important;
-            background: white !important;
-            border-top: 1px solid #e5e7eb !important;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+            border: none !important;
+            box-shadow: 0 20px 40px rgba(27, 90, 150, 0.15) !important;
             z-index: 50 !important;
-            border-radius: 0 0 15px 15px !important;
+            border-radius: 0 0 20px 20px !important;
+            backdrop-filter: blur(10px) !important;
+            animation: slideDown 0.4s ease-out !important;
+          }
+          @keyframes slideDown {
+            from {
+              opacity: 0;
+              transform: translateY(-20px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
           }
           .mobile-nav-link {
             transition: all 0.3s ease !important;
-            border-left: 3px solid transparent !important;
-            border-radius: 8px !important;
-            margin: 0 0.5rem !important;
+            border-left: 4px solid transparent !important;
+            border-radius: 12px !important;
+            margin: 0.5rem !important;
+            background: rgba(255, 255, 255, 0.7) !important;
+            backdrop-filter: blur(5px) !important;
+            position: relative !important;
+            overflow: hidden !important;
+          }
+          .mobile-nav-link::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: -100% !important;
+            width: 100% !important;
+            height: 100% !important;
+            background: linear-gradient(90deg, transparent, rgba(27, 90, 150, 0.1), transparent) !important;
+            transition: left 0.5s ease !important;
+          }
+          .mobile-nav-link:hover::before {
+            left: 100% !important;
           }
           .mobile-nav-link:hover {
             border-left-color: #1B5A96 !important;
             background: rgba(27, 90, 150, 0.1) !important;
-            transform: translateX(5px) !important;
+            transform: translateX(8px) scale(1.02) !important;
+            color: #1B5A96 !important;
+            box-shadow: 0 4px 12px rgba(27, 90, 150, 0.2) !important;
+          }
+          .mobile-nav-link svg {
+            color: #1B5A96 !important;
+            transition: all 0.3s ease !important;
+          }
+          .mobile-nav-link:hover svg {
+            transform: scale(1.2) rotate(5deg) !important;
             color: #1B5A96 !important;
           }
           .mobile-register-btn {
             background: linear-gradient(135deg, #dc3545, #c82333) !important;
             border: none !important;
-            border-radius: 8px !important;
-            padding: 0.75rem 1rem !important;
+            border-radius: 12px !important;
+            padding: 1rem !important;
             font-weight: 600 !important;
             text-transform: uppercase !important;
             letter-spacing: 0.5px !important;
             transition: all 0.3s ease !important;
-            margin: 0 0.5rem !important;
+            margin: 0.5rem !important;
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3) !important;
+            position: relative !important;
+            overflow: hidden !important;
+          }
+          .mobile-register-btn::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: -100% !important;
+            width: 100% !important;
+            height: 100% !important;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent) !important;
+            transition: left 0.5s ease !important;
+          }
+          .mobile-register-btn:hover::before {
+            left: 100% !important;
           }
           .mobile-register-btn:hover {
-            transform: translateY(-2px) !important;
-            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4) !important;
+            transform: translateY(-3px) scale(1.05) !important;
+            box-shadow: 0 8px 25px rgba(220, 53, 69, 0.4) !important;
           }
         }
         .nav-link {
@@ -317,37 +382,37 @@ export default function Navbar() {
             </div>
 
             <button onClick={() => setIsOpen(!isOpen)} className="md:hidden hamburger-btn">
-              <span className="hamburger-icon">☰</span>
+              <MenuIcon className="hamburger-icon" size={24} />
             </button>
           </nav>
 
           {isOpen && (
             <div className="md:hidden mobile-menu">
-              <div className="py-4 px-2 space-y-1">
+              <div className="py-6 px-4 space-y-2">
                 <Link href="/" className="mobile-nav-link block py-3 px-4 text-gray-700 font-semibold text-sm uppercase tracking-wide flex items-center" onClick={() => setIsOpen(false)}>
-                  <HomeIcon className="mr-3 text-blue-600" size={16} />Home
+                  <HomeIcon className="mr-3" size={16} style={{color: '#1B5A96'}} />Home
                 </Link>
                 <Link href="/about-us" className="mobile-nav-link block py-3 px-4 text-gray-700 font-semibold text-sm uppercase tracking-wide flex items-center" onClick={() => setIsOpen(false)}>
-                  <InfoIcon className="mr-3 text-blue-600" size={16} />About Us
+                  <InfoIcon className="mr-3" size={16} style={{color: '#1B5A96'}} />About Us
                 </Link>
                 <Link href="/courses" className="mobile-nav-link block py-3 px-4 text-gray-700 font-semibold text-sm uppercase tracking-wide flex items-center" onClick={() => setIsOpen(false)}>
-                  <BookIcon className="mr-3 text-blue-600" size={16} />Courses
+                  <BookIcon className="mr-3" size={16} style={{color: '#1B5A96'}} />Courses
                 </Link>
                 <Link href="/facilities" className="mobile-nav-link block py-3 px-4 text-gray-700 font-semibold text-sm uppercase tracking-wide flex items-center" onClick={() => setIsOpen(false)}>
-                  <BuildingIcon className="mr-3 text-blue-600" size={16} />Facilities
+                  <BuildingIcon className="mr-3" size={16} style={{color: '#1B5A96'}} />Facilities
                 </Link>
                 <Link href="/blog" className="mobile-nav-link block py-3 px-4 text-gray-700 font-semibold text-sm uppercase tracking-wide flex items-center" onClick={() => setIsOpen(false)}>
-                  <NewsIcon className="mr-3 text-blue-600" size={16} />Blogs
+                  <NewsIcon className="mr-3" size={16} style={{color: '#1B5A96'}} />Blogs
                 </Link>
                 <Link href="/why-ima" className="mobile-nav-link block py-3 px-4 text-gray-700 font-semibold text-sm uppercase tracking-wide flex items-center" onClick={() => setIsOpen(false)}>
-                  <QuestionIcon className="mr-3 text-blue-600" size={16} />Why IMA ?
+                  <QuestionIcon className="mr-3" size={16} style={{color: '#1B5A96'}} />Why IMA ?
                 </Link>
                 <Link href="/contact-us" className="mobile-nav-link block py-3 px-4 text-gray-700 font-semibold text-sm uppercase tracking-wide flex items-center" onClick={() => setIsOpen(false)}>
-                  <PhoneIcon className="mr-3 text-blue-600" size={16} />Contact Us
+                  <PhoneIcon className="mr-3" size={16} style={{color: '#1B5A96'}} />Contact Us
                 </Link>
                 <div className="pt-3 pb-2">
                   <button onClick={() => { setShowRegisterModal(true); setIsOpen(false); }} className="mobile-register-btn w-full text-white font-semibold text-sm flex items-center justify-center">
-                    <GraduationIcon className="mr-2" size={16} />STHE - Get Scholarship
+                    <GraduationIcon className="mr-2" size={16} style={{color: 'white'}} />STHE - Get Scholarship
                   </button>
                 </div>
               </div>

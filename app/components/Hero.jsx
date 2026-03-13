@@ -46,28 +46,68 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative h-[450px] md:h-[600px] overflow-hidden">
-      <div className="relative h-full">
-        {slides.map((slide, index) => (
-          <div
-            key={index}
-            className={`absolute inset-0 transition-opacity duration-1000 ${
-              index === currentSlide ? 'opacity-100' : 'opacity-0'
-            }`}
-          >
-            <div 
-              className="w-full h-full"
+    <section className={`relative overflow-hidden ${isMobile ? 'h-auto' : 'h-[600px]'}`}>
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .mobile-carousel {
+            width: 100vw;
+            height: 60vw;
+            max-height: 400px;
+            min-height: 250px;
+          }
+          
+          .mobile-slide {
+            width: 100%;
+            height: 100%;
+            background-size: cover !important;
+            background-position: center center !important;
+            background-repeat: no-repeat !important;
+          }
+        }
+        
+        @media (min-width: 769px) {
+          .desktop-carousel {
+            height: 600px;
+          }
+          
+          .desktop-slide {
+            background-size: contain !important;
+            background-position: center center !important;
+            background-repeat: no-repeat !important;
+            background-color: #f8f9fa !important;
+          }
+        }
+      `}</style>
+      
+      {isMobile ? (
+        <div className="mobile-carousel relative">
+          {slides.map((slide, index) => (
+            <div
+              key={index}
+              className={`absolute inset-0 mobile-slide transition-opacity duration-1000 ${
+                index === currentSlide ? 'opacity-100' : 'opacity-0'
+              }`}
               style={{
-                backgroundImage: `url(${slide.image})`,
-                backgroundSize: 'contain',
-                backgroundPosition: 'center center',
-                backgroundRepeat: 'no-repeat',
-                backgroundColor: '#f8f9fa'
+                backgroundImage: `url(${slide.image})`
               }}
             />
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div className="desktop-carousel relative h-full">
+          {slides.map((slide, index) => (
+            <div
+              key={index}
+              className={`absolute inset-0 desktop-slide transition-opacity duration-1000 ${
+                index === currentSlide ? 'opacity-100' : 'opacity-0'
+              }`}
+              style={{
+                backgroundImage: `url(${slide.image})`
+              }}
+            />
+          ))}
+        </div>
+      )}
 
       <button
         onClick={prevSlide}
