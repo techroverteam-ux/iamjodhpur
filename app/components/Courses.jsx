@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import { fetchData, addData } from '../../lib/clientDataUtils'
 
 export default function Courses() {
   const [showRegisterModal, setShowRegisterModal] = useState(false)
@@ -36,25 +37,22 @@ export default function Courses() {
   const handleRegister = async (e) => {
     e.preventDefault()
     try {
-      const registration = { ...formData, date: new Date().toLocaleDateString(), id: Date.now() }
-      const existing = JSON.parse(localStorage.getItem('courseRegistrations') || '[]')
-      existing.push(registration)
-      localStorage.setItem('courseRegistrations', JSON.stringify(existing))
-      alert('Registration successful!')
-      setShowRegisterModal(false)
-      setFormData({ name: '', email: '', phone: '', course: '' })
+      const registration = { ...formData, date: new Date().toLocaleDateString() }
+      const result = await addData('courses', registration)
+      if (result.success) {
+        alert('Registration successful!')
+        setShowRegisterModal(false)
+        setFormData({ name: '', email: '', phone: '', course: '' })
+      } else {
+        alert('Registration failed!')
+      }
     } catch (error) {
       alert('Registration failed!')
     }
   }
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const savedCourses = localStorage.getItem('courses')
-      if (savedCourses) {
-        setCourses(JSON.parse(savedCourses))
-      }
-    }
+    loadCourses()
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -76,6 +74,13 @@ export default function Courses() {
     if (section) observer.observe(section)
     return () => observer.disconnect()
   }, [])
+
+  const loadCourses = async () => {
+    const data = await fetchData()
+    if (data && data.courses && data.courses.length > 0) {
+      setCourses(data.courses)
+    }
+  }
 
   return (
     <>

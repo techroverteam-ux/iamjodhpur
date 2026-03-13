@@ -2,6 +2,8 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { addData } from '../../lib/clientDataUtils'
+import { PhoneIcon, EmailIcon, HomeIcon, InfoIcon, BookIcon, BuildingIcon, NewsIcon, QuestionIcon, GraduationIcon } from '../../lib/icons'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -11,23 +13,23 @@ export default function Navbar() {
   const handleRegister = async (e) => {
     e.preventDefault()
     try {
-      const registration = { ...formData, date: new Date().toLocaleDateString(), id: Date.now() }
+      const registration = { ...formData, date: new Date().toLocaleDateString() }
       
-      // Save to localStorage
-      const existing = JSON.parse(localStorage.getItem('registrations') || '[]')
-      existing.push(registration)
-      localStorage.setItem('registrations', JSON.stringify(existing))
-      
-      alert('Submitted Successfully\n\nFor more information call on\n+91 - 9571037333')
-      setShowRegisterModal(false)
-      setFormData({ name: '', email: '', phone: '', course: '' })
+      const result = await addData('users', registration)
+      if (result.success) {
+        alert('Submitted Successfully\n\nFor more information call on\n+91 - 9571037333')
+        setShowRegisterModal(false)
+        setFormData({ name: '', email: '', phone: '', course: '' })
+      } else {
+        alert('Registration failed!')
+      }
     } catch (error) {
       alert('Registration failed!')
     }
   }
 
   return (
-    <div className="sticky top-0 z-50">
+    <div className="fixed top-0 w-full z-50 bg-white shadow-sm">
       <style jsx>{`
         /* Mobile Hamburger Menu Positioning */
         @media (max-width: 768px) {
@@ -252,11 +254,11 @@ export default function Navbar() {
       <section className="top_heads top_heads_header top-head" style={{background:'#1B5A96'}}>
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap justify-between items-center py-2.5 gap-1">
-            <a href="tel:9571037333" className="text-white text-sm">
-              <i className="fa fa-phone mr-1"></i> +91 - 9571037333
+            <a href="tel:9571037333" className="text-white text-sm flex items-center">
+              <PhoneIcon className="mr-1" size={12} /> +91 - 9571037333
             </a>
-            <a href="mailto:ceo.iitacademy@gmail.com" className="text-white text-sm">
-              <i className="fa fa-envelope-o mr-1"></i> ceo.iitacademy@gmail.com
+            <a href="mailto:ceo.iitacademy@gmail.com" className="text-white text-sm flex items-center">
+              <EmailIcon className="mr-1" size={12} /> ceo.iitacademy@gmail.com
             </a>
           </div>
         </div>
@@ -300,30 +302,30 @@ export default function Navbar() {
           {isOpen && (
             <div className="md:hidden mobile-menu">
               <div className="py-4 px-2 space-y-1">
-                <Link href="/" className="mobile-nav-link block py-3 px-4 text-gray-700 font-semibold text-sm uppercase tracking-wide" onClick={() => setIsOpen(false)}>
-                  <i className="fa fa-home mr-3 text-blue-600"></i>Home
+                <Link href="/" className="mobile-nav-link block py-3 px-4 text-gray-700 font-semibold text-sm uppercase tracking-wide flex items-center" onClick={() => setIsOpen(false)}>
+                  <HomeIcon className="mr-3 text-blue-600" size={16} />Home
                 </Link>
-                <Link href="/about-us" className="mobile-nav-link block py-3 px-4 text-gray-700 font-semibold text-sm uppercase tracking-wide" onClick={() => setIsOpen(false)}>
-                  <i className="fa fa-info-circle mr-3 text-blue-600"></i>About Us
+                <Link href="/about-us" className="mobile-nav-link block py-3 px-4 text-gray-700 font-semibold text-sm uppercase tracking-wide flex items-center" onClick={() => setIsOpen(false)}>
+                  <InfoIcon className="mr-3 text-blue-600" size={16} />About Us
                 </Link>
-                <Link href="/courses" className="mobile-nav-link block py-3 px-4 text-gray-700 font-semibold text-sm uppercase tracking-wide" onClick={() => setIsOpen(false)}>
-                  <i className="fa fa-book mr-3 text-blue-600"></i>Courses
+                <Link href="/courses" className="mobile-nav-link block py-3 px-4 text-gray-700 font-semibold text-sm uppercase tracking-wide flex items-center" onClick={() => setIsOpen(false)}>
+                  <BookIcon className="mr-3 text-blue-600" size={16} />Courses
                 </Link>
-                <Link href="/facilities" className="mobile-nav-link block py-3 px-4 text-gray-700 font-semibold text-sm uppercase tracking-wide" onClick={() => setIsOpen(false)}>
-                  <i className="fa fa-building mr-3 text-blue-600"></i>Facilities
+                <Link href="/facilities" className="mobile-nav-link block py-3 px-4 text-gray-700 font-semibold text-sm uppercase tracking-wide flex items-center" onClick={() => setIsOpen(false)}>
+                  <BuildingIcon className="mr-3 text-blue-600" size={16} />Facilities
                 </Link>
-                <Link href="/blog" className="mobile-nav-link block py-3 px-4 text-gray-700 font-semibold text-sm uppercase tracking-wide" onClick={() => setIsOpen(false)}>
-                  <i className="fa fa-newspaper-o mr-3 text-blue-600"></i>Blogs
+                <Link href="/blog" className="mobile-nav-link block py-3 px-4 text-gray-700 font-semibold text-sm uppercase tracking-wide flex items-center" onClick={() => setIsOpen(false)}>
+                  <NewsIcon className="mr-3 text-blue-600" size={16} />Blogs
                 </Link>
-                <Link href="/why-ima" className="mobile-nav-link block py-3 px-4 text-gray-700 font-semibold text-sm uppercase tracking-wide" onClick={() => setIsOpen(false)}>
-                  <i className="fa fa-question-circle mr-3 text-blue-600"></i>Why IMA ?
+                <Link href="/why-ima" className="mobile-nav-link block py-3 px-4 text-gray-700 font-semibold text-sm uppercase tracking-wide flex items-center" onClick={() => setIsOpen(false)}>
+                  <QuestionIcon className="mr-3 text-blue-600" size={16} />Why IMA ?
                 </Link>
-                <Link href="/contact-us" className="mobile-nav-link block py-3 px-4 text-gray-700 font-semibold text-sm uppercase tracking-wide" onClick={() => setIsOpen(false)}>
-                  <i className="fa fa-phone mr-3 text-blue-600"></i>Contact Us
+                <Link href="/contact-us" className="mobile-nav-link block py-3 px-4 text-gray-700 font-semibold text-sm uppercase tracking-wide flex items-center" onClick={() => setIsOpen(false)}>
+                  <PhoneIcon className="mr-3 text-blue-600" size={16} />Contact Us
                 </Link>
                 <div className="pt-3 pb-2">
-                  <button onClick={() => { setShowRegisterModal(true); setIsOpen(false); }} className="mobile-register-btn w-full text-white font-semibold text-sm">
-                    <i className="fa fa-graduation-cap mr-2"></i>STHE - Get Scholarship
+                  <button onClick={() => { setShowRegisterModal(true); setIsOpen(false); }} className="mobile-register-btn w-full text-white font-semibold text-sm flex items-center justify-center">
+                    <GraduationIcon className="mr-2" size={16} />STHE - Get Scholarship
                   </button>
                 </div>
               </div>

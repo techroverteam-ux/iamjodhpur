@@ -2,6 +2,8 @@
 import { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { fetchData } from '../../lib/clientDataUtils'
+import { LocationIcon, PhoneIcon, EmailIcon } from '../../lib/icons'
 
 export default function ContactUs() {
   const [bannerImage, setBannerImage] = useState('')
@@ -19,18 +21,17 @@ export default function ContactUs() {
 
     document.querySelectorAll('.animate-slide').forEach((el) => observer.observe(el))
     
-    if (typeof window !== 'undefined') {
-      const savedBanners = localStorage.getItem('banners')
-      if (savedBanners) {
-        const banners = JSON.parse(savedBanners)
-        if (banners.contactUs && banners.contactUs !== '') {
-          setBannerImage(banners.contactUs)
-        }
-      }
-    }
+    loadData()
     
     return () => observer.disconnect()
   }, [])
+
+  const loadData = async () => {
+    const data = await fetchData()
+    if (data && data.banners && data.banners.contactUs) {
+      setBannerImage(data.banners.contactUs)
+    }
+  }
 
   return (
     <>
@@ -148,7 +149,7 @@ export default function ContactUs() {
             <div className="contact-card animate-slide left">
               <div className="text-center">
                 <div className="icon-circle">
-                  <i className="fa fa-map-marker" style={{fontSize: '30px', color: 'white'}}></i>
+                  <LocationIcon style={{fontSize: '30px', color: 'white'}} size={30} />
                 </div>
                 <h4 className="font-bold mb-2 text-base" style={{color: '#1B5A96'}}>Address</h4>
                 <p className="text-gray-700 text-sm">Main Pal Road, near Barkatullah Khan Stadium, Shastri Nagar, Jodhpur, Rajasthan 342003</p>
@@ -158,7 +159,7 @@ export default function ContactUs() {
             <div className="contact-card animate-slide up" style={{animationDelay: '0.2s'}}>
               <div className="text-center">
                 <div className="icon-circle">
-                  <i className="fa fa-phone" style={{fontSize: '30px', color: 'white'}}></i>
+                  <PhoneIcon style={{fontSize: '30px', color: 'white'}} size={30} />
                 </div>
                 <h4 className="font-bold mb-2 text-base" style={{color: '#1B5A96'}}>Phone Number</h4>
                 <p className="text-gray-700 text-sm">+91 9571037333</p>
@@ -168,7 +169,7 @@ export default function ContactUs() {
             <div className="contact-card animate-slide right" style={{animationDelay: '0.4s'}}>
               <div className="text-center">
                 <div className="icon-circle">
-                  <i className="fa fa-envelope" style={{fontSize: '30px', color: 'white'}}></i>
+                  <EmailIcon style={{fontSize: '30px', color: 'white'}} size={30} />
                 </div>
                 <h4 className="font-bold mb-2 text-base" style={{color: '#1B5A96'}}>Email Address</h4>
                 <p className="text-gray-700 text-sm">ceo.iitacademy@gmail.com</p>

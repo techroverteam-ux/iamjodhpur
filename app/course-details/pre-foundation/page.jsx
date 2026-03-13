@@ -1,5 +1,6 @@
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import { CalendarIcon } from '../../../lib/icons';
 
 export const metadata = {
   title: 'Pre Foundation Course - IMA Jodhpur',
@@ -9,7 +10,7 @@ export const metadata = {
 export default function CourseDetail() {
   return (
     <>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
       <Navbar />
       
       <div dangerouslySetInnerHTML={{__html: `
@@ -170,7 +171,7 @@ export default function CourseDetail() {
               <div className="course-card-body">
                 <h3 className="course-card-title">Pre Foundation Course</h3>
                 <div className="validity-text">
-                  <i className="fa fa-calendar"></i> Validity 354 Days
+                  <CalendarIcon style={{marginRight: '8px'}} size={16} /> Validity 354 Days
                 </div>
                 <button className="enroll-btn">Enroll Now</button>
               </div>

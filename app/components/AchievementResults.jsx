@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 
 export default function AchievementResults() {
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(true) // Show content immediately
   
   const results = [
     {
@@ -11,26 +11,29 @@ export default function AchievementResults() {
     },
     {
       image: "/JEE Result2024_25.png",
-      title: "NEET Results 2024"
+      title: "JEE Results 2024-25"
     },
     {
       image: "/Neet Result2024.png", 
-      title: "JEE Results 2024-25"
+      title: "NEET Results 2024"
     }
   ]
 
   useEffect(() => {
+    // Smooth scroll animation for cards
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) {
-          setIsVisible(true)
-        }
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in')
+          }
+        })
       },
       { threshold: 0.1 }
     )
 
-    const section = document.querySelector('.achievement-results-section')
-    if (section) observer.observe(section)
+    const cards = document.querySelectorAll('.result-card')
+    cards.forEach(card => observer.observe(card))
     return () => observer.disconnect()
   }, [])
 
@@ -44,6 +47,23 @@ export default function AchievementResults() {
           box-shadow: 0 15px 35px rgba(0,0,0,0.1);
           transition: all 0.4s ease;
           margin-bottom: 3rem;
+          opacity: 1;
+          transform: translateY(0);
+        }
+        
+        .result-card.animate-in {
+          animation: slideInUp 0.6s ease-out forwards;
+        }
+        
+        @keyframes slideInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
         
         .result-card:hover {

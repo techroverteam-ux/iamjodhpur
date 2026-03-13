@@ -1,6 +1,7 @@
 'use client'
 import Link from 'next/link'
 import Image from 'next/image'
+import { LocationIcon, PhoneIcon, EmailIcon, FacebookIcon, InstagramIcon, YoutubeIcon } from '../../lib/icons'
 
 export default function Footer() {
   return (
@@ -51,15 +52,18 @@ export default function Footer() {
           }
           .footer-contact a {
             text-align: center !important;
-            display: inline-block !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
           }
           .footer-social {
             justify-content: center !important;
-            gap: 1rem !important;
+            gap: 1.5rem !important;
+            align-items: center !important;
           }
           .footer-icon {
-            width: 24px !important;
-            height: 24px !important;
+            width: 32px !important;
+            height: 32px !important;
           }
           .footer-bottom {
             font-size: 0.75rem !important;
@@ -80,10 +84,77 @@ export default function Footer() {
           .quick-links-desktop {
             display: none !important;
           }
+          .social-section {
+            text-align: center !important;
+          }
         }
+        
+        /* Tablet responsive */
+        @media (min-width: 769px) and (max-width: 1024px) {
+          .footer-grid {
+            grid-template-columns: 1fr 1fr !important;
+            gap: 2rem !important;
+          }
+          .footer-section:last-child {
+            grid-column: 1 / -1 !important;
+            text-align: center !important;
+          }
+          .footer-social {
+            justify-content: center !important;
+          }
+        }
+        
         @media (min-width: 769px) {
           .quick-links-mobile {
             display: none !important;
+          }
+        }
+        
+        /* Social media hover effects and alignment */
+        .social-section {
+          text-align: center;
+        }
+        
+        .social-section h5 {
+          text-align: center;
+          margin-bottom: 1rem;
+        }
+        
+        .footer-social {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 1.5rem;
+        }
+        
+        .footer-social a {
+          display: inline-flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          padding: 0.5rem !important;
+          border-radius: 50% !important;
+          transition: all 0.3s ease !important;
+          width: 44px !important;
+          height: 44px !important;
+        }
+        
+        .footer-social a:hover {
+          background: rgba(255, 255, 255, 0.1) !important;
+          transform: translateY(-2px) scale(1.1) !important;
+        }
+        
+        /* Desktop alignment */
+        @media (min-width: 769px) {
+          .social-section {
+            text-align: left;
+          }
+          
+          .social-section h5 {
+            text-align: left;
+          }
+          
+          .footer-social {
+            justify-content: flex-start;
           }
         }
       `}</style>
@@ -126,38 +197,38 @@ export default function Footer() {
             <h4 className="footer-title font-bold mb-4 text-white">Contact Us</h4>
             <ul className="footer-contact space-y-3">
               <li className="footer-link flex items-start justify-center md:justify-start text-white/90">
-                <i className="fa fa-map-marker mr-2 mt-1 text-blue-200"></i>
+                <LocationIcon className="mr-2 mt-1 text-blue-200" size={16} />
                 <a href="https://maps.google.com/?q=IMA+Jodhpur+IIT+Academy+Medical+Academy+Main+Pal+Road+Shastri+Nagar+Jodhpur+Rajasthan" target="_blank" rel="noopener noreferrer" className="text-white hover:!text-blue-200 transition-colors">
                   Main Pal Road, Near Barkatullah Khan Stadium, Shastri Nagar, Jodhpur - 342003
                 </a>
               </li>
               <li>
                 <a href="tel:9571037333" className="footer-link flex items-center justify-center md:justify-start hover:text-blue-200 transition-colors text-white/90">
-                  <i className="fa fa-phone mr-2 text-blue-200"></i> +91 - 9571037333
+                  <PhoneIcon className="mr-2 text-blue-200" size={16} /> +91 - 9571037333
                 </a>
               </li>
               <li>
                 <a href="mailto:ceo.iitacademy@gmail.com" className="footer-link flex items-center justify-center md:justify-start hover:text-blue-200 transition-colors text-white/90">
-                  <i className="fa fa-envelope mr-2 text-blue-200"></i> ceo.iitacademy@gmail.com
+                  <EmailIcon className="mr-2 text-blue-200" size={16} /> ceo.iitacademy@gmail.com
                 </a>
               </li>
             </ul>
-            <div className="mt-6">
+            <div className="mt-6 social-section">
               <h5 className="footer-title font-bold mb-3 text-white">Follow Us</h5>
-              <ul className="footer-social flex space-x-4 justify-center md:justify-start">
+              <ul className="footer-social">
                 <li>
                   <a href="https://facebook.com/imajodhpur" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
-                    <Image src="https://imajodhpur.com/assets/images/facebook.png" width={28} height={28} alt="Facebook" className="footer-icon" />
+                    <FacebookIcon className="footer-icon text-blue-200 hover:text-white" size={28} />
                   </a>
                 </li>
                 <li>
                   <a href="https://instagram.com/imajodhpur" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
-                    <Image src="https://imajodhpur.com/assets/images/instagram.png" width={28} height={28} alt="Instagram" className="footer-icon" />
+                    <InstagramIcon className="footer-icon text-blue-200 hover:text-white" size={28} />
                   </a>
                 </li>
                 <li>
                   <a href="https://www.youtube.com/@imajodhpur" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
-                    <Image src="https://imajodhpur.com/assets/images/youtube.png" width={28} height={28} alt="YouTube" className="footer-icon" />
+                    <YoutubeIcon className="footer-icon text-blue-200 hover:text-white" size={28} />
                   </a>
                 </li>
               </ul>

@@ -1,16 +1,21 @@
 'use client'
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
+import { fetchData } from '../../lib/clientDataUtils'
 
 export default function Achievements({ index }) {
   const [achievements, setAchievements] = useState([])
 
   useEffect(() => {
-    const savedAchievements = localStorage.getItem('achievements')
-    if (savedAchievements) {
-      setAchievements(JSON.parse(savedAchievements))
-    }
+    loadAchievements()
   }, [])
+
+  const loadAchievements = async () => {
+    const data = await fetchData()
+    if (data && data.achievements) {
+      setAchievements(data.achievements)
+    }
+  }
 
   const achievement = achievements[index]
   if (!achievement) return null

@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import { EmailIcon, LockIcon } from '../../../lib/icons'
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('')
@@ -20,7 +21,7 @@ export default function AdminLogin() {
 
   return (
     <>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
       <div className="min-h-screen flex items-center justify-center" style={{background: '#f5f5f5'}}>
         <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-8">
           <div className="text-center mb-6">
@@ -32,7 +33,7 @@ export default function AdminLogin() {
               <label className="block mb-2 font-semibold text-sm">Email</label>
               <div className="flex" style={{border: '1px solid #cfcccc', borderRadius: '4px'}}>
                 <span style={{background: '#f8f9fa', borderRight: '1px solid #cfcccc', padding: '10px 12px'}}>
-                  <i className="fa fa-envelope" style={{color: '#666'}}></i>
+                  <EmailIcon style={{color: '#666'}} size={16} />
                 </span>
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="admin@imajodhpur.com" className="flex-1 outline-none" style={{padding: '10px 12px', fontSize: '14px'}} required />
               </div>
@@ -41,7 +42,7 @@ export default function AdminLogin() {
               <label className="block mb-2 font-semibold text-sm">Password</label>
               <div className="flex" style={{border: '1px solid #cfcccc', borderRadius: '4px'}}>
                 <span style={{background: '#f8f9fa', borderRight: '1px solid #cfcccc', padding: '10px 12px'}}>
-                  <i className="fa fa-lock" style={{color: '#666'}}></i>
+                  <LockIcon style={{color: '#666'}} size={16} />
                 </span>
                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="flex-1 outline-none" style={{padding: '10px 12px', fontSize: '14px'}} required />
               </div>

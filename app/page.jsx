@@ -75,6 +75,12 @@ export default function Home() {
           margin: 0px 0px !important;
         }
         
+        /* Global section spacing for all website sections */
+        .pr-4, .px-4 {
+          padding-right: 1.5rem !important;
+          margin-top: 14px !important;
+        }
+        
         @keyframes fadeDown {
           from {
             opacity: 0;
@@ -152,7 +158,7 @@ export default function Home() {
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
       <Navbar />
       <Hero />
-      <div className="animate-section"><BannerText /></div>
+      <div className="animate-section mt-10"><BannerText /></div>
       <div className="animate-section"><Programs /></div>
       <div className="animate-section"><Courses /></div>
       <div className="animate-section"><Achievements index={0} /></div>

@@ -1,86 +1,57 @@
+'use client'
+import { GraduationIcon, UserIcon, ClockIcon, RoadIcon, ChartIcon } from '../../lib/icons'
+
 export default function Advantages() {
+  const advantages = [
+    {
+      icon: GraduationIcon,
+      title: "Expert Faculty",
+      description: "Learn from experienced and qualified teachers"
+    },
+    {
+      icon: UserIcon,
+      title: "Personal Attention",
+      description: "Individual focus on each student's progress"
+    },
+    {
+      icon: ClockIcon,
+      title: "Flexible Timing",
+      description: "Classes scheduled according to student convenience"
+    },
+    {
+      icon: RoadIcon,
+      title: "Proven Track Record",
+      description: "26+ years of successful results and achievements"
+    },
+    {
+      icon: ChartIcon,
+      title: "Performance Analysis",
+      description: "Regular assessment and progress tracking"
+    }
+  ]
+
   return (
-    <section className="advantages-section">
-      <div className="container mx-auto px-4 max-w-6xl">
+    <section className="py-16" style={{background: 'linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%)'}}>
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{color: '#1B5A96'}}>Why Choose IMA Jodhpur?</h2>
+          <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full"></div>
+        </div>
         
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{color: 'var(--primary-medium)'}}>IMA Jodhpur Classes Advantages</h2>
-          <p className="text-gray-600 mb-6" style={{fontSize: '16px', lineHeight: '1.6'}}>
-            IMA Jodhpur is India's Premier institution established with the sole aim to initiate, enable and empower individuals to grow up to be extraordinary Teachers. IMA Jodhpur invites students who are prepared to interface their experience and diverse backgrounds with our high-end educational programmes.
-          </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {advantages.map((advantage, index) => {
+            const IconComponent = advantage.icon
+            return (
+              <div key={index} className="text-center p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                <div className="mb-4 flex justify-center">
+                  <IconComponent size={56} style={{color: 'var(--primary-medium)'}} />
+                </div>
+                <h3 className="text-xl font-bold mb-3" style={{color: '#1B5A96'}}>{advantage.title}</h3>
+                <p className="text-gray-600">{advantage.description}</p>
+              </div>
+            )
+          })}
         </div>
-
-        {/* Main Features Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          
-          {/* Left Column */}
-          <div className="space-y-4">
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-              <div className="advantage-icon mb-2">
-                <i className="fa fa-graduation-cap" style={{fontSize: '3.5rem', color: 'var(--primary-medium)'}}></i>
-              </div>
-              <h3 className="text-lg font-bold mb-2" style={{color: '#333'}}>Start learning with IMA Jodhpur Classes</h3>
-              <p className="text-gray-600 mb-3" style={{fontSize: '14px', lineHeight: '1.5'}}>
-                Get unlimited access of structured Live & Recorded Lecture, Test & advanced conceptual study material.
-              </p>
-              <ul className="text-gray-600" style={{fontSize: '13px', lineHeight: '1.4'}}>
-                <li>Classes by Expert faculty members</li>
-                <li>Compile & Customize your study stuff in Profile</li>
-                <li>Academic & Motivational Seminar</li>
-                <li>Free Stuff - Study material, eBooks, eDPPS etc</li>
-              </ul>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-              <div className="advantage-icon mb-2">
-                <i className="fa fa-user" style={{fontSize: '3.5rem', color: 'var(--primary-medium)'}}></i>
-              </div>
-              <h3 className="text-lg font-bold mb-2" style={{color: '#333'}}>Every Student is Unique</h3>
-              <p className="text-gray-600 mb-2" style={{fontSize: '14px', lineHeight: '1.5'}}>
-                We believe that every student learns differently and we work towards helping them learn better.
-              </p>
-              <p className="text-gray-600" style={{fontSize: '14px', lineHeight: '1.5'}}>
-                They learn with videos, concepts, tests & stories
-              </p>
-            </div>
-          </div>
-
-          {/* Right Column */}
-          <div className="space-y-4">
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-              <div className="advantage-icon mb-2">
-                <i className="fa fa-clock-o" style={{fontSize: '3.5rem', color: 'var(--primary-medium)'}}></i>
-              </div>
-              <h3 className="text-lg font-bold mb-2" style={{color: '#333'}}>Whether they want to start a new chapter or revise an old one</h3>
-              <p className="text-gray-600" style={{fontSize: '14px', lineHeight: '1.5'}}>
-                Students learn at their own pace.
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-              <div className="advantage-icon mb-2">
-                <i className="fa fa-road" style={{fontSize: '3.5rem', color: 'var(--primary-medium)'}}></i>
-              </div>
-              <h3 className="text-lg font-bold mb-2" style={{color: '#333'}}>Learn better with individual learning paths</h3>
-              <p className="text-gray-600" style={{fontSize: '14px', lineHeight: '1.5'}}>
-                We provide multiple types of courses according to each students needs, they can choose courses according to his requirment.
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-              <div className="advantage-icon mb-2">
-                <i className="fa fa-line-chart" style={{fontSize: '3.5rem', color: 'var(--primary-medium)'}}></i>
-              </div>
-              <h3 className="text-lg font-bold mb-2" style={{color: '#333'}}>Students experience all round academic growth</h3>
-              <p className="text-gray-600" style={{fontSize: '14px', lineHeight: '1.5'}}>
-                Our four modules work seam-lessly to boost every student's all-round academic growth, helping them learn better.
-              </p>
-            </div>
-          </div>
-
-        </div>
-
       </div>
     </section>
   )

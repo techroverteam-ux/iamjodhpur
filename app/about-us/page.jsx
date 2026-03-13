@@ -2,6 +2,8 @@
 import { useEffect, useRef, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { fetchData } from '../../lib/clientDataUtils';
+import { TrophyIcon, GraduationIcon, AwardIcon } from '../../lib/icons';
 
 export default function AboutUs() {
   const sectionsRef = useRef([]);
@@ -24,17 +26,18 @@ export default function AboutUs() {
     });
 
     if (typeof window !== 'undefined') {
-      const savedBanners = localStorage.getItem('banners');
-      if (savedBanners) {
-        const banners = JSON.parse(savedBanners);
-        if (banners.aboutUs && banners.aboutUs !== '') {
-          setBannerImage(banners.aboutUs);
-        }
-      }
+      loadBanners()
     }
 
     return () => observer.disconnect();
   }, []);
+
+  const loadBanners = async () => {
+    const data = await fetchData()
+    if (data && data.banners && data.banners.aboutUs) {
+      setBannerImage(data.banners.aboutUs)
+    }
+  }
 
   return (
     <>
@@ -382,7 +385,7 @@ export default function AboutUs() {
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 1.5rem;
+          color: white;
         }
 
         .mission-list {
@@ -573,7 +576,7 @@ export default function AboutUs() {
 
           <div className="highlight-box">
             <p className="text-content" style={{ marginBottom: 0 }}>
-              <strong>🎯 Our Approach:</strong> IMA offers coaching in both Hindi medium and English medium, with a healthy study environment and experienced faculties. With regular testing, a dedicated Doubt Solving Centre, and complete student tracking with parent reporting, we ensure continuous academic improvement.
+              <strong><TrophyIcon style={{display: 'inline', marginRight: '8px'}} size={20} />Our Approach:</strong> IMA offers coaching in both Hindi medium and English medium, with a healthy study environment and experienced faculties. With regular testing, a dedicated Doubt Solving Centre, and complete student tracking with parent reporting, we ensure continuous academic improvement.
             </p>
           </div>
 
@@ -596,7 +599,7 @@ export default function AboutUs() {
         <div className="vm-grid">
           <div className="vision-card content-section" ref={(el) => (sectionsRef.current[2] = el)}>
             <h3 className="vm-title">
-              <span className="vm-icon">🎯</span>
+              <span className="vm-icon"><TrophyIcon size={24} /></span>
               Vision
             </h3>
             <p className="text-content">
@@ -606,7 +609,7 @@ export default function AboutUs() {
 
           <div className="mission-card content-section" ref={(el) => (sectionsRef.current[3] = el)}>
             <h3 className="vm-title">
-              <span className="vm-icon">🚀</span>
+              <span className="vm-icon"><GraduationIcon size={24} /></span>
               Mission
             </h3>
             <ul className="mission-list">

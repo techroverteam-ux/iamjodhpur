@@ -1,5 +1,6 @@
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import { CalendarIcon } from '../../../lib/icons';
 
 export const metadata = {
   title: 'All India Test Series (AITS) - IMA Jodhpur',
@@ -9,7 +10,7 @@ export const metadata = {
 export default function AITSCourseDetail() {
   return (
     <>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
       <Navbar />
       
       <div dangerouslySetInnerHTML={{__html: `
@@ -166,7 +167,7 @@ export default function AITSCourseDetail() {
               <div className="course-card-body">
                 <h3 className="course-card-title">All India Test Series (AITS)</h3>
                 <div className="validity-text">
-                  <i className="fa fa-calendar"></i> Validity 365 Days
+                  <CalendarIcon style={{marginRight: '8px'}} size={16} /> Validity 365 Days
                 </div>
                 <button className="enroll-btn">Enroll Now</button>
               </div>

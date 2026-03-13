@@ -2,6 +2,8 @@
 import { useState, useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import { fetchData } from '../../lib/clientDataUtils'
+import { ChevronDownIcon, ClockIcon } from '../../lib/icons'
 
 export default function Blog() {
   const [blogs, setBlogs] = useState([])
@@ -10,20 +12,18 @@ export default function Blog() {
 
   useEffect(() => {
     setVisible(true)
-    if (typeof window !== 'undefined') {
-      const savedBlogs = localStorage.getItem('blogs')
-      if (savedBlogs) {
-        setBlogs(JSON.parse(savedBlogs))
-      }
-      const savedBanners = localStorage.getItem('banners')
-      if (savedBanners) {
-        const banners = JSON.parse(savedBanners)
-        if (banners.blogs && banners.blogs !== '') {
-          setBannerImage(banners.blogs)
-        }
+    loadData()
+  }, [])
+
+  const loadData = async () => {
+    const data = await fetchData()
+    if (data) {
+      if (data.blogs) setBlogs(data.blogs)
+      if (data.banners && data.banners.blogs) {
+        setBannerImage(data.banners.blogs)
       }
     }
-  }, [])
+  }
 
   return (
     <>
@@ -157,7 +157,7 @@ export default function Blog() {
                   <option key={blog.id} value={blog.id}>{blog.title}</option>
                 ))}
               </select>
-              <i className="fa fa-chevron-down" style={{position: 'absolute', right: '15px', top: '50%', transform: 'translateY(-50%)', color: '#1B5A96', pointerEvents: 'none'}}></i>
+              <ChevronDownIcon style={{position: 'absolute', right: '15px', top: '50%', transform: 'translateY(-50%)', color: '#1B5A96', pointerEvents: 'none'}} size={16} />
             </div>
           </div>
 
@@ -198,7 +198,7 @@ export default function Blog() {
                 <div style={{padding: '12px'}}>
                   <h3 style={{fontSize: '18px', fontWeight: '600', color: '#222222', marginBottom: '12px', minHeight: '48px', lineHeight: '1.4'}}>{blog.title}</h3>
                   <div className="date-section" style={{display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px'}}>
-                    <i className="fa fa-clock-o" style={{color: '#1B5A96', fontSize: '14px'}}></i>
+                    <ClockIcon style={{color: '#1B5A96', fontSize: '14px'}} size={14} />
                     <span style={{fontSize: '13px', color: '#6B7280'}}>{blog.date}</span>
                   </div>
                   {blog.description && blog.description.trim() && (
