@@ -6,6 +6,7 @@ import { fetchData } from '../../lib/clientDataUtils';
 import { TrophyIcon, GraduationIcon, AwardIcon } from '../../lib/icons';
 
 export default function AboutUs() {
+  
   const sectionsRef = useRef([]);
   const [bannerImage, setBannerImage] = useState('');
 
