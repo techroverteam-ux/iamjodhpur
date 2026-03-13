@@ -6,7 +6,7 @@ export default function Facilities() {
       link: "/facilities#transport"
     },
     {
-      icon: "fa-home", 
+      icon: "fa-bed", 
       title: "Hostel Facility",
       link: "/facilities#hostel"
     },

@@ -100,46 +100,11 @@ export default function Courses() {
   const loadCourses = async () => {
     const data = await fetchData()
     
-    if (data && data.courses && data.courses.length > 0) {
-      // Filter only actual course content (not registrations)
-      const actualCourses = data.courses.filter(course => 
-        course.title && course.image && !course.phone && !course.name && course.type !== 'registration'
-      )
-      
-      if (actualCourses.length > 0) {
-        setCourses(actualCourses)
-      } else {
-        // Only use defaults if no actual courses in database
-        const defaultCourses = [
-          {
-            id: '42147',
-            title: "Pre Foundation Course",
-            image: "/images/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png",
-            validity: "354 Days"
-          },
-          {
-            id: '42161',
-            title: "NEET Preparation",
-            image: "/images/3520795826_both.png",
-            validity: "365 Days"
-          },
-          {
-            id: '42286',
-            title: "JEE (Mains+Advanced)",
-            image: "/images/3520795826_both.png",
-            validity: "365 Days"
-          },
-          {
-            id: '42385',
-            title: "All India Test Series (AITS)",
-            image: "/images/3520795826_both.png",
-            validity: "365 Days"
-          }
-        ]
-        setCourses(defaultCourses)
-      }
+    if (data && data.course_content && data.course_content.length > 0) {
+      // Use course_content collection for actual courses
+      setCourses(data.course_content)
     } else {
-      // Only use defaults if database is empty
+      // Only use defaults if no courses in database
       const defaultCourses = [
         {
           id: '42147',

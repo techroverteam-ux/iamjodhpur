@@ -13,6 +13,7 @@ export default function AdminDashboard() {
   const [data, setData] = useState({
     users: [],
     courses: [],
+    course_content: [],
     blogs: [],
     testimonials: [],
     achievements: [],
@@ -52,6 +53,7 @@ export default function AdminDashboard() {
         setData({
           users: [],
           courses: [],
+          course_content: [],
           blogs: [],
           testimonials: [],
           achievements: [],
@@ -67,6 +69,7 @@ export default function AdminDashboard() {
           console.log('Data updated successfully:', {
             users: result.users?.length || 0,
             courses: result.courses?.length || 0,
+            course_content: result.course_content?.length || 0,
             blogs: result.blogs?.length || 0,
             contacts: result.contacts?.length || 0
           })
@@ -128,15 +131,20 @@ export default function AdminDashboard() {
       let collection = activeTab;
       if (activeTab === 'inquiries') collection = 'users';
       if (activeTab === 'registrations') collection = 'courses';
-      if (activeTab === 'contacts') collection = 'contacts';
+      if (activeTab === 'courses') collection = 'course_content';
+      
+      console.log('Deleting item:', { collection, id: deleteItem.id, item: deleteItem });
       
       const result = await deleteData(collection, deleteItem.id)
+      console.log('Delete operation result:', result);
+      
       if (result.success) {
         toast.success('Item deleted successfully!')
         // Force refresh to get updated data from database
         await loadData(true)
       } else {
-        toast.error('Failed to delete item. Please try again.')
+        console.error('Delete failed:', result);
+        toast.error(`Failed to delete item: ${result.error || 'Unknown error'}`)
       }
     }
     setShowDeleteModal(false)
@@ -190,11 +198,18 @@ export default function AdminDashboard() {
     delete submitData.imageFile
     
     let result
+    let collection = activeTab;
+    if (activeTab === 'courses') collection = 'course_content';
+    
+    console.log('Submitting data:', { collection, editItem: editItem?.id, submitData });
+    
     if (editItem) {
-      result = await updateData(activeTab, editItem.id, submitData)
+      result = await updateData(collection, editItem.id, submitData)
     } else {
-      result = await addData(activeTab, submitData)
+      result = await addData(collection, submitData)
     }
+    
+    console.log('Submit operation result:', result);
     
     if (result.success) {
       toast.success(`${editItem ? 'Updated' : 'Added'} successfully!`)
@@ -202,7 +217,8 @@ export default function AdminDashboard() {
       await loadData(true)
       setShowModal(false)
     } else {
-      toast.error('Operation failed. Please try again.')
+      console.error('Submit failed:', result);
+      toast.error(`Operation failed: ${result.error || 'Unknown error'}`)
     }
   }
 
@@ -316,25 +332,6 @@ export default function AdminDashboard() {
             <TrophyIcon style={{marginRight: '10px'}} size={16} />STHE Inquiries
           </button>
           <button 
-            onClick={() => handleTabChange('contacts')} 
-            disabled={loading || loadingTab === 'contacts'}
-            style={{
-              width: '100%', 
-              padding: '15px 20px', 
-              background: activeTab === 'contacts' ? 'rgba(255,255,255,0.1)' : 'transparent', 
-              color: 'white', 
-              border: 'none', 
-              textAlign: 'left', 
-              cursor: loading || loadingTab === 'contacts' ? 'not-allowed' : 'pointer', 
-              borderLeft: activeTab === 'contacts' ? '4px solid white' : '4px solid transparent', 
-              display: 'flex', 
-              alignItems: 'center',
-              opacity: loading || loadingTab === 'contacts' ? 0.6 : 1
-            }}
-          >
-            <UserIcon style={{marginRight: '10px'}} size={16} />Contact Forms
-          </button>
-          <button 
             onClick={() => handleTabChange('registrations')} 
             disabled={loading || loadingTab === 'registrations'}
             style={{
@@ -351,7 +348,7 @@ export default function AdminDashboard() {
               opacity: loading || loadingTab === 'registrations' ? 0.6 : 1
             }}
           >
-            <UserIcon style={{marginRight: '10px'}} size={16} />Registrations
+            <UserIcon style={{marginRight: '10px'}} size={16} />Course Registrations
           </button>
           <button 
             onClick={() => handleTabChange('blogs')} 
@@ -408,7 +405,7 @@ export default function AdminDashboard() {
       <div className="element-style" style={{marginLeft: '248px', paddingTop: '0px'}}>
         <div style={{padding: '20px'}}>
           <div className="bg-white rounded-lg shadow-md p-4">
-            {activeTab !== 'inquiries' && activeTab !== 'registrations' && activeTab !== 'contacts' && (
+            {activeTab !== 'inquiries' && activeTab !== 'registrations' && (
               <button onClick={handleAdd} className="mb-4 px-4 py-2 rounded text-white font-semibold flex items-center" style={{background: '#1B5A96'}}>
                 <PlusIcon className="mr-2" size={16} />Add {activeTab === 'blogs' ? 'Blog' : 'Course'}
               </button>
@@ -461,49 +458,6 @@ export default function AdminDashboard() {
                   </table>
                   <PaginationComponent dataArray={data.users} />
                 </div>
-              ) : activeTab === 'contacts' ? (
-                <div>
-                  <h2 className="text-lg font-bold mb-3" style={{color: '#1B5A96'}}>Contact Form Submissions</h2>
-                  <table className="w-full border-collapse" style={{fontSize: '13px'}}>
-                    <thead style={{background: '#f8f9fa'}}>
-                      <tr>
-                        <th className="px-2 py-2 text-left border-b">Date</th>
-                        <th className="px-2 py-2 text-left border-b">Name</th>
-                        <th className="px-2 py-2 text-left border-b">Email</th>
-                        <th className="px-2 py-2 text-left border-b">Phone</th>
-                        <th className="px-2 py-2 text-left border-b">Message</th>
-                        <th className="px-2 py-2 text-left border-b">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {getPaginatedData(data.contacts).map((contact) => (
-                        <tr key={contact.id} className="border-b hover:bg-gray-50">
-                          <td className="px-2 py-2">{contact.date}</td>
-                          <td className="px-2 py-2">{contact.name}</td>
-                          <td className="px-2 py-2">
-                            <a href={`mailto:${contact.email}`} className="text-blue-600 hover:underline">
-                              {contact.email}
-                            </a>
-                          </td>
-                          <td className="px-2 py-2">
-                            <a href={`tel:${contact.phone}`} className="text-green-600 hover:underline">
-                              {contact.phone}
-                            </a>
-                          </td>
-                          <td className="px-2 py-2" style={{maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}} title={contact.message}>
-                            {contact.message.length > 50 ? contact.message.substring(0, 50) + '...' : contact.message}
-                          </td>
-                          <td className="px-2 py-2">
-                            <button onClick={() => handleDeleteClick(contact)} className="px-2 py-1 rounded text-white text-xs" style={{background: '#dc3545'}}>
-                              <DeleteIcon size={12} />
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                  <PaginationComponent dataArray={data.contacts} />
-                </div>
               ) : activeTab === 'registrations' ? (
                 <div>
                   <h2 className="text-lg font-bold mb-3" style={{color: '#1B5A96'}}>Course Registrations</h2>
@@ -522,7 +476,11 @@ export default function AdminDashboard() {
                         <tr key={reg.id} className="border-b hover:bg-gray-50">
                           <td className="px-2 py-2">{reg.date}</td>
                           <td className="px-2 py-2">{reg.name}</td>
-                          <td className="px-2 py-2">{reg.phone}</td>
+                          <td className="px-2 py-2">
+                            <a href={`https://wa.me/91${reg.phone}`} target="_blank" rel="noopener noreferrer" className="text-green-600 hover:underline">
+                              {reg.phone}
+                            </a>
+                          </td>
                           <td className="px-2 py-2">{reg.course}</td>
                           <td className="px-2 py-2">
                             <button onClick={() => handleDeleteClick(reg)} className="px-2 py-1 rounded text-white text-xs" style={{background: '#dc3545'}}>
@@ -535,25 +493,35 @@ export default function AdminDashboard() {
                   </table>
                   <PaginationComponent dataArray={data.courses} />
                 </div>
-              ) : (
+              ) : activeTab === 'courses' ? (
                 <div>
-                  <h2 className="text-lg font-bold mb-3" style={{color: '#1B5A96'}}>{activeTab === 'blogs' ? 'Blogs' : 'Courses'}</h2>
+                  <h2 className="text-lg font-bold mb-3" style={{color: '#1B5A96'}}>Courses Management</h2>
                   <table className="w-full border-collapse" style={{fontSize: '13px'}}>
                     <thead style={{background: '#f8f9fa'}}>
                       <tr>
                         <th className="px-2 py-2 text-left border-b">Image</th>
                         <th className="px-2 py-2 text-left border-b">Title</th>
+                        <th className="px-2 py-2 text-left border-b">Description</th>
                         <th className="px-2 py-2 text-left border-b">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {getPaginatedData(activeTab === 'blogs' ? data.blogs : data.courses).map((item) => (
+                      {getPaginatedData(data.course_content || []).map((item) => (
                         <tr key={item.id} className="border-b hover:bg-gray-50">
                           <td className="px-2 py-2">
-                            <img src={item.image} alt={item.title} className="w-10 h-10 object-contain rounded" />
+                            {item.image ? (
+                              <img src={item.image} alt={item.title} className="w-10 h-10 object-contain rounded" />
+                            ) : (
+                              <div className="w-10 h-10 bg-gray-200 rounded flex items-center justify-center">
+                                <BookIcon size={16} style={{color: '#666'}} />
+                              </div>
+                            )}
                           </td>
-                          <td className="px-2 py-2" style={{maxWidth: '300px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
+                          <td className="px-2 py-2" style={{maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
                             {item.title}
+                          </td>
+                          <td className="px-2 py-2" style={{maxWidth: '250px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
+                            {item.description || 'No description'}
                           </td>
                           <td className="px-2 py-2">
                             <div className="flex gap-1">
@@ -569,7 +537,45 @@ export default function AdminDashboard() {
                       ))}
                     </tbody>
                   </table>
-                  <PaginationComponent dataArray={activeTab === 'blogs' ? data.blogs : data.courses} />
+                  <PaginationComponent dataArray={data.course_content || []} />
+                </div>
+              ) : (
+                <div>
+                  <h2 className="text-lg font-bold mb-3" style={{color: '#1B5A96'}}>Blogs</h2>
+                  <table className="w-full border-collapse" style={{fontSize: '13px'}}>
+                    <thead style={{background: '#f8f9fa'}}>
+                      <tr>
+                        <th className="px-2 py-2 text-left border-b">Image</th>
+                        <th className="px-2 py-2 text-left border-b">Title</th>
+                        <th className="px-2 py-2 text-left border-b">Date</th>
+                        <th className="px-2 py-2 text-left border-b">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {getPaginatedData(data.blogs).map((item) => (
+                        <tr key={item.id} className="border-b hover:bg-gray-50">
+                          <td className="px-2 py-2">
+                            <img src={item.image} alt={item.title} className="w-10 h-10 object-contain rounded" />
+                          </td>
+                          <td className="px-2 py-2" style={{maxWidth: '300px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
+                            {item.title}
+                          </td>
+                          <td className="px-2 py-2">{item.date}</td>
+                          <td className="px-2 py-2">
+                            <div className="flex gap-1">
+                              <button onClick={() => handleEdit(item)} className="px-2 py-1 rounded text-white text-xs" style={{background: '#28a745'}}>
+                                <EditIcon size={12} />
+                              </button>
+                              <button onClick={() => handleDeleteClick(item)} className="px-2 py-1 rounded text-white text-xs" style={{background: '#dc3545'}}>
+                                <DeleteIcon size={12} />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <PaginationComponent dataArray={data.blogs} />
                 </div>
               )}
             </div>

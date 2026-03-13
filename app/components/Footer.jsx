@@ -204,7 +204,7 @@ export default function Footer() {
               </li>
               <li>
                 <a href="tel:9571037333" className="footer-link flex items-center justify-center md:justify-start hover:text-blue-200 transition-colors text-white/90">
-                  <PhoneIcon className="mr-2 text-blue-200" size={16} /> +91 - 9571037333
+                  <PhoneIcon className="mr-2 text-blue-200" size={16} style={{transform: 'scaleX(-1)'}} /> +91 - 9571037333
                 </a>
               </li>
               <li>

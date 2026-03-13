@@ -44,9 +44,20 @@ body {
   padding-top: 120px;
 }
 
+/* Admin login page override */
+.admin-login-page {
+  padding-top: 0 !important;
+  min-height: 100vh !important;
+}
+
 @media (max-width: 768px) {
   body {
     padding-top: 100px;
+  }
+  
+  /* Admin login page mobile override */
+  .admin-login-page {
+    padding-top: 0 !important;
   }
 }
 

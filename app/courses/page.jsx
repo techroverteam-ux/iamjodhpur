@@ -56,46 +56,11 @@ export default function CoursesPage() {
     try {
       const data = await fetchData()
       
-      if (data && data.courses && data.courses.length > 0) {
-        // Filter only actual course content (not registrations)
-        const actualCourses = data.courses.filter(course => 
-          course.title && course.image && !course.phone && !course.name && course.type !== 'registration'
-        )
-        
-        if (actualCourses.length > 0) {
-          setCourses(actualCourses)
-        } else {
-          // Only use defaults if no actual courses in database
-          const defaultCourses = [
-            {
-              id: '42147',
-              title: 'Pre Foundation Course',
-              description: 'Foundation course for Class 9th & 10th students',
-              image: '/images/236614642147_Gemini_Generated_Image_xtokhaxtokhaxtok.png'
-            },
-            {
-              id: '42161',
-              title: 'NEET Preparation',
-              description: 'Complete NEET preparation course',
-              image: '/images/3520795826_both.png'
-            },
-            {
-              id: '42286',
-              title: 'JEE (Mains+Advanced)',
-              description: 'JEE Mains and Advanced preparation',
-              image: '/images/3520795826_both.png'
-            },
-            {
-              id: '42385',
-              title: 'All India Test Series (AITS)',
-              description: 'Comprehensive test series for practice',
-              image: '/images/3520795826_both.png'
-            }
-          ]
-          setCourses(defaultCourses)
-        }
+      if (data && data.course_content && data.course_content.length > 0) {
+        // Use course_content collection for actual courses
+        setCourses(data.course_content)
       } else {
-        // Only use defaults if database is empty
+        // Only use defaults if no courses in database
         const defaultCourses = [
           {
             id: '42147',
