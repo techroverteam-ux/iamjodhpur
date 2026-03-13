@@ -181,66 +181,37 @@ export default function BlogDetail() {
         }
         .blog-header {
           background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
-          padding: 30px;
+          padding: 20px;
           text-align: center;
           border-bottom: 3px solid #1B5A96;
           position: relative;
         }
-        .blog-header::after {
-          content: '';
-          position: absolute;
-          bottom: -3px;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 100px;
-          height: 6px;
-          background: linear-gradient(90deg, transparent, #1B5A96, transparent);
-        }
-        .blog-logo {
-          margin-bottom: 20px;
-          filter: drop-shadow(0 4px 12px rgba(27, 90, 150, 0.3));
-        }
         .blog-title {
           color: #1B5A96;
-          font-size: 2.5rem;
+          font-size: 2rem;
           font-weight: 800;
-          margin-bottom: 15px;
+          margin: 10px 0;
           line-height: 1.2;
           text-shadow: 0 2px 4px rgba(27, 90, 150, 0.1);
         }
         .blog-date {
           color: #64748b;
-          font-size: 1rem;
+          font-size: 0.9rem;
           font-weight: 500;
           background: #f1f5f9;
-          padding: 8px 20px;
+          padding: 6px 16px;
           border-radius: 25px;
           display: inline-block;
         }
-        .blog-image-container {
-          padding: 30px;
-          background: linear-gradient(135deg, #f8fafc 0%, #e8eef5 100%);
-        }
-        .blog-image {
-          width: 100%;
-          max-height: 400px;
-          object-fit: contain;
-          border-radius: 15px;
-          box-shadow: 0 10px 30px rgba(27, 90, 150, 0.2);
-          transition: transform 0.3s ease;
-        }
-        .blog-image:hover {
-          transform: scale(1.02);
-        }
         .blog-content {
-          padding: 40px;
-          line-height: 1.8;
+          padding: 25px;
+          line-height: 1.6;
         }
         .blog-content h3 {
           color: #1B5A96;
-          font-size: 1.8rem;
+          font-size: 1.5rem;
           font-weight: 700;
-          margin: 30px 0 15px 0;
+          margin: 20px 0 10px 0;
           padding-left: 20px;
           border-left: 4px solid #1B5A96;
           position: relative;
@@ -258,18 +229,18 @@ export default function BlogDetail() {
         }
         .blog-content p {
           color: #374151;
-          font-size: 1.1rem;
-          margin-bottom: 20px;
+          font-size: 1rem;
+          margin-bottom: 15px;
           text-align: justify;
         }
         .blog-content ul {
-          margin: 20px 0;
+          margin: 15px 0;
           padding-left: 0;
         }
         .blog-content li {
           color: #374151;
-          font-size: 1.1rem;
-          margin-bottom: 12px;
+          font-size: 1rem;
+          margin-bottom: 8px;
           padding-left: 30px;
           position: relative;
           list-style: none;
@@ -280,21 +251,22 @@ export default function BlogDetail() {
           left: 0;
           color: #1B5A96;
           font-weight: bold;
-          font-size: 1.2rem;
+          font-size: 1.1rem;
         }
         .back-button {
           background: linear-gradient(135deg, #1B5A96, #2563eb);
           color: white;
-          padding: 15px 30px;
+          padding: 12px 25px;
           border-radius: 50px;
           text-decoration: none;
           font-weight: 600;
           display: inline-flex;
           align-items: center;
-          gap: 10px;
+          gap: 8px;
           transition: all 0.3s ease;
           box-shadow: 0 4px 15px rgba(27, 90, 150, 0.3);
-          margin: 30px 0;
+          margin: 20px 0 0 0;
+          font-size: 0.9rem;
         }
         .back-button:hover {
           transform: translateY(-2px);
@@ -303,42 +275,44 @@ export default function BlogDetail() {
         }
         @media (max-width: 768px) {
           .blog-hero {
-            padding: 40px 15px !important;
+            padding: 30px 15px !important;
           }
           .blog-title {
-            font-size: 1.8rem !important;
+            font-size: 1.5rem !important;
           }
           .blog-content {
-            padding: 25px !important;
+            padding: 20px !important;
           }
           .blog-content h3 {
-            font-size: 1.4rem !important;
+            font-size: 1.3rem !important;
+            margin: 15px 0 8px 0 !important;
           }
           .blog-content p, .blog-content li {
-            font-size: 1rem !important;
+            font-size: 0.95rem !important;
+            margin-bottom: 12px !important;
           }
           .blog-header {
-            padding: 20px !important;
-          }
-          .blog-image-container {
-            padding: 20px !important;
+            padding: 15px !important;
           }
         }
       `}</style>
       
       <Navbar />
       
-      <div className="blog-hero" style={{padding: '60px 20px'}}>
+      <div className="blog-hero" style={{padding: '40px 20px'}}>
         <div className="blog-container">
-          {/* Logo and Header Section */}
+          {/* Header Section */}
           <div className="blog-header">
-            <div className="blog-logo">
-              <img 
-                src="/images/new_logo.png" 
-                alt="IMA Jodhpur" 
-                style={{height: '80px', width: 'auto'}} 
+            {/* Blog Image at Top */}
+            <div style={{margin: '15px 0'}}>
+              <img
+                src={blog.image}
+                alt={blog.title}
+                className="blog-image"
+                style={{maxHeight: '250px', width: 'auto', borderRadius: '15px', boxShadow: '0 10px 30px rgba(27, 90, 150, 0.2)'}}
               />
             </div>
+            
             <h1 className="blog-title">{blog.title}</h1>
             <div className="blog-date">
               📅 {new Date(blog.date).toLocaleDateString('en-US', {
@@ -347,15 +321,6 @@ export default function BlogDetail() {
                 day: 'numeric'
               })}
             </div>
-          </div>
-
-          {/* Blog Image */}
-          <div className="blog-image-container">
-            <img
-              src={blog.image}
-              alt={blog.title}
-              className="blog-image"
-            />
           </div>
 
           {/* Blog Content */}
