@@ -1,3 +1,4 @@
+import React from 'react'
 import { TransportIcon, HostelIcon, MessIcon } from '../../lib/icons'
 
 export default function Facilities() {
@@ -9,10 +10,10 @@ export default function Facilities() {
       type: "react-icon"
     },
     {
-      icon: "/hostel.png", 
+      icon: HostelIcon, 
       title: "Hostel Facility",
       link: "/facilities#hostel",
-      type: "image"
+      type: "react-icon"
     },
     {
       icon: MessIcon, 
@@ -63,23 +64,20 @@ export default function Facilities() {
                 e.target.style.borderColor = 'transparent'
               }}
             >
-              {facility.type === "image" ? (
+              {facility.type === "react-icon" ? (
+                <div style={{textAlign: 'center', marginBottom: '1.5rem'}}>
+                  {React.createElement(facility.icon, {
+                    size: 56,
+                    style: { color: '#1B5A96' }
+                  })}
+                </div>
+              ) : facility.type === "image" ? (
                 <img 
                   src={facility.icon}
                   alt={facility.title}
                   style={{
                     width: '60px',
                     height: '60px',
-                    marginBottom: '1.5rem',
-                    display: 'block',
-                    margin: '0 auto 1.5rem auto'
-                  }}
-                />
-              ) : facility.type === "react-icon" ? (
-                <facility.icon 
-                  style={{
-                    fontSize: '3.5rem',
-                    color: '#1B5A96',
                     marginBottom: '1.5rem',
                     display: 'block',
                     margin: '0 auto 1.5rem auto'
