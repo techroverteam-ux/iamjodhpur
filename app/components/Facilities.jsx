@@ -1,17 +1,17 @@
 export default function Facilities() {
   const facilities = [
     {
-      icon: "fa-bus",
+      icon: "🚌",
       title: "Transport Facility",
       link: "/facilities#transport"
     },
     {
-      icon: "fa-bed", 
+      icon: "🏠", 
       title: "Hostel Facility",
       link: "/facilities#hostel"
     },
     {
-      icon: "fa-cutlery", 
+      icon: "🍽️", 
       title: "Mess Facility",
       link: "/facilities#mess"
     }
@@ -58,15 +58,16 @@ export default function Facilities() {
                 e.target.style.borderColor = 'transparent'
               }}
             >
-              <i 
-                className={`fa ${facility.icon}`} 
+              <div 
                 style={{
                   fontSize: '3.5rem',
                   color: '#1B5A96',
                   marginBottom: '1.5rem',
                   display: 'block'
                 }}
-              ></i>
+              >
+                {facility.icon}
+              </div>
               <h3 style={{
                 fontSize: '1.4rem',
                 fontWeight: '600',
@@ -91,7 +92,7 @@ export default function Facilities() {
             padding: 2rem !important;
           }
           
-          i {
+          div[style*="font-size: 3.5rem"] {
             font-size: 3rem !important;
           }
           
