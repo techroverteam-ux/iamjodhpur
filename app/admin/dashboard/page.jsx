@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import { toast } from 'react-hot-toast'
 import { fetchData, addData, updateData, deleteData } from '../../../lib/clientDataUtils'
 import { uploadImage } from '../../../lib/uploadUtils'
 import { TrophyIcon, UserIcon, BookIcon, PlusIcon, EditIcon, DeleteIcon, LogoutIcon, ImageIcon, NewsIcon, CloseIcon } from '../../../lib/icons'
@@ -67,7 +68,10 @@ export default function AdminDashboard() {
       
       const result = await deleteData(collection, id)
       if (result.success) {
+        toast.success('Item deleted successfully!')
         loadData()
+      } else {
+        toast.error('Failed to delete item. Please try again.')
       }
     }
   }
@@ -107,7 +111,7 @@ export default function AdminDashboard() {
       if (imageUrl) {
         submitData.image = imageUrl
       } else {
-        alert('Image upload failed. Please try again.')
+        toast.error('Image upload failed. Please try again.')
         return
       }
     }
@@ -123,10 +127,11 @@ export default function AdminDashboard() {
     }
     
     if (result.success) {
+      toast.success(`${editItem ? 'Updated' : 'Added'} successfully!`)
       loadData()
       setShowModal(false)
     } else {
-      alert('Operation failed. Please try again.')
+      toast.error('Operation failed. Please try again.')
     }
   }
 
@@ -146,13 +151,13 @@ export default function AdminDashboard() {
       if (imageUrl) {
         const result = await updateData('achievements', achievement.id, {...achievement, image: imageUrl})
         if (result.success) {
+          toast.success('Image uploaded successfully!')
           loadData()
-          alert('Image uploaded successfully!')
         } else {
-          alert('Failed to save image. Please try again.')
+          toast.error('Failed to save image. Please try again.')
         }
       } else {
-        alert('Image upload failed. Please try again.')
+        toast.error('Image upload failed. Please try again.')
       }
     }
   }
@@ -161,8 +166,10 @@ export default function AdminDashboard() {
     if (confirm('Are you sure you want to remove this image?')) {
       const result = await updateData('achievements', achievement.id, {...achievement, image: ''})
       if (result.success) {
+        toast.success('Image removed successfully!')
         loadData()
-        alert('Image removed successfully!')
+      } else {
+        toast.error('Failed to remove image. Please try again.')
       }
     }
   }
@@ -174,13 +181,13 @@ export default function AdminDashboard() {
         const newBanners = {...(data.banners || {}), [page]: imageUrl}
         const result = await updateData('banners', 'main', newBanners)
         if (result.success) {
+          toast.success('Banner updated successfully!')
           loadData()
-          alert('Banner updated successfully!')
         } else {
-          alert('Failed to save banner. Please try again.')
+          toast.error('Failed to save banner. Please try again.')
         }
       } else {
-        alert('Banner upload failed. Please try again.')
+        toast.error('Banner upload failed. Please try again.')
       }
     }
   }
@@ -190,8 +197,10 @@ export default function AdminDashboard() {
       const newBanners = {...(data.banners || {}), [page]: ''}
       const result = await updateData('banners', 'main', newBanners)
       if (result.success) {
+        toast.success('Banner removed successfully!')
         loadData()
-        alert('Banner removed successfully!')
+      } else {
+        toast.error('Failed to remove banner. Please try again.')
       }
     }
   }

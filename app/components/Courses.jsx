@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import { toast } from 'react-hot-toast'
 import { fetchData, addData } from '../../lib/clientDataUtils'
 
 export default function Courses() {
@@ -36,6 +37,8 @@ export default function Courses() {
 
   const handleRegister = async (e) => {
     e.preventDefault()
+    setLoading(true)
+    
     try {
       const response = await fetch('/api/registration', {
         method: 'POST',
@@ -48,14 +51,25 @@ export default function Courses() {
       const result = await response.json()
 
       if (response.ok) {
-        alert('Registration successful! We will contact you soon.')
+        toast.success('Registration successful! We will contact you soon. For more information call +91 - 9571037333', {
+          duration: 6000,
+          position: 'top-center',
+        })
         setShowRegisterModal(false)
         setFormData({ name: '', email: '', phone: '', course: '' })
       } else {
-        alert('Registration failed: ' + (result.error || 'Please try again'))
+        toast.error(result.error || 'Registration failed. Please try again.', {
+          duration: 4000,
+          position: 'top-center',
+        })
       }
     } catch (error) {
-      alert('Network error. Please try again.')
+      toast.error('Network error. Please try again.', {
+        duration: 4000,
+        position: 'top-center',
+      })
+    } finally {
+      setLoading(false)
     }
   }
 

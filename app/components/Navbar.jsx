@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { toast } from 'react-hot-toast'
 import { addData } from '../../lib/clientDataUtils'
 import { PhoneIcon, EmailIcon, HomeIcon, InfoIcon, BookIcon, BuildingIcon, NewsIcon, QuestionIcon, GraduationIcon } from '../../lib/icons'
 
@@ -9,9 +10,12 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [showRegisterModal, setShowRegisterModal] = useState(false)
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', course: '' })
+  const [loading, setLoading] = useState(false)
 
   const handleRegister = async (e) => {
     e.preventDefault()
+    setLoading(true)
+    
     try {
       const response = await fetch('/api/inquiry', {
         method: 'POST',
@@ -24,14 +28,25 @@ export default function Navbar() {
       const result = await response.json()
 
       if (response.ok) {
-        alert('Submitted Successfully\n\nFor more information call on\n+91 - 9571037333')
+        toast.success('Registration successful! We will contact you soon. For more information call +91 - 9571037333', {
+          duration: 6000,
+          position: 'top-center',
+        })
         setShowRegisterModal(false)
         setFormData({ name: '', email: '', phone: '', course: '' })
       } else {
-        alert('Registration failed: ' + (result.error || 'Please try again'))
+        toast.error(result.error || 'Registration failed. Please try again.', {
+          duration: 4000,
+          position: 'top-center',
+        })
       }
     } catch (error) {
-      alert('Network error. Please try again.')
+      toast.error('Network error. Please try again.', {
+        duration: 4000,
+        position: 'top-center',
+      })
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -342,36 +357,103 @@ export default function Navbar() {
       </div>
 
       {showRegisterModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 p-4" onClick={() => setShowRegisterModal(false)} style={{background: 'rgba(0,0,0,0.5)', paddingTop: '60px', paddingBottom: '60px'}}>
-          <div className="bg-white rounded-lg w-full max-w-md relative" onClick={(e) => e.stopPropagation()} style={{maxHeight: 'calc(100vh - 120px)', overflowY: 'auto'}}>
-            <button onClick={() => setShowRegisterModal(false)} className="absolute top-2 right-2 text-4xl text-gray-400 hover:text-gray-600 leading-none">&times;</button>
-            <div className="text-center py-6 px-8">
-              <div className="mb-3">
-                <Image src="/images/new_logo.png" width={80} height={32} alt="IMA Jodhpur" className="mx-auto" style={{height: 'auto', width: '80px'}} />
+        <div className="fixed inset-0 flex items-center justify-center z-50 p-4" onClick={() => setShowRegisterModal(false)} style={{background: 'rgba(0,0,0,0.8)'}}>
+          <div className="bg-white rounded-xl w-full max-w-md relative shadow-2xl" onClick={(e) => e.stopPropagation()} style={{maxHeight: '90vh', overflowY: 'auto'}}>
+            <button onClick={() => setShowRegisterModal(false)} className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-2xl font-bold transition-colors">&times;</button>
+            
+            <div className="text-center py-6 px-6">
+              <div className="mb-4">
+                <Image src="/images/new_logo.png" width={120} height={48} alt="IMA Jodhpur" className="mx-auto" style={{height: 'auto', width: '120px'}} />
               </div>
-              <p className="my-4 font-bold text-base" style={{color: '#1B5A96'}}>Get Scholarship Upto 100%</p>
-              <div className="mb-4 text-left">
-                <h3 className="font-bold mb-2" style={{color: '#1B5A96', fontSize: '15px'}}>Science Talent Hunt Examination</h3>
-                <ul style={{listStyle: 'none', padding: 0, color: '#1B5A96', fontSize: '13px', lineHeight: '1.8'}}>
-                  <li><strong>📅 Every Sunday</strong></li>
-                  <li><strong>⏱️ 2 Hours Question Paper</strong></li>
-                  <li><strong>📝 75 Questions</strong></li>
-                </ul>
+              
+              <div className="mb-4">
+                <h3 className="text-lg font-bold text-red-600 mb-3">Get Scholarship Upto 100%</h3>
               </div>
-              <form onSubmit={handleRegister} className="space-y-3">
-                <input type="text" placeholder="Full Name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full p-3 border border-gray-300 rounded outline-none" required />
-                <div className="flex">
-                  <span className="flex items-center px-3 border border-r-0 border-gray-300 rounded-l bg-gray-50">+91</span>
-                  <input type="tel" placeholder="WhatsApp Number" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value.replace(/\D/g, '')})} maxLength="10" className="w-full p-3 border border-gray-300 rounded-r outline-none" required />
+              
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg mb-4">
+                <h4 className="text-base font-bold mb-3" style={{color: '#1B5A96'}}>Science Talent Hunt Examination</h4>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-center bg-white p-2 rounded-lg shadow-sm">
+                    <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mr-2">
+                      <svg className="w-3 h-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <span className="text-sm font-semibold text-gray-700">Every Sunday</span>
+                  </div>
+                  <div className="flex items-center justify-center bg-white p-2 rounded-lg shadow-sm">
+                    <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center mr-2">
+                      <svg className="w-3 h-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <span className="text-sm font-semibold text-gray-700">2 Hours Question Paper</span>
+                  </div>
+                  <div className="flex items-center justify-center bg-white p-2 rounded-lg shadow-sm">
+                    <div className="w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center mr-2">
+                      <svg className="w-3 h-3 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                        <path fillRule="evenodd" d="M4 5a2 2 0 012-2v1a2 2 0 002 2h6a2 2 0 002-2V3a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <span className="text-sm font-semibold text-gray-700">75 Questions</span>
+                  </div>
                 </div>
-                <select value={formData.course} onChange={(e) => setFormData({...formData, course: e.target.value})} className="w-full p-3 border border-gray-300 rounded outline-none" required>
-                  <option value="">Select Course</option>
-                  <option value="NEET">NEET</option>
-                  <option value="JEE">JEE</option>
-                  <option value="Pre-Foundation">Pre-Foundation 9th & 10th</option>
-                </select>
-                <button type="submit" className="w-full text-white font-semibold py-3 rounded" style={{background:'#dc3545'}}>Register Now</button>
+              </div>
+              
+              <form onSubmit={handleRegister} className="space-y-3">
+                <div>
+                  <input 
+                    type="text" 
+                    placeholder="Full Name" 
+                    value={formData.name} 
+                    onChange={(e) => setFormData({...formData, name: e.target.value})} 
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-gray-700" 
+                    required 
+                  />
+                </div>
+                
+                <div className="flex">
+                  <span className="flex items-center px-3 border border-r-0 border-gray-300 rounded-l-lg bg-gray-50 text-gray-700 font-semibold">
+                    +91
+                  </span>
+                  <input 
+                    type="tel" 
+                    placeholder="WhatsApp Number" 
+                    value={formData.phone} 
+                    onChange={(e) => setFormData({...formData, phone: e.target.value.replace(/\D/g, '')})} 
+                    maxLength="10" 
+                    className="flex-1 p-3 border border-gray-300 rounded-r-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-gray-700" 
+                    required 
+                  />
+                </div>
+                
+                <div>
+                  <select 
+                    value={formData.course} 
+                    onChange={(e) => setFormData({...formData, course: e.target.value})} 
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-gray-700" 
+                    required
+                  >
+                    <option value="">Select Course</option>
+                    <option value="NEET">NEET</option>
+                    <option value="JEE">JEE</option>
+                    <option value="Pre-Foundation">Pre-Foundation 9th & 10th</option>
+                  </select>
+                </div>
+                
+                <button 
+                  type="submit" 
+                  disabled={loading}
+                  className="w-full bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white font-bold py-3 rounded-lg transition-colors shadow-lg"
+                >
+                  {loading ? 'Registering...' : 'Register for Scholarship Test'}
+                </button>
               </form>
+              
+              <div className="mt-3 text-xs text-gray-600">
+                <p>For more info: <a href="tel:9571037333" className="text-blue-600 font-semibold">+91 - 9571037333</a></p>
+              </div>
             </div>
           </div>
         </div>
