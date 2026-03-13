@@ -83,24 +83,12 @@ export default function FAQs() {
   ];
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry, index) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => {
-              entry.target.classList.add('animate-in');
-            }, index * 100);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
+    // Remove scroll-based animation - show all FAQs immediately
     sectionsRef.current.forEach((section) => {
-      if (section) observer.observe(section);
+      if (section) {
+        section.classList.add('animate-in');
+      }
     });
-
-    return () => observer.disconnect();
   }, []);
 
   const toggleFAQ = (index) => {
@@ -208,12 +196,13 @@ export default function FAQs() {
           background: linear-gradient(white, white) padding-box,
                       linear-gradient(135deg, #1B5A96, #1B5A96) border-box;
           overflow: hidden;
-          opacity: 0;
+          opacity: 1;
           transition: all 0.4s ease;
         }
 
         .faq-item.animate-in {
-          animation: slideInRight 0.6s ease-out forwards;
+          opacity: 1;
+          transform: translateX(0);
         }
 
         .faq-item:hover {
@@ -281,12 +270,12 @@ export default function FAQs() {
         .faq-answer {
           max-height: 0;
           overflow: hidden;
-          transition: max-height 0.4s ease, padding 0.4s ease;
+          transition: max-height 0.5s ease-out, padding 0.5s ease-out;
           padding: 0 30px;
         }
 
         .faq-item.open .faq-answer {
-          max-height: 500px;
+          max-height: 300px;
           padding: 0 30px 30px 95px;
         }
 
@@ -385,22 +374,46 @@ export default function FAQs() {
       <div className="stats-section">
         <div className="stats-grid">
           <div className="stat-card">
-            <div className="stat-icon">📚</div>
+            <div className="stat-icon">
+              <div style={{width: '48px', height: '48px', background: '#1B5A96', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
+                  <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                </svg>
+              </div>
+            </div>
             <div className="stat-title">Multiple Courses</div>
             <div className="stat-desc">Pre-Foundation, NEET, JEE & Test Series</div>
           </div>
           <div className="stat-card">
-            <div className="stat-icon">👨‍🏫</div>
+            <div className="stat-icon">
+              <div style={{width: '48px', height: '48px', background: '#1B5A96', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
+                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+              </div>
+            </div>
             <div className="stat-title">Expert Faculty</div>
             <div className="stat-desc">Experienced teachers with proven results</div>
           </div>
           <div className="stat-card">
-            <div className="stat-icon">🎯</div>
+            <div className="stat-icon">
+              <div style={{width: '48px', height: '48px', background: '#1B5A96', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
+                  <path d="M9 11H7v6h2v-6zm4 0h-2v6h2v-6zm4 0h-2v6h2v-6zM12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+              </div>
+            </div>
             <div className="stat-title">Personal Attention</div>
             <div className="stat-desc">One-to-one guidance & doubt solving</div>
           </div>
           <div className="stat-card">
-            <div className="stat-icon">🏆</div>
+            <div className="stat-icon">
+              <div style={{width: '48px', height: '48px', background: '#1B5A96', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
+                  <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/>
+                </svg>
+              </div>
+            </div>
             <div className="stat-title">26+ Years</div>
             <div className="stat-desc">Legacy of excellence since 1999</div>
           </div>

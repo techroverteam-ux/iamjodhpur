@@ -22,8 +22,12 @@ export default function AdminDashboard() {
     contacts: []
   })
   const [showModal, setShowModal] = useState(false)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [deleteItem, setDeleteItem] = useState(null)
   const [editItem, setEditItem] = useState(null)
   const [formData, setFormData] = useState({ title: '', date: '', description: '', content: [], image: '', imageFile: null })
+  const [currentPage, setCurrentPage] = useState({})
+  const [itemsPerPage] = useState(10)
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -59,16 +63,19 @@ export default function AdminDashboard() {
     setShowModal(true)
   }
 
-  const handleDelete = async (id) => {
-    // Use a custom confirmation with toast
-    const confirmDelete = window.confirm('Are you sure you want to delete this item?')
-    if (confirmDelete) {
+  const handleDeleteClick = (item) => {
+    setDeleteItem(item)
+    setShowDeleteModal(true)
+  }
+
+  const confirmDelete = async () => {
+    if (deleteItem) {
       let collection = activeTab;
       if (activeTab === 'inquiries') collection = 'users';
       if (activeTab === 'registrations') collection = 'courses';
       if (activeTab === 'contacts') collection = 'contacts';
       
-      const result = await deleteData(collection, id)
+      const result = await deleteData(collection, deleteItem.id)
       if (result.success) {
         toast.success('Item deleted successfully!')
         loadData()
@@ -76,6 +83,13 @@ export default function AdminDashboard() {
         toast.error('Failed to delete item. Please try again.')
       }
     }
+    setShowDeleteModal(false)
+    setDeleteItem(null)
+  }
+
+  const cancelDelete = () => {
+    setShowDeleteModal(false)
+    setDeleteItem(null)
   }
 
   const handleImageUpload = (e) => {
@@ -107,7 +121,6 @@ export default function AdminDashboard() {
     e.preventDefault()
     const submitData = {...formData}
     
-    // Upload image if there's a file
     if (formData.imageFile) {
       try {
         const imageUrl = await uploadImage(formData.imageFile)
@@ -118,7 +131,6 @@ export default function AdminDashboard() {
       }
     }
     
-    // Remove imageFile from submit data
     delete submitData.imageFile
     
     let result
@@ -137,91 +149,90 @@ export default function AdminDashboard() {
     }
   }
 
-  const handleAchievementAdd = async () => {
-    const heading = prompt('Enter achievement heading:')
-    if (heading) {
-      const result = await addData('achievements', { heading, image: '' })
-      if (result.success) {
-        loadData()
-      }
-    }
+  const getPaginatedData = (dataArray) => {
+    const page = currentPage[activeTab] || 1
+    const startIndex = (page - 1) * itemsPerPage
+    const endIndex = startIndex + itemsPerPage
+    return dataArray.slice(startIndex, endIndex)
   }
 
-  const handleAchievementImageUpload = async (achievement, file) => {
-    const confirmUpload = window.confirm('Are you sure you want to upload this image?')
-    if (confirmUpload) {
-      try {
-        const imageUrl = await uploadImage(file)
-        const result = await updateData('achievements', achievement.id, {...achievement, image: imageUrl})
-        if (result.success) {
-          toast.success('Image uploaded successfully!')
-          loadData()
-        } else {
-          toast.error('Failed to save image. Please try again.')
-        }
-      } catch (error) {
-        toast.error(`Image upload failed: ${error.message}`)
-      }
-    }
+  const getTotalPages = (dataArray) => {
+    return Math.ceil(dataArray.length / itemsPerPage)
   }
 
-  const handleAchievementImageRemove = async (achievement) => {
-    const confirmRemove = window.confirm('Are you sure you want to remove this image?')
-    if (confirmRemove) {
-      const result = await updateData('achievements', achievement.id, {...achievement, image: ''})
-      if (result.success) {
-        toast.success('Image removed successfully!')
-        loadData()
-      } else {
-        toast.error('Failed to remove image. Please try again.')
-      }
-    }
+  const handlePageChange = (page) => {
+    setCurrentPage({ ...currentPage, [activeTab]: page })
   }
 
-  const handleBannerUpload = async (page, file) => {
-    const confirmUpload = window.confirm('Are you sure you want to upload this banner image?')
-    if (confirmUpload) {
-      try {
-        const imageUrl = await uploadImage(file)
-        const newBanners = {...(data.banners || {}), [page]: imageUrl}
-        const result = await updateData('banners', 'main', newBanners)
-        if (result.success) {
-          toast.success('Banner updated successfully!')
-          loadData()
-        } else {
-          toast.error('Failed to save banner. Please try again.')
-        }
-      } catch (error) {
-        toast.error(`Banner upload failed: ${error.message}`)
-      }
-    }
-  }
-
-  const handleBannerRemove = async (page) => {
-    const confirmRemove = window.confirm('Are you sure you want to remove this banner image?')
-    if (confirmRemove) {
-      const newBanners = {...(data.banners || {}), [page]: ''}
-      const result = await updateData('banners', 'main', newBanners)
-      if (result.success) {
-        toast.success('Banner removed successfully!')
-        loadData()
-      } else {
-        toast.error('Failed to remove banner. Please try again.')
-      }
-    }
-  }
-
-  const banners = data.banners || {
-    aboutUs: '/images/1.png',
-    courses: '/images/2.png',
-    facilities: '/images/3.png',
-    blogs: '/images/4.png',
-    whyIma: '/images/5.png',
-    contactUs: '/images/1.png'
+  const PaginationComponent = ({ dataArray }) => {
+    const totalPages = getTotalPages(dataArray)
+    const currentPageNum = currentPage[activeTab] || 1
+    
+    if (totalPages <= 1) return null
+    
+    return (
+      <div className="flex justify-center items-center mt-4 gap-2">
+        <button 
+          onClick={() => handlePageChange(currentPageNum - 1)}
+          disabled={currentPageNum === 1}
+          className="px-3 py-1 rounded text-sm"
+          style={{
+            background: currentPageNum === 1 ? '#e9ecef' : '#1B5A96',
+            color: currentPageNum === 1 ? '#6c757d' : 'white',
+            cursor: currentPageNum === 1 ? 'not-allowed' : 'pointer'
+          }}
+        >
+          Previous
+        </button>
+        
+        {[...Array(totalPages)].map((_, index) => {
+          const pageNum = index + 1
+          return (
+            <button
+              key={pageNum}
+              onClick={() => handlePageChange(pageNum)}
+              className="px-3 py-1 rounded text-sm"
+              style={{
+                background: currentPageNum === pageNum ? '#1B5A96' : '#f8f9fa',
+                color: currentPageNum === pageNum ? 'white' : '#1B5A96',
+                border: '1px solid #dee2e6'
+              }}
+            >
+              {pageNum}
+            </button>
+          )
+        })}
+        
+        <button 
+          onClick={() => handlePageChange(currentPageNum + 1)}
+          disabled={currentPageNum === totalPages}
+          className="px-3 py-1 rounded text-sm"
+          style={{
+            background: currentPageNum === totalPages ? '#e9ecef' : '#1B5A96',
+            color: currentPageNum === totalPages ? '#6c757d' : 'white',
+            cursor: currentPageNum === totalPages ? 'not-allowed' : 'pointer'
+          }}
+        >
+          Next
+        </button>
+      </div>
+    )
   }
 
   return (
     <div className="min-h-screen" style={{background: '#f5f5f5'}}>
+      <style jsx global>{`
+        .element-style {
+          margin-left: 248px;
+          padding-top: 0px;
+        }
+        body {
+          overflow-x: hidden;
+          width: 100%;
+          padding-top: 60px;
+        }
+      `}</style>
+
       {/* Sidebar */}
       <div style={{width: '250px', background: '#1B5A96', minHeight: '100vh', position: 'fixed', left: 0, top: 0, zIndex: 30}}>
         <div style={{padding: '20px', borderBottom: '1px solid rgba(255,255,255,0.1)'}}>
@@ -247,8 +258,8 @@ export default function AdminDashboard() {
       </div>
 
       {/* Fixed Header */}
-      <div style={{position: 'fixed', top: 0, left: '250px', right: 0, background: 'white', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', zIndex: 40}}>
-        <div style={{padding: '16px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+      <div style={{position: 'fixed', top: 0, left: '250px', right: 0, background: 'white', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', zIndex: 40, height: '60px'}}>
+        <div style={{padding: '12px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '100%'}}>
           <h1 className="text-xl font-bold" style={{color: '#1B5A96'}}>Admin Dashboard</h1>
           <button onClick={handleLogout} className="px-4 py-2 rounded text-white font-semibold flex items-center" style={{background: '#dc3545'}}>
             <LogoutIcon className="mr-2" size={16} />Logout
@@ -257,197 +268,165 @@ export default function AdminDashboard() {
       </div>
 
       {/* Main Content */}
-      <div style={{marginLeft: '250px', paddingTop: '70px'}}>
-        <div style={{padding: '24px'}}>
-          <div className="bg-white rounded-lg shadow-md p-6">
+      <div className="element-style" style={{marginLeft: '248px', paddingTop: '0px'}}>
+        <div style={{padding: '20px'}}>
+          <div className="bg-white rounded-lg shadow-md p-4">
             {activeTab !== 'inquiries' && activeTab !== 'registrations' && activeTab !== 'contacts' && (
-              <button onClick={handleAdd} className="mb-6 px-6 py-2 rounded text-white font-semibold flex items-center" style={{background: '#1B5A96'}}>
+              <button onClick={handleAdd} className="mb-4 px-4 py-2 rounded text-white font-semibold flex items-center" style={{background: '#1B5A96'}}>
                 <PlusIcon className="mr-2" size={16} />Add {activeTab === 'blogs' ? 'Blog' : 'Course'}
               </button>
             )}
 
             <div className="overflow-x-auto">
-              {activeTab === 'achievements' ? (
+              {activeTab === 'inquiries' ? (
                 <div>
-                  <h2 className="text-xl font-bold mb-4" style={{color: '#1B5A96'}}>Manage Achievements</h2>
-                  <button onClick={handleAchievementAdd} className="mb-4 px-4 py-2 rounded text-white font-semibold flex items-center" style={{background: '#1B5A96'}}>
-                    <PlusIcon className="mr-2" size={16} />Add Achievement
-                  </button>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {data.achievements.map((achievement) => (
-                      <div key={achievement.id} style={{border: '1px solid #e0e0e0', borderRadius: '8px', padding: '20px'}}>
-                        <h3 className="font-bold mb-2">{achievement.heading}</h3>
-                        {achievement.image && <img src={achievement.image} alt={achievement.heading} style={{width: '100%', height: '150px', objectFit: 'cover', borderRadius: '4px', marginBottom: '10px'}} />}
-                        <input type="file" accept="image/*" onChange={(e) => {
-                          const file = e.target.files[0]
-                          if (file) {
-                            handleAchievementImageUpload(achievement, file)
-                          }
-                        }} style={{width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px', marginBottom: '8px'}} />
-                        <div className="flex gap-2">
-                          {achievement.image && (
-                            <button onClick={() => handleAchievementImageRemove(achievement)} style={{flex: 1, padding: '8px', background: '#dc3545', color: 'white', border: 'none', borderRadius: '4px', fontSize: '14px', cursor: 'pointer'}}>Remove Image</button>
-                          )}
-                          <button onClick={() => handleDelete(achievement.id)} style={{flex: 1, padding: '8px', background: '#6c757d', color: 'white', border: 'none', borderRadius: '4px', fontSize: '14px', cursor: 'pointer'}}>Delete</button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ) : activeTab === 'banners' ? (
-                <div>
-                  <h2 className="text-xl font-bold mb-4" style={{color: '#1B5A96'}}>Manage Page Banners</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {Object.keys(banners).map((page) => (
-                      <div key={page} style={{border: '1px solid #e0e0e0', borderRadius: '8px', padding: '20px'}}>
-                        <h3 className="font-bold mb-2" style={{textTransform: 'capitalize'}}>{page.replace(/([A-Z])/g, ' $1').trim()}</h3>
-                        {banners[page] && <img src={banners[page]} alt={page} style={{width: '100%', height: '150px', objectFit: 'cover', borderRadius: '4px', marginBottom: '10px'}} />}
-                        <input type="file" accept="image/*" onChange={(e) => {
-                          const file = e.target.files[0]
-                          if (file) {
-                            handleBannerUpload(page, file)
-                          }
-                        }} style={{width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px', marginBottom: '8px'}} />
-                        {banners[page] && (
-                          <button onClick={() => handleBannerRemove(page)} style={{width: '100%', padding: '8px', background: '#dc3545', color: 'white', border: 'none', borderRadius: '4px', fontSize: '14px', cursor: 'pointer'}}>Remove Image</button>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ) : activeTab === 'inquiries' ? (
-                <div>
-                  <h2 className="text-xl font-bold mb-4" style={{color: '#1B5A96'}}>STHE Inquiries</h2>
-                  <table className="w-full">
+                  <h2 className="text-lg font-bold mb-3" style={{color: '#1B5A96'}}>STHE Inquiries</h2>
+                  <table className="w-full border-collapse" style={{fontSize: '13px'}}>
                     <thead style={{background: '#f8f9fa'}}>
                       <tr>
-                        <th className="px-4 py-3 text-left">Date</th>
-                        <th className="px-4 py-3 text-left">Name</th>
-                        <th className="px-4 py-3 text-left">WhatsApp Number</th>
-                        <th className="px-4 py-3 text-left">Course</th>
-                        <th className="px-4 py-3 text-left">Message</th>
-                        <th className="px-4 py-3 text-left">Actions</th>
+                        <th className="px-2 py-2 text-left border-b">Date</th>
+                        <th className="px-2 py-2 text-left border-b">Name</th>
+                        <th className="px-2 py-2 text-left border-b">WhatsApp</th>
+                        <th className="px-2 py-2 text-left border-b">Course</th>
+                        <th className="px-2 py-2 text-left border-b">Message</th>
+                        <th className="px-2 py-2 text-left border-b">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {data.users.map((inquiry) => (
-                        <tr key={inquiry.id} className="border-b">
-                          <td className="px-4 py-3">{inquiry.date}</td>
-                          <td className="px-4 py-3">{inquiry.name}</td>
-                          <td className="px-4 py-3">
+                      {getPaginatedData(data.users).map((inquiry) => (
+                        <tr key={inquiry.id} className="border-b hover:bg-gray-50">
+                          <td className="px-2 py-2">{inquiry.date}</td>
+                          <td className="px-2 py-2">{inquiry.name}</td>
+                          <td className="px-2 py-2">
                             <a href={`https://wa.me/91${inquiry.phone}`} target="_blank" rel="noopener noreferrer" className="text-green-600 hover:underline">
                               {inquiry.phone}
                             </a>
                           </td>
-                          <td className="px-4 py-3">{inquiry.course}</td>
-                          <td className="px-4 py-3">{inquiry.message || 'No message'}</td>
-                          <td className="px-4 py-3">
-                            <button onClick={() => handleDelete(inquiry.id)} className="px-3 py-1 rounded text-white" style={{background: '#dc3545'}}>
-                              <DeleteIcon size={16} />
+                          <td className="px-2 py-2">{inquiry.course}</td>
+                          <td className="px-2 py-2" style={{maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
+                            {inquiry.message || 'No message'}
+                          </td>
+                          <td className="px-2 py-2">
+                            <button onClick={() => handleDeleteClick(inquiry)} className="px-2 py-1 rounded text-white text-xs" style={{background: '#dc3545'}}>
+                              <DeleteIcon size={12} />
                             </button>
                           </td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
+                  <PaginationComponent dataArray={data.users} />
                 </div>
               ) : activeTab === 'contacts' ? (
                 <div>
-                  <h2 className="text-xl font-bold mb-4" style={{color: '#1B5A96'}}>Contact Form Submissions</h2>
-                  <table className="w-full">
+                  <h2 className="text-lg font-bold mb-3" style={{color: '#1B5A96'}}>Contact Form Submissions</h2>
+                  <table className="w-full border-collapse" style={{fontSize: '13px'}}>
                     <thead style={{background: '#f8f9fa'}}>
                       <tr>
-                        <th className="px-4 py-3 text-left">Date</th>
-                        <th className="px-4 py-3 text-left">Name</th>
-                        <th className="px-4 py-3 text-left">Email</th>
-                        <th className="px-4 py-3 text-left">Phone</th>
-                        <th className="px-4 py-3 text-left">Message</th>
-                        <th className="px-4 py-3 text-left">Actions</th>
+                        <th className="px-2 py-2 text-left border-b">Date</th>
+                        <th className="px-2 py-2 text-left border-b">Name</th>
+                        <th className="px-2 py-2 text-left border-b">Email</th>
+                        <th className="px-2 py-2 text-left border-b">Phone</th>
+                        <th className="px-2 py-2 text-left border-b">Message</th>
+                        <th className="px-2 py-2 text-left border-b">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {data.contacts.map((contact) => (
-                        <tr key={contact.id} className="border-b">
-                          <td className="px-4 py-3">{contact.date}</td>
-                          <td className="px-4 py-3">{contact.name}</td>
-                          <td className="px-4 py-3">
+                      {getPaginatedData(data.contacts).map((contact) => (
+                        <tr key={contact.id} className="border-b hover:bg-gray-50">
+                          <td className="px-2 py-2">{contact.date}</td>
+                          <td className="px-2 py-2">{contact.name}</td>
+                          <td className="px-2 py-2">
                             <a href={`mailto:${contact.email}`} className="text-blue-600 hover:underline">
                               {contact.email}
                             </a>
                           </td>
-                          <td className="px-4 py-3">
+                          <td className="px-2 py-2">
                             <a href={`tel:${contact.phone}`} className="text-green-600 hover:underline">
                               {contact.phone}
                             </a>
                           </td>
-                          <td className="px-4 py-3" title={contact.message}>
+                          <td className="px-2 py-2" style={{maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}} title={contact.message}>
                             {contact.message.length > 50 ? contact.message.substring(0, 50) + '...' : contact.message}
                           </td>
-                          <td className="px-4 py-3">
-                            <button onClick={() => handleDelete(contact.id)} className="px-3 py-1 rounded text-white" style={{background: '#dc3545'}}>
-                              <DeleteIcon size={16} />
+                          <td className="px-2 py-2">
+                            <button onClick={() => handleDeleteClick(contact)} className="px-2 py-1 rounded text-white text-xs" style={{background: '#dc3545'}}>
+                              <DeleteIcon size={12} />
                             </button>
                           </td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
+                  <PaginationComponent dataArray={data.contacts} />
                 </div>
               ) : activeTab === 'registrations' ? (
-                <table className="w-full">
-                  <thead style={{background: '#f8f9fa'}}>
-                    <tr>
-                      <th className="px-4 py-3 text-left">Date</th>
-                      <th className="px-4 py-3 text-left">Name</th>
-                      <th className="px-4 py-3 text-left">WhatsApp Number</th>
-                      <th className="px-4 py-3 text-left">Course</th>
-                      <th className="px-4 py-3 text-left">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {data.courses.map((reg) => (
-                      <tr key={reg.id} className="border-b">
-                        <td className="px-4 py-3">{reg.date}</td>
-                        <td className="px-4 py-3">{reg.name}</td>
-                        <td className="px-4 py-3">{reg.phone}</td>
-                        <td className="px-4 py-3">{reg.course}</td>
-                        <td className="px-4 py-3">
-                          <button onClick={() => handleDelete(reg.id)} className="px-3 py-1 rounded text-white" style={{background: '#dc3545'}}>
-                            <DeleteIcon size={16} />
-                          </button>
-                        </td>
+                <div>
+                  <h2 className="text-lg font-bold mb-3" style={{color: '#1B5A96'}}>Course Registrations</h2>
+                  <table className="w-full border-collapse" style={{fontSize: '13px'}}>
+                    <thead style={{background: '#f8f9fa'}}>
+                      <tr>
+                        <th className="px-2 py-2 text-left border-b">Date</th>
+                        <th className="px-2 py-2 text-left border-b">Name</th>
+                        <th className="px-2 py-2 text-left border-b">WhatsApp</th>
+                        <th className="px-2 py-2 text-left border-b">Course</th>
+                        <th className="px-2 py-2 text-left border-b">Actions</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {getPaginatedData(data.courses).map((reg) => (
+                        <tr key={reg.id} className="border-b hover:bg-gray-50">
+                          <td className="px-2 py-2">{reg.date}</td>
+                          <td className="px-2 py-2">{reg.name}</td>
+                          <td className="px-2 py-2">{reg.phone}</td>
+                          <td className="px-2 py-2">{reg.course}</td>
+                          <td className="px-2 py-2">
+                            <button onClick={() => handleDeleteClick(reg)} className="px-2 py-1 rounded text-white text-xs" style={{background: '#dc3545'}}>
+                              <DeleteIcon size={12} />
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <PaginationComponent dataArray={data.courses} />
+                </div>
               ) : (
-                <table className="w-full">
-                  <thead style={{background: '#f8f9fa'}}>
-                    <tr>
-                      <th className="px-4 py-3 text-left">Image</th>
-                      <th className="px-4 py-3 text-left">Title</th>
-                      <th className="px-4 py-3 text-left">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {(activeTab === 'blogs' ? data.blogs : data.courses).map((item) => (
-                      <tr key={item.id} className="border-b">
-                        <td className="px-4 py-3">
-                          <img src={item.image} alt={item.title} className="w-16 h-16 object-contain" />
-                        </td>
-                        <td className="px-4 py-3">{item.title}</td>
-                        <td className="px-4 py-3">
-                          <button onClick={() => handleEdit(item)} className="px-3 py-1 rounded text-white mr-2" style={{background: '#28a745'}}>
-                            <EditIcon size={16} />
-                          </button>
-                          <button onClick={() => handleDelete(item.id)} className="px-3 py-1 rounded text-white" style={{background: '#dc3545'}}>
-                            <DeleteIcon size={16} />
-                          </button>
-                        </td>
+                <div>
+                  <h2 className="text-lg font-bold mb-3" style={{color: '#1B5A96'}}>{activeTab === 'blogs' ? 'Blogs' : 'Courses'}</h2>
+                  <table className="w-full border-collapse" style={{fontSize: '13px'}}>
+                    <thead style={{background: '#f8f9fa'}}>
+                      <tr>
+                        <th className="px-2 py-2 text-left border-b">Image</th>
+                        <th className="px-2 py-2 text-left border-b">Title</th>
+                        <th className="px-2 py-2 text-left border-b">Actions</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {getPaginatedData(activeTab === 'blogs' ? data.blogs : data.courses).map((item) => (
+                        <tr key={item.id} className="border-b hover:bg-gray-50">
+                          <td className="px-2 py-2">
+                            <img src={item.image} alt={item.title} className="w-10 h-10 object-contain rounded" />
+                          </td>
+                          <td className="px-2 py-2" style={{maxWidth: '300px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
+                            {item.title}
+                          </td>
+                          <td className="px-2 py-2">
+                            <div className="flex gap-1">
+                              <button onClick={() => handleEdit(item)} className="px-2 py-1 rounded text-white text-xs" style={{background: '#28a745'}}>
+                                <EditIcon size={12} />
+                              </button>
+                              <button onClick={() => handleDeleteClick(item)} className="px-2 py-1 rounded text-white text-xs" style={{background: '#dc3545'}}>
+                                <DeleteIcon size={12} />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <PaginationComponent dataArray={activeTab === 'blogs' ? data.blogs : data.courses} />
+                </div>
               )}
             </div>
           </div>
@@ -516,6 +495,43 @@ export default function AdminDashboard() {
                 <button type="button" onClick={() => setShowModal(false)} className="flex-1 py-2 rounded text-white font-semibold" style={{background: '#6c757d'}}>Cancel</button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && (
+        <div className="fixed inset-0 flex items-center justify-center z-50" style={{background: 'rgba(0,0,0,0.5)'}}>
+          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-xl">
+            <div className="text-center">
+              <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4">
+                <DeleteIcon size={24} style={{color: '#dc3545'}} />
+              </div>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">
+                Are you sure you want to delete this item?
+              </h3>
+              <p className="text-sm text-gray-500 mb-6">
+                {deleteItem && (
+                  <span>
+                    {deleteItem.name || deleteItem.title || 'This item'} will be permanently removed. This action cannot be undone.
+                  </span>
+                )}
+              </p>
+              <div className="flex gap-3 justify-center">
+                <button
+                  onClick={cancelDelete}
+                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={confirmDelete}
+                  className="px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
