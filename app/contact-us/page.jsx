@@ -27,9 +27,14 @@ export default function ContactUs() {
   }, [])
 
   const loadData = async () => {
-    const data = await fetchData()
-    if (data && data.banners && data.banners.contactUs) {
-      setBannerImage(data.banners.contactUs)
+    try {
+      const response = await fetch('/api/banners')
+      const data = await response.json()
+      if (data.banners?.contact) {
+        setBannerImage(data.banners.contact)
+      }
+    } catch (error) {
+      console.error('Error fetching banner:', error)
     }
   }
 
@@ -126,15 +131,69 @@ export default function ContactUs() {
           transform: translateX(8px);
           box-shadow: 0 4px 15px rgba(25, 119, 243, 0.2);
         }
+        
+        .banner-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, rgba(240,248,255,0.85) 0%, rgba(230,245,255,0.9) 100%);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+        }
+        
+        .banner-logo {
+          width: 80px;
+          height: 80px;
+          margin-bottom: 20px;
+          border-radius: 50%;
+          background: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 8px 25px rgba(27,90,150,0.15);
+        }
+        
+        .hero-section {
+          background: linear-gradient(135deg, rgba(240,248,255,0.9) 0%, rgba(230,245,255,0.95) 100%);
+          padding: 60px 20px;
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .hero-title {
+          font-size: 2.8rem;
+          font-weight: 900;
+          color: #1B5A96;
+          text-shadow: 0 2px 10px rgba(27,90,150,0.2);
+          position: relative;
+          z-index: 1;
+          letter-spacing: -1px;
+        }
+        
+        @media (max-width: 768px) {
+          .banner-logo {
+            width: 60px !important;
+            height: 60px !important;
+            margin-bottom: 15px !important;
+          }
+          .hero-title {
+            font-size: 1.75rem !important;
+          }
+        }
       `}</style>
       
       <Navbar />
       
       {bannerImage ? (
         <div style={{position: 'relative', width: '100%', overflow: 'hidden'}}>
-          <img src={bannerImage} alt="Contact Us" style={{width: '100%', height: 'auto', display: 'block'}} />
-          <div style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(27, 90, 150, 0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-            <h1 style={{color: 'white', fontSize: '2.5rem', fontWeight: '700', textShadow: '2px 2px 4px rgba(0,0,0,0.7)'}}>Contact Us</h1>
+          <img src={bannerImage} alt="Contact Us" style={{width: '100%', height: '400px', objectFit: 'cover', display: 'block'}} />
+          <div style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(255, 255, 255, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <h1 style={{color: '#1B5A96', fontSize: '2.8rem', fontWeight: '900', textShadow: '2px 2px 4px rgba(0,0,0,0.3)'}}>Contact Us</h1>
           </div>
         </div>
       ) : (

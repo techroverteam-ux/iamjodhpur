@@ -56,8 +56,15 @@ export default function Blog() {
       setBlogs(defaultBlogs)
     }
     
-    if (data && data.banners && data.banners.blogs) {
-      setBannerImage(data.banners.blogs)
+    // Fetch banner from new API
+    try {
+      const response = await fetch('/api/banners')
+      const bannerData = await response.json()
+      if (bannerData.banners?.blog) {
+        setBannerImage(bannerData.banners.blog)
+      }
+    } catch (error) {
+      console.error('Error fetching banner:', error)
     }
   }
 
@@ -167,13 +174,69 @@ export default function Blog() {
             font-size: 12px !important;
           }
         }
+        
+        .banner-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, rgba(240,248,255,0.85) 0%, rgba(230,245,255,0.9) 100%);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+        }
+        
+        .banner-logo {
+          width: 80px;
+          height: 80px;
+          margin-bottom: 20px;
+          border-radius: 50%;
+          background: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 8px 25px rgba(27,90,150,0.15);
+        }
+        
+        .hero-section {
+          background: linear-gradient(135deg, rgba(240,248,255,0.9) 0%, rgba(230,245,255,0.95) 100%);
+          padding: 60px 20px;
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .hero-title {
+          font-size: 2.8rem;
+          font-weight: 900;
+          color: #1B5A96;
+          text-shadow: 0 2px 10px rgba(27,90,150,0.2);
+          position: relative;
+          z-index: 1;
+          letter-spacing: -1px;
+        }
+        
+        @media (max-width: 768px) {
+          .banner-logo {
+            width: 60px !important;
+            height: 60px !important;
+            margin-bottom: 15px !important;
+          }
+          .hero-title {
+            font-size: 1.75rem !important;
+          }
       `}</style>
 
       <Navbar />
       
       {bannerImage ? (
         <div style={{position: 'relative', width: '100%', overflow: 'hidden'}}>
-          <img src={bannerImage} alt="Blogs" style={{width: '100%', height: 'auto', display: 'block'}} />
+          <img src={bannerImage} alt="Blogs" style={{width: '100%', height: '400px', objectFit: 'cover', display: 'block'}} />
+          <div style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(255, 255, 255, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <h1 style={{color: '#1B5A96', fontSize: '2.8rem', fontWeight: '900', textShadow: '2px 2px 4px rgba(0,0,0,0.3)'}}>Our Blogs</h1>
+          </div>
         </div>
       ) : (
         <div style={{background: 'linear-gradient(135deg, #1B5A96 0%, #1B5A96 100%)', padding: '80px 20px', textAlign: 'center'}}>

@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 
 export default function WhyIAM() {
   const [bannerImage, setBannerImage] = useState('')
+  
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -17,15 +18,20 @@ export default function WhyIAM() {
 
     document.querySelectorAll('.feature-card').forEach(el => observer.observe(el))
     
-    if (typeof window !== 'undefined') {
-      const savedBanners = localStorage.getItem('banners')
-      if (savedBanners) {
-        const banners = JSON.parse(savedBanners)
-        if (banners.whyIma && banners.whyIma !== '') {
-          setBannerImage(banners.whyIma)
+    // Fetch banner from database
+    const fetchBanner = async () => {
+      try {
+        const response = await fetch('/api/banners')
+        const data = await response.json()
+        if (data.banners?.whyIma) {
+          setBannerImage(data.banners.whyIma)
         }
+      } catch (error) {
+        console.error('Error fetching banner:', error)
       }
     }
+    
+    fetchBanner()
     
     return () => observer.disconnect()
   }, [])
@@ -121,7 +127,7 @@ export default function WhyIAM() {
         }
         
         .hero-section {
-          background: linear-gradient(135deg, #0a1628 0%, #1977f3 50%, #00d4ff 100%);
+          background: linear-gradient(135deg, rgba(240,248,255,0.9) 0%, rgba(230,245,255,0.95) 100%);
           padding: 60px 20px;
           position: relative;
           overflow: hidden;
@@ -134,7 +140,7 @@ export default function WhyIAM() {
           left: -50%;
           width: 200%;
           height: 200%;
-          background: radial-gradient(circle, rgba(255,255,255,0.15) 2px, transparent 2px);
+          background: radial-gradient(circle, rgba(25,119,243,0.08) 2px, transparent 2px);
           background-size: 60px 60px;
           animation: float 25s linear infinite;
         }
@@ -157,8 +163,8 @@ export default function WhyIAM() {
         .hero-title {
           font-size: 2.8rem;
           font-weight: 900;
-          color: white;
-          text-shadow: 0 5px 40px rgba(0,0,0,0.4);
+          color: #1B5A96;
+          text-shadow: 0 2px 10px rgba(27,90,150,0.2);
           position: relative;
           z-index: 1;
           letter-spacing: -1px;
@@ -166,7 +172,7 @@ export default function WhyIAM() {
         }
         
         .breadcrumb {
-          color: rgba(255,255,255,0.95);
+          color: #1B5A96;
           position: relative;
           z-index: 1;
           font-size: 1.1rem;
@@ -174,15 +180,41 @@ export default function WhyIAM() {
         }
         
         .breadcrumb a {
-          color: white;
+          color: #1B5A96;
           text-decoration: none;
           transition: all 0.3s;
           font-weight: 600;
         }
         
         .breadcrumb a:hover {
-          color: #00d4ff;
-          text-shadow: 0 0 20px rgba(0,212,255,0.5);
+          color: #1977f3;
+          text-shadow: 0 0 10px rgba(25,119,243,0.3);
+        }
+        
+        .banner-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(255, 255, 255, 0.3);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+        }
+        
+        .banner-logo {
+          width: 80px;
+          height: 80px;
+          margin-bottom: 20px;
+          border-radius: 50%;
+          background: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 8px 25px rgba(27,90,150,0.15);
         }
         
         .section-bg {
@@ -192,6 +224,11 @@ export default function WhyIAM() {
         @media (max-width: 768px) {
           .hero-section {
             padding: 30px 15px !important;
+          }
+          .banner-logo {
+            width: 60px !important;
+            height: 60px !important;
+            margin-bottom: 15px !important;
           }
           .hero-title {
             font-size: 1.75rem !important;
@@ -246,9 +283,9 @@ export default function WhyIAM() {
       
       {bannerImage ? (
         <div style={{position: 'relative', width: '100%', overflow: 'hidden'}}>
-          <img src={bannerImage} alt="Why IMA" style={{width: '100%', height: 'auto', display: 'block'}} />
-          <div style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(27, 90, 150, 0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-            <h1 style={{color: 'white', fontSize: '2.5rem', fontWeight: '700', textShadow: '2px 2px 4px rgba(0,0,0,0.7)'}}>Why Choose IMA</h1>
+          <img src={bannerImage} alt="Why IMA" style={{width: '100%', height: '400px', objectFit: 'cover', display: 'block'}} />
+          <div style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(255, 255, 255, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <h1 style={{color: '#1B5A96', fontSize: '2.8rem', fontWeight: '900', textShadow: '2px 2px 4px rgba(0,0,0,0.3)'}}>Why Choose IMA</h1>
           </div>
         </div>
       ) : (

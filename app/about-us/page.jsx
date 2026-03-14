@@ -34,9 +34,14 @@ export default function AboutUs() {
   }, []);
 
   const loadBanners = async () => {
-    const data = await fetchData()
-    if (data && data.banners && data.banners.aboutUs) {
-      setBannerImage(data.banners.aboutUs)
+    try {
+      const response = await fetch('/api/banners')
+      const data = await response.json()
+      if (data.banners?.about) {
+        setBannerImage(data.banners.about)
+      }
+    } catch (error) {
+      console.error('Error fetching banner:', error)
     }
   }
 
@@ -483,6 +488,32 @@ export default function AboutUs() {
           display: block;
           margin-bottom: 10px;
         }
+        
+        .banner-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(255, 255, 255, 0.3);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+        }
+        
+        .banner-logo {
+          width: 80px;
+          height: 80px;
+          margin-bottom: 20px;
+          border-radius: 50%;
+          background: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 8px 25px rgba(27,90,150,0.15);
+        }
 
         @media (max-width: 768px) {
           .hero-title {
@@ -531,19 +562,27 @@ export default function AboutUs() {
             font-size: 0.875rem;
             line-height: 1.6;
           }
+          .banner-logo {
+            width: 60px !important;
+            height: 60px !important;
+            margin-bottom: 15px !important;
+          }
         }
       `}</style>
 
       {bannerImage ? (
         <div style={{position: 'relative', width: '100%', overflow: 'hidden'}}>
-          <img src={bannerImage} alt="About Us" style={{width: '100%', height: 'auto', display: 'block'}} />
-          <div style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(27, 90, 150, 0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-            <h1 style={{color: 'white', fontSize: '2.5rem', fontWeight: '700', textShadow: '2px 2px 4px rgba(0,0,0,0.7)'}}>About IMA</h1>
+          <img src={bannerImage} alt="About Us" style={{width: '100%', height: '400px', objectFit: 'cover', display: 'block'}} />
+          <div style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(255, 255, 255, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <h1 style={{color: '#1B5A96', fontSize: '2.8rem', fontWeight: '900', textShadow: '2px 2px 4px rgba(0,0,0,0.3)'}}>About IMA</h1>
           </div>
         </div>
       ) : (
-        <div style={{background: 'linear-gradient(135deg, #1B5A96 0%, #1B5A96 100%)', padding: '80px 20px', textAlign: 'center'}}>
-          <h1 style={{color: 'white', fontSize: '2.5rem', fontWeight: '700', textShadow: '2px 2px 4px rgba(0,0,0,0.7)'}}>About IMA</h1>
+        <div className="hero-section">
+          <div className="hero-content">
+            <h1 className="hero-title">About IMA</h1>
+            <p className="hero-subtitle">Excellence in Education Since 1999</p>
+          </div>
         </div>
       )}
 

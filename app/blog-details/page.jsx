@@ -78,6 +78,25 @@ export default function BlogDetail() {
                   { type: 'heading', value: 'Success Stories' },
                   { type: 'description', value: 'Many of our foundation course students have successfully cracked JEE and NEET in their first attempt. Early preparation gives them a significant advantage over their peers.' }
                 ]
+              },
+              {
+                id: '1773367661321',
+                title: 'Study Tips for Competitive Exams',
+                date: '2024-01-01',
+                image: '/images/3520795826_both.png',
+                content: [
+                  { type: 'heading', value: 'Effective Study Techniques' },
+                  { type: 'description', value: 'Success in competitive exams requires more than just hard work. Smart study techniques and proper time management are essential for achieving your goals.' },
+                  { type: 'heading', value: 'Daily Study Routine' },
+                  { type: 'bullet', value: 'Wake up early and maintain consistent sleep schedule' },
+                  { type: 'bullet', value: 'Create a balanced timetable covering all subjects' },
+                  { type: 'bullet', value: 'Take regular breaks to avoid burnout' },
+                  { type: 'bullet', value: 'Review and revise previous topics daily' },
+                  { type: 'heading', value: 'Memory Techniques' },
+                  { type: 'description', value: 'Use mnemonics, flashcards, and visual aids to remember complex concepts. Practice active recall and spaced repetition for better retention.' },
+                  { type: 'heading', value: 'Exam Strategy' },
+                  { type: 'description', value: 'Develop a systematic approach to solving questions. Practice time management and learn to identify easy, medium, and difficult questions quickly.' }
+                ]
               }
             ];
             
@@ -146,172 +165,217 @@ export default function BlogDetail() {
     );
   }
 
-  // All blogs use the same clean design
   return (
     <>
       <style jsx>{`
-        .blog-hero {
-          background: linear-gradient(135deg, #1B5A96 0%, #2563eb 50%, #1B5A96 100%);
-          position: relative;
-          overflow: hidden;
+        .blog-page {
+          background: #f8fafc;
+          min-height: 100vh;
+          padding: 20px;
+          padding-top: 80px;
         }
-        .blog-hero::before {
-          content: '';
-          position: absolute;
-          top: -50%;
-          left: -50%;
-          width: 200%;
-          height: 200%;
-          background: radial-gradient(circle, rgba(255,255,255,0.1) 2px, transparent 2px);
-          background-size: 60px 60px;
-          animation: float 25s linear infinite;
-        }
-        @keyframes float {
-          0%, 100% { transform: translate(0, 0) rotate(0deg); }
-          50% { transform: translate(30px, 30px) rotate(180deg); }
-        }
+        
         .blog-container {
           max-width: 900px;
           margin: 0 auto;
           background: white;
-          border-radius: 20px;
-          box-shadow: 0 20px 60px rgba(27, 90, 150, 0.15);
+          border-radius: 12px;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.08);
           overflow: hidden;
-          position: relative;
         }
+        
         .blog-header {
-          background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
-          padding: 20px;
+          background: white;
+          padding: 30px;
+          border-bottom: 1px solid #e2e8f0;
           text-align: center;
-          border-bottom: 3px solid #1B5A96;
-          position: relative;
         }
+        
+        .blog-image {
+          width: 120px;
+          height: 120px;
+          object-fit: cover;
+          border-radius: 12px;
+          margin: 0 auto 20px;
+          display: block;
+          box-shadow: 0 4px 12px rgba(27, 90, 150, 0.15);
+          border: 2px solid #f1f5f9;
+        }
+        
         .blog-title {
           color: #1B5A96;
           font-size: 2rem;
-          font-weight: 800;
-          margin: 10px 0;
-          line-height: 1.2;
-          text-shadow: 0 2px 4px rgba(27, 90, 150, 0.1);
+          font-weight: 700;
+          margin: 0 0 12px 0;
+          line-height: 1.3;
         }
+        
         .blog-date {
           color: #64748b;
           font-size: 0.9rem;
-          font-weight: 500;
           background: #f1f5f9;
           padding: 6px 16px;
-          border-radius: 25px;
+          border-radius: 20px;
           display: inline-block;
         }
+        
         .blog-content {
-          padding: 25px;
-          line-height: 1.6;
+          padding: 30px;
         }
+        
         .blog-content h3 {
           color: #1B5A96;
-          font-size: 1.5rem;
-          font-weight: 700;
-          margin: 20px 0 10px 0;
-          padding-left: 20px;
-          border-left: 4px solid #1B5A96;
-          position: relative;
+          font-size: 1.3rem;
+          font-weight: 600;
+          margin: 25px 0 12px 0;
+          padding-bottom: 8px;
+          border-bottom: 2px solid #e2e8f0;
         }
-        .blog-content h3::before {
-          content: '';
-          position: absolute;
-          left: -8px;
-          top: 50%;
-          transform: translateY(-50%);
-          width: 12px;
-          height: 12px;
-          background: #1B5A96;
-          border-radius: 50%;
-        }
+        
         .blog-content p {
-          color: #374151;
+          color: #475569;
           font-size: 1rem;
-          margin-bottom: 15px;
+          line-height: 1.6;
+          margin-bottom: 16px;
           text-align: justify;
         }
+        
         .blog-content ul {
-          margin: 15px 0;
-          padding-left: 0;
+          margin: 16px 0;
+          padding: 0;
         }
+        
         .blog-content li {
-          color: #374151;
+          color: #475569;
           font-size: 1rem;
+          line-height: 1.5;
           margin-bottom: 8px;
-          padding-left: 30px;
+          padding-left: 24px;
           position: relative;
           list-style: none;
         }
+        
         .blog-content li::before {
-          content: '✓';
+          content: '•';
           position: absolute;
-          left: 0;
+          left: 8px;
           color: #1B5A96;
           font-weight: bold;
-          font-size: 1.1rem;
+          font-size: 1.2rem;
         }
+        
         .back-button {
-          background: linear-gradient(135deg, #1B5A96, #2563eb);
+          background: #1B5A96;
           color: white;
-          padding: 12px 25px;
-          border-radius: 50px;
+          padding: 10px 20px;
+          border-radius: 6px;
           text-decoration: none;
-          font-weight: 600;
+          font-weight: 500;
           display: inline-flex;
           align-items: center;
           gap: 8px;
-          transition: all 0.3s ease;
-          box-shadow: 0 4px 15px rgba(27, 90, 150, 0.3);
-          margin: 20px 0 0 0;
+          transition: all 0.2s ease;
           font-size: 0.9rem;
+          margin-top: 20px;
         }
+        
         .back-button:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 25px rgba(27, 90, 150, 0.4);
+          background: #164e87;
           color: white;
+          text-decoration: none;
         }
+        
         @media (max-width: 768px) {
-          .blog-hero {
-            padding: 30px 15px !important;
+          .blog-page {
+            padding: 10px;
+            padding-top: 90px;
           }
-          .blog-title {
-            font-size: 1.5rem !important;
+          
+          .blog-container {
+            margin: 0 5px;
+            border-radius: 8px;
+            max-width: 100%;
+            overflow-x: hidden;
           }
-          .blog-content {
-            padding: 20px !important;
-          }
-          .blog-content h3 {
-            font-size: 1.3rem !important;
-            margin: 15px 0 8px 0 !important;
-          }
-          .blog-content p, .blog-content li {
-            font-size: 0.95rem !important;
-            margin-bottom: 12px !important;
-          }
+          
           .blog-header {
-            padding: 15px !important;
+            padding: 20px 15px;
+            position: relative;
+            z-index: 1;
+          }
+          
+          .blog-image {
+            width: 250px;
+            height: 90px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            max-width: calc(100vw - 60px);
+          }
+          
+          .blog-title {
+            font-size: 1.4rem;
+            line-height: 1.2;
+            word-wrap: break-word;
+            hyphens: auto;
+          }
+          
+          .blog-date {
+            font-size: 0.8rem;
+            padding: 4px 12px;
+          }
+          
+          .blog-content {
+            padding: 20px 15px;
+            overflow-x: hidden;
+          }
+          
+          .blog-content h3 {
+            font-size: 1.1rem;
+            margin: 18px 0 8px 0;
+            padding-bottom: 6px;
+            word-wrap: break-word;
+          }
+          
+          .blog-content p, .blog-content li {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            word-wrap: break-word;
+          }
+          
+          .blog-content p {
+            margin-bottom: 12px;
+          }
+          
+          .blog-content li {
+            padding-left: 20px;
+            margin-bottom: 6px;
+          }
+          
+          .blog-content li::before {
+            left: 6px;
+            font-size: 1rem;
+          }
+          
+          .back-button {
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            margin-top: 15px;
           }
         }
       `}</style>
       
       <Navbar />
       
-      <div className="blog-hero" style={{padding: '40px 20px'}}>
+      <div className="blog-page">
         <div className="blog-container">
           {/* Header Section */}
           <div className="blog-header">
-            {/* Blog Image at Top */}
-            <div style={{margin: '15px 0'}}>
-              <img
-                src={blog.image}
-                alt={blog.title}
-                className="blog-image"
-                style={{maxHeight: '250px', width: 'auto', borderRadius: '15px', boxShadow: '0 10px 30px rgba(27, 90, 150, 0.2)'}}
-              />
-            </div>
+            {/* Small Blog Image - Like Logo */}
+            <img
+              src={blog.image}
+              alt={blog.title}
+              className="blog-image"
+            />
             
             <h1 className="blog-title">{blog.title}</h1>
             <div className="blog-date">

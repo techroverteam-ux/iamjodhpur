@@ -26,8 +26,11 @@ export default function AdminLogin() {
     <>
       <style jsx global>{`
         .admin-login-page {
-          padding-top: 140px !important;
+          padding-top: 0px !important;
           min-height: 100vh !important;
+        }
+        .admin-login-page .p-4 {
+          padding: 8rem;
         }
       `}</style>
       <Navbar />

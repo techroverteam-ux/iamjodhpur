@@ -50,40 +50,24 @@ export default function AdminDashboard() {
     setLoading(true)
     try {
       console.log('Loading fresh data from database...');
-      const result = await fetchData()
+      const [result, bannerResult] = await Promise.all([
+        fetchData(),
+        fetch('/api/banners').then(res => res.json())
+      ])
+      
       if (result) {
-        // Clear any existing data first to prevent conflicts
         setData({
-          users: [],
-          courses: [],
-          course_content: [],
-          blogs: [],
-          testimonials: [],
-          achievements: [],
-          facilities: [],
-          events: [],
-          banners: {},
-          contacts: []
+          ...result,
+          banners: bannerResult?.banners || {}
         })
-        
-        // Set fresh data after a small delay to ensure state is cleared
-        setTimeout(() => {
-          // Load banners from localStorage
-          const savedBanners = JSON.parse(localStorage.getItem('banners') || '{}')
-          
-          setData({
-            ...result,
-            banners: savedBanners
-          })
-          console.log('Data updated successfully:', {
-            users: result.users?.length || 0,
-            courses: result.courses?.length || 0,
-            course_content: result.course_content?.length || 0,
-            blogs: result.blogs?.length || 0,
-            contacts: result.contacts?.length || 0,
-            banners: Object.keys(savedBanners).length
-          })
-        }, 100)
+        console.log('Data updated successfully:', {
+          users: result.users?.length || 0,
+          courses: result.courses?.length || 0,
+          course_content: result.course_content?.length || 0,
+          blogs: result.blogs?.length || 0,
+          contacts: result.contacts?.length || 0,
+          banners: Object.keys(bannerResult?.banners || {}).length
+        })
       } else {
         toast.error('Failed to load data from database')
       }
@@ -205,30 +189,35 @@ export default function AdminDashboard() {
   const handleBannerSubmit = async (e) => {
     e.preventDefault()
     
-    let imageUrl = bannerFormData.image
-    if (bannerFormData.imageFile) {
-      try {
-        imageUrl = await uploadImage(bannerFormData.imageFile)
-      } catch (error) {
-        toast.error(`Image upload failed: ${error.message}`)
-        return
-      }
+    if (!bannerFormData.imageFile) {
+      toast.error('Please select an image')
+      return
     }
     
-    // Update banners in localStorage
-    const currentBanners = JSON.parse(localStorage.getItem('banners') || '{}')
-    currentBanners[bannerFormData.page] = imageUrl
-    localStorage.setItem('banners', JSON.stringify(currentBanners))
-    
-    // Update state
-    setData(prev => ({
-      ...prev,
-      banners: currentBanners
-    }))
-    
-    toast.success('Banner updated successfully!')
-    setShowBannerModal(false)
-    setBannerFormData({ page: '', imageFile: null, image: '' })
+    try {
+      const formData = new FormData()
+      formData.append('page', bannerFormData.page)
+      formData.append('image', bannerFormData.imageFile)
+      
+      const response = await fetch('/api/banners', {
+        method: 'POST',
+        body: formData
+      })
+      
+      const result = await response.json()
+      
+      if (result.success) {
+        toast.success('Banner updated successfully!')
+        await loadData(true) // Refresh data
+        setShowBannerModal(false)
+        setBannerFormData({ page: '', imageFile: null, image: '' })
+      } else {
+        toast.error(result.error || 'Failed to update banner')
+      }
+    } catch (error) {
+      console.error('Error updating banner:', error)
+      toast.error('Failed to update banner')
+    }
   }
 
   const handleAddBanner = () => {
@@ -243,17 +232,26 @@ export default function AdminDashboard() {
     setShowBannerModal(true)
   }
 
-  const handleDeleteBanner = (page) => {
-    const currentBanners = JSON.parse(localStorage.getItem('banners') || '{}')
-    delete currentBanners[page]
-    localStorage.setItem('banners', JSON.stringify(currentBanners))
-    
-    setData(prev => ({
-      ...prev,
-      banners: currentBanners
-    }))
-    
-    toast.success('Banner deleted successfully!')
+  const handleDeleteBanner = async (page) => {
+    try {
+      const response = await fetch('/api/banners', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ page })
+      })
+      
+      const result = await response.json()
+      
+      if (result.success) {
+        toast.success('Banner deleted successfully!')
+        await loadData(true) // Refresh data
+      } else {
+        toast.error(result.error || 'Failed to delete banner')
+      }
+    } catch (error) {
+      console.error('Error deleting banner:', error)
+      toast.error('Failed to delete banner')
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -766,7 +764,7 @@ export default function AdminDashboard() {
                   onChange={handleBannerImageUpload} 
                   className="w-full outline-none" 
                   style={{border: '1px solid #cfcccc', borderRadius: '4px', padding: '5px', fontSize: '12px'}} 
-                  required={!editBanner}
+                  required
                 />
                 {bannerFormData.image && (
                   <div className="mt-2">
