@@ -538,6 +538,17 @@ export default function AboutUs() {
           .director-section {
             padding: 30px 15px;
           }
+          .director-section > div > div {
+            flex-direction: column !important;
+            text-align: center !important;
+            gap: 20px !important;
+          }
+          .director-section img {
+            width: 200px !important;
+            height: 240px !important;
+            margin: 0 auto 20px !important;
+            border-radius: 12px !important;
+          }
           .text-content {
             font-size: 0.875rem;
             line-height: 1.6;
@@ -561,11 +572,116 @@ export default function AboutUs() {
           .director-section p {
             font-size: 0.875rem;
             line-height: 1.6;
+            text-align: center !important;
           }
           .banner-logo {
             width: 60px !important;
             height: 60px !important;
             margin-bottom: 15px !important;
+          }
+        }
+        
+        @media (max-width: 640px) {
+          .hero-title {
+            font-size: 1.5rem;
+          }
+          .director-section {
+            padding: 25px 12px;
+          }
+          .director-section > div > div {
+            gap: 15px !important;
+          }
+          .director-section img {
+            width: 170px !important;
+            height: 210px !important;
+            border-radius: 10px !important;
+            border: 3px solid white !important;
+          }
+          .director-title {
+            font-size: 1.3rem !important;
+            margin-bottom: 20px !important;
+          }
+          .director-section p {
+            font-size: 0.8rem !important;
+            line-height: 1.5 !important;
+            margin-bottom: 15px !important;
+          }
+          .director-signature {
+            margin-top: 30px !important;
+            padding: 20px 0 !important;
+            text-align: center !important;
+          }
+          .director-signature strong {
+            font-size: 1.1rem !important;
+          }
+          .director-signature em {
+            font-size: 0.85rem !important;
+          }
+          .stats-grid {
+            grid-template-columns: 1fr !important;
+            gap: 15px !important;
+          }
+          .stat-card {
+            padding: 25px 20px !important;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .hero-title {
+            font-size: 1.3rem;
+          }
+          .hero-subtitle {
+            font-size: 0.75rem;
+          }
+          .director-section {
+            padding: 20px 10px;
+          }
+          .director-section > div > div {
+            gap: 12px !important;
+          }
+          .director-section img {
+            width: 140px !important;
+            height: 180px !important;
+            border-radius: 8px !important;
+            border: 2px solid white !important;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25) !important;
+          }
+          .director-title {
+            font-size: 1.2rem !important;
+            margin-bottom: 15px !important;
+          }
+          .director-section p {
+            font-size: 0.75rem !important;
+            line-height: 1.4 !important;
+            margin-bottom: 12px !important;
+          }
+          .director-signature {
+            margin-top: 25px !important;
+            padding: 15px 0 !important;
+          }
+          .director-signature strong {
+            font-size: 1rem !important;
+          }
+          .director-signature em {
+            font-size: 0.8rem !important;
+          }
+          .section-title {
+            font-size: 1.2rem !important;
+          }
+          .intro-card {
+            padding: 15px !important;
+          }
+          .stats-grid {
+            gap: 10px !important;
+          }
+          .stat-card {
+            padding: 20px 15px !important;
+          }
+          .stat-number {
+            font-size: 1.5rem !important;
+          }
+          .stat-label {
+            font-size: 0.75rem !important;
           }
         }
       `}</style>
@@ -669,16 +785,34 @@ export default function AboutUs() {
       <section className="director-section content-section" id="director-message" ref={(el) => (sectionsRef.current[4] = el)}>
         <div className="director-content">
           <h3 className="director-title text-3xl md:text-4xl font-bold" style={{color: 'white'}}>Director's Message</h3>
+          
+          <div style={{display: 'flex', alignItems: 'flex-start', gap: '30px', marginBottom: '30px', flexWrap: 'wrap'}}>
+            <div style={{flex: '0 0 250px', textAlign: 'center'}}>
+              <img 
+                src="/IMG_0684.jpg.jpeg" 
+                alt="Director - A.R. Seervi & K.R. Choudhary" 
+                style={{
+                  width: '250px',
+                  height: '300px',
+                  objectFit: 'cover',
+                  borderRadius: '15px',
+                  border: '4px solid white',
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.3)'
+                }}
+              />
+            </div>
+            <div style={{flex: '1', minWidth: '300px'}}>
+              <p>
+                <strong>Welcome to IIT Medical Academy (IMA).</strong>
+                <br />
+                For us, IMA is not just a coaching institute—it is an emotion, a responsibility, and a lifelong commitment that began in 1999 with one simple dream: to guide students with honesty, discipline, and the right direction.
+              </p>
 
-          <p>
-            <strong>Welcome to IIT Medical Academy (IMA).</strong>
-            <br />
-            For us, IMA is not just a coaching institute—it is an emotion, a responsibility, and a lifelong commitment that began in 1999 with one simple dream: to guide students with honesty, discipline, and the right direction.
-          </p>
-
-          <p>
-            Every student who enters IMA carries a silent promise—to themselves and to their family. We understand the pressure, the sacrifices, and the expectations behind that dream. That is why we never treat students like numbers. We listen to them, support them, and stand by them like mentors who truly care.
-          </p>
+              <p>
+                Every student who enters IMA carries a silent promise—to themselves and to their family. We understand the pressure, the sacrifices, and the expectations behind that dream. That is why we never treat students like numbers. We listen to them, support them, and stand by them like mentors who truly care.
+              </p>
+            </div>
+          </div>
 
           <p>
             We strongly believe in offline classroom learning, where real teaching happens through eye contact, personal attention, and one-to-one guidance. Our purpose is not only to help students score well, but to help them become strong individuals—confident, focused, and mentally prepared to face life with courage.

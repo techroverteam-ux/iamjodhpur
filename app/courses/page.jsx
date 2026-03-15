@@ -313,7 +313,7 @@ export default function CoursesPage() {
                       <button className="btn-explore" style={{width: '100%', padding: '12px', background: '#1B5A96', color: 'white', border: 'none', borderRadius: '8px', fontWeight: '600', cursor: 'pointer', fontSize: '14px'}}>
                         Explore Course
                       </button>
-                      <button onClick={(e) => { e.preventDefault(); setShowRegisterModal(true); }} className="btn-enroll" style={{width: '100%', padding: '12px', background: 'transparent', color: '#1B5A96', border: '2px solid #1B5A96', borderRadius: '8px', fontWeight: '600', cursor: 'pointer', fontSize: '14px'}}>
+                      <button onClick={(e) => { e.preventDefault(); setFormData(prev => ({...prev, course: item.title})); setShowRegisterModal(true); }} className="btn-enroll" style={{width: '100%', padding: '12px', background: 'transparent', color: '#1B5A96', border: '2px solid #1B5A96', borderRadius: '8px', fontWeight: '600', cursor: 'pointer', fontSize: '14px'}}>
                         Register Now
                       </button>
                     </div>
@@ -444,10 +444,9 @@ export default function CoursesPage() {
                   required
                 >
                   <option value="">Select Course</option>
-                  <option value="Pre Foundation Course">Pre Foundation Course</option>
-                  <option value="NEET Preparation">NEET Preparation</option>
-                  <option value="JEE (Mains+Advanced)">JEE (Mains+Advanced)</option>
-                  <option value="All India Test Series (AITS)">All India Test Series (AITS)</option>
+                  {courses.map((course) => (
+                    <option key={course.id} value={course.title}>{course.title}</option>
+                  ))}
                 </select>
                 
                 <button 
