@@ -192,9 +192,11 @@ export default function BlogDetail() {
         }
         
         .blog-image {
-          width: 120px;
-          height: 120px;
-          object-fit: cover;
+          width: auto;
+          max-width: 300px;
+          height: auto;
+          max-height: 200px;
+          object-fit: contain;
           border-radius: 12px;
           margin: 0 auto 20px;
           display: block;
@@ -305,11 +307,13 @@ export default function BlogDetail() {
           }
           
           .blog-image {
-            width: 250px;
-            height: 90px;
+            width: auto;
+            max-width: calc(100vw - 60px);
+            height: auto;
+            max-height: 150px;
+            object-fit: contain;
             margin-bottom: 15px;
             border-radius: 8px;
-            max-width: calc(100vw - 60px);
           }
           
           .blog-title {
