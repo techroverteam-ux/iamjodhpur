@@ -1,6 +1,6 @@
 export const metadata = {
-  title: 'IMA Jodhpur - Website Shutdown',
-  description: 'This website has been temporarily shut down.',
+  title: 'IMA Jodhpur - Under Maintenance',
+  description: 'This website is currently under maintenance.',
 }
 
 export default function MaintenancePage() {
@@ -36,7 +36,7 @@ export default function MaintenancePage() {
             transform: 'translateX(-50%)',
             width: '600px',
             height: '600px',
-            background: 'radial-gradient(circle, rgba(239,68,68,0.08) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%)',
             borderRadius: '50%',
           }} />
 
@@ -47,21 +47,20 @@ export default function MaintenancePage() {
             maxWidth: '600px',
             width: '100%',
           }}>
-            {/* Shutdown Icon */}
+            {/* Maintenance Icon */}
             <div style={{
               width: '100px',
               height: '100px',
               margin: '0 auto 40px',
               borderRadius: '50%',
-              border: '3px solid rgba(239,68,68,0.3)',
+              border: '3px solid rgba(59,130,246,0.3)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              background: 'rgba(239,68,68,0.05)',
+              background: 'rgba(59,130,246,0.05)',
             }}>
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M18.36 6.64a9 9 0 1 1-12.73 0" />
-                <line x1="12" y1="2" x2="12" y2="12" />
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
               </svg>
             </div>
 
@@ -74,7 +73,7 @@ export default function MaintenancePage() {
               letterSpacing: '-0.02em',
               lineHeight: 1.1,
             }}>
-              Website Shut Down
+              Under Maintenance
             </h1>
 
             {/* Subheading */}
@@ -85,7 +84,7 @@ export default function MaintenancePage() {
               lineHeight: 1.6,
               fontWeight: 400,
             }}>
-              This website has been permanently taken offline due to non-payment of development services.
+              We are currently performing scheduled maintenance to improve your experience. The website will be back online shortly.
             </p>
 
             {/* Info card */}
@@ -105,12 +104,11 @@ export default function MaintenancePage() {
                 marginBottom: '16px',
               }}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
-                  <line x1="12" y1="9" x2="12" y2="13" />
-                  <line x1="12" y1="17" x2="12.01" y2="17" />
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
                 </svg>
                 <span style={{ color: '#f59e0b', fontWeight: 600, fontSize: '14px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                  Notice
+                  Temporary Downtime
                 </span>
               </div>
               <p style={{
@@ -119,32 +117,7 @@ export default function MaintenancePage() {
                 lineHeight: 1.7,
                 margin: 0,
               }}>
-                All services including the website, APIs, and associated features have been suspended. To restore access, please clear all outstanding development payments.
-              </p>
-            </div>
-
-            {/* Contact */}
-            <div style={{
-              background: 'rgba(255,255,255,0.02)',
-              border: '1px solid rgba(255,255,255,0.06)',
-              borderRadius: '12px',
-              padding: '20px',
-            }}>
-              <p style={{
-                color: 'rgba(255,255,255,0.4)',
-                fontSize: '13px',
-                margin: '0 0 8px',
-                fontWeight: 500,
-              }}>
-                Developer Contact
-              </p>
-              <p style={{
-                color: 'rgba(255,255,255,0.7)',
-                fontSize: '15px',
-                margin: 0,
-                fontWeight: 600,
-              }}>
-                TechRover Development Team
+                Our team is working on essential updates and improvements. We apologize for the inconvenience and appreciate your patience. Please check back soon.
               </p>
             </div>
 
@@ -155,7 +128,7 @@ export default function MaintenancePage() {
               fontSize: '12px',
               fontWeight: 500,
             }}>
-              © {new Date().getFullYear()} • Services suspended until payment clearance
+              © {new Date().getFullYear()} IMA Jodhpur • We'll be back soon
             </p>
           </div>
         </div>
